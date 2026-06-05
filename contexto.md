@@ -13,7 +13,7 @@ pip install requests
 
 ```bash
 cd prode_mundial
-python wikiscraper.py          # ~30 min: scrapea 1245 jugadores
+python wikiscraper.py          # ~40 min: scrapea 1245 jugadores (checkpoint cada 50)
 python main.py                 # ejecuta predicción completa
 ```
 
@@ -57,9 +57,12 @@ prode_mundial/
   - `height` (parsea `1.80 m` desde el texto)
 - De la sección **Honours**: lista de títulos con categoría y `trophy_count`
 - **Fix `_extract_num()`**: maneja valores con wikilinks tipo `[[List of...|56]]` o templates `{{efn|...}}`
+- **Incremental save**: checkpoint cada 50 jugadores para reanudar en caso de timeout
+- **UTF-8 fix**: requiere `$env:PYTHONIOENCODING='utf-8'` en Windows para caracteres acentuados
 - Caché en `output/wiki_cache.json` — evita re-scrapear en ejecuciones posteriores
+- Checkpoint cada 50 jugadores — guarda `wiki_cache.json` y `players.json` incrementalmente
 - Enriquecimiento directo de `output/players.json` con todos los campos nuevos
-- Input: 1245 jugadores · Output: ~30 min (delay 1s entre requests)
+- Input: 1245 jugadores · Output: ~40 min (delay 1s entre requests) · Resultado: 1112/1245 encontrados (89%)
 
 ### 2. Datos (`data.py`)
 - `TEAMS`: 48 equipos con rank, tier, confederación, coach, capitán, temperatura/altitud local, racha (`form_streak`), historial mundialista, jugadores clave, goles promedio, diáspora en USA
@@ -164,6 +167,17 @@ Simulación Poisson con 1000 iteraciones. Score = moda de goles.
 | Uruguay | Cancun | Mayakoba Training Center |
 | Uzbekistan | Atlanta | Atlanta United Training Center |
 
+## Progreso
+
+| Fase | Estado |
+|------|--------|
+| ✅ **Fase 1** — Wikiscraper (1112/1245 jugadores enriquecidos) | Completado |
+| ⬜ **Fase 2** — Decidir fuente de asistencias | Pendiente |
+| ⬜ **Fase 3** — Integrar stats individuales como factores en `predictor.py` | Pendiente |
+| ⬜ **Fase 4** — Arreglar modelo de predicción (pesos 110%, redundancias, fórmula goles) | Pendiente |
+| ⬜ **Fase 5** — Revisar predicciones Grupo A con factores mejorados | Pendiente |
+| ⬜ **Fase 6** — Ejecutar simulación completa (`main.py`) | Pendiente |
+
 ## Ejecución
 
 ```bash
@@ -179,7 +193,9 @@ Para cambiar la semilla aleatoria, editar `seed = 42` en `main.py`.
 - **3er puesto**: Portugal
 
 ## Próximos Pasos
-1. Ejecutar `python wikiscraper.py` para enriquecer los 1245 jugadores con estadísticas individuales (~30 min)
+1. ~~Ejecutar `python wikiscraper.py` para enriquecer los 1245 jugadores~~ ✅ (1112/1245 encontrados)
 2. Decidir fuente de asistencias (Wikipedia no las tiene — opciones: Transfermarkt individual, `key_players`, API gratuita)
 3. Integrar estadísticas individuales como nuevos factores en `predictor.py`
-4. Revisar predicciones del Grupo A con factores mejorados (México vs Corea del Sur)
+4. Arreglar modelo de predicción (pesos 110% → 100%, eliminar redundancias, nueva fórmula de goles esperados cruzando ataque/defensa)
+5. Revisar predicciones del Grupo A con factores mejorados (México vs Corea del Sur)
+6. Ejecutar simulación completa con `python main.py`

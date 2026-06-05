@@ -224,6 +224,7 @@ def scrape_all_players(force=False):
     done = 0
     found = 0
     enriched = {}
+    SAVE_INTERVAL = 50
 
     for team, squad in all_players.items():
         enriched[team] = []
@@ -253,6 +254,16 @@ def scrape_all_players(force=False):
                     player["height"] = wiki_data["height"]
 
             enriched[team].append(player)
+
+            # Save incrementally every SAVE_INTERVAL players
+            if done % SAVE_INTERVAL == 0:
+                os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
+                with open(CACHE_FILE, "w", encoding="utf-8") as f:
+                    json.dump(cache, f, ensure_ascii=False, indent=2)
+                with open(PLAYERS_FILE, "w", encoding="utf-8") as f:
+                    json.dump(enriched, f, ensure_ascii=False, indent=2)
+                sys.stdout.write(f"\n  [CHECKPOINT] {done}/{total} guardado\n")
+                sys.stdout.flush()
 
     print(f"\n\nResultados: {found}/{total} jugadores encontrados en Wikipedia")
 
