@@ -178,6 +178,12 @@ Simulación Poisson con 1000 iteraciones. Score = moda de goles.
 | ⬜ **Fase 5** — Revisar predicciones Grupo A con factores mejorados | Pendiente |
 | ⬜ **Fase 6** — Ejecutar simulación completa (`main.py`) | Pendiente |
 
+## Configuración LSP
+
+- LSP habilitado vía `opencode.jsonc` (`"lsp": true`)
+- Servidor: `python-lsp-server` (pylsp) vía pip
+- Requiere reiniciar opencode para que tome efecto
+
 ## Ejecución
 
 ```bash
