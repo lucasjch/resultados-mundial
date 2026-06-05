@@ -1,5 +1,22 @@
 # Prode Mundial 2026 — Documentación del Proyecto
 
+## Requisitos
+
+```bash
+# Instalación (única dependencia externa)
+pip install requests
+
+# El resto es standard library: json, re, csv, os, sys, math, random, collections, itertools, time
+```
+
+## Quick Start
+
+```bash
+cd prode_mundial
+python wikiscraper.py          # ~30 min: scrapea 1245 jugadores
+python main.py                 # ejecuta predicción completa
+```
+
 ## Objetivo
 Script en Python que analiza los 135 partidos del Mundial 2026 y predice resultados para completar un prode. Exporta a CSV y JSON.
 
