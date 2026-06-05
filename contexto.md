@@ -13,8 +13,10 @@ prode_mundial/
 ├── bracket.py        # Bracket oficial 2026 (R32, R16, QF, SF, 3°, Final)
 ├── output.py         # Exportación CSV/JSON
 ├── main.py           # Orquestador principal
+├── wikiscraper.py    # Scraper individual de Wikipedia vía API
 └── output/           # Resultados generados
-    ├── players.json          # 1245 jugadores scrapeados
+    ├── players.json          # 1245 jugadores (enriquecido vía wikiscraper)
+    ├── wiki_cache.json       # Caché de Wikipedia scraping
     ├── fase_grupos.csv/json  # Partidos de grupos
     ├── tabla_posiciones.csv  # Posiciones finales
     ├── eliminatorias.csv     # Llaves KO
@@ -28,6 +30,19 @@ prode_mundial/
 - **Transfermarkt** (20 equipos): `html.unescape()` + regex — nombre, posición, DOB, valor de mercado
 - Total: **1245 jugadores** de 48 equipos
 - Output: `output/players.json`
+
+### 1b. Wikipedia Stats (`wikiscraper.py`)
+- Scraper vía API REST de Wikipedia (`action=parse` + `action=query`)
+- Para cada jugador, extrae del infobox:
+  - `intl_caps`, `intl_goals` (selección mayor — descarta juveniles por regex `U\d+`)
+  - `club_apps`, `club_goals` (club actual = entrada `yearsN` con N más alto)
+  - `current_club`, `club_name` (limpia wikilinks tipo `[[Real Madrid CF|Real Madrid]]`)
+  - `height` (parsea `1.80 m` desde el texto)
+- De la sección **Honours**: lista de títulos con categoría y `trophy_count`
+- **Fix `_extract_num()`**: maneja valores con wikilinks tipo `[[List of...|56]]` o templates `{{efn|...}}`
+- Caché en `output/wiki_cache.json` — evita re-scrapear en ejecuciones posteriores
+- Enriquecimiento directo de `output/players.json` con todos los campos nuevos
+- Input: 1245 jugadores · Output: ~30 min (delay 1s entre requests)
 
 ### 2. Datos (`data.py`)
 - `TEAMS`: 48 equipos con rank, tier, confederación, coach, capitán, temperatura/altitud local, racha (`form_streak`), historial mundialista, jugadores clave, goles promedio, diáspora en USA
@@ -145,3 +160,9 @@ Para cambiar la semilla aleatoria, editar `seed = 42` en `main.py`.
 - **Campeón**: Germany
 - **Subcampeón**: Brazil
 - **3er puesto**: Portugal
+
+## Próximos Pasos
+1. Ejecutar `python wikiscraper.py` para enriquecer los 1245 jugadores con estadísticas individuales (~30 min)
+2. Decidir fuente de asistencias (Wikipedia no las tiene — opciones: Transfermarkt individual, `key_players`, API gratuita)
+3. Integrar estadísticas individuales como nuevos factores en `predictor.py`
+4. Revisar predicciones del Grupo A con factores mejorados (México vs Corea del Sur)
