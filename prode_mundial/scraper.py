@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Scraper de plantillas completas: Promiedos (28) + Transfermarkt (20)
 
+import html as html_module
 import json
 import os
 import re
@@ -57,20 +58,6 @@ TEAM_SOURCES = {
     "Cape Verde": ("transfermarkt", "kap-verde", 4311),
     "Iraq": ("transfermarkt", "irak", 3560),
 }
-
-POSITION_STARTERS = sorted([
-    "Arquero", "Portero",
-    "Defensa Central", "Defensa Lateral Izquierdo", "Defensa Lateral Derecho", "Defensa",
-    "Lateral Izquierdo", "Lateral Derecho", "Lateral",
-    "Mediocampista Central", "Mediocampista Ofensivo", "Mediocampista",
-    "Mediocentro Ofensivo", "Mediocentro Central", "Mediocentro",
-    "Centrocampista defensivo", "Centrocampista",
-    "Pivote", "Volante Derecho", "Volante Izquierdo", "Volante",
-    "Delantero Centro", "Delantero Derecho", "Delantero Izquierdo", "Delantero",
-    "Centro Delantero", "Extremo Izquierdo", "Extremo Derecho", "Extremo",
-    "Interior Izquierdo", "Interior Derecho", "Interior",
-    "Medio Ofensivo",
-], key=len, reverse=True)
 
 
 def fetch_url(url):
@@ -207,7 +194,6 @@ def parse_promiedos(html):
 
 
 def clean_text(html):
-    import html as html_module
     text = re.sub(r'<[^>]+>', ' ', html)
     text = html_module.unescape(text)
     text = re.sub(r'\s+', ' ', text).strip()

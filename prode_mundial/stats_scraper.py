@@ -134,7 +134,6 @@ def _extract_season_stats(perf_data):
         stats = g.get("statistics", {})
         goal_stats = stats.get("goalStatistics", {})
         time_stats = stats.get("playingTimeStatistics", {})
-        general = stats.get("generalStatistics", {})
 
         mins = time_stats.get("playedMinutes") or 0
         if mins == 0:
@@ -257,13 +256,6 @@ def enrich_with_stats(force=False):
             found += 1
 
         print(f"\n  {team_name}: {enriched_count}/{len(squad)} players with stats")
-
-        # Save checkpoint after each team
-        os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
-        with open(CACHE_FILE, "w", encoding="utf-8") as f:
-            json.dump(cache, f, ensure_ascii=False, indent=2)
-        with open(PLAYERS_FILE, "w", encoding="utf-8") as f:
-            json.dump(all_players, f, ensure_ascii=False, indent=2)
 
     print(f"\n\nStats encontrados: {found}/{total_players} jugadores")
 

@@ -1187,17 +1187,6 @@ HOME_TIMEZONES = {
     "New Zealand": 12, "Curacao": -4,
 }
 
-def _compute_squad_depth():
-    depth = {}
-    for name, data in TEAMS.items():
-        kp = data.get("key_players", [])
-        impacts = sum(1 for p in kp if len(p) > 6 and p[6] == "impact")
-        total = max(len(kp), 1)
-        depth[name] = (impacts / total) * 10
-    return depth
-
-SQUAD_DEPTH = _compute_squad_depth()
-
 INJURED_OUT = {
     "Germany": ["Deniz Undav"],
     "Brazil": ["Rodrygo", "Estevão"],
