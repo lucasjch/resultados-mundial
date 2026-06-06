@@ -29,6 +29,7 @@ prode_mundial/
 ├── bracket.py           # Bracket oficial 2026 + H2H tiebreaker + safety net KO
 ├── output.py            # Exportación CSV/JSON
 ├── main.py              # Orquestador principal
+├── top_scorer.py        # Distribución de goles a jugadores (top goleador)
 ├── wikiscraper.py       # Scraper individual de Wikipedia vía API
 └── output/
     ├── players.json              # 1245 jugadores
@@ -59,6 +60,7 @@ prode_mundial/
 | —  | **Bloque G**: 4 nuevos factores | ✅ Completado |
 | —  | **Bloque H**: Fair Play + FIFA 2026 tiebreaker cascade + safety net KO | ✅ Completado |
 | —  | **Bloque I**: Fix probabilidades (noise removal) + confidence del winner real | ✅ Completado |
+| —  | **Bloque J**: Top scorer + ejecutar.bat menú interactivo | ✅ Completado |
 
 ## Decisiones Tomadas
 
@@ -369,8 +371,18 @@ $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py
 # Forzar re-scrapeo de estadísticas (ignorar caché)
 $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py --force
 
-# Ejecutar simulación completa
+# Ejecutar simulación completa (con goleadores)
 python prode_mundial/main.py
+
+# Solo tabla de goleadores (modo silencioso)
+python prode_mundial/main.py --goleadores
+
+# Seed personalizada
+python prode_mundial/main.py 123
+python prode_mundial/main.py --seed 123
+
+# Menú interactivo
+.\ejecutar.bat
 
 # Git push
 git add -A; git commit -m "mensaje"; git push origin master
