@@ -121,6 +121,38 @@ def export_knockout_csv(predictions, filepath=None):
             ])
     print(f"  -> CSV exportado: {filepath}")
 
+def export_knockout_json(predictions, filepath=None):
+    ensure_output_dir()
+    if filepath is None:
+        filepath = os.path.join(OUTPUT_DIR, "eliminatorias.json")
+
+    data = []
+    for p in predictions:
+        data.append({
+            "round": p["round"],
+            "date": p.get("date", ""),
+            "time": p.get("time", ""),
+            "venue": p["venue"],
+            "team_a": p["team_a"],
+            "team_b": p["team_b"],
+            "score_a": p["score_a"],
+            "score_b": p["score_b"],
+            "expected_goals_a": p.get("expected_goals_a", ""),
+            "expected_goals_b": p.get("expected_goals_b", ""),
+            "winner": p["winner"],
+            "probabilities": {
+                "a_win": p["prob_a_win"],
+                "draw": p["prob_draw"],
+                "b_win": p["prob_b_win"],
+            },
+            "confidence": p["confidence"],
+            "factors": p["factors"],
+        })
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"  -> JSON exportado: {filepath}")
+
 def export_full_prode_csv(group_predictions, group_results, ko_predictions, filepath=None):
     ensure_output_dir()
     if filepath is None:
@@ -177,4 +209,5 @@ def export_all(group_predictions, group_results, ko_predictions):
     export_group_stage_json(group_predictions)
     export_group_tables_csv(group_results)
     export_knockout_csv(ko_predictions)
+    export_knockout_json(ko_predictions)
     export_full_prode_csv(group_predictions, group_results, ko_predictions)

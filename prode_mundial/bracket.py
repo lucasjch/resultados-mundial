@@ -305,7 +305,7 @@ def _ranking_winner(team_a, team_b, data_a, data_b):
     return team_b, team_a
 
 
-def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", skip_sims=False):
+def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", skip_sims=False, round_name="KO"):
     from data import get_team
     UPSET_CONFIDENCE_THRESHOLD = 35
     results = []
@@ -327,7 +327,7 @@ def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01",
             travel_a = travel_a or ha.get("total_travel", 0)
             travel_b = travel_b or hb.get("total_travel", 0)
 
-        result = predict_match(team_a, team_b, venue, is_neutral=True, allows_draw=False, round_name="KO",
+        result = predict_match(team_a, team_b, venue, is_neutral=True, allows_draw=False, round_name=round_name,
                                rest_days_a=rest_a, rest_days_b=rest_b,
                                travel_km_a=travel_a, travel_km_b=travel_b,
                                skip_sims=skip_sims)
@@ -439,7 +439,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     r32_matches = _extend_matches(r32_raw, KO_DATES[0])
     if not quiet:
         print("\n>>> RONDA DE 32AVOS:")
-    r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], skip_sims=skip_sims)
+    r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], skip_sims=skip_sims, round_name="R32")
     for r in r32_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -453,7 +453,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     r16_matches = _extend_matches(r16_raw, KO_DATES[1])
     if not quiet:
         print("\n>>> OCTAVOS DE FINAL:")
-    r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], skip_sims=skip_sims)
+    r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], skip_sims=skip_sims, round_name="R16")
     for r in r16_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -468,7 +468,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     qf_matches = _extend_matches(qf_raw, KO_DATES[2])
     if not quiet:
         print("\n>>> CUARTOS DE FINAL:")
-    qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], skip_sims=skip_sims)
+    qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], skip_sims=skip_sims, round_name="QF")
     for r in qf_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -482,7 +482,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     sf_matches = _extend_matches(sf_raw, KO_DATES[3])
     if not quiet:
         print("\n>>> SEMIFINALES:")
-    sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], skip_sims=skip_sims)
+    sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], skip_sims=skip_sims, round_name="SF")
     for r in sf_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -497,13 +497,13 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
             sf_losers.append(r["team_a"])
     third_raw = [(sf_losers[0], sf_losers[1], THIRD_VENUE)]
     third_matches = _extend_matches(third_raw, KO_DATES[4])
-    third_result = simulate_knockout_round(third_matches, team_history, KO_DATES[4], skip_sims=skip_sims)[0]
+    third_result = simulate_knockout_round(third_matches, team_history, KO_DATES[4], skip_sims=skip_sims, round_name="3°")[0]
 
     # ── Final ────────────────────────────────────────────────────────
     sf_winners = [r["winner"] for r in sf_results]
     final_raw = [(sf_winners[0], sf_winners[1], FINAL_VENUE)]
     final_matches = _extend_matches(final_raw, KO_DATES[5])
-    final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], skip_sims=skip_sims)[0]
+    final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], skip_sims=skip_sims, round_name="Final")[0]
 
     if not quiet:
         print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {third_result['winner']}")

@@ -15,18 +15,20 @@ echo ====================================
 echo.
 echo  1. Ensemble 100 semillas (default)
 echo  2. Simulacion con seed personalizada
-echo  3. Tabla de goleadores
-echo  4. Optimizador (X2 + Campeon + SF + Goleador)
-echo  5. Salir
+echo  3. Ver predicciones
+echo  4. Tabla de goleadores
+echo  5. Optimizador (X2 + Campeon + SF + Goleador)
+echo  6. Salir
 echo.
 echo ====================================
-set /p op="Seleccione opcion [1-5]: "
+set /p op="Seleccione opcion [1-6]: "
 
 if "%op%"=="1" goto ensemble
 if "%op%"=="2" goto custom
-if "%op%"=="3" goto top
-if "%op%"=="4" goto optimizer
-if "%op%"=="5" goto salir
+if "%op%"=="3" goto ver_predicciones
+if "%op%"=="4" goto top
+if "%op%"=="5" goto optimizer
+if "%op%"=="6" goto salir
 goto menu
 
 :ensemble
@@ -91,6 +93,71 @@ python prode_mundial/optimizer.py
 echo.
 pause
 goto menu
+
+:ver_predicciones
+cls
+echo ====================================
+echo       VER PREDICCIONES
+echo ====================================
+echo.
+echo  1. Fase de Grupos (todos los grupos)
+echo  2. Grupo especifico (A-L)
+echo  3. Tabla de posiciones
+echo  4. Playoffs (R32 a Final)
+echo  5. Volver al menu principal
+echo.
+echo ====================================
+set /p op="Seleccione opcion [1-5]: "
+
+if "%op%"=="1" goto ver_grupos
+if "%op%"=="2" goto ver_grupo_esp
+if "%op%"=="3" goto ver_tabla
+if "%op%"=="4" goto ver_playoffs
+if "%op%"=="5" goto menu
+goto ver_predicciones
+
+:ver_grupos
+cls
+echo ====================================
+echo  FASE DE GRUPOS
+echo ====================================
+python prode_mundial/display.py --grupos
+echo.
+pause
+goto ver_predicciones
+
+:ver_grupo_esp
+cls
+echo ====================================
+echo  GRUPO ESPECIFICO
+echo ====================================
+echo.
+set /p g="Ingrese letra del grupo (A-L): "
+echo.
+python prode_mundial/display.py --grupo %g%
+echo.
+pause
+goto ver_predicciones
+
+:ver_tabla
+cls
+echo ====================================
+echo  TABLA DE POSICIONES
+echo ====================================
+python prode_mundial/display.py --tabla
+echo.
+pause
+goto ver_predicciones
+
+:ver_playoffs
+cls
+echo ====================================
+echo  PLAYOFFS
+echo ====================================
+python prode_mundial/display.py --playoffs
+echo.
+pause
+goto ver_predicciones
 
 :salir
 echo.
