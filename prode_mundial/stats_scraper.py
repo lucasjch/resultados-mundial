@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Scraper de estadisticas individuales desde Transfermarkt API
-# Objetivo: goals, assists, minutes de la temporada 2025-26
+# Objetivo: goals, assists, minutes de la temporada 2025-26 (seasonId=2025)
+# Los campos se almacenan como _2026 para indicar que la temporada termina en 2026
 
 import json
 import os
@@ -145,10 +146,10 @@ def _extract_season_stats(perf_data):
         total_assists += goal_stats.get("assists") or 0
 
     return {
-        "games_2025": games_played,
-        "minutes_2025": total_minutes,
-        "goals_2025": total_goals,
-        "assists_2025": total_assists,
+        "games_2026": games_played,
+        "minutes_2026": total_minutes,
+        "goals_2026": total_goals,
+        "assists_2026": total_assists,
     }
 
 def enrich_with_stats(force=False):
@@ -182,11 +183,11 @@ def enrich_with_stats(force=False):
             enriched_count = 0
             for player in squad:
                 processed += 1
-                if "goals_2025" not in player:
-                    player["goals_2025"] = 0
-                    player["assists_2025"] = 0
-                    player["minutes_2025"] = 0
-                    player["games_2025"] = 0
+                if "goals_2026" not in player:
+                    player["goals_2026"] = 0
+                    player["assists_2026"] = 0
+                    player["minutes_2026"] = 0
+                    player["games_2026"] = 0
             continue
 
         # Get TM players for this team
@@ -203,7 +204,7 @@ def enrich_with_stats(force=False):
             processed += 1
 
             # Check if already enriched
-            if "goals_2025" in player and not force:
+            if "goals_2026" in player and not force:
                 continue
 
             # Try to match player name - exact, fuzzy, cleaned, then fuzzy cleaned
@@ -221,10 +222,10 @@ def enrich_with_stats(force=False):
                         tm_player_id = _fuzzy_find(cleaned, fuzzy_list)
 
             if not tm_player_id:
-                player["goals_2025"] = 0
-                player["assists_2025"] = 0
-                player["minutes_2025"] = 0
-                player["games_2025"] = 0
+                player["goals_2026"] = 0
+                player["assists_2026"] = 0
+                player["minutes_2026"] = 0
+                player["games_2026"] = 0
                 continue
 
             # Check cache
@@ -241,10 +242,10 @@ def enrich_with_stats(force=False):
 
                 perf = _get(f"{TM_API}/player/{tm_player_id}/performance-game")
                 if not perf or not perf.get("data", {}).get("performance"):
-                    player["goals_2025"] = 0
-                    player["assists_2025"] = 0
-                    player["minutes_2025"] = 0
-                    player["games_2025"] = 0
+                    player["goals_2026"] = 0
+                    player["assists_2026"] = 0
+                    player["minutes_2026"] = 0
+                    player["games_2026"] = 0
                     continue
 
                 stats = _extract_season_stats(perf["data"]["performance"])

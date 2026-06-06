@@ -910,6 +910,15 @@ VENUES = {
     },
 }
 
+VENUE_TIMEZONES = {
+    "Mexico City": -6, "Guadalajara": -6, "Monterrey": -6,
+    "Toronto": -5, "Vancouver": -8,
+    "Los Angeles": -8, "San Francisco": -8, "Seattle": -8,
+    "Dallas": -6, "Houston": -6, "Kansas City": -6,
+    "Atlanta": -5, "Miami": -5, "New York": -5,
+    "Boston": -5, "Philadelphia": -5,
+}
+
 CITY_COORDS = {
     "Mexico City": (19.4326, -99.1332),
     "Guadalajara": (20.6597, -103.3496),
@@ -1159,6 +1168,33 @@ _MARKET_VALUE_ESTIMATES = {
     "Uzbekistan": 18, "Jordan": 15, "New Zealand": 15,
     "Haiti": 10, "Cape Verde": 8, "Curacao": 5,
 }
+
+HOME_TIMEZONES = {
+    "England": 1, "Spain": 1, "France": 1, "Germany": 1, "Portugal": 1,
+    "Netherlands": 1, "Belgium": 1, "Croatia": 1, "Switzerland": 1,
+    "Sweden": 1, "Norway": 1, "Czechia": 1, "Austria": 1, "Scotland": 0,
+    "Turkey": 3, "Bosnia & Herzegovina": 1,
+    "Argentina": -3, "Brazil": -3, "Uruguay": -3, "Colombia": -5,
+    "Ecuador": -5, "Paraguay": -4,
+    "Morocco": 1, "Egypt": 2, "Senegal": 0, "Ivory Coast": 0,
+    "Algeria": 1, "Tunisia": 1, "Ghana": 0, "South Africa": 2,
+    "DR Congo": 1, "Cape Verde": -1,
+    "Japan": 9, "South Korea": 9, "Australia": 11, "Iran": 3,
+    "Saudi Arabia": 3, "Qatar": 3, "Iraq": 3, "Jordan": 3, "Uzbekistan": 5,
+    "Mexico": -6, "USA": -8, "Canada": -5, "Haiti": -5, "Panama": -5,
+    "New Zealand": 12, "Curacao": -4,
+}
+
+def _compute_squad_depth():
+    depth = {}
+    for name, data in TEAMS.items():
+        kp = data.get("key_players", [])
+        impacts = sum(1 for p in kp if len(p) > 6 and p[6] == "impact")
+        total = max(len(kp), 1)
+        depth[name] = (impacts / total) * 10
+    return depth
+
+SQUAD_DEPTH = _compute_squad_depth()
 
 def _enrich_teams():
     import json, os

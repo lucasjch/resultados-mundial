@@ -2,8 +2,52 @@
 # Simulacion del bracket completo del Mundial 2026
 # Formato oficial: 12 grupos, top2 + 8 mejores terceros -> R32 -> R16 -> QF -> SF -> Final
 
+from datetime import datetime
 from predictor import predict_match, calculate_team_strength
-from data import FIXTURES, GROUPS
+from data import FIXTURES, GROUPS, CITY_COORDS
+
+def _haversine(lat1, lon1, lat2, lon2):
+    R = 6371
+    import math
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = (math.sin(dlat / 2) ** 2 +
+         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) *
+         math.sin(dlon / 2) ** 2)
+    return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+def _venue_dist(venue_a, venue_b):
+    coords_a = CITY_COORDS.get(venue_a)
+    coords_b = CITY_COORDS.get(venue_b)
+    if not coords_a or not coords_b:
+        return 0
+    return _haversine(coords_a[0], coords_a[1], coords_b[0], coords_b[1])
+
+def compute_team_history(group_predictions):
+    history = {}
+    by_date = sorted(group_predictions, key=lambda p: p.get("date", "2026-06-10"))
+    for p in by_date:
+        a, b = p["team_a"], p["team_b"]
+        venue, date = p["venue"], p.get("date", "2026-06-10")
+        for team in [a, b]:
+            if team not in history:
+                history[team] = {"last_date": None, "last_venue": None, "total_travel": 0}
+            prev = history[team]
+            if prev["last_venue"] is not None:
+                prev["total_travel"] += _venue_dist(prev["last_venue"], venue)
+            prev["last_date"] = date
+            prev["last_venue"] = venue
+    return history
+
+def _rest_days_since(last_date, current_date):
+    if not last_date:
+        return 5
+    try:
+        ld = datetime.strptime(last_date, "%Y-%m-%d")
+        cd = datetime.strptime(current_date, "%Y-%m-%d")
+    except (ValueError, TypeError):
+        return 5
+    return (cd - ld).days
 
 # Official Round of 32 pairings (from FIFA / match-later.com)
 # Format: (type, param_a, param_b)
@@ -189,10 +233,29 @@ def build_round_of_32(group_winners, group_runners, best_third, best_third_with_
     return matches
 
 
-def simulate_knockout_round(matches):
+def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01"):
     results = []
-    for team_a, team_b, venue in matches:
-        result = predict_match(team_a, team_b, venue, is_neutral=True, round_name="KO")
+    for item in matches:
+        if len(item) == 3:
+            team_a, team_b, venue = item
+            rest_a = rest_b = None
+            travel_a = travel_b = 0
+        else:
+            team_a, team_b, venue, rest_a, rest_b, travel_a, travel_b = item
+
+        if team_history:
+            ha = team_history.get(team_a, {})
+            hb = team_history.get(team_b, {})
+            if rest_a is None:
+                rest_a = _rest_days_since(ha.get("last_date"), match_date)
+            if rest_b is None:
+                rest_b = _rest_days_since(hb.get("last_date"), match_date)
+            travel_a = travel_a or ha.get("total_travel", 0)
+            travel_b = travel_b or hb.get("total_travel", 0)
+
+        result = predict_match(team_a, team_b, venue, is_neutral=True, round_name="KO",
+                               rest_days_a=rest_a, rest_days_b=rest_b,
+                               travel_km_a=travel_a, travel_km_b=travel_b)
         results.append(result)
     return results
 
@@ -237,46 +300,79 @@ def run_full_simulation(seed=42):
     for i, (g, team, pts, gd, gf) in enumerate(third_details):
         print(f"  {i+1}. Grupo {g}: {team} ({pts} pts, GD:{gd:+d})")
 
+    # ── Team history (rest days, travel fatigue) ─────────────────────
+    team_history = compute_team_history(group_predictions)
+    KO_DATES = ["2026-06-29", "2026-07-04", "2026-07-09", "2026-07-13", "2026-07-16", "2026-07-17"]
+
+    def _extend_matches(base_matches, round_date):
+        extended = []
+        for ta, tb, venue in base_matches:
+            ha = team_history.get(ta, {})
+            hb = team_history.get(tb, {})
+            ra = _rest_days_since(ha.get("last_date"), round_date)
+            rb = _rest_days_since(hb.get("last_date"), round_date)
+            va = ha.get("total_travel", 0) + _venue_dist(ha.get("last_venue", "Dallas"), venue)
+            vb = hb.get("total_travel", 0) + _venue_dist(hb.get("last_venue", "Dallas"), venue)
+            extended.append((ta, tb, venue, ra, rb, va, vb))
+        return extended
+
+    def _update_history(results, round_date):
+        for r in results:
+            winner, loser = r["winner"], r["loser"]
+            venue = r["venue"]
+            for team in [winner, loser]:
+                if team and team in team_history:
+                    h = team_history[team]
+                    if h["last_venue"]:
+                        h["total_travel"] += _venue_dist(h["last_venue"], venue)
+                    h["last_date"] = round_date
+                    h["last_venue"] = venue
+
     # ── Round of 32 ──────────────────────────────────────────────────
-    r32_matches = build_round_of_32(group_winners, group_runners, best_third, third_details)
+    r32_raw = build_round_of_32(group_winners, group_runners, best_third, third_details)
+    r32_matches = _extend_matches(r32_raw, KO_DATES[0])
     print("\n>>> RONDA DE 32AVOS:")
-    r32_results = simulate_knockout_round(r32_matches)
+    r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0])
     for r in r32_results:
         print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+    _update_history(r32_results, KO_DATES[0])
 
     # ── Round of 16 ──────────────────────────────────────────────────
-    r16_matches = []
+    r16_raw = []
     for (i, j), venue in zip(R16_PAIRINGS, R16_VENUES):
         if i < len(r32_results) and j < len(r32_results):
-            r16_matches.append((r32_results[i]["winner"], r32_results[j]["winner"], venue))
-
+            r16_raw.append((r32_results[i]["winner"], r32_results[j]["winner"], venue))
+    r16_matches = _extend_matches(r16_raw, KO_DATES[1])
     print("\n>>> OCTAVOS DE FINAL:")
-    r16_results = simulate_knockout_round(r16_matches)
+    r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1])
     for r in r16_results:
         print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+    _update_history(r16_results, KO_DATES[1])
 
     # ── Quarter Finals ───────────────────────────────────────────────
-    qf_matches = []
+    qf_raw = []
     for i in range(4):
         idx = i * 2
         if idx + 1 < len(r16_results):
-            qf_matches.append((r16_results[idx]["winner"], r16_results[idx + 1]["winner"], QF_VENUES[i] if i < len(QF_VENUES) else "New York"))
-
+            qf_raw.append((r16_results[idx]["winner"], r16_results[idx + 1]["winner"], QF_VENUES[i] if i < len(QF_VENUES) else "New York"))
+    qf_matches = _extend_matches(qf_raw, KO_DATES[2])
     print("\n>>> CUARTOS DE FINAL:")
-    qf_results = simulate_knockout_round(qf_matches)
+    qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2])
     for r in qf_results:
         print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+    _update_history(qf_results, KO_DATES[2])
 
     # ── Semi Finals ──────────────────────────────────────────────────
-    sf_matches = [
+    sf_raw = [
         (qf_results[0]["winner"], qf_results[1]["winner"], SF_VENUES[0]),
         (qf_results[2]["winner"], qf_results[3]["winner"], SF_VENUES[1]),
     ]
-
+    sf_matches = _extend_matches(sf_raw, KO_DATES[3])
     print("\n>>> SEMIFINALES:")
-    sf_results = simulate_knockout_round(sf_matches)
+    sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3])
     for r in sf_results:
         print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+    _update_history(sf_results, KO_DATES[3])
 
     # ── Third place ──────────────────────────────────────────────────
     sf_losers = []
@@ -285,13 +381,15 @@ def run_full_simulation(seed=42):
             sf_losers.append(r["team_b"])
         else:
             sf_losers.append(r["team_a"])
-    third_match = [(sf_losers[0], sf_losers[1], THIRD_VENUE)]
-    third_result = simulate_knockout_round(third_match)[0]
+    third_raw = [(sf_losers[0], sf_losers[1], THIRD_VENUE)]
+    third_matches = _extend_matches(third_raw, KO_DATES[4])
+    third_result = simulate_knockout_round(third_matches, team_history, KO_DATES[4])[0]
 
     # ── Final ────────────────────────────────────────────────────────
     sf_winners = [r["winner"] for r in sf_results]
-    final_match = [(sf_winners[0], sf_winners[1], FINAL_VENUE)]
-    final_result = simulate_knockout_round(final_match)[0]
+    final_raw = [(sf_winners[0], sf_winners[1], FINAL_VENUE)]
+    final_matches = _extend_matches(final_raw, KO_DATES[5])
+    final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5])[0]
 
     print("\n>>> TERCER PUESTO:")
     print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} -> 3ro: {third_result['winner']}")

@@ -6,22 +6,27 @@ import math
 import os
 import random
 from difflib import SequenceMatcher
-from data import get_team, get_venue, CITY_COORDS, BASE_CAMPS
+from data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS,
+                  VENUE_TIMEZONES, HOME_TIMEZONES, SQUAD_DEPTH)
 
 PLAYERS_FILE = os.path.join(os.path.dirname(__file__), "output", "players.json")
 
 # Pesos de cada factor (suman 100%, randomness es aditivo)
 WEIGHTS = {
-    "team_strength": 0.25,
-    "market_value": 0.15,
-    "player_stats": 0.15,
-    "home_advantage": 0.10,
-    "climate": 0.08,
-    "travel": 0.05,
-    "history": 0.05,
-    "morale": 0.05,
-    "age_penalty": 0.05,
-    "foreign_pct": 0.07,
+    "team_strength": 0.19,
+    "market_value": 0.12,
+    "player_stats": 0.12,
+    "home_advantage": 0.08,
+    "climate": 0.06,
+    "travel": 0.03,
+    "history": 0.04,
+    "morale": 0.04,
+    "age_penalty": 0.03,
+    "foreign_pct": 0.05,
+    "rest_days": 0.08,
+    "squad_depth": 0.08,
+    "travel_fatigue": 0.05,
+    "jet_lag": 0.03,
 }
 
 def _load_players():
@@ -48,14 +53,14 @@ def calculate_player_stats_factor(team_a, team_b):
         squad = players.get(team_name, [])
         if not squad:
             return 0
-        total_goals = sum(p.get("goals_2025", 0) for p in squad)
+        total_goals = sum(p.get("goals_2026", 0) for p in squad)
         return total_goals / len(squad)
 
     def team_avg_assists(team_name):
         squad = players.get(team_name, [])
         if not squad:
             return 0
-        total_assists = sum(p.get("assists_2025", 0) for p in squad)
+        total_assists = sum(p.get("assists_2026", 0) for p in squad)
         return total_assists / len(squad)
 
     ga = team_avg_goals(team_a) + team_avg_assists(team_a) * 0.5
@@ -262,7 +267,33 @@ def calculate_age_penalty_factor(team_a, team_b):
     penalty_b = abs(b - optimal) * 0.5
     return penalty_b - penalty_a  # positive = a has advantage
 
-def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Group Stage"):
+def calculate_rest_days(team_a, team_b, rest_a=None, rest_b=None):
+    ra = rest_a if rest_a is not None else 5
+    rb = rest_b if rest_b is not None else 5
+    penalty_a = max(0, (4 - ra)) * 3
+    penalty_b = max(0, (4 - rb)) * 3
+    return max(-10, min(10, penalty_b - penalty_a))
+
+def calculate_travel_fatigue(team_a, team_b, travel_km_a=0, travel_km_b=0):
+    fa = min(travel_km_a, 30000) / 3000
+    fb = min(travel_km_b, 30000) / 3000
+    return max(-10, min(10, fb - fa))
+
+def calculate_squad_depth_factor(team_a, team_b):
+    a = SQUAD_DEPTH.get(team_a, 3)
+    b = SQUAD_DEPTH.get(team_b, 3)
+    return max(-10, min(10, (a - b) * 2))
+
+def calculate_jet_lag(team_a, team_b, venue_name):
+    venue_offset = VENUE_TIMEZONES.get(venue_name, -5)
+    tz_a = HOME_TIMEZONES.get(team_a, venue_offset)
+    tz_b = HOME_TIMEZONES.get(team_b, venue_offset)
+    diff_a = abs(tz_a - venue_offset) * 0.7
+    diff_b = abs(tz_b - venue_offset) * 0.7
+    return max(-5, min(5, diff_b - diff_a))
+
+def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Group Stage",
+                  rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0):
     venue = get_venue(venue_name)
     venue_country = venue["country"]
 
@@ -288,8 +319,17 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
 
     age_diff = calculate_age_penalty_factor(team_a, team_b) * WEIGHTS["age_penalty"]
 
+    rest_diff = calculate_rest_days(team_a, team_b, rest_days_a, rest_days_b) * WEIGHTS["rest_days"]
+
+    depth_diff = calculate_squad_depth_factor(team_a, team_b) * WEIGHTS["squad_depth"]
+
+    fatigue_diff = calculate_travel_fatigue(team_a, team_b, travel_km_a, travel_km_b) * WEIGHTS["travel_fatigue"]
+
+    jet_diff = calculate_jet_lag(team_a, team_b, venue_name) * WEIGHTS["jet_lag"]
+
     total_diff = (strength_diff + mv_diff + ps_diff + home_diff + climate_diff +
-                  travel_diff + history_diff + morale_diff + foreign_diff + age_diff)
+                  travel_diff + history_diff + morale_diff + foreign_diff + age_diff +
+                  rest_diff + depth_diff + fatigue_diff + jet_diff)
 
     random_factor = random.gauss(0, 0.7) * 10
     total_diff += random_factor
@@ -361,6 +401,10 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
         "morale": round(morale_diff, 1),
         "foreign_pct": round(foreign_diff, 1),
         "age_penalty": round(age_diff, 1),
+        "rest_days": round(rest_diff, 1),
+        "squad_depth": round(depth_diff, 1),
+        "travel_fatigue": round(fatigue_diff, 1),
+        "jet_lag": round(jet_diff, 1),
         "random": round(random_factor, 1),
     }
 

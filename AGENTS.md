@@ -52,7 +52,8 @@ prode_mundial/
 | — | **Bloque C**: Team Data Calibrations + TM_TEAM_OVERRIDES | ✅ Completado |
 | — | **Bloque D**: Actualizar temperaturas de sedes con pronóstico 2026 | ✅ Completado |
 | — | **Bloque E**: Ajustar modelo (form/goals fuera de team_strength, player_stats 15%, is_neutral) | ✅ Completado |
-| — | **Bloque F**: Re-ejecutar stats_scraper + main.py | ⬜ Parcial (caché existente OK, --force lento) |
+| — | **Bloque F**: Re-ejecutar stats_scraper + main.py | ✅ Completado (migración cache 2025→2026) |
+| — | **Bloque G**: 4 nuevos factores (rest_days, squad_depth, travel_fatigue, jet_lag) | ✅ Completado |
 
 ## Decisiones Tomadas
 
@@ -81,16 +82,20 @@ prode_mundial/
 
 | Factor | Peso | Nota |
 |--------|------|------|
-| team_strength | 25% | Solo rank + tier (sin form/goals) |
-| market_value | 15% | Factor independiente |
-| player_stats | 15% | Goals + 0.5×Assists promedio por jugador |
-| home_advantage | 10% | Incluye fanbase/diaspora; is_neutral reduce bonos |
-| climate | 8% | |
-| travel | 5% | |
-| history | 5% | |
-| morale | 5% | |
-| age_penalty | 5% | |
-| foreign_pct | 7% | |
+| team_strength | 19% | Solo rank + tier (sin form/goals) |
+| market_value | 12% | Factor independiente |
+| player_stats | 12% | Goals + 0.5×Assists promedio por jugador (temporada 2025/26) |
+| home_advantage | 8% | Incluye fanbase/diaspora; is_neutral reduce bonos |
+| climate | 6% | |
+| travel | 3% | |
+| history | 4% | |
+| morale | 4% | |
+| age_penalty | 3% | |
+| foreign_pct | 5% | |
+| rest_days | 8% | Penalidad si <4 días entre partidos |
+| squad_depth | 8% | Ratio de jugadores de impacto en plantilla |
+| travel_fatigue | 5% | Km totales acumulados viajando |
+| jet_lag | 3% | Diferencia horaria sede vs país de origen |
 | randomness | — | Término aditivo `gauss(0,0.7)×10` |
 
 ### Fórmula de goles esperados:
@@ -108,7 +113,7 @@ base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
 
 ## Seed
 
-`seed = 42` en `main.py`. Resultado actual: France campeón, Spain subcampeón, Argentina 3°.
+`seed = 42` en `main.py`. Resultado actual: Spain campeón, Germany subcampeón, England 3°.
 
 ## Bloque A: Fix fixture/venue bugs (Completado)
 
@@ -185,6 +190,30 @@ base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
 1. **`calculate_team_strength`** — eliminados `form_score` y `goals_score` (redundantes con `morale` y la fórmula base de goles esperados). Ahora solo usa `rank_score` + `tier_score`.
 2. **Pesos rebalanceados** — `player_stats` subió de 10% a 15%, `team_strength` bajó de 28% a 25%, `home_advantage` bajó de 12% a 10%, `foreign_pct` subió de 5% a 7%. Suma = 100%.
 3. **`is_neutral`** — parámetro agregado a `calculate_home_advantage()`. Cuando es True (KO stages), los bonos de México/USA/Canadá fuera de casa se reducen ~50% (Mexico 10→5, USA 8→4, Canada 5→2).
+
+## Bloque F: Re-ejecutar stats_scraper + main.py (Completado)
+
+### Cambios aplicados:
+1. **stats_scraper.py** — campos renombrados de `_2025` a `_2026` para reflejar que la temporada 2025/26 termina en 2026
+2. **Migración de caché** — `players.json` (1245 jugadores) y `tm_stats_cache.json` migrados sin re-scrapeo
+
+## Bloque G: 4 nuevos factores (rest_days, squad_depth, travel_fatigue, jet_lag)
+
+### data.py
+1. **VENUE_TIMEZONES**: UTC offset para las 16 sedes (Mexico City -6, Toronto -5, Vancouver -8, etc.)
+2. **HOME_TIMEZONES**: UTC offset para los 48 equipos según su país de origen
+3. **SQUAD_DEPTH**: Ratio de jugadores `impact` sobre el total de `key_players`, escalado 0-10
+
+### predictor.py — 4 nuevos factores
+1. **`calculate_rest_days(team_a, team_b, rest_a, rest_b)`**: Penaliza equipos con <4 días de descanso (3 pts por día faltante). El formato 2026 (48 equipos) comprime el fixture.
+2. **`calculate_travel_fatigue(team_a, team_b, travel_km_a, travel_km_b)`**: Penaliza equipos con mucho kilometraje acumulado viajando entre sedes (3 países sede = hasta 30,000 km posibles).
+3. **`calculate_squad_depth_factor(team_a, team_b)`**: Ventaja para equipos con muchos jugadores de impacto en el banquillo (aprovechan las 5 sustituciones).
+4. **`calculate_jet_lag(team_a, team_b, venue_name)`**: Penaliza diferencia horaria sede vs país de origen (0.7 pts por hora de diferencia, máx 5 pts).
+
+### bracket.py — Team history tracking
+1. **`compute_team_history(group_predictions)`**: Calcula `last_date`, `last_venue` y `total_travel` por equipo tras fase de grupos.
+2. **`_extend_matches(base, round_date)`**: Convierte matches simples a 7-tuplas con datos de descanso y fatiga.
+3. **`_update_history(results, round_date)`**: Propaga el historial entre rondas KO (R32→R16→QF→SF→Final), acumulando kilómetros y actualizando fechas.
 
 ## Comandos Útiles
 
