@@ -21,6 +21,7 @@ def export_group_stage_csv(predictions, filepath=None):
             "Grupo", "Fecha", "Hora", "Sede", "Pais",
             "Equipo Local", "Equipo Visitante",
             "Goles Local", "Goles Visitante",
+            "Goles Esp. Local", "Goles Esp. Visitante",
             "Ganador", "Probabilidad Local(%)", "Probabilidad Empate(%)",
             "Probabilidad Visitante(%)", "Confianza(%)",
         ])
@@ -32,6 +33,7 @@ def export_group_stage_csv(predictions, filepath=None):
                 p["venue"], p["venue_country"],
                 p["team_a"], p["team_b"],
                 p["score_a"], p["score_b"],
+                p.get("expected_goals_a", ""), p.get("expected_goals_b", ""),
                 p["winner"],
                 p["prob_a_win"], p["prob_draw"], p["prob_b_win"],
                 p["confidence"],
@@ -55,6 +57,8 @@ def export_group_stage_json(predictions, filepath=None):
             "team_b": p["team_b"],
             "score_a": p["score_a"],
             "score_b": p["score_b"],
+            "expected_goals_a": p.get("expected_goals_a", ""),
+            "expected_goals_b": p.get("expected_goals_b", ""),
             "winner": p["winner"],
             "probabilities": {
                 "a_win": p["prob_a_win"],
@@ -101,7 +105,8 @@ def export_knockout_csv(predictions, filepath=None):
             "Ronda", "Fecha", "Hora", "Sede",
             "Equipo A", "Equipo B",
             "Goles A", "Goles B",
-            "Ganador", "Confianza(%)",
+            "Goles Esp. A", "Goles Esp. B",
+            "Ganador", "Prob A(%)", "Prob Emp(%)", "Prob B(%)", "Confianza(%)",
         ])
         for p in predictions:
             writer.writerow([
@@ -109,7 +114,10 @@ def export_knockout_csv(predictions, filepath=None):
                 p["venue"],
                 p["team_a"], p["team_b"],
                 p["score_a"], p["score_b"],
-                p["winner"], p["confidence"],
+                p.get("expected_goals_a", ""), p.get("expected_goals_b", ""),
+                p["winner"],
+                p["prob_a_win"], p["prob_draw"], p["prob_b_win"],
+                p["confidence"],
             ])
     print(f"  -> CSV exportado: {filepath}")
 
@@ -125,12 +133,16 @@ def export_full_prode_csv(group_predictions, group_results, ko_predictions, file
         writer.writerow([])
 
         writer.writerow(["FASE DE GRUPOS"])
-        writer.writerow(["Grupo", "Fecha", "Hora", "Sede", "Local", "Visitante", "Resultado", "Ganador", "Confianza"])
+        writer.writerow(["Grupo", "Fecha", "Hora", "Sede", "Local", "Visitante", "Resultado", "Goles Esp. Local", "Goles Esp. Visit.", "Ganador", "Prob Local(%)", "Prob Emp(%)", "Prob Visit(%)", "Confianza"])
         for p in group_predictions:
             g = p["round"].split()[-1] if "Group" in p["round"] else p["round"]
             score = f"{p['score_a']}-{p['score_b']}"
             writer.writerow([g, p.get("date",""), p.get("time",""), p["venue"],
-                           p["team_a"], p["team_b"], score, p["winner"], f"{p['confidence']:.0f}%"])
+                           p["team_a"], p["team_b"], score,
+                           p.get("expected_goals_a", ""), p.get("expected_goals_b", ""),
+                           p["winner"],
+                           p["prob_a_win"], p["prob_draw"], p["prob_b_win"],
+                           f"{p['confidence']:.0f}%"])
 
         writer.writerow([])
         writer.writerow(["TABLA DE POSICIONES"])
@@ -142,12 +154,15 @@ def export_full_prode_csv(group_predictions, group_results, ko_predictions, file
 
         writer.writerow([])
         writer.writerow(["ELIMINATORIAS"])
-        writer.writerow(["Ronda", "Fecha", "Sede", "Partido", "Resultado", "Ganador", "Confianza"])
+        writer.writerow(["Ronda", "Fecha", "Sede", "Partido", "Resultado", "Goles Esp. A", "Goles Esp. B", "Ganador", "Prob A(%)", "Prob Emp(%)", "Prob B(%)", "Confianza"])
         for p in ko_predictions:
             match_str = f"{p['team_a']} vs {p['team_b']}"
             score = f"{p['score_a']}-{p['score_b']}"
             writer.writerow([p["round"], p.get("date",""), p["venue"], match_str, score,
-                           p["winner"], f"{p['confidence']:.0f}%"])
+                           p.get("expected_goals_a", ""), p.get("expected_goals_b", ""),
+                           p["winner"],
+                           p["prob_a_win"], p["prob_draw"], p["prob_b_win"],
+                           f"{p['confidence']:.0f}%"])
 
         writer.writerow([])
         writer.writerow(["RESULTADOS FINALES"])

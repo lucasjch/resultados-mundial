@@ -9,13 +9,15 @@
     "team_b": "South Africa",
     "score_a": 3,
     "score_b": 1,
+    "expected_goals_a": 1.59,
+    "expected_goals_b": 0.95,
     "winner": "Mexico",
     "probabilities": {
-      "a_win": 51.7,
+      "a_win": 51.1,
       "draw": 26.1,
-      "b_win": 22.2
+      "b_win": 22.8
     },
-    "confidence": 51.7,
+    "confidence": 51.1,
     "factors": {
       "strength": 0.6,
       "market_value": 0.6,
@@ -44,13 +46,15 @@
     "team_b": "Czechia",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.39,
+    "expected_goals_b": 1.26,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 38.9,
-      "draw": 27.5,
-      "b_win": 33.6
+      "a_win": 39.2,
+      "draw": 26.7,
+      "b_win": 34.1
     },
-    "confidence": 27.5,
+    "confidence": 26.7,
     "factors": {
       "strength": 0.3,
       "market_value": -0.0,
@@ -79,13 +83,15 @@
     "team_b": "South Africa",
     "score_a": 2,
     "score_b": 2,
+    "expected_goals_a": 1.39,
+    "expected_goals_b": 1.07,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 44.6,
-      "draw": 24.1,
-      "b_win": 31.3
+      "a_win": 45.7,
+      "draw": 26.1,
+      "b_win": 28.2
     },
-    "confidence": 24.1,
+    "confidence": 26.1,
     "factors": {
       "strength": 0.5,
       "market_value": 0.2,
@@ -114,13 +120,15 @@
     "team_b": "Czechia",
     "score_a": 4,
     "score_b": 3,
+    "expected_goals_a": 1.6,
+    "expected_goals_b": 1.12,
     "winner": "Mexico",
     "probabilities": {
-      "a_win": 49.9,
-      "draw": 23.2,
-      "b_win": 26.9
+      "a_win": 48.5,
+      "draw": 23.1,
+      "b_win": 28.5
     },
-    "confidence": 49.9,
+    "confidence": 48.5,
     "factors": {
       "strength": 0.4,
       "market_value": 0.3,
@@ -149,13 +157,15 @@
     "team_b": "South Korea",
     "score_a": 0,
     "score_b": 1,
+    "expected_goals_a": 1.49,
+    "expected_goals_b": 1.17,
     "winner": "South Korea",
     "probabilities": {
-      "a_win": 45.2,
-      "draw": 24.2,
-      "b_win": 30.6
+      "a_win": 47.9,
+      "draw": 24.0,
+      "b_win": 28.1
     },
-    "confidence": 24.2,
+    "confidence": 24.0,
     "factors": {
       "strength": 0.1,
       "market_value": 0.4,
@@ -184,13 +194,15 @@
     "team_b": "South Africa",
     "score_a": 4,
     "score_b": 2,
+    "expected_goals_a": 1.35,
+    "expected_goals_b": 1.15,
     "winner": "Czechia",
     "probabilities": {
-      "a_win": 43.9,
-      "draw": 25.3,
-      "b_win": 30.8
+      "a_win": 41.9,
+      "draw": 27.4,
+      "b_win": 30.7
     },
-    "confidence": 25.3,
+    "confidence": 27.4,
     "factors": {
       "strength": 0.3,
       "market_value": 0.2,
@@ -219,13 +231,15 @@
     "team_b": "Bosnia & Herzegovina",
     "score_a": 3,
     "score_b": 0,
+    "expected_goals_a": 1.66,
+    "expected_goals_b": 1.2,
     "winner": "Canada",
     "probabilities": {
-      "a_win": 49.6,
-      "draw": 22.2,
-      "b_win": 28.2
+      "a_win": 49.0,
+      "draw": 25.5,
+      "b_win": 25.5
     },
-    "confidence": 49.6,
+    "confidence": 49.0,
     "factors": {
       "strength": 0.5,
       "market_value": 0.2,
@@ -254,13 +268,15 @@
     "team_b": "Switzerland",
     "score_a": 2,
     "score_b": 2,
+    "expected_goals_a": 1.06,
+    "expected_goals_b": 1.77,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 22.7,
-      "draw": 23.6,
-      "b_win": 53.7
+      "a_win": 21.5,
+      "draw": 25.3,
+      "b_win": 53.1
     },
-    "confidence": 53.7,
+    "confidence": 53.1,
     "factors": {
       "strength": -0.7,
       "market_value": -0.5,
@@ -289,13 +305,15 @@
     "team_b": "Qatar",
     "score_a": 1,
     "score_b": 3,
+    "expected_goals_a": 1.76,
+    "expected_goals_b": 1.12,
     "winner": "Qatar",
     "probabilities": {
-      "a_win": 54.4,
-      "draw": 22.1,
-      "b_win": 23.5
+      "a_win": 51.8,
+      "draw": 23.1,
+      "b_win": 25.1
     },
-    "confidence": 54.4,
+    "confidence": 51.8,
     "factors": {
       "strength": 0.5,
       "market_value": 0.3,
@@ -324,13 +342,15 @@
     "team_b": "Bosnia & Herzegovina",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.68,
+    "expected_goals_b": 1.14,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 48.9,
-      "draw": 27.2,
-      "b_win": 23.9
+      "a_win": 52.4,
+      "draw": 23.6,
+      "b_win": 24.0
     },
-    "confidence": 48.9,
+    "confidence": 52.4,
     "factors": {
       "strength": 0.7,
       "market_value": 0.4,
@@ -359,13 +379,15 @@
     "team_b": "Canada",
     "score_a": 2,
     "score_b": 3,
+    "expected_goals_a": 1.41,
+    "expected_goals_b": 1.34,
     "winner": "Canada",
     "probabilities": {
-      "a_win": 40.6,
-      "draw": 23.6,
-      "b_win": 35.8
+      "a_win": 38.1,
+      "draw": 26.2,
+      "b_win": 35.7
     },
-    "confidence": 23.6,
+    "confidence": 26.2,
     "factors": {
       "strength": 0.2,
       "market_value": 0.2,
@@ -394,13 +416,15 @@
     "team_b": "Qatar",
     "score_a": 2,
     "score_b": 1,
+    "expected_goals_a": 1.53,
+    "expected_goals_b": 1.38,
     "winner": "Bosnia & Herzegovina",
     "probabilities": {
-      "a_win": 41.7,
-      "draw": 24.8,
-      "b_win": 33.5
+      "a_win": 42.7,
+      "draw": 26.4,
+      "b_win": 30.9
     },
-    "confidence": 41.7,
+    "confidence": 42.7,
     "factors": {
       "strength": -0.0,
       "market_value": 0.1,
@@ -429,13 +453,15 @@
     "team_b": "Morocco",
     "score_a": 1,
     "score_b": 0,
+    "expected_goals_a": 1.56,
+    "expected_goals_b": 1.15,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 49.2,
-      "draw": 22.2,
-      "b_win": 28.6
+      "a_win": 45.5,
+      "draw": 25.3,
+      "b_win": 29.2
     },
-    "confidence": 49.2,
+    "confidence": 45.5,
     "factors": {
       "strength": 0.1,
       "market_value": 0.0,
@@ -464,13 +490,15 @@
     "team_b": "Scotland",
     "score_a": 2,
     "score_b": 0,
+    "expected_goals_a": 0.97,
+    "expected_goals_b": 1.65,
     "winner": "Haiti",
     "probabilities": {
-      "a_win": 22.5,
-      "draw": 25.4,
-      "b_win": 52.1
+      "a_win": 21.9,
+      "draw": 24.4,
+      "b_win": 53.7
     },
-    "confidence": 52.1,
+    "confidence": 53.7,
     "factors": {
       "strength": -0.7,
       "market_value": -0.3,
@@ -499,13 +527,15 @@
     "team_b": "Morocco",
     "score_a": 6,
     "score_b": 2,
+    "expected_goals_a": 1.05,
+    "expected_goals_b": 1.53,
     "winner": "Scotland",
     "probabilities": {
-      "a_win": 26.6,
-      "draw": 26.3,
-      "b_win": 47.1
+      "a_win": 24.9,
+      "draw": 26.0,
+      "b_win": 49.1
     },
-    "confidence": 47.1,
+    "confidence": 49.1,
     "factors": {
       "strength": -0.6,
       "market_value": -0.8,
@@ -534,13 +564,15 @@
     "team_b": "Haiti",
     "score_a": 6,
     "score_b": 3,
+    "expected_goals_a": 2.26,
+    "expected_goals_b": 0.67,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 72.5,
-      "draw": 17.8,
-      "b_win": 9.7
+      "a_win": 72.6,
+      "draw": 19.1,
+      "b_win": 8.3
     },
-    "confidence": 72.5,
+    "confidence": 72.6,
     "factors": {
       "strength": 1.4,
       "market_value": 1.1,
@@ -569,13 +601,15 @@
     "team_b": "Brazil",
     "score_a": 0,
     "score_b": 4,
+    "expected_goals_a": 0.97,
+    "expected_goals_b": 1.85,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 20.9,
-      "draw": 24.7,
-      "b_win": 54.4
+      "a_win": 22.0,
+      "draw": 23.1,
+      "b_win": 54.9
     },
-    "confidence": 54.4,
+    "confidence": 54.9,
     "factors": {
       "strength": -0.7,
       "market_value": -0.8,
@@ -604,13 +638,15 @@
     "team_b": "Haiti",
     "score_a": 1,
     "score_b": 0,
+    "expected_goals_a": 1.91,
+    "expected_goals_b": 0.74,
     "winner": "Morocco",
     "probabilities": {
-      "a_win": 69.4,
-      "draw": 19.0,
-      "b_win": 11.6
+      "a_win": 65.9,
+      "draw": 20.7,
+      "b_win": 13.4
     },
-    "confidence": 69.4,
+    "confidence": 65.9,
     "factors": {
       "strength": 1.3,
       "market_value": 1.1,
@@ -639,13 +675,15 @@
     "team_b": "Paraguay",
     "score_a": 3,
     "score_b": 0,
+    "expected_goals_a": 1.62,
+    "expected_goals_b": 1.01,
     "winner": "USA",
     "probabilities": {
-      "a_win": 50.6,
-      "draw": 24.3,
-      "b_win": 25.1
+      "a_win": 52.5,
+      "draw": 25.1,
+      "b_win": 22.4
     },
-    "confidence": 50.6,
+    "confidence": 52.5,
     "factors": {
       "strength": 0.5,
       "market_value": 0.6,
@@ -674,13 +712,15 @@
     "team_b": "Turkey",
     "score_a": 1,
     "score_b": 3,
+    "expected_goals_a": 1.23,
+    "expected_goals_b": 1.58,
     "winner": "Turkey",
     "probabilities": {
-      "a_win": 31.1,
-      "draw": 24.4,
-      "b_win": 44.5
+      "a_win": 30.0,
+      "draw": 26.1,
+      "b_win": 43.9
     },
-    "confidence": 44.5,
+    "confidence": 43.9,
     "factors": {
       "strength": -0.1,
       "market_value": -0.3,
@@ -709,13 +749,15 @@
     "team_b": "Australia",
     "score_a": 0,
     "score_b": 2,
+    "expected_goals_a": 1.26,
+    "expected_goals_b": 1.29,
     "winner": "Australia",
     "probabilities": {
-      "a_win": 35.2,
-      "draw": 28.9,
-      "b_win": 35.9
+      "a_win": 38.0,
+      "draw": 27.3,
+      "b_win": 34.7
     },
-    "confidence": 28.9,
+    "confidence": 27.3,
     "factors": {
       "strength": -0.2,
       "market_value": 0.0,
@@ -744,13 +786,15 @@
     "team_b": "Turkey",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.56,
+    "expected_goals_b": 1.29,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 44.7,
-      "draw": 23.7,
-      "b_win": 31.6
+      "a_win": 45.3,
+      "draw": 24.7,
+      "b_win": 30.1
     },
-    "confidence": 44.7,
+    "confidence": 45.3,
     "factors": {
       "strength": 0.2,
       "market_value": 0.3,
@@ -779,13 +823,15 @@
     "team_b": "Australia",
     "score_a": 0,
     "score_b": 1,
+    "expected_goals_a": 1.68,
+    "expected_goals_b": 1.1,
     "winner": "Australia",
     "probabilities": {
-      "a_win": 52.9,
-      "draw": 24.6,
-      "b_win": 22.5
+      "a_win": 52.2,
+      "draw": 24.1,
+      "b_win": 23.7
     },
-    "confidence": 52.9,
+    "confidence": 52.2,
     "factors": {
       "strength": 0.3,
       "market_value": 0.6,
@@ -814,13 +860,15 @@
     "team_b": "Paraguay",
     "score_a": 0,
     "score_b": 0,
+    "expected_goals_a": 1.5,
+    "expected_goals_b": 1.16,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 46.9,
-      "draw": 25.3,
-      "b_win": 27.8
+      "a_win": 46.4,
+      "draw": 25.7,
+      "b_win": 27.9
     },
-    "confidence": 25.3,
+    "confidence": 25.7,
     "factors": {
       "strength": 0.3,
       "market_value": 0.3,
@@ -849,13 +897,15 @@
     "team_b": "Curacao",
     "score_a": 2,
     "score_b": 0,
+    "expected_goals_a": 2.52,
+    "expected_goals_b": 0.55,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 79.4,
-      "draw": 14.7,
-      "b_win": 5.9
+      "a_win": 81.3,
+      "draw": 12.6,
+      "b_win": 6.1
     },
-    "confidence": 79.4,
+    "confidence": 81.3,
     "factors": {
       "strength": 1.4,
       "market_value": 1.1,
@@ -884,13 +934,15 @@
     "team_b": "Ecuador",
     "score_a": 0,
     "score_b": 0,
+    "expected_goals_a": 1.26,
+    "expected_goals_b": 1.34,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 34.3,
-      "draw": 25.8,
-      "b_win": 39.9
+      "a_win": 36.7,
+      "draw": 24.9,
+      "b_win": 38.4
     },
-    "confidence": 25.8,
+    "confidence": 24.9,
     "factors": {
       "strength": -0.2,
       "market_value": 0.7,
@@ -919,13 +971,15 @@
     "team_b": "Germany",
     "score_a": 0,
     "score_b": 2,
+    "expected_goals_a": 1.02,
+    "expected_goals_b": 1.82,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 20.3,
-      "draw": 21.5,
-      "b_win": 58.2
+      "a_win": 22.1,
+      "draw": 22.2,
+      "b_win": 55.7
     },
-    "confidence": 58.2,
+    "confidence": 55.7,
     "factors": {
       "strength": -0.3,
       "market_value": -0.7,
@@ -954,13 +1008,15 @@
     "team_b": "Ivory Coast",
     "score_a": 1,
     "score_b": 0,
+    "expected_goals_a": 0.82,
+    "expected_goals_b": 1.9,
     "winner": "Curacao",
     "probabilities": {
-      "a_win": 15.5,
-      "draw": 23.2,
-      "b_win": 61.3
+      "a_win": 15.9,
+      "draw": 23.1,
+      "b_win": 61.0
     },
-    "confidence": 61.3,
+    "confidence": 61.0,
     "factors": {
       "strength": -0.9,
       "market_value": -1.1,
@@ -989,13 +1045,15 @@
     "team_b": "Curacao",
     "score_a": 2,
     "score_b": 3,
+    "expected_goals_a": 1.94,
+    "expected_goals_b": 0.78,
     "winner": "Curacao",
     "probabilities": {
-      "a_win": 63.8,
-      "draw": 22.3,
-      "b_win": 13.9
+      "a_win": 63.0,
+      "draw": 22.5,
+      "b_win": 14.5
     },
-    "confidence": 63.8,
+    "confidence": 63.0,
     "factors": {
       "strength": 1.1,
       "market_value": 0.4,
@@ -1024,13 +1082,15 @@
     "team_b": "Ivory Coast",
     "score_a": 2,
     "score_b": 2,
+    "expected_goals_a": 1.85,
+    "expected_goals_b": 0.99,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 59.6,
-      "draw": 22.0,
-      "b_win": 18.4
+      "a_win": 57.3,
+      "draw": 23.3,
+      "b_win": 19.3
     },
-    "confidence": 59.6,
+    "confidence": 57.3,
     "factors": {
       "strength": 0.5,
       "market_value": 0.0,
@@ -1059,13 +1119,15 @@
     "team_b": "Japan",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.52,
+    "expected_goals_b": 1.19,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 44.1,
-      "draw": 25.1,
-      "b_win": 30.8
+      "a_win": 43.4,
+      "draw": 25.0,
+      "b_win": 31.6
     },
-    "confidence": 44.1,
+    "confidence": 43.4,
     "factors": {
       "strength": 0.1,
       "market_value": 0.5,
@@ -1094,13 +1156,15 @@
     "team_b": "Tunisia",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.6,
+    "expected_goals_b": 1.11,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 46.3,
-      "draw": 25.5,
-      "b_win": 28.2
+      "a_win": 49.5,
+      "draw": 23.9,
+      "b_win": 26.6
     },
-    "confidence": 46.3,
+    "confidence": 49.5,
     "factors": {
       "strength": 0.3,
       "market_value": 0.2,
@@ -1129,13 +1193,15 @@
     "team_b": "Sweden",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.42,
+    "expected_goals_b": 1.33,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 41.6,
-      "draw": 24.3,
-      "b_win": 34.1
+      "a_win": 39.4,
+      "draw": 23.5,
+      "b_win": 37.1
     },
-    "confidence": 24.3,
+    "confidence": 23.5,
     "factors": {
       "strength": 0.3,
       "market_value": 0.2,
@@ -1164,13 +1230,15 @@
     "team_b": "Tunisia",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.82,
+    "expected_goals_b": 0.9,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 61.7,
-      "draw": 22.7,
-      "b_win": 15.6
+      "a_win": 59.5,
+      "draw": 22.9,
+      "b_win": 17.5
     },
-    "confidence": 61.7,
+    "confidence": 59.5,
     "factors": {
       "strength": 0.7,
       "market_value": 0.9,
@@ -1199,13 +1267,15 @@
     "team_b": "Sweden",
     "score_a": 0,
     "score_b": 0,
+    "expected_goals_a": 1.65,
+    "expected_goals_b": 1.22,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 46.5,
-      "draw": 25.2,
-      "b_win": 28.3
+      "a_win": 48.2,
+      "draw": 25.1,
+      "b_win": 26.7
     },
-    "confidence": 46.5,
+    "confidence": 48.2,
     "factors": {
       "strength": 0.4,
       "market_value": 0.7,
@@ -1234,13 +1304,15 @@
     "team_b": "Tunisia",
     "score_a": 2,
     "score_b": 0,
+    "expected_goals_a": 1.58,
+    "expected_goals_b": 0.99,
     "winner": "Japan",
     "probabilities": {
-      "a_win": 51.6,
-      "draw": 24.3,
-      "b_win": 24.1
+      "a_win": 49.7,
+      "draw": 24.6,
+      "b_win": 25.7
     },
-    "confidence": 51.6,
+    "confidence": 49.7,
     "factors": {
       "strength": 0.6,
       "market_value": 0.4,
@@ -1269,13 +1341,15 @@
     "team_b": "Egypt",
     "score_a": 3,
     "score_b": 1,
+    "expected_goals_a": 1.54,
+    "expected_goals_b": 1.17,
     "winner": "Belgium",
     "probabilities": {
-      "a_win": 45.0,
-      "draw": 25.8,
-      "b_win": 29.2
+      "a_win": 45.8,
+      "draw": 25.3,
+      "b_win": 28.9
     },
-    "confidence": 45.0,
+    "confidence": 45.8,
     "factors": {
       "strength": 0.4,
       "market_value": 0.8,
@@ -1304,13 +1378,15 @@
     "team_b": "New Zealand",
     "score_a": 2,
     "score_b": 0,
+    "expected_goals_a": 1.52,
+    "expected_goals_b": 1.19,
     "winner": "Iran",
     "probabilities": {
-      "a_win": 45.5,
-      "draw": 26.0,
-      "b_win": 28.5
+      "a_win": 44.1,
+      "draw": 25.6,
+      "b_win": 30.3
     },
-    "confidence": 45.5,
+    "confidence": 44.1,
     "factors": {
       "strength": 1.0,
       "market_value": -0.0,
@@ -1339,13 +1415,15 @@
     "team_b": "Iran",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.67,
+    "expected_goals_b": 1.06,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 52.4,
-      "draw": 23.9,
-      "b_win": 23.7
+      "a_win": 49.6,
+      "draw": 25.1,
+      "b_win": 25.3
     },
-    "confidence": 52.4,
+    "confidence": 49.6,
     "factors": {
       "strength": 0.3,
       "market_value": 1.0,
@@ -1374,13 +1452,15 @@
     "team_b": "New Zealand",
     "score_a": 3,
     "score_b": 1,
+    "expected_goals_a": 1.64,
+    "expected_goals_b": 1.08,
     "winner": "Egypt",
     "probabilities": {
-      "a_win": 51.8,
-      "draw": 22.9,
-      "b_win": 25.3
+      "a_win": 48.7,
+      "draw": 25.5,
+      "b_win": 25.8
     },
-    "confidence": 51.8,
+    "confidence": 48.7,
     "factors": {
       "strength": 0.9,
       "market_value": 0.2,
@@ -1409,13 +1489,15 @@
     "team_b": "Iran",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.42,
+    "expected_goals_b": 1.19,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 42.4,
-      "draw": 26.4,
-      "b_win": 31.2
+      "a_win": 42.5,
+      "draw": 25.2,
+      "b_win": 32.3
     },
-    "confidence": 26.4,
+    "confidence": 25.2,
     "factors": {
       "strength": -0.1,
       "market_value": 0.2,
@@ -1444,13 +1526,15 @@
     "team_b": "New Zealand",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.92,
+    "expected_goals_b": 0.96,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 57.4,
-      "draw": 21.1,
-      "b_win": 21.5
+      "a_win": 57.5,
+      "draw": 23.0,
+      "b_win": 19.5
     },
-    "confidence": 57.4,
+    "confidence": 57.5,
     "factors": {
       "strength": 1.3,
       "market_value": 1.0,
@@ -1479,13 +1563,15 @@
     "team_b": "Cape Verde",
     "score_a": 3,
     "score_b": 0,
+    "expected_goals_a": 2.19,
+    "expected_goals_b": 0.64,
     "winner": "Spain",
     "probabilities": {
-      "a_win": 70.6,
-      "draw": 19.6,
-      "b_win": 9.8
+      "a_win": 72.7,
+      "draw": 17.5,
+      "b_win": 9.7
     },
-    "confidence": 70.6,
+    "confidence": 72.7,
     "factors": {
       "strength": 1.4,
       "market_value": 1.0,
@@ -1514,13 +1600,15 @@
     "team_b": "Saudi Arabia",
     "score_a": 3,
     "score_b": 2,
+    "expected_goals_a": 1.79,
+    "expected_goals_b": 0.91,
     "winner": "Uruguay",
     "probabilities": {
-      "a_win": 61.2,
-      "draw": 19.6,
-      "b_win": 19.2
+      "a_win": 56.8,
+      "draw": 24.1,
+      "b_win": 19.1
     },
-    "confidence": 61.2,
+    "confidence": 56.8,
     "factors": {
       "strength": 0.9,
       "market_value": 0.6,
@@ -1549,13 +1637,15 @@
     "team_b": "Saudi Arabia",
     "score_a": 4,
     "score_b": 0,
+    "expected_goals_a": 2.13,
+    "expected_goals_b": 0.72,
     "winner": "Spain",
     "probabilities": {
-      "a_win": 68.4,
-      "draw": 19.5,
-      "b_win": 12.1
+      "a_win": 71.5,
+      "draw": 16.8,
+      "b_win": 11.7
     },
-    "confidence": 68.4,
+    "confidence": 71.5,
     "factors": {
       "strength": 1.2,
       "market_value": 1.0,
@@ -1584,13 +1674,15 @@
     "team_b": "Cape Verde",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.86,
+    "expected_goals_b": 0.82,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 62.6,
-      "draw": 19.7,
-      "b_win": 17.7
+      "a_win": 60.3,
+      "draw": 23.3,
+      "b_win": 16.4
     },
-    "confidence": 62.6,
+    "confidence": 60.3,
     "factors": {
       "strength": 1.0,
       "market_value": 0.5,
@@ -1619,13 +1711,15 @@
     "team_b": "Spain",
     "score_a": 0,
     "score_b": 0,
+    "expected_goals_a": 1.12,
+    "expected_goals_b": 1.65,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 25.9,
-      "draw": 27.9,
-      "b_win": 46.2
+      "a_win": 25.8,
+      "draw": 24.3,
+      "b_win": 49.9
     },
-    "confidence": 46.2,
+    "confidence": 49.9,
     "factors": {
       "strength": -0.3,
       "market_value": -0.4,
@@ -1654,13 +1748,15 @@
     "team_b": "Saudi Arabia",
     "score_a": 2,
     "score_b": 1,
+    "expected_goals_a": 1.19,
+    "expected_goals_b": 1.36,
     "winner": "Cape Verde",
     "probabilities": {
-      "a_win": 33.3,
-      "draw": 26.6,
-      "b_win": 40.1
+      "a_win": 31.3,
+      "draw": 26.8,
+      "b_win": 41.9
     },
-    "confidence": 26.6,
+    "confidence": 26.8,
     "factors": {
       "strength": -0.2,
       "market_value": 0.0,
@@ -1689,13 +1785,15 @@
     "team_b": "Iraq",
     "score_a": 2,
     "score_b": 0,
+    "expected_goals_a": 2.21,
+    "expected_goals_b": 0.71,
     "winner": "France",
     "probabilities": {
-      "a_win": 71.6,
-      "draw": 19.3,
+      "a_win": 73.1,
+      "draw": 17.8,
       "b_win": 9.1
     },
-    "confidence": 71.6,
+    "confidence": 73.1,
     "factors": {
       "strength": 1.2,
       "market_value": 1.1,
@@ -1724,13 +1822,15 @@
     "team_b": "Senegal",
     "score_a": 3,
     "score_b": 2,
+    "expected_goals_a": 1.47,
+    "expected_goals_b": 1.27,
     "winner": "Norway",
     "probabilities": {
-      "a_win": 42.8,
-      "draw": 23.1,
-      "b_win": 34.1
+      "a_win": 39.7,
+      "draw": 25.3,
+      "b_win": 35.0
     },
-    "confidence": 23.1,
+    "confidence": 25.3,
     "factors": {
       "strength": -0.2,
       "market_value": -0.3,
@@ -1759,13 +1859,15 @@
     "team_b": "Norway",
     "score_a": 2,
     "score_b": 0,
+    "expected_goals_a": 1.8,
+    "expected_goals_b": 1.23,
     "winner": "France",
     "probabilities": {
-      "a_win": 48.2,
-      "draw": 26.0,
-      "b_win": 25.8
+      "a_win": 51.7,
+      "draw": 23.9,
+      "b_win": 24.4
     },
-    "confidence": 48.2,
+    "confidence": 51.7,
     "factors": {
       "strength": 0.6,
       "market_value": 0.4,
@@ -1794,13 +1896,15 @@
     "team_b": "Iraq",
     "score_a": 5,
     "score_b": 2,
+    "expected_goals_a": 1.65,
+    "expected_goals_b": 0.9,
     "winner": "Senegal",
     "probabilities": {
-      "a_win": 55.8,
-      "draw": 24.1,
-      "b_win": 20.1
+      "a_win": 57.1,
+      "draw": 23.1,
+      "b_win": 19.8
     },
-    "confidence": 55.8,
+    "confidence": 57.1,
     "factors": {
       "strength": 0.7,
       "market_value": 1.0,
@@ -1829,13 +1933,15 @@
     "team_b": "Senegal",
     "score_a": 3,
     "score_b": 1,
+    "expected_goals_a": 1.75,
+    "expected_goals_b": 1.03,
     "winner": "France",
     "probabilities": {
-      "a_win": 54.2,
-      "draw": 21.4,
-      "b_win": 24.4
+      "a_win": 55.7,
+      "draw": 22.4,
+      "b_win": 21.9
     },
-    "confidence": 54.2,
+    "confidence": 55.7,
     "factors": {
       "strength": 0.4,
       "market_value": 0.0,
@@ -1864,13 +1970,15 @@
     "team_b": "Iraq",
     "score_a": 1,
     "score_b": 0,
+    "expected_goals_a": 1.88,
+    "expected_goals_b": 0.93,
     "winner": "Norway",
     "probabilities": {
-      "a_win": 59.0,
-      "draw": 22.3,
-      "b_win": 18.7
+      "a_win": 58.1,
+      "draw": 23.5,
+      "b_win": 18.4
     },
-    "confidence": 59.0,
+    "confidence": 58.1,
     "factors": {
       "strength": 0.6,
       "market_value": 0.7,
@@ -1899,13 +2007,15 @@
     "team_b": "Jordan",
     "score_a": 3,
     "score_b": 1,
+    "expected_goals_a": 2.11,
+    "expected_goals_b": 0.66,
     "winner": "Argentina",
     "probabilities": {
-      "a_win": 70.7,
-      "draw": 19.5,
-      "b_win": 9.8
+      "a_win": 71.1,
+      "draw": 18.6,
+      "b_win": 10.3
     },
-    "confidence": 70.7,
+    "confidence": 71.1,
     "factors": {
       "strength": 1.3,
       "market_value": 1.1,
@@ -1934,13 +2044,15 @@
     "team_b": "Austria",
     "score_a": 0,
     "score_b": 2,
+    "expected_goals_a": 1.32,
+    "expected_goals_b": 1.33,
     "winner": "Austria",
     "probabilities": {
-      "a_win": 35.2,
-      "draw": 25.1,
-      "b_win": 39.7
+      "a_win": 36.7,
+      "draw": 25.7,
+      "b_win": 37.7
     },
-    "confidence": 25.1,
+    "confidence": 25.7,
     "factors": {
       "strength": -0.1,
       "market_value": 0.2,
@@ -1969,13 +2081,15 @@
     "team_b": "Algeria",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.74,
+    "expected_goals_b": 0.96,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 57.7,
-      "draw": 23.2,
-      "b_win": 19.1
+      "a_win": 57.3,
+      "draw": 22.5,
+      "b_win": 20.3
     },
-    "confidence": 57.7,
+    "confidence": 57.3,
     "factors": {
       "strength": 0.7,
       "market_value": 0.5,
@@ -2004,13 +2118,15 @@
     "team_b": "Jordan",
     "score_a": 0,
     "score_b": 0,
+    "expected_goals_a": 1.66,
+    "expected_goals_b": 0.98,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 51.9,
-      "draw": 25.4,
-      "b_win": 22.7
+      "a_win": 54.1,
+      "draw": 24.7,
+      "b_win": 21.3
     },
-    "confidence": 51.9,
+    "confidence": 54.1,
     "factors": {
       "strength": 0.7,
       "market_value": 0.3,
@@ -2039,13 +2155,15 @@
     "team_b": "Austria",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.77,
+    "expected_goals_b": 0.98,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 53.1,
-      "draw": 23.3,
-      "b_win": 23.6
+      "a_win": 55.7,
+      "draw": 23.5,
+      "b_win": 20.9
     },
-    "confidence": 53.1,
+    "confidence": 55.7,
     "factors": {
       "strength": 0.5,
       "market_value": 0.7,
@@ -2074,13 +2192,15 @@
     "team_b": "Algeria",
     "score_a": 1,
     "score_b": 4,
+    "expected_goals_a": 0.97,
+    "expected_goals_b": 1.62,
     "winner": "Algeria",
     "probabilities": {
-      "a_win": 24.2,
-      "draw": 25.8,
-      "b_win": 50.0
+      "a_win": 22.6,
+      "draw": 23.1,
+      "b_win": 54.3
     },
-    "confidence": 50.0,
+    "confidence": 54.3,
     "factors": {
       "strength": -0.6,
       "market_value": -0.5,
@@ -2109,13 +2229,15 @@
     "team_b": "Uzbekistan",
     "score_a": 3,
     "score_b": 3,
+    "expected_goals_a": 2.02,
+    "expected_goals_b": 0.84,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 65.4,
-      "draw": 21.3,
-      "b_win": 13.3
+      "a_win": 65.9,
+      "draw": 19.7,
+      "b_win": 14.4
     },
-    "confidence": 65.4,
+    "confidence": 65.9,
     "factors": {
       "strength": 1.0,
       "market_value": 0.9,
@@ -2144,13 +2266,15 @@
     "team_b": "Colombia",
     "score_a": 0,
     "score_b": 2,
+    "expected_goals_a": 0.91,
+    "expected_goals_b": 1.74,
     "winner": "Colombia",
     "probabilities": {
-      "a_win": 20.3,
-      "draw": 22.6,
-      "b_win": 57.1
+      "a_win": 20.0,
+      "draw": 23.1,
+      "b_win": 56.9
     },
-    "confidence": 57.1,
+    "confidence": 56.9,
     "factors": {
       "strength": -0.6,
       "market_value": -0.5,
@@ -2179,13 +2303,15 @@
     "team_b": "DR Congo",
     "score_a": 0,
     "score_b": 1,
+    "expected_goals_a": 1.97,
+    "expected_goals_b": 0.83,
     "winner": "DR Congo",
     "probabilities": {
-      "a_win": 63.3,
-      "draw": 20.1,
-      "b_win": 16.6
+      "a_win": 63.1,
+      "draw": 22.7,
+      "b_win": 14.2
     },
-    "confidence": 63.3,
+    "confidence": 63.1,
     "factors": {
       "strength": 0.8,
       "market_value": 0.8,
@@ -2214,13 +2340,15 @@
     "team_b": "Uzbekistan",
     "score_a": 0,
     "score_b": 1,
+    "expected_goals_a": 1.78,
+    "expected_goals_b": 0.93,
     "winner": "Uzbekistan",
     "probabilities": {
-      "a_win": 59.5,
-      "draw": 20.9,
-      "b_win": 19.6
+      "a_win": 56.1,
+      "draw": 23.9,
+      "b_win": 20.1
     },
-    "confidence": 59.5,
+    "confidence": 56.1,
     "factors": {
       "strength": 0.8,
       "market_value": 0.6,
@@ -2249,13 +2377,15 @@
     "team_b": "Portugal",
     "score_a": 1,
     "score_b": 2,
+    "expected_goals_a": 1.25,
+    "expected_goals_b": 1.56,
     "winner": "Portugal",
     "probabilities": {
-      "a_win": 30.6,
-      "draw": 26.8,
-      "b_win": 42.6
+      "a_win": 29.9,
+      "draw": 24.6,
+      "b_win": 45.5
     },
-    "confidence": 42.6,
+    "confidence": 45.5,
     "factors": {
       "strength": -0.2,
       "market_value": -0.3,
@@ -2284,13 +2414,15 @@
     "team_b": "Uzbekistan",
     "score_a": 2,
     "score_b": 2,
+    "expected_goals_a": 1.27,
+    "expected_goals_b": 1.28,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 37.2,
-      "draw": 26.1,
-      "b_win": 36.7
+      "a_win": 35.6,
+      "draw": 27.5,
+      "b_win": 36.9
     },
-    "confidence": 26.1,
+    "confidence": 27.5,
     "factors": {
       "strength": 0.1,
       "market_value": 0.1,
@@ -2319,13 +2451,15 @@
     "team_b": "Panama",
     "score_a": 0,
     "score_b": 3,
+    "expected_goals_a": 2.09,
+    "expected_goals_b": 0.78,
     "winner": "Panama",
     "probabilities": {
-      "a_win": 69.0,
-      "draw": 16.8,
-      "b_win": 14.2
+      "a_win": 67.2,
+      "draw": 19.1,
+      "b_win": 13.7
     },
-    "confidence": 69.0,
+    "confidence": 67.2,
     "factors": {
       "strength": 0.8,
       "market_value": 1.0,
@@ -2354,13 +2488,15 @@
     "team_b": "Ghana",
     "score_a": 1,
     "score_b": 1,
+    "expected_goals_a": 1.58,
+    "expected_goals_b": 1.09,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 49.9,
-      "draw": 24.5,
-      "b_win": 25.6
+      "a_win": 48.3,
+      "draw": 25.3,
+      "b_win": 26.5
     },
-    "confidence": 49.9,
+    "confidence": 48.3,
     "factors": {
       "strength": 1.0,
       "market_value": 0.1,
@@ -2389,13 +2525,15 @@
     "team_b": "Croatia",
     "score_a": 0,
     "score_b": 1,
+    "expected_goals_a": 1.72,
+    "expected_goals_b": 1.06,
     "winner": "Croatia",
     "probabilities": {
-      "a_win": 51.0,
-      "draw": 25.4,
-      "b_win": 23.6
+      "a_win": 54.5,
+      "draw": 23.6,
+      "b_win": 21.9
     },
-    "confidence": 51.0,
+    "confidence": 54.5,
     "factors": {
       "strength": 0.2,
       "market_value": 0.4,
@@ -2424,13 +2562,15 @@
     "team_b": "Panama",
     "score_a": 0,
     "score_b": 0,
+    "expected_goals_a": 1.4,
+    "expected_goals_b": 1.25,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 42.3,
-      "draw": 25.2,
-      "b_win": 32.5
+      "a_win": 39.1,
+      "draw": 24.9,
+      "b_win": 35.9
     },
-    "confidence": 25.2,
+    "confidence": 24.9,
     "factors": {
       "strength": -0.5,
       "market_value": 0.4,
@@ -2459,13 +2599,15 @@
     "team_b": "Ghana",
     "score_a": 2,
     "score_b": 2,
+    "expected_goals_a": 2.04,
+    "expected_goals_b": 0.87,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 62.2,
-      "draw": 22.1,
-      "b_win": 15.7
+      "a_win": 66.1,
+      "draw": 17.9,
+      "b_win": 16.0
     },
-    "confidence": 62.2,
+    "confidence": 66.1,
     "factors": {
       "strength": 1.3,
       "market_value": 0.6,
@@ -2494,13 +2636,15 @@
     "team_b": "Panama",
     "score_a": 3,
     "score_b": 1,
+    "expected_goals_a": 1.64,
+    "expected_goals_b": 0.99,
     "winner": "Croatia",
     "probabilities": {
-      "a_win": 53.6,
-      "draw": 24.5,
-      "b_win": 21.9
+      "a_win": 52.2,
+      "draw": 25.0,
+      "b_win": 22.8
     },
-    "confidence": 53.6,
+    "confidence": 52.2,
     "factors": {
       "strength": 0.5,
       "market_value": 0.6,

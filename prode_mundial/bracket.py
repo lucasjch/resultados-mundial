@@ -384,7 +384,9 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
 
         if not quiet:
             score_str = f"{result['team_a']} {result['score_a']}-{result['score_b']} {result['team_b']}"
-            print(f"  Grupo {group}: {score_str} | {result['winner']} ({result['confidence']:.0f}%)")
+            xg_a = result.get("expected_goals_a", "?")
+            xg_b = result.get("expected_goals_b", "?")
+            print(f"  Grupo {group}: {score_str} | xG: {xg_a}-{xg_b} | {result['winner']} ({result['confidence']:.0f}%)")
 
     # ── Group tables ─────────────────────────────────────────────────
     group_results = simulate_group_stage(group_predictions)
@@ -440,7 +442,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], skip_sims=skip_sims)
     for r in r32_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
     _update_history(r32_results, KO_DATES[0])
 
     # ── Round of 16 ──────────────────────────────────────────────────
@@ -454,7 +456,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], skip_sims=skip_sims)
     for r in r16_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
     _update_history(r16_results, KO_DATES[1])
 
     # ── Quarter Finals ───────────────────────────────────────────────
@@ -469,7 +471,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], skip_sims=skip_sims)
     for r in qf_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
     _update_history(qf_results, KO_DATES[2])
 
     # ── Semi Finals ──────────────────────────────────────────────────
@@ -483,7 +485,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], skip_sims=skip_sims)
     for r in sf_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
     _update_history(sf_results, KO_DATES[3])
 
     # ── Third place ──────────────────────────────────────────────────
@@ -504,10 +506,10 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], skip_sims=skip_sims)[0]
 
     if not quiet:
-        print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} -> 3ro: {third_result['winner']}")
+        print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {third_result['winner']}")
 
         print("\n>>> FINAL:")
-        print(f"  {final_result['team_a']} {final_result['score_a']}-{final_result['score_b']} {final_result['team_b']}")
+        print(f"  {final_result['team_a']} {final_result['score_a']}-{final_result['score_b']} {final_result['team_b']} (xG {final_result.get('expected_goals_a','?')}-{final_result.get('expected_goals_b','?')})")
 
         print(f"\n{'='*70}")
         print(f"  *** CAMPEON: {final_result['winner']} ***")
@@ -589,7 +591,9 @@ def ensemble_simulation(n_seeds=100, verbose=False):
     print("\n>>> FASE DE GRUPOS:")
     for p in enriched_preds:
         score_str = f"{p['team_a']} {p['score_a']}-{p['score_b']} {p['team_b']}"
-        print(f"  {p['round']}: {score_str} | {p['winner']} ({p['confidence']:.0f}%)")
+        xg_a = p.get("expected_goals_a", "?")
+        xg_b = p.get("expected_goals_b", "?")
+        print(f"  {p['round']}: {score_str} | xG: {xg_a}-{xg_b} | {p['winner']} ({p['confidence']:.0f}%)")
 
     print("\n>>> TABLA DE POSICIONES:")
     for g in GROUPS:
@@ -622,7 +626,7 @@ def ensemble_simulation(n_seeds=100, verbose=False):
     def _print_ko(label, results):
         print(f"\n>>> {label}:")
         for r in results:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
 
     r32_results = ko_enriched[:16]
     r16_results = ko_enriched[16:24]
@@ -637,10 +641,10 @@ def ensemble_simulation(n_seeds=100, verbose=False):
     _print_ko("SEMIFINALES", sf_results)
 
     print("\n>>> TERCER PUESTO:")
-    print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} -> 3ro: {third_result['winner']}")
+    print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {third_result['winner']}")
 
     print("\n>>> FINAL:")
-    print(f"  {final_result['team_a']} {final_result['score_a']}-{final_result['score_b']} {final_result['team_b']}")
+    print(f"  {final_result['team_a']} {final_result['score_a']}-{final_result['score_b']} {final_result['team_b']} (xG {final_result.get('expected_goals_a','?')}-{final_result.get('expected_goals_b','?')})")
 
     print(f"\n{'='*70}")
     print(f"  *** CAMPEON: {final_result['winner']} ***")

@@ -427,7 +427,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     else:
         score_a = round(det_goals_a)
         score_b = round(det_goals_b)
-        sims = 1000
+        sims = 1500
         wins_a = 0
         wins_b = 0
         draws = 0
