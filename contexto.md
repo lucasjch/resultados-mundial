@@ -26,7 +26,7 @@ Script en Python que analiza los 135 partidos del Mundial 2026 y predice resulta
 prode_mundial/
 ├── scraper.py        # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py           # Datos de equipos, sedes, fixture, bases operativas
-├── predictor.py      # Motor de 15 factores ponderados + simulación Poisson
+├── predictor.py      # Motor de 17 factores ponderados + simulación Poisson
 ├── stats_scraper.py  # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py        # Bracket oficial 2026 (R32, R16, QF, SF, 3°, Final)
 ├── output.py         # Exportación CSV/JSON
@@ -92,25 +92,27 @@ prode_mundial/
 - `_enrich_teams()`: integra `players.json` en cada equipo con 6 campos extra
 
 ### 3. Predicción (`predictor.py`)
-15 factores ponderados + Poisson (1000 sims): `total_diff = Σ(factor_i × peso_i)`, sin randomness aditivo:
+17 factores ponderados + Poisson (1500 sims): `total_diff = Σ(factor_i × peso_i)`, sin randomness aditivo:
 
 | Factor | Peso | Descripción |
 |--------|:----:|-------------|
-| `team_strength` | 17% | Solo rank + tier (sin form/goals) |
-| `market_value` | 11% | Diferencia de valor de plantilla (escala log) |
-| `player_stats` | 12% | Goals + 0.5×Assists promedio por jugador (temporada 2025/26) |
-| `home_advantage` | 8% | Localía CONCACAF + fanbase/diaspora; `is_neutral` reduce bonos en KO |
-| `climate` | 6% | Diferencia térmica, altitud, techo cerrado |
-| `travel` | 3% | Distancia base → sede (haversine) |
+| `team_strength` | 16% | Solo rank + tier (sin form/goals) |
+| `player_stats` | 11% | Goals + 0.5×Assists ponderado por minutes_2026 |
+| `market_value` | 10% | Diferencia de valor de plantilla (escala log) |
+| `experience` | 6% | intl_caps promedio (Wikipedia) |
+| `home_advantage` | 7% | Localía CONCACAF + fanbase/diaspora; `is_neutral` reduce bonos en KO |
+| `rest_days` | 6% | Penalidad si <4 días entre partidos (3 pts por día faltante) |
+| `squad_depth` | 6% | Ratio suplentes con >500 min (dinámico desde players.json) |
+| `climate` | 5% | Diferencia térmica, altitud, techo cerrado |
+| `foreign_pct` | 4% | % de jugadores en ligas extranjeras |
+| `travel_fatigue` | 4% | Km totales acumulados viajando entre sedes |
 | `history` | 4% | Mejor actuación histórica en Mundiales |
 | `morale` | 4% | `form_streak` del equipo |
-| `age_penalty` | 3% | Penalización por desviación de edad óptima (27) |
-| `foreign_pct` | 5% | % de jugadores en ligas extranjeras |
-| `rest_days` | 7% | Penalidad si <4 días entre partidos (3 pts por día faltante) |
-| `squad_depth` | 7% | Ratio de jugadores de impacto en plantilla (aprovecha 5 sustituciones) |
-| `travel_fatigue` | 5% | Km totales acumulados viajando entre sedes |
-| `jet_lag` | 3% | Diferencia horaria sede vs país de origen (0.7 pts/hora, máx 5) |
-| `odds` | 5% | Cuotas DraftKings pre-torneo |
+| `trophy_pedigree` | 4% | trophy_count promedio (Wikipedia) |
+| `odds` | 4% | Cuotas DraftKings pre-torneo |
+| `height_advantage` | 3% | Altura promedio — ventaja aérea |
+| `club_chemistry` | 3% | Pares del mismo club — coordinación |
+| `travel` | 3% | Distancia base → sede (haversine) |
 | `randomness` | — | Eliminado. Antes: `gauss(0,0.7)×10` |
 
 Fórmula de goles esperados (cruza ataque vs defensa):
@@ -123,7 +125,7 @@ base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
 λ_a = max(0.2, min(7.0, base_a * (1 + total_diff_scaled)))
 λ_b = max(0.2, min(7.0, base_b * (1 - total_diff_scaled)))
 ```
-Simulación Poisson con 1000 iteraciones. Score = moda de goles.
+Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 λ clamp entre 0.2 y 7.0 para evitar valores extremos.
 
 ### 4. Bracket (`bracket.py`)
@@ -217,6 +219,7 @@ Simulación Poisson con 1000 iteraciones. Score = moda de goles.
 | ✅ **Bloque I** — Fix probabilidades (noise removal) + confidence del winner real | Completado |
 | ✅ **Bloque J** — Top scorer + ejecutar.bat menú interactivo | Completado |
 | ✅ **Bloque K** — Ensemble 100 seeds + upset correction + factor odds | Completado |
+| ✅ **Bloque L** — Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | Completado |
 
 ## Configuración LSP
 
@@ -242,4 +245,4 @@ python main.py --no-ensemble  # seed única sin ensemble
 
 ## Próximos Pasos
 
-✅ **Proyecto completo** — Los 135 partidos del Mundial 2026 han sido analizados con 15 factores + Poisson + ensemble de 100 seeds. Resultados exportados a CSV/JSON en `output/`.
+✅ **Proyecto completo** — Los 135 partidos del Mundial 2026 han sido analizados con 17 factores + Poisson (1500 sims) + ensemble de 100 seeds. Resultados exportados a CSV/JSON en `output/` con xG y probabilidades.

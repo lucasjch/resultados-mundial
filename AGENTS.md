@@ -24,7 +24,7 @@ para completar un prode. Exporta a CSV y JSON.
 prode_mundial/
 ├── scraper.py           # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py              # Datos de equipos, sedes, fixture, bases operativas, haversine, card rates
-├── predictor.py         # Motor de 15 factores ponderados + simulación Poisson
+├── predictor.py         # Motor de 17 factores ponderados + simulación Poisson
 ├── stats_scraper.py     # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py           # Bracket oficial 2026 + H2H tiebreaker + safety net KO
 ├── output.py            # Exportación CSV/JSON
@@ -62,6 +62,7 @@ prode_mundial/
 | —  | **Bloque I**: Fix probabilidades (noise removal) + confidence del winner real | ✅ Completado |
 | —  | **Bloque J**: Top scorer + ejecutar.bat menú interactivo | ✅ Completado |
 | —  | **Bloque K**: Ensemble 100 seeds + upset correction + factor odds | ✅ Completado |
+| —  | **Bloque L**: Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | ✅ Completado |
 
 ## Decisiones Tomadas
 
@@ -151,21 +152,23 @@ prode_mundial/
 
 | Factor          | Peso | Nota |
 |-----------------|:----:|------|
-| team_strength   | 17%  | Solo rank + tier (sin form/goals) |
-| market_value    | 11%  | Factor independiente |
-| player_stats    | 12%  | Goals + 0.5×Assists promedio por jugador (temporada 2025/26) |
-| home_advantage  | 8%   | Incluye fanbase/diaspora; is_neutral reduce bonos |
-| climate         | 6%   | Temperatura + altitud del estadio |
-| travel          | 3%   | Distancia base camp → venue |
+| team_strength   | 16%  | Solo rank + tier (sin form/goals) |
+| player_stats    | 11%  | Goals + 0.5×Assists ponderado por minutes_2026 |
+| market_value    | 10%  | Valor de plantilla |
+| experience      | 6%   | intl_caps promedio (Wikipedia) |
+| home_advantage  | 7%   | Incluye fanbase/diaspora; is_neutral reduce bonos |
+| rest_days       | 6%   | Penalidad si <4 días entre partidos |
+| squad_depth     | 6%   | Ratio suplentes con >500 min (dinámico desde players.json) |
+| climate         | 5%   | Temperatura + altitud del estadio |
+| foreign_pct     | 4%   | % de jugadores en ligas extranjeras |
+| travel_fatigue  | 4%   | Km totales acumulados viajando |
 | history         | 4%   | Historial en Mundiales |
 | morale          | 4%   | Racha de resultados reciente |
-| age_penalty     | 3%   | Edad promedio de la plantilla |
-| foreign_pct     | 5%   | % de jugadores en ligas extranjeras |
-| rest_days       | 7%   | Penalidad si <4 días entre partidos |
-| squad_depth     | 7%   | Ratio de jugadores de impacto en plantilla |
-| travel_fatigue  | 5%   | Km totales acumulados viajando |
-| jet_lag         | 3%   | Diferencia horaria sede vs país de origen |
-| odds            | 5%   | Cuotas de apuestas DraftKings pre-torneo |
+| trophy_pedigree | 4%   | trophy_count promedio (Wikipedia) |
+| odds            | 4%   | Cuotas DraftKings pre-torneo |
+| height_advantage| 3%   | Altura promedio — ventaja aérea |
+| club_chemistry  | 3%   | Pares del mismo club — coordinación |
+| travel          | 3%   | Distancia base camp → venue |
 | randomness      | —    | Ya no se usa. Antes: `gauss(0,0.7)×10` |
 
 ### Fórmula de goles esperados

@@ -253,7 +253,7 @@ England recent form (last 10): W W W W W W W L D L
 
 ## PRODE MODEL RESULTS (Ensemble — 100 seeds)
 
-Our 15-factor prediction model estimates the following championship probabilities
+Our 17-factor prediction model estimates the following championship probabilities
 (via ensemble of 100 seeds, selecting the seed where the mode champion won):
 
 ### Campeón
@@ -273,10 +273,11 @@ Our 15-factor prediction model estimates the following championship probabilitie
 
 ### Notas sobre el modelo
 
-- El modelo usa 15 factores: team_strength, market_value, player_stats, home_advantage, climate, travel, history, morale, age_penalty, foreign_pct, rest_days, squad_depth, travel_fatigue, jet_lag, odds
+- El modelo usa 17 factores: team_strength, player_stats, market_value, experience, home_advantage, rest_days, squad_depth, climate, foreign_pct, travel_fatigue, history, morale, trophy_pedigree, odds, height_advantage, club_chemistry, travel
 - Los goles esperados λ se calculan con fórmula cruzada ataque-defensa y se clamp entre 0.2 y 7.0
-- Las probabilidades se obtienen de 1,000 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
+- Las probabilidades se obtienen de 1,500 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
 - El ensemble corre 100 seeds con Poisson draw rápido, selecciona la seed donde el campeón moda ganó, y la enriquece con probabilidades completas
+- Bloque L (última ronda de optimización): eliminados age_penalty y jet_lag; agregados experience, trophy_pedigree, height_advantage, club_chemistry desde Wikipedia; player_stats ponderado por minutes_2026; squad_depth dinámico desde players.json
 
 ---
 
