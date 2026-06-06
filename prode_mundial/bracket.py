@@ -305,7 +305,7 @@ def _ranking_winner(team_a, team_b, data_a, data_b):
     return team_b, team_a
 
 
-def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", skip_sims=False, round_name="KO"):
+def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", round_name="KO"):
     from data import get_team
     UPSET_CONFIDENCE_THRESHOLD = 35
     results = []
@@ -330,7 +330,7 @@ def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01",
         result = predict_match(team_a, team_b, venue, is_neutral=True, allows_draw=False, round_name=round_name,
                                rest_days_a=rest_a, rest_days_b=rest_b,
                                travel_km_a=travel_a, travel_km_b=travel_b,
-                               skip_sims=skip_sims)
+                               )
 
         if result["confidence"] < UPSET_CONFIDENCE_THRESHOLD and result["winner"] != "Empate":
             data_a = get_team(team_a)
@@ -360,7 +360,7 @@ def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01",
     return results
 
 
-def run_full_simulation(seed=42, skip_sims=False, quiet=False):
+def run_full_simulation(seed=42, quiet=False):
     import random
     from predictor import predict_match
     from data import FIXTURES, GROUPS
@@ -377,7 +377,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     group_predictions = []
     for f in FIXTURES:
         team_a, team_b, venue, date, time, group = f
-        result = predict_match(team_a, team_b, venue, round_name=f"Group {group}", skip_sims=skip_sims)
+        result = predict_match(team_a, team_b, venue, round_name=f"Group {group}")
         result["date"] = date
         result["time"] = time
         group_predictions.append(result)
@@ -439,7 +439,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     r32_matches = _extend_matches(r32_raw, KO_DATES[0])
     if not quiet:
         print("\n>>> RONDA DE 32AVOS:")
-    r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], skip_sims=skip_sims, round_name="R32")
+    r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], round_name="R32")
     for r in r32_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -453,7 +453,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     r16_matches = _extend_matches(r16_raw, KO_DATES[1])
     if not quiet:
         print("\n>>> OCTAVOS DE FINAL:")
-    r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], skip_sims=skip_sims, round_name="R16")
+    r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], round_name="R16")
     for r in r16_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -468,7 +468,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     qf_matches = _extend_matches(qf_raw, KO_DATES[2])
     if not quiet:
         print("\n>>> CUARTOS DE FINAL:")
-    qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], skip_sims=skip_sims, round_name="QF")
+    qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], round_name="QF")
     for r in qf_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -482,7 +482,7 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     sf_matches = _extend_matches(sf_raw, KO_DATES[3])
     if not quiet:
         print("\n>>> SEMIFINALES:")
-    sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], skip_sims=skip_sims, round_name="SF")
+    sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], round_name="SF")
     for r in sf_results:
         if not quiet:
             print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
@@ -497,13 +497,13 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
             sf_losers.append(r["team_a"])
     third_raw = [(sf_losers[0], sf_losers[1], THIRD_VENUE)]
     third_matches = _extend_matches(third_raw, KO_DATES[4])
-    third_result = simulate_knockout_round(third_matches, team_history, KO_DATES[4], skip_sims=skip_sims, round_name="3°")[0]
+    third_result = simulate_knockout_round(third_matches, team_history, KO_DATES[4], round_name="3°")[0]
 
     # ── Final ────────────────────────────────────────────────────────
     sf_winners = [r["winner"] for r in sf_results]
     final_raw = [(sf_winners[0], sf_winners[1], FINAL_VENUE)]
     final_matches = _extend_matches(final_raw, KO_DATES[5])
-    final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], skip_sims=skip_sims, round_name="Final")[0]
+    final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], round_name="Final")[0]
 
     if not quiet:
         print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {third_result['winner']}")
@@ -520,139 +520,6 @@ def run_full_simulation(seed=42, skip_sims=False, quiet=False):
     all_ko = r32_results + r16_results + qf_results + sf_results + [third_result, final_result]
 
     return group_predictions, group_results, all_ko
-
-
-def ensemble_simulation(n_seeds=100, verbose=False):
-    from collections import Counter
-    from data import GROUPS
-
-    full_brackets = []
-    ko_winners = []
-
-    for seed in range(n_seeds):
-        import random
-        random.seed(seed)
-        group_preds, group_results, all_ko = run_full_simulation(seed=seed, skip_sims=True, quiet=True)
-        full_brackets.append((seed, group_preds, group_results, all_ko))
-        ko_winners.append([r["winner"] for r in all_ko])
-
-    # Champion distribution
-    champion_counts = Counter()
-    for winners in ko_winners:
-        if len(winners) >= 32:
-            champion_counts[winners[-1]] += 1
-
-    print(f"\n>>> DISTRIBUCIÓN DE CAMPEÓN ({n_seeds} seeds):")
-    champion_counts_sorted = champion_counts.most_common(10)
-    for team, count in champion_counts_sorted:
-        pct = count / n_seeds * 100
-        print(f"  {team:25s} {count:3d} seeds ({pct:4.1f}%)")
-
-    mode_champion = champion_counts_sorted[0][0] if champion_counts_sorted else "Argentina"
-
-    # Find first seed where mode champion won
-    selected = None
-    for seed, gpreds, gres, ako in full_brackets:
-        if ako[-1]["winner"] == mode_champion:
-            selected = (seed, gpreds, gres, ako)
-            break
-    if selected is None:
-        selected = full_brackets[0]
-
-    seed_chosen, raw_preds, group_results, raw_ko = selected
-
-    print(f"\n{'='*70}")
-    print(f"  ENSEMBLE {n_seeds} SEEDS — SEED {seed_chosen} (campeón: {mode_champion})")
-    print(f"{'='*70}")
-
-    # Enrich group predictions with full probabilities
-    from predictor import predict_match
-    from data import FIXTURES
-    enriched_preds = []
-    for i, p in enumerate(raw_preds):
-        f = FIXTURES[i]
-        full = predict_match(f[0], f[1], f[2], round_name=f"Group {f[5]}", skip_sims=False)
-        p["prob_a_win"] = round(full["prob_a_win"], 1)
-        p["prob_b_win"] = round(full["prob_b_win"], 1)
-        p["prob_draw"] = round(full["prob_draw"], 1)
-        p["confidence"] = round(full["confidence"], 1)
-        p["factors"] = full["factors"]
-        p["fp_delta_a"] = full["fp_delta_a"]
-        p["fp_delta_b"] = full["fp_delta_b"]
-        p["yc_a"] = full["yc_a"]
-        p["yc_b"] = full["yc_b"]
-        p["rc_a"] = full["rc_a"]
-        p["rc_b"] = full["rc_b"]
-        enriched_preds.append(p)
-
-    # Rebuild group tables from enriched preds (has proper FP now)
-    group_results = simulate_group_stage(enriched_preds)
-
-    print("\n>>> FASE DE GRUPOS:")
-    for p in enriched_preds:
-        score_str = f"{p['team_a']} {p['score_a']}-{p['score_b']} {p['team_b']}"
-        xg_a = p.get("expected_goals_a", "?")
-        xg_b = p.get("expected_goals_b", "?")
-        print(f"  {p['round']}: {score_str} | xG: {xg_a}-{xg_b} | {p['winner']} ({p['confidence']:.0f}%)")
-
-    print("\n>>> TABLA DE POSICIONES:")
-    for g in GROUPS:
-        print(f"\n  Grupo {g}:")
-        for i, (team, data) in enumerate(group_results[g]):
-            print(f"  [{i+1}] {team:25s} {data['pts']:2d} pts  W:{data['w']} D:{data['d']} L:{data['l']}  GF:{data['gf']} GC:{data['ga']} GD:{data['gd']:+d}")
-
-    group_winners, group_runners, best_third, third_details = determine_qualified(group_results)
-    print("\n>>> MEJORES TERCEROS CLASIFICADOS:")
-    for i, (g, team, pts, gd, gf, fp, rank) in enumerate(third_details):
-        print(f"  {i+1}. Grupo {g}: {team} ({pts} pts, GD:{gd:+d}, FP:{fp}, Rank:{rank})")
-
-    # Enrich KO predictions with full probabilities
-    team_history = compute_team_history(enriched_preds)
-    KO_DATES = ["2026-06-29", "2026-07-04", "2026-07-09", "2026-07-13", "2026-07-16", "2026-07-17"]
-
-    ko_enriched = []
-    for i, r in enumerate(raw_ko):
-        full = predict_match(r["team_a"], r["team_b"], r["venue"],
-                             is_neutral=True, allows_draw=False, round_name=r.get("round", "KO"),
-                             skip_sims=False)
-        r["prob_a_win"] = round(full["prob_a_win"], 1)
-        r["prob_b_win"] = round(full["prob_b_win"], 1)
-        r["prob_draw"] = round(full["prob_draw"], 1)
-        r["confidence"] = round(full["confidence"], 1)
-        r["factors"] = full["factors"]
-        ko_enriched.append(r)
-
-    # Display KO rounds
-    def _print_ko(label, results):
-        print(f"\n>>> {label}:")
-        for r in results:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
-
-    r32_results = ko_enriched[:16]
-    r16_results = ko_enriched[16:24]
-    qf_results = ko_enriched[24:28]
-    sf_results = ko_enriched[28:30]
-    third_result = ko_enriched[30]
-    final_result = ko_enriched[31]
-
-    _print_ko("RONDA DE 32AVOS", r32_results)
-    _print_ko("OCTAVOS DE FINAL", r16_results)
-    _print_ko("CUARTOS DE FINAL", qf_results)
-    _print_ko("SEMIFINALES", sf_results)
-
-    print("\n>>> TERCER PUESTO:")
-    print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {third_result['winner']}")
-
-    print("\n>>> FINAL:")
-    print(f"  {final_result['team_a']} {final_result['score_a']}-{final_result['score_b']} {final_result['team_b']} (xG {final_result.get('expected_goals_a','?')}-{final_result.get('expected_goals_b','?')})")
-
-    print(f"\n{'='*70}")
-    print(f"  *** CAMPEON: {final_result['winner']} ***")
-    print(f"  SUBCAMPEON: {final_result['loser']}")
-    print(f"  3er PUESTO: {third_result['winner']}")
-    print(f"{'='*70}")
-
-    return enriched_preds, group_results, ko_enriched, champion_counts
 
 
 if __name__ == "__main__":

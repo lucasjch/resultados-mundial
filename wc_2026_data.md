@@ -3,7 +3,7 @@
 > Data compiled June 5, 2026. FIFA Rankings as of June 10, 2026
 > All 48 teams have confirmed their 26-man squads (submitted June 1, published June 2)
 > Odds via DraftKings as of June 4, 2026
-> Prode model probabilities from ensemble (100 seeds, seed-independent)
+> Prode model probabilities from deterministic average of 1500 Poisson simulations per match
 
 ---
 
@@ -231,7 +231,7 @@ England recent form (last 10): W W W W W W W L D L
 
 ## ODDS-TO-WIN SUMMARY (Top contenders)
 
-| Rank | Team | Odds | Implied % | Opta Win % | Prode Ens % |
+| Rank | Team | Odds | Implied % | Opta Win % | Prode % |
 |------|------|------|-----------|------------|:----------:|
 | 1 | Spain | +450 | 18.2% | 16.1% | 1% |
 | 2 | France | +475 | 17.4% | 13.0% | 8% |
@@ -251,33 +251,20 @@ England recent form (last 10): W W W W W W W L D L
 
 ---
 
-## PRODE MODEL RESULTS (Ensemble — 100 seeds)
+## PRODE MODEL RESULTS (Deterministic — 1500 sims average)
 
-Our 17-factor prediction model estimates the following championship probabilities
-(via ensemble of 100 seeds, selecting the seed where the mode champion won):
-
-### Campeón
-
-| Rango | Equipo | Probabilidad |
-|-------|--------|:-----------:|
-| 1 | Argentina 🇦🇷 | 91% |
-| 2 | France 🇫🇷 | 8% |
-| 3 | Spain 🇪🇸 | 1% |
-
-### Bracket final (seed más representativa del ensemble)
-
-- **Campeón:** Argentina 🇦🇷 (1-0 vs France en final)
-- **Subcampeón:** France 🇫🇷
-- El ensemble asegura que el campeón del bracket final coincide con la
-  distribución del modelo (elimina accidentes estadísticos de seed fija).
+Our 17-factor prediction model runs **1,500 Poisson simulations per match**
+and averages the scores. The result is a single deterministic bracket
+(same result every run — no ensemble, no seed selection).
 
 ### Notas sobre el modelo
 
 - El modelo usa 17 factores: team_strength, player_stats, market_value, experience, home_advantage, rest_days, squad_depth, climate, foreign_pct, travel_fatigue, history, morale, trophy_pedigree, odds, height_advantage, club_chemistry, travel
 - Los goles esperados λ se calculan con fórmula cruzada ataque-defensa y se clamp entre 0.2 y 7.0
-- Las probabilidades se obtienen de 1,500 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
-- El ensemble corre 100 seeds con Poisson draw rápido, selecciona la seed donde el campeón moda ganó, y la enriquece con probabilidades completas
-- Bloque L (última ronda de optimización): eliminados age_penalty y jet_lag; agregados experience, trophy_pedigree, height_advantage, club_chemistry desde Wikipedia; player_stats ponderado por minutes_2026; squad_depth dinámico desde players.json
+- Las probabilidades (win/draw/loss) provienen de las frecuencias de 1,500 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
+- El score final es el promedio redondeado de las 1,500 simulaciones
+- Bloque L: eliminados age_penalty y jet_lag; agregados experience, trophy_pedigree, height_advantage, club_chemistry desde Wikipedia; player_stats ponderado por minutes_2026; squad_depth dinámico desde players.json
+- Bloque M: eliminado ensemble de 100 seeds, el bracket final es determinista y siempre reproducible
 
 ---
 

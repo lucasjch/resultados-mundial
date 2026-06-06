@@ -1,6 +1,6 @@
 # 2026 FIFA World Cup - Complete Squad Data
 
-> Compiled: June 5, 2026 (updated June 2026) | Sources: FIFA.com, BBC Sport, official federation announcements
+> Compiled: June 6, 2026 (updated June 2026) | Sources: FIFA.com, BBC Sport, official federation announcements
 > Note: Season stats (goals/assists) reflect 2025-26 club season. Role = estimated starter/squad/bench based on available analysis.
 > Squad data used by the Prode 2026 prediction model (players.json: 1,245 players enriched from Transfermarkt API and Wikipedia). Wikipedia provides caps, trophies, height, and club info; Transfermarkt provides 2025/26 goals, assists, and minutes.
 

@@ -475,17 +475,17 @@
     "venue_country": "USA",
     "team_a": "Brazil",
     "team_b": "Morocco",
-    "score_a": 2,
+    "score_a": 1,
     "score_b": 1,
     "expected_goals_a": 1.53,
     "expected_goals_b": 1.18,
-    "winner": "Brazil",
+    "winner": "Empate",
     "probabilities": {
       "a_win": 43.8,
       "draw": 27.1,
       "b_win": 29.1
     },
-    "confidence": 43.8,
+    "confidence": 27.1,
     "factors": {
       "strength": 0.1,
       "market_value": 0.0,
@@ -554,16 +554,16 @@
     "team_a": "Scotland",
     "team_b": "Morocco",
     "score_a": 1,
-    "score_b": 2,
+    "score_b": 1,
     "expected_goals_a": 1.04,
     "expected_goals_b": 1.53,
-    "winner": "Morocco",
+    "winner": "Empate",
     "probabilities": {
       "a_win": 27.3,
       "draw": 26.3,
       "b_win": 46.4
     },
-    "confidence": 46.4,
+    "confidence": 26.3,
     "factors": {
       "strength": -0.5,
       "market_value": -0.7,

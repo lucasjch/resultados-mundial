@@ -10,7 +10,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from bracket import run_full_simulation, ensemble_simulation
+from bracket import run_full_simulation
 from output import export_all
 from top_scorer import compute_top_scorers
 
@@ -29,30 +29,17 @@ def run_top_scorers(group_predictions, ko_predictions):
 
 def main():
     parser = argparse.ArgumentParser(description="Prode Mundial 2026")
-    parser.add_argument("seed", nargs="?", type=int, default=None, help="Seed (default: ensemble 100 seeds)")
-    parser.add_argument("--seed", "-s", type=int, dest="seed_flag", help="Seed (alternativo)")
     parser.add_argument("--goleadores", "--top", action="store_true", help="Solo tabla de goleadores")
-    parser.add_argument("--no-ensemble", action="store_true", help="Usar seed unica en vez de ensemble")
     args = parser.parse_args()
 
-    seed = args.seed if args.seed_flag is None else args.seed_flag
-    single_seed = args.no_ensemble or seed is not None
     top_scorer_only = args.goleadores
 
-    if single_seed:
-        s = seed if seed is not None else 256
-        if not top_scorer_only:
-            print(f"Seed: {s}")
-        with redirect_stdout(StringIO()) if top_scorer_only else nullcontext():
-            group_predictions, group_results, ko_predictions = run_full_simulation(seed=s)
-    else:
-        n = 100
-        if not top_scorer_only:
-            print(f"Ensemble {n} seeds...")
-            group_predictions, group_results, ko_predictions, _ = ensemble_simulation(n_seeds=n)
-        else:
-            with redirect_stdout(StringIO()):
-                group_predictions, group_results, ko_predictions, _ = ensemble_simulation(n_seeds=n)
+    if not top_scorer_only:
+        print("Simulación completa (1500 simulaciones por partido)...")
+        print()
+
+    with redirect_stdout(StringIO()) if top_scorer_only else nullcontext():
+        group_predictions, group_results, ko_predictions = run_full_simulation()
 
     if not top_scorer_only:
         print()

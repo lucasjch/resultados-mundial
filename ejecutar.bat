@@ -13,50 +13,36 @@ echo ====================================
 echo       PRODE MUNDIAL 2026
 echo ====================================
 echo.
-echo  1. Ensemble 100 semillas (default)
-echo  2. Simulacion con seed personalizada
+echo  1. Simulacion completa (1500 sims por partido)
+echo  2. Tabla de goleadores
 echo  3. Ver predicciones
-echo  4. Tabla de goleadores
-echo  5. Optimizador (X2 + Campeon + SF + Goleador)
-echo  6. Salir
+echo  4. Optimizador (X2 + Campeon + SF + Goleador)
+echo  5. Salir
 echo.
 echo ====================================
-set /p op="Seleccione opcion [1-6]: "
+set /p op="Seleccione opcion [1-5]: "
 
-if "%op%"=="1" goto ensemble
-if "%op%"=="2" goto custom
+if "%op%"=="1" goto simular
+if "%op%"=="2" goto top
 if "%op%"=="3" goto ver_predicciones
-if "%op%"=="4" goto top
-if "%op%"=="5" goto optimizer
-if "%op%"=="6" goto salir
+if "%op%"=="4" goto optimizer
+if "%op%"=="5" goto salir
 goto menu
 
-:ensemble
+:simular
 cls
 echo ====================================
-echo  Ensemble 100 semillas + Fase KO determinista
+echo  Simulacion completa (1500 sims por partido)
 echo ====================================
+echo.
+echo  Promediando 1500 simulaciones Poisson por partido...
+echo  Tiempo estimado: ~10 segundos
 echo.
 python prode_mundial/main.py
 if %ERRORLEVEL% NEQ 0 (
     echo.
     echo  ERROR: La simulacion fallo!
 )
-echo.
-pause
-goto menu
-
-:custom
-cls
-echo ====================================
-echo  Seed personalizada
-echo ====================================
-echo.
-set /p seed="Ingrese seed (Enter = 256): "
-if "%seed%"=="" set seed=256
-echo.
-echo  Ejecutando simulacion con seed !seed!...
-python prode_mundial/main.py !seed!
 echo.
 pause
 goto menu

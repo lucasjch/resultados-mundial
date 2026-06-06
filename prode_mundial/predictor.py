@@ -391,7 +391,7 @@ def simulate_match_cards(team_a_data, team_b_data):
 
 
 def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None, round_name="Group Stage",
-                  rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0, skip_sims=False):
+                  rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0):
     venue = get_venue(venue_name)
     venue_country = venue["country"]
 
@@ -452,29 +452,29 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     det_goals_a = max(0.2, min(7.0, base_a * (1 + deterministic_scaled)))
     det_goals_b = max(0.2, min(7.0, base_b * (1 - deterministic_scaled)))
 
-    if skip_sims:
-        score_a = poisson_sample(det_goals_a)
-        score_b = poisson_sample(det_goals_b)
-        prob_a_win = prob_b_win = prob_draw = 0.0
-    else:
-        score_a = round(det_goals_a)
-        score_b = round(det_goals_b)
-        sims = 1500
-        wins_a = 0
-        wins_b = 0
-        draws = 0
-        for _ in range(sims):
-            g_a = poisson_sample(det_goals_a)
-            g_b = poisson_sample(det_goals_b)
-            if g_a > g_b:
-                wins_a += 1
-            elif g_b > g_a:
-                wins_b += 1
-            else:
-                draws += 1
-        prob_a_win = wins_a / sims
-        prob_b_win = wins_b / sims
-        prob_draw = draws / sims
+    SIMS = 1500
+    sum_a = 0
+    sum_b = 0
+    wins_a = 0
+    wins_b = 0
+    draws = 0
+    for _ in range(SIMS):
+        g_a = poisson_sample(det_goals_a)
+        g_b = poisson_sample(det_goals_b)
+        sum_a += g_a
+        sum_b += g_b
+        if g_a > g_b:
+            wins_a += 1
+        elif g_b > g_a:
+            wins_b += 1
+        else:
+            draws += 1
+
+    score_a = round(sum_a / SIMS)
+    score_b = round(sum_b / SIMS)
+    prob_a_win = wins_a / SIMS
+    prob_b_win = wins_b / SIMS
+    prob_draw = draws / SIMS
 
     if score_a > score_b:
         winner = team_a
@@ -522,9 +522,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         "club_chemistry": round(chem_diff, 1),
     }
 
-    fp_delta_a = fp_delta_b = yc_a = yc_b = rc_a = rc_b = 0
-    if not skip_sims:
-        fp_delta_a, fp_delta_b, yc_a, yc_b, rc_a, rc_b = simulate_match_cards(team_a_data, team_b_data)
+    fp_delta_a, fp_delta_b, yc_a, yc_b, rc_a, rc_b = simulate_match_cards(team_a_data, team_b_data)
 
     return {
         "team_a": team_a,

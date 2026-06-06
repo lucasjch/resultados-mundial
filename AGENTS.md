@@ -63,6 +63,7 @@ prode_mundial/
 | —  | **Bloque J**: Top scorer + ejecutar.bat menú interactivo | ✅ Completado |
 | —  | **Bloque K**: Ensemble 100 seeds + upset correction + factor odds | ✅ Completado |
 | —  | **Bloque L**: Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | ✅ Completado |
+| —  | **Bloque M**: Eliminar ensemble, score promedio de 1500 sims | ✅ Completado |
 
 ## Decisiones Tomadas
 
@@ -116,6 +117,10 @@ prode_mundial/
     `get_player_team()` para lookup inverso de equipo → jugador.
 18. **ejecutar.bat en raíz**: Menú interactivo PowerShell/.bat portable. No
     requiere instalación en PATH.
+19. **Score promedio de 1500 sims**: El score final de cada partido es
+    `round(sum_a / 1500, round(sum_b / 1500))` — promedio de 1500 Poisson draws,
+    no un draw único ni el lambda crudo. Eliminado `skip_sims`, `ensemble_simulation()`,
+    y toda la lógica de selección de seed. Un solo resultado determinista y reproducible.
 
 ## Correcciones Aplicadas en predictor.py (Fase 4 + Bloque E)
 
@@ -183,23 +188,17 @@ base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
 λ_b = max(0.2, min(7.0, base_b * (1 - total_diff_scaled)))
 ```
 
-## Seed
+## Score determinista (promedio de 1500 sims)
 
-Por defecto `main.py` corre un **ensemble de 100 seeds** con Poisson draw
-(`skip_sims=True`) y selecciona la primera seed donde el campeón más frecuente
-ganó, luego enriquece esa seed con probabilidades completas (`skip_sims=False`).
-Esto elimina accidentes estadísticos de seed fija y asegura que el campeón del
-bracket final coincida con la distribución del modelo.
+Cada partido corre **1500 simulaciones Poisson** desde λ determinista
+(sin ruido aditivo). El score final es `round(avg_score_a, avg_score_b)`,
+el promedio redondeado de las 1500 simulaciones. Esto reemplazó el ensemble
+de 100 seeds y la selección de seed por campeón moda.
 
-Resultado (ensemble): Argentina 🇦🇷 campeón (1-0 vs France en final).
-
-### Ensemble (100 seeds) — Probabilidades de campeonato
-
-| Rango | Equipo | Prob |
-|-------|--------|:----:|
-| 1 | Argentina | 91% |
-| 2 | France | 8% |
-| 3 | Spain | 1% |
+- No hay randomness en el resultado final (Ley de Grandes Números)
+- Las probabilidades (win/draw/loss) se calculan de las frecuencias del mismo loop
+- Un solo resultado, siempre reproducible con la misma seed interna (42)
+- Tiempo total: ~10s para los 135 partidos
 
 ## Bloque A: Fix fixture/venue bugs (Completado)
 
@@ -403,10 +402,10 @@ Resultado (ensemble): Argentina 🇦🇷 campeón (1-0 vs France en final).
 ### ejecutar.bat (J)
 
 Menú interactivo con 5 opciones:
-1. **Simulación completa (ensemble)** — `python prode_mundial/main.py` (100 seeds)
-2. **Seed personalizada** — pide número y ejecuta `python prode_mundial/main.py <N>`
-3. **Seed única (sin ensemble)** — `python prode_mundial/main.py --no-ensemble <N>`
-4. **Tabla de goleadores** — `python prode_mundial/main.py --goleadores`
+1. **Simulación completa (1500 sims por partido)** — `python prode_mundial/main.py`
+2. **Tabla de goleadores** — `python prode_mundial/main.py --goleadores`
+3. **Ver predicciones** — submenú interactivo (display.py)
+4. **Optimizador** — `python prode_mundial/optimizer.py`
 5. **Salir**
 
 ## Comandos Útiles
@@ -421,15 +420,11 @@ $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py
 # Forzar re-scrapeo de estadísticas (ignorar caché)
 $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py --force
 
-# Ejecutar simulación completa (ensemble 100 seeds, con goleadores)
+# Ejecutar simulación completa (1500 sims por partido, con goleadores)
 python prode_mundial/main.py
 
 # Solo tabla de goleadores (modo silencioso)
 python prode_mundial/main.py --goleadores
-
-# Seed personalizada
-python prode_mundial/main.py 123
-python prode_mundial/main.py --seed 123
 
 # Menú interactivo
 .\ejecutar.bat

@@ -220,6 +220,7 @@ Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 | ✅ **Bloque J** — Top scorer + ejecutar.bat menú interactivo | Completado |
 | ✅ **Bloque K** — Ensemble 100 seeds + upset correction + factor odds | Completado |
 | ✅ **Bloque L** — Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | Completado |
+| ✅ **Bloque M** — Eliminar ensemble, score promedio de 1500 sims | Completado |
 
 ## Configuración LSP
 
@@ -230,19 +231,17 @@ Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 ## Ejecución
 
 ```bash
-cd prode_mundial
-python main.py                # ensemble 100 seeds (default)
-python main.py --seed 123     # seed personalizada
-python main.py --no-ensemble  # seed única sin ensemble
+python prode_mundial/main.py  # simulación completa (1500 sims por partido)
+python prode_mundial/main.py --goleadores  # solo tabla de goleadores
+.\ejecutar.bat                # menú interactivo
 ```
 
-## Resultado (ensemble 100 seeds)
+## Resultado (determinista — promedio de 1500 sims)
 
-- **Campeón**: Argentina 🇦🇷 (1-0 vs France en final)
-- **Subcampeón**: France 🇫🇷
-- **3er puesto**: Determinado por bracket de la seed ensemble
-- **Distribución**: Argentina 91%, France 8%, Spain 1%
+- El score final de cada partido es el promedio redondeado de 1500 Poisson draws
+- Misma seed interna (42) → mismo resultado siempre reproducible
+- Sin ensemble, sin selección de seed, sin randomness
 
 ## Próximos Pasos
 
-✅ **Proyecto completo** — Los 135 partidos del Mundial 2026 han sido analizados con 17 factores + Poisson (1500 sims) + ensemble de 100 seeds. Resultados exportados a CSV/JSON en `output/` con xG y probabilidades.
+✅ **Proyecto completo** — Los 135 partidos del Mundial 2026 han sido analizados con 17 factores + Poisson (1500 sims promedio). Resultados exportados a CSV/JSON en `output/` con xG y probabilidades.
