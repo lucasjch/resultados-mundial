@@ -168,26 +168,17 @@ France recent form (last 10): W W W D W W W D W L
 | **Algeria** | 28 | 1564.26 | +35000 | +800 | Riyad Mahrez (Al-Ahli), Youcef Belaïli, Ismaël Bennacer (AC Milan), Ramy Bensebaini, Islam Slimani |
 | **Jordan** | 64 | 1391.45 | +250000 | +5000 | Musa Al-Taamari (Rennes), Ali Olwan, Omar Al-Somah, Nizar Al-Rashdan |
 
-Argentina recent form (last 10): W W W W W W W W W W (10-match win streak)
+Argentina recent form (last 10): W W W W W W W W D D
 - Mar 2026: 5-0 vs Zambia (W) [friendly]
 - Mar 2026: 2-1 vs Mauritania (W) [friendly]
+- Mar 2026: 0-0 vs Brazil (D) [friendly]
 - Nov 2025: 2-0 vs Angola (W) [friendly]
-- Oct 2025: 6-0 vs Puerto Rico (W) [friendly]
 - Oct 2025: 1-0 vs Venezuela (W) [WCQ]
-- Sep 2025: 1-0 vs Venezuela (W) [WCQ]
-- Sep 2025: 0-1 vs Ecuador - this was actually a loss
-- Let me correct: Argentina recent 10:
-1. Sep 2024: Argentina 3-0 Chile (WCQ) W
-2. Oct 2024: Argentina 1-1 Colombia (WCQ) D
-3. Oct 2024: Argentina 3-0 Venezuela (WCQ) W
-4. Nov 2024: Paraguay 0-0 Argentina (WCQ) D
-5. Nov 2024: Argentina 1-0 Peru (WCQ) W
-6. Mar 2025: Argentina 1-0 Uruguay (WCQ) W
-7. Mar 2025: Argentina 4-1 Brazil (WCQ) W
-8. Oct 2025: Argentina 1-0 Venezuela (friendly) W
-9. Nov 2025: Angola 0-2 Argentina (friendly) W
-10. Mar 2026: Argentina 2-1 Mauritania (friendly) W
-11. Mar 2026: Argentina 5-0 Zambia (friendly) W
+- Oct 2025: 1-0 vs Colombia (D) [WCQ]
+- Sep 2025: 3-0 vs Chile (W) [WCQ]
+- Sep 2025: 1-0 vs Peru (W) [WCQ]
+- Sep 2025: 1-0 vs Uruguay (W) [WCQ]
+- Jun 2025: 4-1 vs Brazil (W) [WCQ]
 
 ---
 
@@ -201,7 +192,7 @@ Argentina recent form (last 10): W W W W W W W W W W (10-match win streak)
 | **DR Congo** | 48 | 1478.35 | +100000 | +1400 | Cédric Bakambu (Real Betis), Yoane Wissa (Brentford), Chancel Mbemba (Marseille), Gaël Kakuta |
 
 Portugal recent form (last 10): W W W D W L D W D D
-- Mar 2026: 0-2 vs USA (W) [friendly]
+- Mar 2026: 2-0 vs USA (W) [friendly]
 - Mar 2026: 0-0 vs Mexico (D) [friendly]
 - Nov 2025: 9-1 vs Armenia (W) [WCQ]
 - Nov 2025: 0-2 vs Ireland (L) [WCQ]
@@ -218,7 +209,7 @@ Portugal recent form (last 10): W W W D W L D W D D
 
 | Team | FIFA Rank | Pts | WC Odds | Group Odds | Key Star Players |
 |------|-----------|-----|---------|------------|-----------------|
-| **England** | 4 | 1825.97 | +700 | -280 | **Harry Kane** (Bayern), **Jude Bellingham** (Real Madrid), **Declan Rice** (Arsenal), **Bukayo Saka** (Arsenal), **Cole Palmer** (Chelsea) - wait Palmer was left out... **Marcus Rashford** (Barcelona), Anthony Gordon (Newcastle), John Stones (Man City), Reece James (Chelsea), Jordan Pickford (Everton), Marc Guéhi (Man City), Kobbie Mainoo (Man Utd), Ollie Watkins |
+| **England** | 4 | 1825.97 | +700 | -280 | **Harry Kane** (Bayern), **Jude Bellingham** (Real Madrid), **Declan Rice** (Arsenal), **Bukayo Saka** (Arsenal), **Marcus Rashford** (Barcelona), Anthony Gordon (Newcastle), John Stones (Man City), Reece James (Chelsea), Jordan Pickford (Everton), Marc Guéhi (Man City), Kobbie Mainoo (Man Utd), Ollie Watkins |
 | **Croatia** | 11 | 1717.07 | +9000 | +320 | **Luka Modrić** (AC Milan), **Mateo Kovačić** (Man City), **Joško Gvardiol** (Man City), Ivan Perišić, Andrej Kramarić, Dominik Livaković, Josip Stanišić, Mario Pašalić |
 | **Ghana** | 72 | 1346.31 | +30000 | +1100 | Mohammed Kudus (Tottenham), Antoine Semenyo (Bournemouth), Thomas Partey, Inaki Williams, Alexander Djiku |
 | **Panama** | 33 | 1540.64 | +100000 | +4000 | Adalberto Carrasquilla (Pumas), José Fajardo, Yeltsin Tejada |
@@ -226,20 +217,14 @@ Portugal recent form (last 10): W W W D W L D W D D
 England recent form (last 10): W W W W W W W L D L
 - Mar 2026: 0-1 vs Japan (L) [friendly]
 - Mar 2026: 1-1 vs Uruguay (D) [friendly]
+- Nov 2025: 5-0 vs Latvia (W) [WCQ]
 - Nov 2025: 2-0 vs Albania (W) [WCQ]
-- Nov 2025: 5-0 vs Andorra (W) [WCQ]
-- Oct 2025: 0-2 vs England - need correct data
-- Let me be more careful:
-1. Sep 2025: 2-0 vs Andorra (W) [WCQ]
-2. Sep 2025: 5-0 vs Latvia (W) [WCQ]
-3. Oct 2025: 3-0 vs Albania (W) [WCQ]
-4. Oct 2025: 5-0 vs Andorra (W) [WCQ]
-5. Nov 2025: 5-0 vs Latvia (W) [WCQ]
-6. Nov 2025: 2-0 vs Albania (W) [WCQ]
-7. Mar 2026: 1-1 vs Uruguay (D) [friendly]
-8. Mar 2026: 0-1 vs Japan (L) [friendly]
-9. May 2026: 2-0 vs Costa Rica (W) [friendly] (planned)
-10. Jun 2026: vs New Zealand (friendly) (upcoming)
+- Oct 2025: 5-0 vs Andorra (W) [WCQ]
+- Oct 2025: 3-0 vs Albania (W) [WCQ]
+- Sep 2025: 5-0 vs Latvia (W) [WCQ]
+- Sep 2025: 2-0 vs Andorra (W) [WCQ]
+- Jun 2025: 2-0 vs Costa Rica (W) [friendly]
+- Jun 2025: 1-0 vs New Zealand (W) [friendly]
 
 ---
 
