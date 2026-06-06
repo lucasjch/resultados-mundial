@@ -253,18 +253,19 @@ England recent form (last 10): W W W W W W W L D L
 
 ## PRODE MODEL RESULTS (Deterministic — 1500 sims average)
 
-Our 17-factor prediction model runs **1,500 Poisson simulations per match**
+Our 18-factor prediction model runs **1,500 Poisson simulations per match**
 and averages the scores. The result is a single deterministic bracket
 (same result every run — no ensemble, no seed selection).
 
 ### Notas sobre el modelo
 
-- El modelo usa 17 factores: team_strength, player_stats, market_value, experience, home_advantage, rest_days, squad_depth, climate, foreign_pct, travel_fatigue, history, morale, trophy_pedigree, odds, height_advantage, club_chemistry, travel
+- El modelo usa 18 factores: team_strength, player_stats, market_value, experience, home_advantage, rest_days, squad_depth, climate, foreign_pct, travel_fatigue, history, morale, trophy_pedigree, odds, height_advantage, club_chemistry, travel, stakes
 - Los goles esperados λ se calculan con fórmula cruzada ataque-defensa y se clamp entre 0.2 y 7.0
 - Las probabilidades (win/draw/loss) provienen de las frecuencias de 1,500 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
 - El score final es el promedio redondeado de las 1,500 simulaciones
 - Bloque L: eliminados age_penalty y jet_lag; agregados experience, trophy_pedigree, height_advantage, club_chemistry desde Wikipedia; player_stats ponderado por minutes_2026; squad_depth dinámico desde players.json
 - Bloque M: eliminado ensemble de 100 seeds, el bracket final es determinista y siempre reproducible
+- Bloque N: agregado factor stakes (4%) para 3ª fecha de grupos — clasifica equipos como qualified/contender/eliminated según tabla parcial y ajusta λ con varianza extra en partidos decisivos
 
 ---
 

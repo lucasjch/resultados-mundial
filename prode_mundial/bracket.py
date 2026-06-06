@@ -360,6 +360,32 @@ def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01",
     return results
 
 
+def classify_stakes(standings):
+    """After MD2, classify each team's stakes for MD3 matches.
+
+    standings: {team_name: {"pts": int, "gd": int, "gf": int}}
+    Returns: {team_name: "qualified" | "contender" | "eliminated"}
+    """
+    sorted_teams = sorted(standings.items(), key=lambda x: (-x[1]["pts"], -x[1]["gd"], -x[1]["gf"]))
+    second_pts = sorted_teams[1][1]["pts"]
+
+    stakes = {}
+    for team, data in standings.items():
+        pts = data["pts"]
+        max_possible = pts + 3
+
+        if pts >= 6 and second_pts <= 3:
+            stakes[team] = "qualified"
+        elif max_possible < second_pts:
+            stakes[team] = "eliminated"
+        elif pts == 0 and second_pts >= 4:
+            stakes[team] = "eliminated"
+        else:
+            stakes[team] = "contender"
+
+    return stakes
+
+
 def run_full_simulation(seed=42, quiet=False):
     import random
     from predictor import predict_match
@@ -375,18 +401,56 @@ def run_full_simulation(seed=42, quiet=False):
         # ── Group stage ──────────────────────────────────────────────────
         print("\n>>> FASE DE GRUPOS:")
     group_predictions = []
-    for f in FIXTURES:
-        team_a, team_b, venue, date, time, group = f
-        result = predict_match(team_a, team_b, venue, round_name=f"Group {group}")
-        result["date"] = date
-        result["time"] = time
-        group_predictions.append(result)
+    for g in sorted(GROUPS.keys()):
+        group_matches = [f for f in FIXTURES if f[5] == g]
+
+        # MD1 + MD2 (first 4 matches per group)
+        md1_md2 = []
+        for f in group_matches[:4]:
+            team_a, team_b, venue, date, time, group = f
+            result = predict_match(team_a, team_b, venue, round_name=f"Group {group}")
+            result["date"] = date
+            result["time"] = time
+            md1_md2.append(result)
+
+        # Compute partial standings after 2 matchdays
+        standings = {t: {"pts": 0, "gd": 0, "gf": 0} for t in GROUPS[g]}
+        for p in md1_md2:
+            a, b = p["team_a"], p["team_b"]
+            ga, gb = p["score_a"], p["score_b"]
+            standings[a]["gf"] += ga
+            standings[a]["gd"] += ga - gb
+            standings[b]["gf"] += gb
+            standings[b]["gd"] += gb - ga
+            if ga > gb:
+                standings[a]["pts"] += 3
+            elif gb > ga:
+                standings[b]["pts"] += 3
+            else:
+                standings[a]["pts"] += 1
+                standings[b]["pts"] += 1
+
+        stakes = classify_stakes(standings)
+
+        # MD3 (last 2 matches per group) with stakes context
+        for f in group_matches[4:]:
+            team_a, team_b, venue, date, time, group = f
+            result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
+                                   stakes_a=stakes.get(team_a),
+                                   stakes_b=stakes.get(team_b),
+                                   md3_variance_boost=True)
+            result["date"] = date
+            result["time"] = time
+            md1_md2.append(result)
+
+        group_predictions.extend(md1_md2)
 
         if not quiet:
-            score_str = f"{result['team_a']} {result['score_a']}-{result['score_b']} {result['team_b']}"
-            xg_a = result.get("expected_goals_a", "?")
-            xg_b = result.get("expected_goals_b", "?")
-            print(f"  Grupo {group}: {score_str} | xG: {xg_a}-{xg_b} | {result['winner']} ({result['confidence']:.0f}%)")
+            for result in md1_md2:
+                score_str = f"{result['team_a']} {result['score_a']}-{result['score_b']} {result['team_b']}"
+                xg_a = result.get("expected_goals_a", "?")
+                xg_b = result.get("expected_goals_b", "?")
+                print(f"  Grupo {g}: {score_str} | xG: {xg_a}-{xg_b} | {result['winner']} ({result['confidence']:.0f}%)")
 
     # ── Group tables ─────────────────────────────────────────────────
     group_results = simulate_group_stage(group_predictions)

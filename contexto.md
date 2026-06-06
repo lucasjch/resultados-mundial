@@ -92,28 +92,28 @@ prode_mundial/
 - `_enrich_teams()`: integra `players.json` en cada equipo con 6 campos extra
 
 ### 3. Predicción (`predictor.py`)
-17 factores ponderados + Poisson (1500 sims): `total_diff = Σ(factor_i × peso_i)`, sin randomness aditivo:
+18 factores ponderados + Poisson (1500 sims): `total_diff = Σ(factor_i × peso_i)`, sin randomness aditivo:
 
 | Factor | Peso | Descripción |
 |--------|:----:|-------------|
-| `team_strength` | 16% | Solo rank + tier (sin form/goals) |
+| `team_strength` | 15% | Solo rank + tier (sin form/goals) |
 | `player_stats` | 11% | Goals + 0.5×Assists ponderado por minutes_2026 |
 | `market_value` | 10% | Diferencia de valor de plantilla (escala log) |
 | `experience` | 6% | intl_caps promedio (Wikipedia) |
-| `home_advantage` | 7% | Localía CONCACAF + fanbase/diaspora; `is_neutral` reduce bonos en KO |
+| `home_advantage` | 6% | Localía CONCACAF + fanbase/diaspora; `is_neutral` reduce bonos en KO |
 | `rest_days` | 6% | Penalidad si <4 días entre partidos (3 pts por día faltante) |
 | `squad_depth` | 6% | Ratio suplentes con >500 min (dinámico desde players.json) |
 | `climate` | 5% | Diferencia térmica, altitud, techo cerrado |
-| `foreign_pct` | 4% | % de jugadores en ligas extranjeras |
+| `foreign_pct` | 3% | % de jugadores en ligas extranjeras |
 | `travel_fatigue` | 4% | Km totales acumulados viajando entre sedes |
 | `history` | 4% | Mejor actuación histórica en Mundiales |
 | `morale` | 4% | `form_streak` del equipo |
 | `trophy_pedigree` | 4% | trophy_count promedio (Wikipedia) |
-| `odds` | 4% | Cuotas DraftKings pre-torneo |
+| `odds` | 3% | Cuotas DraftKings pre-torneo |
 | `height_advantage` | 3% | Altura promedio — ventaja aérea |
 | `club_chemistry` | 3% | Pares del mismo club — coordinación |
 | `travel` | 3% | Distancia base → sede (haversine) |
-| `randomness` | — | Eliminado. Antes: `gauss(0,0.7)×10` |
+| `stakes` | 4% | Presión de 3ª fecha: qualified−1 / contender+1 / eliminated−2 |
 
 Fórmula de goles esperados (cruza ataque vs defensa):
 ```
@@ -135,6 +135,7 @@ Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 - **R16**: emparejamientos fijos (M01-M02, M03-M04, ...) con venues actualizados
 - **QF, SF, 3°, Final**: bracket estándar
 - **Team history tracking**: `compute_team_history()` calcula `last_date`, `last_venue`, `total_travel` por equipo tras grupos; `_update_history()` propaga entre rondas KO acumulando kilómetros y actualizando fechas
+- **Stakes en MD3**: `classify_stakes()` determina qualified/contender/eliminated tras MD2; MD3 se predice con contexto de tabla (Bloque N)
 - Venues corregidos: Dallas→Toronto, Miami→Los Angeles, Seattle→San Francisco, etc. (Bloque A)
 - Conflictos horarios resueltos: Ecuador vs Germany→Houston 20:00, Netherlands vs Sweden→Vancouver 21:00 (Bloque A)
 
@@ -221,6 +222,7 @@ Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 | ✅ **Bloque K** — Ensemble 100 seeds + upset correction + factor odds | Completado |
 | ✅ **Bloque L** — Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | Completado |
 | ✅ **Bloque M** — Eliminar ensemble, score promedio de 1500 sims | Completado |
+| ✅ **Bloque N** — Factor Stakes (presión de 3ª fecha + varianza MD3) | Completado |
 
 ## Configuración LSP
 

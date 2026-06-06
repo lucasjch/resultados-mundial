@@ -12,23 +12,24 @@ _PLAYERS_CACHE = None
 
 # Pesos de cada factor (suman 100%)
 WEIGHTS = {
-    "team_strength": 0.16,
+    "team_strength": 0.15,
     "player_stats": 0.11,
     "market_value": 0.10,
     "experience": 0.06,
-    "home_advantage": 0.07,
+    "home_advantage": 0.06,
     "rest_days": 0.06,
     "squad_depth": 0.06,
     "climate": 0.05,
-    "foreign_pct": 0.04,
+    "foreign_pct": 0.03,
     "travel_fatigue": 0.04,
     "history": 0.04,
     "morale": 0.04,
     "trophy_pedigree": 0.04,
-    "odds": 0.04,
+    "odds": 0.03,
     "height_advantage": 0.03,
     "club_chemistry": 0.03,
     "travel": 0.03,
+    "stakes": 0.04,
 }
 
 _NORM_MAX = {
@@ -375,6 +376,13 @@ def calculate_squad_depth_factor(team_a, team_b):
     b = _depth(team_b)
     return max(-10, min(10, (a - b) * 2))
 
+def calculate_stakes_factor(stakes_a, stakes_b):
+    values = {"qualified": -1, "contender": 1, "eliminated": -2}
+    val_a = values.get(stakes_a, 0)
+    val_b = values.get(stakes_b, 0)
+    return (val_a - val_b) * 4
+
+
 def simulate_match_cards(team_a_data, team_b_data):
     yc_a = poisson_sample(team_a_data.get("yellow_rate", 2.0))
     yc_b = poisson_sample(team_b_data.get("yellow_rate", 2.0))
@@ -391,7 +399,8 @@ def simulate_match_cards(team_a_data, team_b_data):
 
 
 def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None, round_name="Group Stage",
-                  rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0):
+                  rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0,
+                  stakes_a=None, stakes_b=None, md3_variance_boost=False):
     venue = get_venue(venue_name)
     venue_country = venue["country"]
 
@@ -438,11 +447,12 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     trophy_diff = calculate_trophy_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["trophy_pedigree"]
     height_diff = calculate_height_advantage(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["height_advantage"]
     chem_diff = calculate_club_chemistry(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["club_chemistry"]
+    stakes_diff = calculate_stakes_factor(stakes_a, stakes_b) * WEIGHTS["stakes"]
 
     total_diff = (strength_diff + mv_diff + ps_diff + odds_diff + home_diff + climate_diff +
                   travel_diff + history_diff + morale_diff + foreign_diff +
                   rest_diff + depth_diff + fatigue_diff +
-                  exp_diff + trophy_diff + height_diff + chem_diff)
+                  exp_diff + trophy_diff + height_diff + chem_diff + stakes_diff)
 
     deterministic_scaled = total_diff / 25
 
@@ -458,9 +468,20 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     wins_a = 0
     wins_b = 0
     draws = 0
+
+    add_variance = md3_variance_boost and stakes_a and stakes_b and (
+        (stakes_a == "contender" and stakes_b == "contender") or
+        (stakes_a == "contender" or stakes_b == "contender")
+    )
+
     for _ in range(SIMS):
-        g_a = poisson_sample(det_goals_a)
-        g_b = poisson_sample(det_goals_b)
+        if add_variance:
+            noise = random.gauss(0, 0.15)
+            g_a = poisson_sample(max(0.2, min(7.0, det_goals_a + noise)))
+            g_b = poisson_sample(max(0.2, min(7.0, det_goals_b - noise)))
+        else:
+            g_a = poisson_sample(det_goals_a)
+            g_b = poisson_sample(det_goals_b)
         sum_a += g_a
         sum_b += g_b
         if g_a > g_b:
@@ -520,6 +541,9 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         "trophy_pedigree": round(trophy_diff, 1),
         "height_advantage": round(height_diff, 1),
         "club_chemistry": round(chem_diff, 1),
+        "stakes": round(stakes_diff, 1),
+        "stakes_a": stakes_a,
+        "stakes_b": stakes_b,
     }
 
     fp_delta_a, fp_delta_b, yc_a, yc_b, rc_a, rc_b = simulate_match_cards(team_a_data, team_b_data)

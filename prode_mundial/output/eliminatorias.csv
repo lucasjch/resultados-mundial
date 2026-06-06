@@ -1,33 +1,33 @@
 ﻿Ronda,Fecha,Hora,Sede,Equipo A,Equipo B,Goles A,Goles B,Goles Esp. A,Goles Esp. B,Ganador,Prob A(%),Prob Emp(%),Prob B(%),Confianza(%)
-R32,,,Boston,Germany,Czechia,2,1,1.91,0.99,Germany,59.4,21.9,18.7,59.4
-R32,,,New York,France,Scotland,2,1,1.96,0.93,France,62.5,21.9,15.5,62.5
-R32,,,Los Angeles,South Korea,Canada,1,1,1.35,1.35,South Korea,39.1,26.2,34.7,39.1
-R32,,,Monterrey,Netherlands,Morocco,1,1,1.45,1.2,Morocco,42.7,26.0,31.3,42.7
-R32,,,Toronto,Colombia,Croatia,1,1,1.41,1.24,Croatia,42.0,26.5,31.5,42.0
-R32,,,Los Angeles,Spain,Austria,2,1,1.84,0.97,Spain,56.7,24.2,19.1,56.7
-R32,,,San Francisco,USA,Bosnia & Herzegovina,2,1,1.85,1.05,USA,55.3,22.8,21.9,55.3
-R32,,,Seattle,Belgium,Ecuador,1,1,1.51,1.2,Ecuador,44.3,25.5,30.3,44.3
-R32,,,Houston,Brazil,Japan,2,1,1.6,1.17,Brazil,47.1,24.1,28.8,47.1
-R32,,,Dallas,Ivory Coast,Norway,1,2,1.24,1.56,Norway,30.0,23.7,46.3,46.3
-R32,,,Mexico City,Mexico,Sweden,2,1,1.54,1.27,Mexico,43.5,26.6,29.9,43.5
-R32,,,Atlanta,England,Senegal,2,1,1.72,1.01,England,53.4,22.9,23.7,53.4
-R32,,,Miami,Argentina,Uruguay,2,1,1.59,1.13,Argentina,50.2,26.1,23.7,50.2
-R32,,,Dallas,Turkey,Iran,2,1,1.57,1.19,Turkey,45.2,25.1,29.7,45.2
-R32,,,Vancouver,Switzerland,Egypt,1,1,1.38,1.27,Switzerland,37.7,27.7,34.6,37.7
-R32,,,Kansas City,Portugal,Algeria,2,1,1.75,1.04,Portugal,53.9,22.4,23.7,53.9
-R16,,,Philadelphia,South Korea,Brazil,1,2,1.1,1.68,Brazil,24.6,24.5,50.9,50.9
-R16,,,Houston,Germany,Morocco,2,1,1.68,1.08,Germany,49.7,26.1,24.2,49.7
-R16,,,New York,France,Norway,2,1,1.79,1.24,France,48.7,24.1,27.2,48.7
-R16,,,Mexico City,Mexico,England,1,2,1.18,1.64,England,26.5,24.2,49.3,49.3
-R16,,,Dallas,USA,Ecuador,2,1,1.52,1.19,USA,46.8,25.9,27.3,46.8
-R16,,,Seattle,Croatia,Spain,1,2,1.0,1.75,Spain,20.1,23.5,56.5,56.5
-R16,,,Atlanta,Switzerland,Argentina,1,2,1.04,1.7,Argentina,21.1,25.7,53.3,53.3
-R16,,,Vancouver,Portugal,Turkey,2,1,1.73,1.19,Portugal,47.5,24.5,27.9,47.5
-QF,,,Philadelphia,Brazil,Germany,1,2,1.36,1.59,Germany,30.9,25.2,43.9,43.9
-QF,,,Atlanta,France,England,2,1,1.5,1.45,France,39.6,25.6,34.8,39.6
-QF,,,Miami,USA,Spain,1,2,1.15,1.67,Spain,28.1,22.5,49.4,49.4
-QF,,,New York,Argentina,Portugal,1,1,1.44,1.36,Portugal,38.1,25.1,36.9,38.1
-SF,,,Dallas,Germany,France,1,1,1.5,1.5,Germany,36.7,24.8,38.5,38.5
-SF,,,Atlanta,Spain,Portugal,2,1,1.57,1.29,Spain,43.7,23.7,32.5,43.7
-3°,,,Miami,France,Portugal,2,1,1.55,1.4,France,42.4,23.8,33.8,42.4
-Final,,,New York,Germany,Spain,1,1,1.42,1.47,Germany,35.9,26.5,37.6,37.6
+R32,,,Boston,Germany,Czechia,2,1,1.9,0.99,Germany,58.9,21.5,19.7,58.9
+R32,,,New York,France,Scotland,2,1,1.95,0.93,France,61.1,22.5,16.3,61.1
+R32,,,Los Angeles,South Korea,Canada,1,1,1.35,1.35,South Korea,38.5,25.1,36.3,38.5
+R32,,,Monterrey,Netherlands,Morocco,1,1,1.44,1.2,Morocco,42.9,26.8,30.3,42.9
+R32,,,Toronto,Colombia,Croatia,1,1,1.41,1.24,Colombia,41.1,25.0,33.9,41.1
+R32,,,Los Angeles,Spain,Algeria,2,1,1.84,0.93,Spain,58.7,21.6,19.7,58.7
+R32,,,San Francisco,USA,Ecuador,1,1,1.52,1.19,USA,41.9,27.5,30.6,41.9
+R32,,,Seattle,Belgium,Norway,2,1,1.5,1.4,Belgium,41.5,24.5,34.1,41.5
+R32,,,Houston,Brazil,Japan,2,1,1.59,1.17,Brazil,46.7,26.5,26.7,46.7
+R32,,,Dallas,Ivory Coast,Senegal,1,1,1.23,1.32,Senegal,35.7,26.6,37.7,37.7
+R32,,,Mexico City,Mexico,Sweden,2,1,1.54,1.27,Mexico,42.8,25.2,32.0,42.8
+R32,,,Atlanta,England,Austria,2,1,1.82,1.03,England,55.1,22.7,22.1,55.1
+R32,,,Miami,Argentina,Uruguay,2,1,1.58,1.13,Argentina,48.5,25.2,26.3,48.5
+R32,,,Dallas,Turkey,Egypt,1,1,1.47,1.28,Egypt,42.5,24.1,33.3,42.5
+R32,,,Vancouver,Switzerland,Iran,1,1,1.48,1.17,Iran,44.6,25.4,30.0,44.6
+R32,,,Kansas City,Portugal,Australia,2,1,1.85,1.01,Portugal,57.1,23.2,19.7,57.1
+R16,,,Philadelphia,South Korea,Brazil,1,2,1.11,1.67,Brazil,23.7,24.8,51.5,51.5
+R16,,,Houston,Germany,Morocco,2,1,1.68,1.08,Germany,51.8,25.3,22.9,51.8
+R16,,,New York,France,Senegal,2,1,1.75,1.03,France,54.3,23.5,22.2,54.3
+R16,,,Mexico City,Mexico,England,1,2,1.18,1.64,England,28.7,24.2,47.1,47.1
+R16,,,Dallas,USA,Belgium,1,1,1.4,1.4,USA,36.3,27.2,36.5,36.5
+R16,,,Seattle,Colombia,Spain,1,2,1.11,1.67,Spain,25.5,23.1,51.4,51.4
+R16,,,Atlanta,Iran,Argentina,1,2,0.89,1.83,Argentina,19.3,22.1,58.6,58.6
+R16,,,Vancouver,Portugal,Egypt,2,1,1.73,1.06,Portugal,55.5,21.1,23.4,55.5
+QF,,,Philadelphia,Brazil,Germany,1,2,1.36,1.59,Germany,32.7,25.3,42.1,42.1
+QF,,,Atlanta,France,England,1,1,1.49,1.46,France,38.7,24.1,37.3,38.7
+QF,,,Miami,USA,Spain,1,2,1.16,1.66,Spain,25.7,23.2,51.1,51.1
+QF,,,New York,Argentina,Portugal,1,1,1.44,1.36,Portugal,37.9,25.9,36.2,37.9
+SF,,,Dallas,Germany,France,2,2,1.5,1.49,Germany,36.0,27.1,36.9,36.9
+SF,,,Atlanta,Spain,Portugal,2,1,1.56,1.29,Spain,44.3,24.3,31.4,44.3
+3°,,,Miami,France,Portugal,2,1,1.55,1.4,France,41.5,24.9,33.7,41.5
+Final,,,New York,Germany,Spain,1,1,1.43,1.47,Germany,39.3,24.9,35.8,39.3

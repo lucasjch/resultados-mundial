@@ -24,7 +24,7 @@ para completar un prode. Exporta a CSV y JSON.
 prode_mundial/
 ├── scraper.py           # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py              # Datos de equipos, sedes, fixture, bases operativas, haversine, card rates
-├── predictor.py         # Motor de 17 factores ponderados + simulación Poisson
+├── predictor.py         # Motor de 18 factores ponderados + simulación Poisson
 ├── stats_scraper.py     # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py           # Bracket oficial 2026 + H2H tiebreaker + safety net KO
 ├── output.py            # Exportación CSV/JSON
@@ -64,6 +64,7 @@ prode_mundial/
 | —  | **Bloque K**: Ensemble 100 seeds + upset correction + factor odds | ✅ Completado |
 | —  | **Bloque L**: Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | ✅ Completado |
 | —  | **Bloque M**: Eliminar ensemble, score promedio de 1500 sims | ✅ Completado |
+| —  | **Bloque N**: Factor Stakes (presión de 3ª fecha) + varianza MD3 | ✅ Completado |
 
 ## Decisiones Tomadas
 
@@ -157,24 +158,24 @@ prode_mundial/
 
 | Factor          | Peso | Nota |
 |-----------------|:----:|------|
-| team_strength   | 16%  | Solo rank + tier (sin form/goals) |
+| team_strength   | 15%  | Solo rank + tier (sin form/goals) |
 | player_stats    | 11%  | Goals + 0.5×Assists ponderado por minutes_2026 |
 | market_value    | 10%  | Valor de plantilla |
 | experience      | 6%   | intl_caps promedio (Wikipedia) |
-| home_advantage  | 7%   | Incluye fanbase/diaspora; is_neutral reduce bonos |
+| home_advantage  | 6%   | Incluye fanbase/diaspora; is_neutral reduce bonos |
 | rest_days       | 6%   | Penalidad si <4 días entre partidos |
 | squad_depth     | 6%   | Ratio suplentes con >500 min (dinámico desde players.json) |
 | climate         | 5%   | Temperatura + altitud del estadio |
-| foreign_pct     | 4%   | % de jugadores en ligas extranjeras |
+| foreign_pct     | 3%   | % de jugadores en ligas extranjeras |
 | travel_fatigue  | 4%   | Km totales acumulados viajando |
 | history         | 4%   | Historial en Mundiales |
 | morale          | 4%   | Racha de resultados reciente |
 | trophy_pedigree | 4%   | trophy_count promedio (Wikipedia) |
-| odds            | 4%   | Cuotas DraftKings pre-torneo |
+| odds            | 3%   | Cuotas DraftKings pre-torneo |
 | height_advantage| 3%   | Altura promedio — ventaja aérea |
 | club_chemistry  | 3%   | Pares del mismo club — coordinación |
 | travel          | 3%   | Distancia base camp → venue |
-| randomness      | —    | Ya no se usa. Antes: `gauss(0,0.7)×10` |
+| stakes          | 4%   | Presión de 3ª fecha: qualified−1 / contender+1 / eliminated−2 |
 
 ### Fórmula de goles esperados
 
@@ -407,6 +408,47 @@ Menú interactivo con 5 opciones:
 3. **Ver predicciones** — submenú interactivo (display.py)
 4. **Optimizador** — `python prode_mundial/optimizer.py`
 5. **Salir**
+
+## Bloque N: Factor Stakes (Presión de 3ª Fecha) — Completo
+
+### Problema
+La 3ª fecha de fase de grupos es el momento decisivo donde se define la clasificación.
+El modelo original trataba todos los partidos de grupos igual, ignorando el contexto
+de la tabla. Esto perdía dinámicas clave: equipos clasificados que rotan, eliminados
+que bajan los brazos, y contendientes que sobre-renden en partidos decisivos.
+
+### Solución aplicada
+
+**1. `data.py` — `get_matchday(fixture_index)`**
+Helper que identifica si un fixture es MD1, MD2 o MD3 según su posición (0-1→1, 2-3→2, 4-5→3).
+
+**2. `bracket.py` — `classify_stakes(standings)` + loop grupo por grupo**
+- `run_full_simulation()` reestructurada: procesa cada grupo por separado
+- Para cada grupo: MD1 → MD2 → calcular tabla parcial → clasificar stakes → MD3 con contexto
+- `classify_stakes()`: clasificación matemática basada en pts + GD después de 2 fechas:
+  - `qualified`: 6+ pts y 2° con ≤3 pts (no puede ser alcanzado)
+  - `eliminated`: incluso ganando no alcanza el 2° puesto
+  - `contender`: todo lo demás (sigue en la lucha)
+
+**3. `predictor.py` — `calculate_stakes_factor()` + varianza MD3**
+- Nuevo factor con peso 4% (redistribuido: team_strength 16→15, home_adv 7→6, foreign_pct 4→3, odds 4→3)
+- Valores por equipo: qualified=−1, contender=+1, eliminated=−2. Diff ×4 (rango −12 a +12)
+- Varianza extra: `gauss(0, 0.15)` en λ cuando al menos un equipo es `contender` en MD3
+
+### Efecto
+
+| Combinación stakes | Factor diff | Varianza | Efecto esperado |
+|---|---|---|---|
+| contender vs qualified | +8 contender | Sí | Underdog empuja, posible sorpresa |
+| contender vs eliminated | +12 contender | Sí | Contender arrasa |
+| contender vs contender | 0 | Sí | Máxima tensión, más impredecible |
+| qualified vs qualified | 0 | No | Ambos relajados |
+| qualified vs eliminated | +4 qualified | No | Favorito gana sin arrasar |
+
+### Verificación
+- ✅ 24/24 MD3 matches tienen stakes poblados
+- ✅ 48/48 MD1/MD2 matches tienen stakes=None (sin cambios)
+- ✅ Compatibilidad hacia atrás: KO rounds sin stakes
 
 ## Comandos Útiles
 

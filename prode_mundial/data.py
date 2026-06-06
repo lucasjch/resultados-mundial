@@ -1130,6 +1130,16 @@ def get_group_teams(group):
 def get_group_fixtures(group):
     return [f for f in FIXTURES if f[5] == group]
 
+def get_matchday(fixture_index, fixtures=None):
+    """Return 1, 2, or 3 indicating which matchday (jornada) within the group."""
+    if fixtures is None:
+        fixtures = FIXTURES
+    f = fixtures[fixture_index]
+    group = f[5]
+    group_indices = [i for i, gf in enumerate(fixtures) if gf[5] == group]
+    pos = group_indices.index(fixture_index)
+    return pos // 2 + 1
+
 # ── Enrich teams with scraped player data ──────────────────────────────
 
 _FOREIGN_PCT_ESTIMATES = {

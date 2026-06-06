@@ -2,78 +2,78 @@
 
 FASE DE GRUPOS
 Grupo,Fecha,Hora,Sede,Local,Visitante,Resultado,Goles Esp. Local,Goles Esp. Visit.,Ganador,Prob Local(%),Prob Emp(%),Prob Visit(%),Confianza
-A,2026-06-11,21:00,Mexico City,Mexico,South Africa,2-1,1.55,0.98,Mexico,50.3,25.6,24.1,50%
-A,2026-06-12,04:00,Guadalajara,South Korea,Czechia,1-1,1.39,1.26,Empate,38.5,25.3,36.1,25%
-A,2026-06-17,21:00,Monterrey,South Korea,South Africa,1-1,1.38,1.07,Empate,42.6,27.3,30.1,27%
-A,2026-06-18,21:00,Guadalajara,Mexico,Czechia,2-1,1.56,1.15,Mexico,47.9,24.5,27.7,48%
-A,2026-06-23,21:00,Mexico City,Mexico,South Korea,1-1,1.47,1.19,Empate,40.7,28.7,30.6,29%
-A,2026-06-23,21:00,Toronto,Czechia,South Africa,1-1,1.34,1.16,Empate,41.5,26.6,31.9,27%
-B,2026-06-12,21:00,Toronto,Canada,Bosnia & Herzegovina,2-1,1.68,1.19,Canada,49.3,24.8,25.9,49%
-B,2026-06-13,21:00,San Francisco,Qatar,Switzerland,1-2,1.08,1.74,Switzerland,24.9,22.9,52.2,52%
-B,2026-06-18,21:00,Vancouver,Canada,Qatar,2-1,1.75,1.12,Canada,51.3,22.9,25.9,51%
-B,2026-06-19,21:00,New York,Switzerland,Bosnia & Herzegovina,2-1,1.67,1.15,Switzerland,47.3,25.9,26.9,47%
-B,2026-06-23,23:00,Vancouver,Switzerland,Canada,1-1,1.39,1.36,Empate,37.4,24.7,37.9,25%
-B,2026-06-24,21:00,Toronto,Bosnia & Herzegovina,Qatar,2-1,1.51,1.39,Bosnia & Herzegovina,40.8,26.0,33.2,41%
-C,2026-06-13,23:00,New York,Brazil,Morocco,1-1,1.53,1.18,Empate,43.8,27.1,29.1,27%
-C,2026-06-14,02:00,Boston,Haiti,Scotland,1-2,0.96,1.67,Scotland,21.6,24.5,53.9,54%
-C,2026-06-19,23:00,Boston,Scotland,Morocco,1-1,1.04,1.53,Empate,27.3,26.3,46.4,26%
-C,2026-06-20,18:00,Miami,Brazil,Haiti,2-1,2.24,0.68,Brazil,73.1,18.1,8.8,73%
-C,2026-06-24,23:00,Miami,Scotland,Brazil,1-2,0.99,1.82,Brazil,19.3,21.9,58.8,59%
-C,2026-06-24,21:00,Atlanta,Morocco,Haiti,2-1,1.93,0.73,Morocco,64.9,20.9,14.1,65%
-D,2026-06-13,03:00,Los Angeles,USA,Paraguay,2-1,1.62,1.01,USA,50.1,24.1,25.8,50%
-D,2026-06-14,05:00,Vancouver,Australia,Turkey,1-2,1.23,1.58,Turkey,30.5,25.1,44.4,44%
-D,2026-06-19,19:00,Kansas City,Paraguay,Australia,1-1,1.25,1.3,Empate,34.5,27.1,38.3,27%
-D,2026-06-20,18:00,Dallas,USA,Turkey,2-1,1.53,1.32,USA,41.7,25.1,33.2,42%
-D,2026-06-25,18:00,Seattle,USA,Australia,2-1,1.67,1.11,USA,50.0,23.5,26.5,50%
-D,2026-06-25,21:00,Miami,Turkey,Paraguay,2-1,1.53,1.14,Turkey,46.9,24.9,28.2,47%
-E,2026-06-14,18:00,Houston,Germany,Curacao,3-1,2.53,0.55,Germany,80.3,13.2,6.5,80%
-E,2026-06-15,01:00,Atlanta,Ivory Coast,Ecuador,1-1,1.27,1.33,Empate,35.3,23.5,41.1,24%
-E,2026-06-20,20:00,Houston,Ecuador,Germany,1-2,1.01,1.83,Germany,19.7,23.1,57.1,57%
-E,2026-06-21,15:00,Miami,Curacao,Ivory Coast,1-2,0.82,1.9,Ivory Coast,14.6,22.5,62.9,63%
-E,2026-06-25,21:00,New York,Ecuador,Curacao,2-1,1.93,0.79,Ecuador,64.4,21.8,13.8,64%
-E,2026-06-26,18:00,Seattle,Germany,Ivory Coast,2-1,1.86,0.99,Germany,58.3,20.3,21.4,58%
-F,2026-06-14,21:00,Dallas,Netherlands,Japan,2-1,1.51,1.2,Netherlands,46.1,24.1,29.8,46%
-F,2026-06-15,04:00,Seattle,Sweden,Tunisia,2-1,1.6,1.11,Sweden,48.2,24.5,27.3,48%
-F,2026-06-20,15:00,Dallas,Japan,Sweden,1-1,1.43,1.32,Empate,39.5,26.9,33.7,27%
-F,2026-06-21,15:00,Dallas,Netherlands,Tunisia,2-1,1.82,0.9,Netherlands,58.9,23.7,17.5,59%
-F,2026-06-25,21:00,Vancouver,Netherlands,Sweden,2-1,1.65,1.22,Netherlands,46.7,26.1,27.1,47%
-F,2026-06-26,18:00,Los Angeles,Japan,Tunisia,2-1,1.59,0.99,Japan,51.7,24.2,24.1,52%
-G,2026-06-15,15:00,Seattle,Belgium,Egypt,2-1,1.54,1.17,Belgium,45.9,25.7,28.3,46%
-G,2026-06-15,15:00,Vancouver,Iran,New Zealand,2-1,1.51,1.19,Iran,45.2,25.0,29.8,45%
-G,2026-06-21,22:00,Seattle,Belgium,Iran,2-1,1.64,1.08,Belgium,47.5,27.5,25.0,48%
-G,2026-06-21,22:00,Vancouver,Egypt,New Zealand,2-1,1.62,1.1,Egypt,49.5,25.6,24.9,50%
-G,2026-06-26,22:00,Seattle,Egypt,Iran,1-1,1.4,1.2,Empate,41.5,26.3,32.3,26%
-G,2026-06-26,22:00,Vancouver,Belgium,New Zealand,2-1,1.89,0.98,Belgium,58.7,21.1,20.2,59%
-H,2026-06-15,12:00,Atlanta,Spain,Cape Verde,2-1,2.24,0.62,Spain,74.0,17.1,8.9,74%
-H,2026-06-16,15:00,Houston,Uruguay,Saudi Arabia,2-1,1.77,0.93,Uruguay,55.9,22.9,21.2,56%
-H,2026-06-21,12:00,Atlanta,Spain,Saudi Arabia,2-1,2.15,0.71,Spain,70.9,17.8,11.3,71%
-H,2026-06-21,15:00,Houston,Uruguay,Cape Verde,2-1,1.82,0.84,Uruguay,59.3,22.7,18.1,59%
-H,2026-06-26,21:00,Guadalajara,Uruguay,Spain,1-2,1.09,1.69,Spain,25.4,23.5,51.1,51%
-H,2026-06-26,21:00,Houston,Cape Verde,Saudi Arabia,1-1,1.2,1.35,Empate,34.6,26.1,39.3,26%
-I,2026-06-16,15:00,Kansas City,France,Iraq,2-1,2.2,0.72,France,69.2,20.8,10.0,69%
-I,2026-06-16,18:00,Los Angeles,Norway,Senegal,1-1,1.49,1.26,Empate,39.7,26.7,33.6,27%
-I,2026-06-22,15:00,Los Angeles,France,Norway,2-1,1.79,1.24,France,49.0,23.4,27.6,49%
-I,2026-06-22,15:00,Kansas City,Senegal,Iraq,2-1,1.64,0.91,Senegal,53.7,23.1,23.2,54%
-I,2026-06-26,18:00,Kansas City,France,Senegal,2-1,1.76,1.03,France,53.3,24.1,22.7,53%
-I,2026-06-26,20:00,San Francisco,Norway,Iraq,2-1,1.88,0.92,Norway,60.2,21.8,18.0,60%
-J,2026-06-16,21:00,Dallas,Argentina,Jordan,2-1,2.09,0.67,Argentina,71.3,18.3,10.5,71%
-J,2026-06-17,15:00,Kansas City,Algeria,Austria,1-1,1.32,1.33,Empate,35.8,26.3,37.9,26%
-J,2026-06-22,17:00,Kansas City,Argentina,Algeria,2-1,1.74,0.96,Argentina,55.9,24.9,19.2,56%
-J,2026-06-22,21:00,Dallas,Austria,Jordan,2-1,1.64,0.99,Austria,51.7,26.1,22.2,52%
-J,2026-06-26,21:00,Philadelphia,Argentina,Austria,2-1,1.77,0.99,Argentina,58.3,21.6,20.1,58%
-J,2026-06-27,15:00,Kansas City,Jordan,Algeria,1-2,0.98,1.6,Algeria,21.1,26.1,52.9,53%
-K,2026-06-17,15:00,Miami,Portugal,Uzbekistan,2-1,2.04,0.83,Portugal,63.1,21.7,15.2,63%
-K,2026-06-17,18:00,Miami,DR Congo,Colombia,1-2,0.92,1.73,Colombia,20.7,24.8,54.5,54%
-K,2026-06-23,15:00,Miami,Portugal,DR Congo,2-1,2.0,0.81,Portugal,67.3,19.2,13.5,67%
-K,2026-06-24,15:00,Miami,Colombia,Uzbekistan,2-1,1.76,0.94,Colombia,58.4,21.7,19.9,58%
-K,2026-06-27,17:00,Miami,Colombia,Portugal,1-2,1.22,1.6,Portugal,27.9,25.0,47.1,47%
-K,2026-06-27,19:30,Atlanta,DR Congo,Uzbekistan,1-1,1.27,1.28,Empate,35.8,28.1,36.1,28%
-L,2026-06-15,18:00,New York,England,Panama,2-1,2.06,0.8,England,67.6,18.6,13.8,68%
-L,2026-06-15,18:00,Philadelphia,Croatia,Ghana,2-1,1.57,1.09,Croatia,49.5,23.7,26.9,50%
-L,2026-06-21,15:00,New York,England,Croatia,2-1,1.73,1.06,England,54.9,23.4,21.7,55%
-L,2026-06-21,15:00,Philadelphia,Ghana,Panama,1-1,1.37,1.28,Empate,37.9,27.0,35.1,27%
-L,2026-06-27,15:00,New York,England,Ghana,2-1,2.03,0.87,England,64.1,20.6,15.3,64%
-L,2026-06-27,17:00,Philadelphia,Croatia,Panama,2-1,1.6,1.01,Croatia,51.5,25.3,23.1,52%
+A,2026-06-11,21:00,Mexico City,Mexico,South Africa,2-1,1.54,0.99,Mexico,50.3,26.0,23.7,50%
+A,2026-06-12,04:00,Guadalajara,South Korea,Czechia,1-1,1.39,1.26,Empate,38.4,25.3,36.3,25%
+A,2026-06-17,21:00,Monterrey,South Korea,South Africa,1-1,1.38,1.07,Empate,42.3,27.4,30.3,27%
+A,2026-06-18,21:00,Guadalajara,Mexico,Czechia,2-1,1.55,1.16,Mexico,47.4,24.9,27.7,47%
+A,2026-06-23,21:00,Mexico City,Mexico,South Korea,1-1,1.44,1.21,Empate,40.9,27.1,32.0,27%
+A,2026-06-23,21:00,Toronto,Czechia,South Africa,1-1,1.34,1.16,Empate,38.7,25.3,36.1,25%
+B,2026-06-12,21:00,Toronto,Canada,Bosnia & Herzegovina,2-1,1.67,1.19,Canada,47.7,25.2,27.1,48%
+B,2026-06-13,21:00,San Francisco,Qatar,Switzerland,1-2,1.09,1.74,Switzerland,23.1,24.1,52.7,53%
+B,2026-06-18,21:00,Vancouver,Canada,Qatar,2-1,1.75,1.13,Canada,51.3,24.3,24.4,51%
+B,2026-06-19,21:00,New York,Switzerland,Bosnia & Herzegovina,2-1,1.67,1.15,Switzerland,47.6,24.8,27.6,48%
+B,2026-06-23,23:00,Vancouver,Switzerland,Canada,1-1,1.39,1.36,Empate,37.5,26.9,35.6,27%
+B,2026-06-24,21:00,Toronto,Bosnia & Herzegovina,Qatar,1-1,1.51,1.39,Empate,39.1,25.5,35.5,26%
+C,2026-06-13,23:00,New York,Brazil,Morocco,1-1,1.52,1.18,Empate,44.8,24.2,31.0,24%
+C,2026-06-14,02:00,Boston,Haiti,Scotland,1-2,0.96,1.67,Scotland,21.9,24.4,53.7,54%
+C,2026-06-19,23:00,Boston,Scotland,Morocco,1-2,1.05,1.53,Morocco,25.5,26.8,47.7,48%
+C,2026-06-20,18:00,Miami,Brazil,Haiti,2-1,2.23,0.69,Brazil,73.1,17.0,9.9,73%
+C,2026-06-24,23:00,Miami,Scotland,Brazil,1-2,0.99,1.81,Brazil,21.1,22.4,56.5,56%
+C,2026-06-24,21:00,Atlanta,Morocco,Haiti,2-1,1.96,0.72,Morocco,66.0,21.2,12.8,66%
+D,2026-06-13,03:00,Los Angeles,USA,Paraguay,2-1,1.61,1.02,USA,51.3,24.4,24.3,51%
+D,2026-06-14,05:00,Vancouver,Australia,Turkey,1-2,1.23,1.58,Turkey,29.2,25.0,45.8,46%
+D,2026-06-19,19:00,Kansas City,Paraguay,Australia,1-1,1.25,1.3,Empate,33.9,27.4,38.7,27%
+D,2026-06-20,18:00,Dallas,USA,Turkey,2-1,1.53,1.32,USA,42.8,24.2,33.0,43%
+D,2026-06-25,18:00,Seattle,USA,Australia,2-1,1.64,1.13,USA,50.0,24.1,25.9,50%
+D,2026-06-25,21:00,Miami,Turkey,Paraguay,2-1,1.52,1.14,Turkey,45.7,25.6,28.7,46%
+E,2026-06-14,18:00,Houston,Germany,Curacao,3-1,2.52,0.56,Germany,81.1,12.0,6.9,81%
+E,2026-06-15,01:00,Atlanta,Ivory Coast,Ecuador,1-1,1.27,1.33,Empate,35.3,27.1,37.7,27%
+E,2026-06-20,20:00,Houston,Ecuador,Germany,1-2,1.02,1.83,Germany,18.4,23.8,57.8,58%
+E,2026-06-21,15:00,Miami,Curacao,Ivory Coast,1-2,0.83,1.89,Ivory Coast,15.1,23.7,61.2,61%
+E,2026-06-25,21:00,New York,Ecuador,Curacao,2-1,1.96,0.78,Ecuador,63.4,21.6,15.0,63%
+E,2026-06-26,18:00,Seattle,Germany,Ivory Coast,2-1,1.85,0.99,Germany,58.6,21.1,20.3,59%
+F,2026-06-14,21:00,Dallas,Netherlands,Japan,2-1,1.51,1.2,Netherlands,45.3,24.6,30.1,45%
+F,2026-06-15,04:00,Seattle,Sweden,Tunisia,2-1,1.6,1.11,Sweden,46.5,26.2,27.3,46%
+F,2026-06-20,15:00,Dallas,Japan,Sweden,1-1,1.43,1.32,Empate,39.4,25.7,34.9,26%
+F,2026-06-21,15:00,Dallas,Netherlands,Tunisia,2-1,1.81,0.9,Netherlands,57.3,22.7,19.9,57%
+F,2026-06-25,21:00,Vancouver,Netherlands,Sweden,2-1,1.65,1.22,Netherlands,45.8,24.0,30.2,46%
+F,2026-06-26,18:00,Los Angeles,Japan,Tunisia,2-1,1.62,0.97,Japan,53.8,25.3,20.9,54%
+G,2026-06-15,15:00,Seattle,Belgium,Egypt,2-1,1.54,1.17,Belgium,44.5,27.3,28.2,44%
+G,2026-06-15,15:00,Vancouver,Iran,New Zealand,1-1,1.51,1.2,Empate,43.5,23.8,32.7,24%
+G,2026-06-21,22:00,Seattle,Belgium,Iran,2-1,1.64,1.08,Belgium,52.2,21.5,26.3,52%
+G,2026-06-21,22:00,Vancouver,Egypt,New Zealand,2-1,1.61,1.1,Egypt,48.1,26.2,25.7,48%
+G,2026-06-26,22:00,Seattle,Egypt,Iran,1-1,1.4,1.2,Empate,41.6,24.4,34.0,24%
+G,2026-06-26,22:00,Vancouver,Belgium,New Zealand,2-1,1.86,1.0,Belgium,57.9,20.8,21.3,58%
+H,2026-06-15,12:00,Atlanta,Spain,Cape Verde,2-1,2.22,0.62,Spain,74.5,16.7,8.9,74%
+H,2026-06-16,15:00,Houston,Uruguay,Saudi Arabia,2-1,1.76,0.93,Uruguay,57.3,23.9,18.9,57%
+H,2026-06-21,12:00,Atlanta,Spain,Saudi Arabia,2-1,2.13,0.72,Spain,71.1,19.0,9.9,71%
+H,2026-06-21,15:00,Houston,Uruguay,Cape Verde,2-1,1.81,0.84,Uruguay,61.1,23.5,15.3,61%
+H,2026-06-26,21:00,Guadalajara,Uruguay,Spain,1-2,1.1,1.68,Spain,26.3,22.6,51.1,51%
+H,2026-06-26,21:00,Houston,Cape Verde,Saudi Arabia,1-1,1.2,1.35,Empate,33.5,26.3,40.1,26%
+I,2026-06-16,15:00,Kansas City,France,Iraq,2-1,2.18,0.72,France,73.7,16.5,9.7,74%
+I,2026-06-16,18:00,Los Angeles,Norway,Senegal,1-1,1.49,1.26,Empate,42.4,24.0,33.6,24%
+I,2026-06-22,15:00,Los Angeles,France,Norway,2-1,1.78,1.24,France,49.5,22.8,27.7,50%
+I,2026-06-22,15:00,Kansas City,Senegal,Iraq,2-1,1.63,0.91,Senegal,54.3,25.4,20.3,54%
+I,2026-06-26,18:00,Kansas City,France,Senegal,2-1,1.75,1.03,France,52.7,23.5,23.8,53%
+I,2026-06-26,20:00,San Francisco,Norway,Iraq,2-1,1.91,0.91,Norway,61.0,20.9,18.1,61%
+J,2026-06-16,21:00,Dallas,Argentina,Jordan,2-1,2.07,0.68,Argentina,71.9,18.9,9.2,72%
+J,2026-06-17,15:00,Kansas City,Algeria,Austria,1-1,1.32,1.33,Empate,37.5,26.1,36.4,26%
+J,2026-06-22,17:00,Kansas City,Argentina,Algeria,2-1,1.73,0.96,Argentina,55.5,24.0,20.5,56%
+J,2026-06-22,21:00,Dallas,Austria,Jordan,2-1,1.64,0.99,Austria,53.3,24.0,22.7,53%
+J,2026-06-26,21:00,Philadelphia,Argentina,Austria,2-1,1.76,0.99,Argentina,56.1,22.4,21.5,56%
+J,2026-06-27,15:00,Kansas City,Jordan,Algeria,1-2,0.96,1.63,Algeria,21.0,22.9,56.1,56%
+K,2026-06-17,15:00,Miami,Portugal,Uzbekistan,2-1,2.03,0.84,Portugal,63.3,20.3,16.4,63%
+K,2026-06-17,18:00,Miami,DR Congo,Colombia,1-2,0.92,1.72,Colombia,18.4,25.3,56.3,56%
+K,2026-06-23,15:00,Miami,Portugal,DR Congo,2-1,1.99,0.82,Portugal,64.5,19.5,16.1,64%
+K,2026-06-24,15:00,Miami,Colombia,Uzbekistan,2-1,1.76,0.95,Colombia,55.3,23.6,21.1,55%
+K,2026-06-27,17:00,Miami,Colombia,Portugal,1-2,1.22,1.59,Portugal,29.0,23.9,47.1,47%
+K,2026-06-27,19:30,Atlanta,DR Congo,Uzbekistan,1-1,1.27,1.28,Empate,35.3,29.5,35.2,30%
+L,2026-06-15,18:00,New York,England,Panama,2-1,2.05,0.8,England,66.3,19.8,13.9,66%
+L,2026-06-15,18:00,Philadelphia,Croatia,Ghana,2-1,1.57,1.1,Croatia,48.3,25.2,26.5,48%
+L,2026-06-21,15:00,New York,England,Croatia,2-1,1.72,1.06,England,55.3,22.9,21.8,55%
+L,2026-06-21,15:00,Philadelphia,Ghana,Panama,1-1,1.37,1.27,Empate,39.5,25.9,34.7,26%
+L,2026-06-27,15:00,New York,England,Ghana,2-1,2.0,0.89,England,64.1,20.1,15.7,64%
+L,2026-06-27,17:00,Philadelphia,Croatia,Panama,2-1,1.6,1.02,Croatia,50.7,25.7,23.5,51%
 
 TABLA DE POSICIONES
 Grupo,Pos,Equipo,Pts,PG,PE,PP,GF,GC,DG
@@ -83,11 +83,11 @@ A,3,Czechia,2,0,2,1,3,4,-1
 A,4,South Africa,2,0,2,1,3,4,-1
 B,1,Switzerland,7,2,1,0,5,3,2
 B,2,Canada,7,2,1,0,5,3,2
-B,3,Bosnia & Herzegovina,3,1,0,2,4,5,-1
-B,4,Qatar,0,0,0,3,3,6,-3
+B,3,Qatar,1,0,1,2,3,5,-2
+B,4,Bosnia & Herzegovina,1,0,1,2,3,5,-2
 C,1,Brazil,7,2,1,0,5,3,2
-C,2,Morocco,5,1,2,0,4,3,1
-C,3,Scotland,4,1,1,1,4,4,0
+C,2,Morocco,7,2,1,0,5,3,2
+C,3,Scotland,3,1,0,2,4,5,-1
 C,4,Haiti,0,0,0,3,3,6,-3
 D,1,USA,9,3,0,0,6,3,3
 D,2,Turkey,6,2,0,1,5,4,1
@@ -102,64 +102,64 @@ F,2,Japan,4,1,1,1,4,4,0
 F,3,Sweden,4,1,1,1,4,4,0
 F,4,Tunisia,0,0,0,3,3,6,-3
 G,1,Belgium,9,3,0,0,6,3,3
-G,2,Iran,4,1,1,1,4,4,0
-G,3,Egypt,4,1,1,1,4,4,0
-G,4,New Zealand,0,0,0,3,3,6,-3
+G,2,Egypt,4,1,1,1,4,4,0
+G,3,Iran,2,0,2,1,3,4,-1
+G,4,New Zealand,1,0,1,2,3,5,-2
 H,1,Spain,9,3,0,0,6,3,3
 H,2,Uruguay,6,2,0,1,5,4,1
-H,3,Saudi Arabia,1,0,1,2,3,5,-2
-H,4,Cape Verde,1,0,1,2,3,5,-2
+H,3,Cape Verde,1,0,1,2,3,5,-2
+H,4,Saudi Arabia,1,0,1,2,3,5,-2
 I,1,France,9,3,0,0,6,3,3
-I,2,Norway,4,1,1,1,4,4,0
-I,3,Senegal,4,1,1,1,4,4,0
+I,2,Senegal,4,1,1,1,4,4,0
+I,3,Norway,4,1,1,1,4,4,0
 I,4,Iraq,0,0,0,3,3,6,-3
 J,1,Argentina,9,3,0,0,6,3,3
-J,2,Austria,4,1,1,1,4,4,0
-J,3,Algeria,4,1,1,1,4,4,0
+J,2,Algeria,4,1,1,1,4,4,0
+J,3,Austria,4,1,1,1,4,4,0
 J,4,Jordan,0,0,0,3,3,6,-3
 K,1,Portugal,9,3,0,0,6,3,3
 K,2,Colombia,6,2,0,1,5,4,1
-K,3,DR Congo,1,0,1,2,3,5,-2
-K,4,Uzbekistan,1,0,1,2,3,5,-2
+K,3,Uzbekistan,1,0,1,2,3,5,-2
+K,4,DR Congo,1,0,1,2,3,5,-2
 L,1,England,9,3,0,0,6,3,3
 L,2,Croatia,6,2,0,1,5,4,1
-L,3,Panama,1,0,1,2,3,5,-2
-L,4,Ghana,1,0,1,2,3,5,-2
+L,3,Ghana,1,0,1,2,3,5,-2
+L,4,Panama,1,0,1,2,3,5,-2
 
 ELIMINATORIAS
 Ronda,Fecha,Sede,Partido,Resultado,Goles Esp. A,Goles Esp. B,Ganador,Prob A(%),Prob Emp(%),Prob B(%),Confianza
-R32,,Boston,Germany vs Czechia,2-1,1.91,0.99,Germany,59.4,21.9,18.7,59%
-R32,,New York,France vs Scotland,2-1,1.96,0.93,France,62.5,21.9,15.5,62%
-R32,,Los Angeles,South Korea vs Canada,1-1,1.35,1.35,South Korea,39.1,26.2,34.7,39%
-R32,,Monterrey,Netherlands vs Morocco,1-1,1.45,1.2,Morocco,42.7,26.0,31.3,43%
-R32,,Toronto,Colombia vs Croatia,1-1,1.41,1.24,Croatia,42.0,26.5,31.5,42%
-R32,,Los Angeles,Spain vs Austria,2-1,1.84,0.97,Spain,56.7,24.2,19.1,57%
-R32,,San Francisco,USA vs Bosnia & Herzegovina,2-1,1.85,1.05,USA,55.3,22.8,21.9,55%
-R32,,Seattle,Belgium vs Ecuador,1-1,1.51,1.2,Ecuador,44.3,25.5,30.3,44%
-R32,,Houston,Brazil vs Japan,2-1,1.6,1.17,Brazil,47.1,24.1,28.8,47%
-R32,,Dallas,Ivory Coast vs Norway,1-2,1.24,1.56,Norway,30.0,23.7,46.3,46%
-R32,,Mexico City,Mexico vs Sweden,2-1,1.54,1.27,Mexico,43.5,26.6,29.9,44%
-R32,,Atlanta,England vs Senegal,2-1,1.72,1.01,England,53.4,22.9,23.7,53%
-R32,,Miami,Argentina vs Uruguay,2-1,1.59,1.13,Argentina,50.2,26.1,23.7,50%
-R32,,Dallas,Turkey vs Iran,2-1,1.57,1.19,Turkey,45.2,25.1,29.7,45%
-R32,,Vancouver,Switzerland vs Egypt,1-1,1.38,1.27,Switzerland,37.7,27.7,34.6,38%
-R32,,Kansas City,Portugal vs Algeria,2-1,1.75,1.04,Portugal,53.9,22.4,23.7,54%
-R16,,Philadelphia,South Korea vs Brazil,1-2,1.1,1.68,Brazil,24.6,24.5,50.9,51%
-R16,,Houston,Germany vs Morocco,2-1,1.68,1.08,Germany,49.7,26.1,24.2,50%
-R16,,New York,France vs Norway,2-1,1.79,1.24,France,48.7,24.1,27.2,49%
-R16,,Mexico City,Mexico vs England,1-2,1.18,1.64,England,26.5,24.2,49.3,49%
-R16,,Dallas,USA vs Ecuador,2-1,1.52,1.19,USA,46.8,25.9,27.3,47%
-R16,,Seattle,Croatia vs Spain,1-2,1.0,1.75,Spain,20.1,23.5,56.5,56%
-R16,,Atlanta,Switzerland vs Argentina,1-2,1.04,1.7,Argentina,21.1,25.7,53.3,53%
-R16,,Vancouver,Portugal vs Turkey,2-1,1.73,1.19,Portugal,47.5,24.5,27.9,48%
-QF,,Philadelphia,Brazil vs Germany,1-2,1.36,1.59,Germany,30.9,25.2,43.9,44%
-QF,,Atlanta,France vs England,2-1,1.5,1.45,France,39.6,25.6,34.8,40%
-QF,,Miami,USA vs Spain,1-2,1.15,1.67,Spain,28.1,22.5,49.4,49%
-QF,,New York,Argentina vs Portugal,1-1,1.44,1.36,Portugal,38.1,25.1,36.9,38%
-SF,,Dallas,Germany vs France,1-1,1.5,1.5,Germany,36.7,24.8,38.5,38%
-SF,,Atlanta,Spain vs Portugal,2-1,1.57,1.29,Spain,43.7,23.7,32.5,44%
-3°,,Miami,France vs Portugal,2-1,1.55,1.4,France,42.4,23.8,33.8,42%
-Final,,New York,Germany vs Spain,1-1,1.42,1.47,Germany,35.9,26.5,37.6,38%
+R32,,Boston,Germany vs Czechia,2-1,1.9,0.99,Germany,58.9,21.5,19.7,59%
+R32,,New York,France vs Scotland,2-1,1.95,0.93,France,61.1,22.5,16.3,61%
+R32,,Los Angeles,South Korea vs Canada,1-1,1.35,1.35,South Korea,38.5,25.1,36.3,38%
+R32,,Monterrey,Netherlands vs Morocco,1-1,1.44,1.2,Morocco,42.9,26.8,30.3,43%
+R32,,Toronto,Colombia vs Croatia,1-1,1.41,1.24,Colombia,41.1,25.0,33.9,41%
+R32,,Los Angeles,Spain vs Algeria,2-1,1.84,0.93,Spain,58.7,21.6,19.7,59%
+R32,,San Francisco,USA vs Ecuador,1-1,1.52,1.19,USA,41.9,27.5,30.6,42%
+R32,,Seattle,Belgium vs Norway,2-1,1.5,1.4,Belgium,41.5,24.5,34.1,42%
+R32,,Houston,Brazil vs Japan,2-1,1.59,1.17,Brazil,46.7,26.5,26.7,47%
+R32,,Dallas,Ivory Coast vs Senegal,1-1,1.23,1.32,Senegal,35.7,26.6,37.7,38%
+R32,,Mexico City,Mexico vs Sweden,2-1,1.54,1.27,Mexico,42.8,25.2,32.0,43%
+R32,,Atlanta,England vs Austria,2-1,1.82,1.03,England,55.1,22.7,22.1,55%
+R32,,Miami,Argentina vs Uruguay,2-1,1.58,1.13,Argentina,48.5,25.2,26.3,48%
+R32,,Dallas,Turkey vs Egypt,1-1,1.47,1.28,Egypt,42.5,24.1,33.3,42%
+R32,,Vancouver,Switzerland vs Iran,1-1,1.48,1.17,Iran,44.6,25.4,30.0,45%
+R32,,Kansas City,Portugal vs Australia,2-1,1.85,1.01,Portugal,57.1,23.2,19.7,57%
+R16,,Philadelphia,South Korea vs Brazil,1-2,1.11,1.67,Brazil,23.7,24.8,51.5,52%
+R16,,Houston,Germany vs Morocco,2-1,1.68,1.08,Germany,51.8,25.3,22.9,52%
+R16,,New York,France vs Senegal,2-1,1.75,1.03,France,54.3,23.5,22.2,54%
+R16,,Mexico City,Mexico vs England,1-2,1.18,1.64,England,28.7,24.2,47.1,47%
+R16,,Dallas,USA vs Belgium,1-1,1.4,1.4,USA,36.3,27.2,36.5,36%
+R16,,Seattle,Colombia vs Spain,1-2,1.11,1.67,Spain,25.5,23.1,51.4,51%
+R16,,Atlanta,Iran vs Argentina,1-2,0.89,1.83,Argentina,19.3,22.1,58.6,59%
+R16,,Vancouver,Portugal vs Egypt,2-1,1.73,1.06,Portugal,55.5,21.1,23.4,56%
+QF,,Philadelphia,Brazil vs Germany,1-2,1.36,1.59,Germany,32.7,25.3,42.1,42%
+QF,,Atlanta,France vs England,1-1,1.49,1.46,France,38.7,24.1,37.3,39%
+QF,,Miami,USA vs Spain,1-2,1.16,1.66,Spain,25.7,23.2,51.1,51%
+QF,,New York,Argentina vs Portugal,1-1,1.44,1.36,Portugal,37.9,25.9,36.2,38%
+SF,,Dallas,Germany vs France,2-2,1.5,1.49,Germany,36.0,27.1,36.9,37%
+SF,,Atlanta,Spain vs Portugal,2-1,1.56,1.29,Spain,44.3,24.3,31.4,44%
+3°,,Miami,France vs Portugal,2-1,1.55,1.4,France,41.5,24.9,33.7,42%
+Final,,New York,Germany vs Spain,1-1,1.43,1.47,Germany,39.3,24.9,35.8,39%
 
 RESULTADOS FINALES
 Campeon:,Germany
