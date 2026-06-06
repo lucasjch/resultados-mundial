@@ -93,11 +93,12 @@ def parse_market_value(val_str):
     if not val_str:
         return None
     val_str = val_str.replace(',', '.').replace(' ', '').replace('\u20ac', '').strip()
-    if 'mill' in val_str:
+    val_lower = val_str.lower()
+    if 'mio' in val_lower or 'mill' in val_lower:
         m = re.search(r'([\d.]+)', val_str)
         if m:
             return float(m.group(1))
-    elif 'mil' in val_str or 'tsd' in val_str:
+    elif 'mil' in val_lower or 'tsd' in val_lower:
         m = re.search(r'([\d.]+)', val_str)
         if m:
             return float(m.group(1)) / 1000.0

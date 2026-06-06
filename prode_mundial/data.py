@@ -28,7 +28,7 @@ TEAMS = {
         "diaspora_in_usa": 37200000,
     },
     "South Korea": {
-        "rank": 25, "rank_pts": 1588.66, "tier": 5, "odds_win": 40000, "odds_group": 350,
+        "rank": 25, "rank_pts": 1588.66, "tier": 4, "odds_win": 40000, "odds_group": 350,
         "confederation": "AFC", "home_continent": False,
         "coach": "Hong Myungbo", "captain": "Son Heung-min",
         "avg_temp_home": 14, "altitude_home": 50,
@@ -229,7 +229,7 @@ TEAMS = {
         "diaspora_in_usa": 1050000,
     },
     "USA": {
-        "rank": 16, "rank_pts": 1673.13, "tier": 4, "odds_win": 6000, "odds_group": 140,
+        "rank": 16, "rank_pts": 1673.13, "tier": 3, "odds_win": 6000, "odds_group": 140,
         "confederation": "CONCACAF", "home_continent": True,
         "coach": "Mauricio Pochettino", "captain": "Christian Pulisic",
         "avg_temp_home": 13, "altitude_home": 200,
@@ -299,7 +299,7 @@ TEAMS = {
         "confederation": "UEFA", "home_continent": False,
         "coach": "Julian Nagelsmann", "captain": "Ilkay Gundogan",
         "avg_temp_home": 10, "altitude_home": 100,
-        "form_10": "WWW_WW_WW_WW_WW_", "form_streak": 1.0,
+        "form_10": "WWW_DW_WW_DW_W_", "form_streak": 0.70,
         "wc_history": "campeon_1954_1974_1990_2014",
         "key_players": [
             ("Jamal Musiala", 23, "Bayern Munich", "CAM", 3, 4, "starter"),
@@ -383,7 +383,7 @@ TEAMS = {
         "diaspora_in_usa": 420000,
     },
     "Japan": {
-        "rank": 18, "rank_pts": 1660.43, "tier": 4, "odds_win": 6500, "odds_group": 275,
+        "rank": 18, "rank_pts": 1660.43, "tier": 3, "odds_win": 6500, "odds_group": 275,
         "confederation": "AFC", "home_continent": False,
         "coach": "Hajime Moriyasu", "captain": "Wataru Endo",
         "avg_temp_home": 16, "altitude_home": 50,
@@ -400,7 +400,7 @@ TEAMS = {
         "diaspora_in_usa": 780000,
     },
     "Sweden": {
-        "rank": 42, "rank_pts": 1514.77, "tier": 5, "odds_win": 12000, "odds_group": 450,
+        "rank": 42, "rank_pts": 1514.77, "tier": 4, "odds_win": 12000, "odds_group": 450,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Jon Dahl Tomasson", "captain": "Victor Lindelof",
         "avg_temp_home": 6, "altitude_home": 10,
@@ -516,7 +516,7 @@ TEAMS = {
         "diaspora_in_usa": 550000,
     },
     "Uruguay": {
-        "rank": 17, "rank_pts": 1673.07, "tier": 4, "odds_win": 6500, "odds_group": 400,
+        "rank": 17, "rank_pts": 1673.07, "tier": 3, "odds_win": 6500, "odds_group": 400,
         "confederation": "CONMEBOL", "home_continent": False,
         "coach": "Marcelo Bielsa", "captain": "Federico Valverde",
         "avg_temp_home": 22, "altitude_home": 50,
@@ -584,7 +584,7 @@ TEAMS = {
         "diaspora_in_usa": 415000,
     },
     "Norway": {
-        "rank": 31, "rank_pts": 1550.94, "tier": 3, "odds_win": 3500, "odds_group": 275,
+        "rank": 37, "rank_pts": 1510.49, "tier": 4, "odds_win": 15000, "odds_group": 600,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Stale Solbakken", "captain": "Martin Odegaard",
         "avg_temp_home": 6, "altitude_home": 10,
@@ -668,7 +668,7 @@ TEAMS = {
         "diaspora_in_usa": 350000,
     },
     "Austria": {
-        "rank": 24, "rank_pts": 1593.45, "tier": 5, "odds_win": 15000, "odds_group": 370,
+        "rank": 24, "rank_pts": 1593.45, "tier": 4, "odds_win": 15000, "odds_group": 370,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Ralf Rangnick", "captain": "David Alaba",
         "avg_temp_home": 9, "altitude_home": 200,
@@ -793,7 +793,7 @@ TEAMS = {
         "diaspora_in_usa": 680000,
     },
     "Croatia": {
-        "rank": 11, "rank_pts": 1717.07, "tier": 4, "odds_win": 9000, "odds_group": 320,
+        "rank": 11, "rank_pts": 1717.07, "tier": 3, "odds_win": 9000, "odds_group": 320,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Zlatko Dalic", "captain": "Luka Modric",
         "avg_temp_home": 13, "altitude_home": 100,
@@ -1052,7 +1052,7 @@ FIXTURES = [
     # Group E
     ("Germany", "Curacao", "Houston", "2026-06-14", "18:00", "E"),
     ("Ivory Coast", "Ecuador", "Atlanta", "2026-06-15", "01:00", "E"),
-    ("Ecuador", "Germany", "Dallas", "2026-06-20", "18:00", "E"),
+    ("Ecuador", "Germany", "Houston", "2026-06-20", "20:00", "E"),
     ("Curacao", "Ivory Coast", "Miami", "2026-06-21", "15:00", "E"),
     ("Ecuador", "Curacao", "New York", "2026-06-25", "21:00", "E"),
     ("Germany", "Ivory Coast", "Seattle", "2026-06-26", "18:00", "E"),
@@ -1061,7 +1061,7 @@ FIXTURES = [
     ("Sweden", "Tunisia", "Seattle", "2026-06-15", "04:00", "F"),
     ("Japan", "Sweden", "Dallas", "2026-06-20", "15:00", "F"),
     ("Netherlands", "Tunisia", "Dallas", "2026-06-21", "15:00", "F"),
-    ("Netherlands", "Sweden", "Seattle", "2026-06-25", "18:00", "F"),
+    ("Netherlands", "Sweden", "Vancouver", "2026-06-25", "21:00", "F"),
     ("Japan", "Tunisia", "Los Angeles", "2026-06-26", "18:00", "F"),
     # Group G
     ("Belgium", "Egypt", "Seattle", "2026-06-15", "15:00", "G"),
@@ -1083,7 +1083,7 @@ FIXTURES = [
     ("France", "Norway", "Los Angeles", "2026-06-22", "15:00", "I"),
     ("Senegal", "Iraq", "Kansas City", "2026-06-22", "15:00", "I"),
     ("France", "Senegal", "Kansas City", "2026-06-26", "18:00", "I"),
-    ("Norway", "Iraq", "Los Angeles", "2026-06-26", "18:00", "I"),
+    ("Norway", "Iraq", "San Francisco", "2026-06-26", "20:00", "I"),
     # Group J
     ("Argentina", "Jordan", "Dallas", "2026-06-16", "21:00", "J"),
     ("Algeria", "Austria", "Kansas City", "2026-06-17", "15:00", "J"),
@@ -1103,8 +1103,8 @@ FIXTURES = [
     ("Croatia", "Ghana", "Philadelphia", "2026-06-15", "18:00", "L"),
     ("England", "Croatia", "New York", "2026-06-21", "15:00", "L"),
     ("Ghana", "Panama", "Philadelphia", "2026-06-21", "15:00", "L"),
-    ("Panama", "England", "New York", "2026-06-27", "15:00", "L"),
-    ("Croatia", "Ghana", "Philadelphia", "2026-06-27", "17:00", "L"),
+    ("England", "Ghana", "New York", "2026-06-27", "15:00", "L"),
+    ("Croatia", "Panama", "Philadelphia", "2026-06-27", "17:00", "L"),
 ]
 
 def get_team(name):
@@ -1130,13 +1130,11 @@ _FANBASE = {
     "Argentina": 8, "Brazil": 8, "England": 8,
     "France": 7, "Germany": 7, "Spain": 7,
     "Mexico": 6, "Portugal": 6, "Netherlands": 6,
-    "Italy": 6, "USA": 5, "Belgium": 5, "Uruguay": 5,
-    "Colombia": 5, "Japan": 5, "South Korea": 4,
-    "Croatia": 4, "Turkey": 4, "Sweden": 4, "Norway": 4,
-    "Switzerland": 3, "Austria": 3, "Poland": 3,
-    "Denmark": 3, "Serbia": 3, "Nigeria": 3,
-    "Ghana": 3, "Cameroon": 3, "Morocco": 3,
-    "Egypt": 3, "Senegal": 3, "Ivory Coast": 3,
+    "USA": 5, "Belgium": 5, "Uruguay": 5,
+    "Colombia": 5, "Japan": 5, "Croatia": 5,
+    "South Korea": 4, "Turkey": 4, "Sweden": 4, "Norway": 4,
+    "Switzerland": 3, "Austria": 3, "Morocco": 3,
+    "Ghana": 3, "Egypt": 3, "Senegal": 3, "Ivory Coast": 3,
     "Algeria": 3, "Tunisia": 3, "Saudi Arabia": 2,
     "Qatar": 2, "Iraq": 2, "South Africa": 2,
     "Australia": 2, "Canada": 2, "Ecuador": 2,
@@ -1144,6 +1142,22 @@ _FANBASE = {
     "Bosnia & Herzegovina": 2, "Iran": 2, "Jordan": 2,
     "Uzbekistan": 2, "DR Congo": 2, "Cape Verde": 1,
     "Curacao": 1, "Haiti": 1, "Panama": 1, "New Zealand": 1,
+}
+
+# Estimated total squad market values (millions €) for teams without player-level data
+_MARKET_VALUE_ESTIMATES = {
+    "France": 1100, "Argentina": 1000, "England": 950, "Spain": 900,
+    "Brazil": 850, "Germany": 780, "Portugal": 650,
+    "Netherlands": 550, "Belgium": 480, "Colombia": 380, "Morocco": 350, "USA": 350,
+    "Norway": 320, "Mexico": 300, "Uruguay": 300, "Croatia": 300, "Japan": 280,
+    "Switzerland": 250, "Turkey": 230, "Ecuador": 200, "Senegal": 200,
+    "Sweden": 180, "Austria": 170, "Czechia": 150, "Canada": 140, "Scotland": 130,
+    "South Korea": 120, "Ivory Coast": 120, "Egypt": 110, "Algeria": 100,
+    "Iran": 90, "Australia": 80, "Paraguay": 80, "South Africa": 70,
+    "Tunisia": 65, "Ghana": 60, "Bosnia & Herzegovina": 55, "DR Congo": 45,
+    "Panama": 35, "Saudi Arabia": 30, "Qatar": 25, "Iraq": 20,
+    "Uzbekistan": 18, "Jordan": 15, "New Zealand": 15,
+    "Haiti": 10, "Cape Verde": 8, "Curacao": 5,
 }
 
 def _enrich_teams():
@@ -1167,14 +1181,20 @@ def _enrich_teams():
 
             mvs = [p.get("market_value") or 0 for p in squad]
             total_mv = sum(mvs)
-            team["market_value_total"] = total_mv
             non_zero = [v for v in mvs if v > 0]
-            team["market_value_avg"] = total_mv / len(non_zero) if non_zero else 0
+            if non_zero:
+                team["market_value_total"] = total_mv
+                team["market_value_avg"] = total_mv / len(non_zero)
+            else:
+                est = _MARKET_VALUE_ESTIMATES.get(name, 50)
+                team["market_value_total"] = est
+                team["market_value_avg"] = est / 26
         else:
             team["squad_size"] = 26
             team["avg_age"] = 27.0
-            team["market_value_total"] = 0
-            team["market_value_avg"] = 0
+            est = _MARKET_VALUE_ESTIMATES.get(name, 50)
+            team["market_value_total"] = est
+            team["market_value_avg"] = est / 26
 
         conf = team.get("confederation", "")
         team.setdefault("foreign_pct", _FOREIGN_PCT_ESTIMATES.get(conf, 0.8))

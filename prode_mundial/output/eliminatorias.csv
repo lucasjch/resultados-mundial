@@ -1,33 +1,33 @@
 ﻿Ronda,Fecha,Hora,Sede,Equipo A,Equipo B,Goles A,Goles B,Ganador,Confianza(%)
-KO,,,Boston,Germany,Czechia,2,1,Germany,75.4
-KO,,,New York,France,Morocco,2,0,France,67.4
-KO,,,Los Angeles,South Korea,Canada,1,1,South Korea,49.5
-KO,,,Monterrey,Netherlands,Scotland,2,1,Netherlands,66.3
-KO,,,Dallas,Portugal,Ghana,2,1,Portugal,65.6
-KO,,,Miami,Uruguay,Algeria,1,1,Uruguay,58.9
-KO,,,Seattle,USA,Bosnia & Herzegovina,2,1,USA,61.6
-KO,,,Kansas City,Belgium,Ecuador,1,1,Belgium,58.2
-KO,,,Houston,Brazil,Japan,2,0,Brazil,68.0
-KO,,,Dallas,Ivory Coast,Norway,1,1,Ivory Coast,53.0
-KO,,,Mexico City,Mexico,Sweden,2,0,Mexico,65.0
-KO,,,Philadelphia,England,Saudi Arabia,2,1,England,68.0
-KO,,,Toronto,Argentina,Spain,2,0,Argentina,74.5
-KO,,,Atlanta,Turkey,Iran,1,1,Turkey,53.8
-KO,,,Vancouver,Switzerland,New Zealand,1,1,Switzerland,55.4
-KO,,,Atlanta,Colombia,Australia,1,1,Colombia,57.9
-KO,,,Boston,Germany,France,2,0,Germany,76.8
-KO,,,Los Angeles,South Korea,Netherlands,1,0,South Korea,51.7
-KO,,,Dallas,Portugal,Uruguay,2,0,Portugal,64.2
-KO,,,Seattle,USA,Belgium,2,0,USA,65.3
-KO,,,Houston,Brazil,Ivory Coast,1,0,Brazil,68.8
-KO,,,Mexico City,Mexico,England,1,0,Mexico,60.9
-KO,,,Toronto,Argentina,Turkey,2,0,Argentina,67.9
-KO,,,Vancouver,Switzerland,Colombia,1,0,Switzerland,54.6
-KO,,,Philadelphia,Germany,South Korea,2,0,Germany,74.2
-KO,,,Atlanta,Portugal,USA,1,0,Portugal,65.0
-KO,,,Miami,Brazil,Mexico,2,0,Brazil,67.9
-KO,,,New York,Argentina,Switzerland,2,0,Argentina,72.3
-KO,,,Dallas,Germany,Portugal,2,0,Germany,77.2
-KO,,,Atlanta,Brazil,Argentina,2,0,Brazil,69.9
-KO,,,Miami,Portugal,Argentina,2,0,Portugal,68.3
-KO,,,New York,Germany,Brazil,2,0,Germany,74.3
+KO,,,Boston,Germany,Czechia,1,0,Germany,58.6
+KO,,,New York,France,Turkey,1,1,France,47.1
+KO,,,Los Angeles,Mexico,Switzerland,1,1,Mexico,41.1
+KO,,,Monterrey,Netherlands,Brazil,1,1,Brazil,37.7
+KO,,,Toronto,Colombia,Croatia,1,1,Colombia,38.9
+KO,,,Los Angeles,Spain,Austria,2,0,Spain,69.6
+KO,,,San Francisco,USA,Bosnia & Herzegovina,2,0,USA,62.4
+KO,,,Seattle,Belgium,Ivory Coast,1,1,Belgium,49.9
+KO,,,Houston,Morocco,Japan,1,1,Japan,45.1
+KO,,,Dallas,Ecuador,Norway,1,1,Norway,38.5
+KO,,,Mexico City,South Korea,Sweden,1,1,Sweden,41.0
+KO,,,Atlanta,England,Senegal,1,0,England,54.1
+KO,,,Miami,Argentina,Uruguay,1,1,Argentina,44.9
+KO,,,Dallas,Australia,Egypt,1,1,Egypt,45.1
+KO,,,Vancouver,Canada,Iran,1,1,Canada,39.4
+KO,,,Kansas City,Portugal,Uzbekistan,1,0,Portugal,64.4
+KO,,,Philadelphia,Mexico,Japan,1,1,Japan,41.0
+KO,,,Houston,Germany,Brazil,1,1,Brazil,41.7
+KO,,,New York,France,Norway,1,1,France,49.7
+KO,,,Mexico City,Sweden,England,1,2,England,57.9
+KO,,,Dallas,USA,Belgium,1,1,Belgium,40.5
+KO,,,Seattle,Colombia,Spain,1,1,Spain,47.3
+KO,,,Atlanta,Canada,Argentina,1,1,Argentina,50.2
+KO,,,Vancouver,Portugal,Egypt,1,1,Portugal,48.9
+KO,,,Philadelphia,Japan,Brazil,1,1,Brazil,50.3
+KO,,,Atlanta,France,England,1,1,France,43.3
+KO,,,Miami,Belgium,Spain,1,1,Spain,55.0
+KO,,,New York,Argentina,Portugal,1,1,Argentina,43.0
+KO,,,Dallas,Brazil,France,1,1,France,45.2
+KO,,,Atlanta,Spain,Argentina,1,1,Spain,40.3
+KO,,,Miami,Brazil,Argentina,1,1,Argentina,46.7
+KO,,,New York,France,Spain,1,1,France,42.0

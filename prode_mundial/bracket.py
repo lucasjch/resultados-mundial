@@ -19,13 +19,13 @@ R32_BRACKET = [
     # 1F vs 2C
     {"a": ("winner", "F"), "b": ("runner", "C"), "venue": "Monterrey"},
     # 2K vs 2L
-    {"a": ("runner", "K"), "b": ("runner", "L"), "venue": "Dallas"},
+    {"a": ("runner", "K"), "b": ("runner", "L"), "venue": "Toronto"},
     # 1H vs 2J
-    {"a": ("winner", "H"), "b": ("runner", "J"), "venue": "Miami"},
+    {"a": ("winner", "H"), "b": ("runner", "J"), "venue": "Los Angeles"},
     # 1D vs 3rd from BEFIJ
-    {"a": ("winner", "D"), "b": ("third", ["B","E","F","I","J"]), "venue": "Seattle"},
+    {"a": ("winner", "D"), "b": ("third", ["B","E","F","I","J"]), "venue": "San Francisco"},
     # 1G vs 3rd from AEHIJ
-    {"a": ("winner", "G"), "b": ("third", ["A","E","H","I","J"]), "venue": "Kansas City"},
+    {"a": ("winner", "G"), "b": ("third", ["A","E","H","I","J"]), "venue": "Seattle"},
     # 1C vs 2F
     {"a": ("winner", "C"), "b": ("runner", "F"), "venue": "Houston"},
     # 2E vs 2I
@@ -33,32 +33,32 @@ R32_BRACKET = [
     # 1A vs 3rd from CEFHI
     {"a": ("winner", "A"), "b": ("third", ["C","E","F","H","I"]), "venue": "Mexico City"},
     # 1L vs 3rd from EHIJK
-    {"a": ("winner", "L"), "b": ("third", ["E","H","I","J","K"]), "venue": "Philadelphia"},
+    {"a": ("winner", "L"), "b": ("third", ["E","H","I","J","K"]), "venue": "Atlanta"},
     # 1J vs 2H
-    {"a": ("winner", "J"), "b": ("runner", "H"), "venue": "Toronto"},
+    {"a": ("winner", "J"), "b": ("runner", "H"), "venue": "Miami"},
     # 2D vs 2G
-    {"a": ("runner", "D"), "b": ("runner", "G"), "venue": "Atlanta"},
+    {"a": ("runner", "D"), "b": ("runner", "G"), "venue": "Dallas"},
     # 1B vs 3rd from EFGIJ
     {"a": ("winner", "B"), "b": ("third", ["E","F","G","I","J"]), "venue": "Vancouver"},
     # 1K vs 3rd from DEIJL
-    {"a": ("winner", "K"), "b": ("third", ["D","E","I","J","L"]), "venue": "Atlanta"},
+    {"a": ("winner", "K"), "b": ("third", ["D","E","I","J","L"]), "venue": "Kansas City"},
 ]
 
-# Round of 16 pairings (winners of matches above)
+# Round of 16 pairings (winners of matches above) — official FIFA 2026
 R16_PAIRINGS = [
-    (0, 1),   # QF1: M01 vs M02
-    (2, 3),   # QF2: M03 vs M04
-    (4, 5),   # QF3: M05 vs M06
-    (6, 7),   # QF4: M07 vs M08
-    (8, 9),   # QF5: M09 vs M10
-    (10, 11), # QF6: M11 vs M12
-    (12, 13), # QF7: M13 vs M14
-    (14, 15), # QF8: M15 vs M16
+    (2, 8),   # R16-1: M03(2A/2B) vs M09(1C/2F) → Philadelphia
+    (0, 3),   # R16-2: M01(1E/3rd) vs M04(1F/2C) → Houston
+    (1, 9),   # R16-3: M02(1I/3rd) vs M10(2E/2I) → New York
+    (10, 11), # R16-4: M11(1A/3rd) vs M12(1L/3rd) → Mexico City
+    (6, 7),   # R16-5: M07(1D/3rd) vs M08(1G/3rd) → Dallas
+    (4, 5),   # R16-6: M05(2K/2L) vs M06(1H/2J) → Seattle
+    (14, 12), # R16-7: M15(1B/3rd) vs M13(1J/2H) → Atlanta
+    (15, 13), # R16-8: M16(1K/3rd) vs M14(2D/2G) → Vancouver
 ]
 
 R16_VENUES = [
-    "Boston", "Los Angeles", "Dallas", "Seattle",
-    "Houston", "Mexico City", "Toronto", "Vancouver",
+    "Philadelphia", "Houston", "New York", "Mexico City",
+    "Dallas", "Seattle", "Atlanta", "Vancouver",
 ]
 
 QF_VENUES = ["Philadelphia", "Atlanta", "Miami", "New York"]

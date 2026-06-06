@@ -2,166 +2,166 @@
 
 FASE DE GRUPOS
 Grupo,Fecha,Hora,Sede,Local,Visitante,Resultado,Ganador,Confianza
-A,2026-06-11,21:00,Mexico City,Mexico,South Africa,1-0,Mexico,66%
-A,2026-06-12,04:00,Guadalajara,South Korea,Czechia,1-0,South Korea,52%
-A,2026-06-17,21:00,Monterrey,South Korea,South Africa,2-0,South Korea,61%
-A,2026-06-18,21:00,Guadalajara,Mexico,Czechia,2-0,Mexico,66%
-A,2026-06-23,21:00,Mexico City,Mexico,South Korea,1-0,Mexico,62%
-A,2026-06-23,21:00,Toronto,Czechia,South Africa,1-0,Czechia,49%
-B,2026-06-12,21:00,Toronto,Canada,Bosnia & Herzegovina,1-1,Canada,55%
-B,2026-06-13,21:00,San Francisco,Qatar,Switzerland,0-1,Switzerland,39%
-B,2026-06-18,21:00,Vancouver,Canada,Qatar,2-1,Canada,47%
-B,2026-06-19,21:00,New York,Switzerland,Bosnia & Herzegovina,2-1,Switzerland,55%
-B,2026-06-23,23:00,Vancouver,Switzerland,Canada,1-1,Switzerland,49%
-B,2026-06-24,21:00,Toronto,Bosnia & Herzegovina,Qatar,1-1,Qatar,44%
-C,2026-06-13,23:00,New York,Brazil,Morocco,2-0,Brazil,62%
-C,2026-06-14,02:00,Boston,Haiti,Scotland,0-1,Scotland,55%
-C,2026-06-19,23:00,Boston,Scotland,Morocco,0-1,Morocco,40%
-C,2026-06-20,18:00,Miami,Brazil,Haiti,2-1,Brazil,65%
-C,2026-06-24,23:00,Miami,Scotland,Brazil,1-1,Scotland,39%
-C,2026-06-24,21:00,Atlanta,Morocco,Haiti,1-1,Morocco,52%
-D,2026-06-13,03:00,Los Angeles,USA,Paraguay,2-0,USA,68%
-D,2026-06-14,05:00,Vancouver,Australia,Turkey,1-1,Australia,46%
-D,2026-06-19,19:00,Kansas City,Paraguay,Australia,1-1,Paraguay,39%
-D,2026-06-20,18:00,Dallas,USA,Turkey,1-0,USA,61%
-D,2026-06-25,18:00,Seattle,USA,Australia,2-1,USA,64%
-D,2026-06-25,21:00,Miami,Turkey,Paraguay,2-0,Turkey,60%
-E,2026-06-14,18:00,Houston,Germany,Curacao,3-1,Germany,70%
-E,2026-06-15,01:00,Atlanta,Ivory Coast,Ecuador,1-0,Ivory Coast,49%
-E,2026-06-20,18:00,Dallas,Ecuador,Germany,1-0,Ecuador,50%
-E,2026-06-21,15:00,Miami,Curacao,Ivory Coast,0-1,Ivory Coast,66%
-E,2026-06-25,21:00,New York,Ecuador,Curacao,1-1,Ecuador,43%
-E,2026-06-26,18:00,Seattle,Germany,Ivory Coast,2-1,Germany,72%
-F,2026-06-14,21:00,Dallas,Netherlands,Japan,2-0,Netherlands,64%
-F,2026-06-15,04:00,Seattle,Sweden,Tunisia,1-1,Sweden,52%
-F,2026-06-20,15:00,Dallas,Japan,Sweden,1-1,Japan,61%
-F,2026-06-21,15:00,Dallas,Netherlands,Tunisia,2-1,Netherlands,65%
-F,2026-06-25,18:00,Seattle,Netherlands,Sweden,2-1,Netherlands,64%
-F,2026-06-26,18:00,Los Angeles,Japan,Tunisia,2-1,Japan,56%
-G,2026-06-15,15:00,Seattle,Belgium,Egypt,1-0,Belgium,62%
-G,2026-06-15,15:00,Vancouver,Iran,New Zealand,1-1,Iran,44%
-G,2026-06-21,22:00,Seattle,Belgium,Iran,2-1,Belgium,56%
-G,2026-06-21,22:00,Vancouver,Egypt,New Zealand,1-1,Egypt,51%
-G,2026-06-26,22:00,Seattle,Egypt,Iran,1-1,Egypt,44%
-G,2026-06-26,22:00,Vancouver,Belgium,New Zealand,2-1,Belgium,63%
-H,2026-06-15,12:00,Atlanta,Spain,Cape Verde,2-1,Spain,71%
-H,2026-06-16,15:00,Houston,Uruguay,Saudi Arabia,1-1,Uruguay,56%
-H,2026-06-21,12:00,Atlanta,Spain,Saudi Arabia,2-1,Spain,68%
-H,2026-06-21,15:00,Houston,Uruguay,Cape Verde,2-1,Uruguay,56%
-H,2026-06-26,21:00,Guadalajara,Uruguay,Spain,1-0,Uruguay,61%
-H,2026-06-26,21:00,Houston,Cape Verde,Saudi Arabia,0-1,Saudi Arabia,54%
-I,2026-06-16,15:00,Kansas City,France,Iraq,2-1,France,71%
-I,2026-06-16,18:00,Los Angeles,Norway,Senegal,2-1,Norway,55%
-I,2026-06-22,15:00,Los Angeles,France,Norway,2-0,France,73%
-I,2026-06-22,15:00,Kansas City,Senegal,Iraq,1-1,Senegal,56%
-I,2026-06-26,18:00,Kansas City,France,Senegal,2-1,France,72%
-I,2026-06-26,18:00,Los Angeles,Norway,Iraq,2-1,Norway,56%
-J,2026-06-16,21:00,Dallas,Argentina,Jordan,2-1,Argentina,73%
-J,2026-06-17,15:00,Kansas City,Algeria,Austria,1-1,Algeria,50%
-J,2026-06-22,17:00,Kansas City,Argentina,Algeria,2-0,Argentina,72%
-J,2026-06-22,21:00,Dallas,Austria,Jordan,1-1,Austria,50%
-J,2026-06-26,21:00,Philadelphia,Argentina,Austria,2-0,Argentina,72%
-J,2026-06-27,15:00,Kansas City,Jordan,Algeria,0-1,Algeria,51%
-K,2026-06-17,15:00,Miami,Portugal,Uzbekistan,2-1,Portugal,66%
-K,2026-06-17,18:00,Miami,DR Congo,Colombia,0-1,Colombia,42%
-K,2026-06-23,15:00,Miami,Portugal,DR Congo,2-1,Portugal,65%
-K,2026-06-24,15:00,Miami,Colombia,Uzbekistan,2-1,Colombia,61%
-K,2026-06-27,17:00,Miami,Colombia,Portugal,1-0,Colombia,59%
-K,2026-06-27,19:30,Atlanta,DR Congo,Uzbekistan,1-1,Uzbekistan,43%
-L,2026-06-15,18:00,New York,England,Panama,2-1,England,66%
-L,2026-06-15,18:00,Philadelphia,Croatia,Ghana,1-1,Croatia,48%
-L,2026-06-21,15:00,New York,England,Croatia,2-0,England,70%
+A,2026-06-11,21:00,Mexico City,Mexico,South Africa,1-1,Mexico,52%
+A,2026-06-12,04:00,Guadalajara,South Korea,Czechia,1-1,South Korea,44%
+A,2026-06-17,21:00,Monterrey,South Korea,South Africa,1-0,South Korea,50%
+A,2026-06-18,21:00,Guadalajara,Mexico,Czechia,1-1,Mexico,52%
+A,2026-06-23,21:00,Mexico City,Mexico,South Korea,1-1,South Korea,41%
+A,2026-06-23,21:00,Toronto,Czechia,South Africa,1-1,Czechia,41%
+B,2026-06-12,21:00,Toronto,Canada,Bosnia & Herzegovina,1-1,Canada,54%
+B,2026-06-13,21:00,San Francisco,Qatar,Switzerland,0-1,Switzerland,61%
+B,2026-06-18,21:00,Vancouver,Canada,Qatar,2-1,Canada,56%
+B,2026-06-19,21:00,New York,Switzerland,Bosnia & Herzegovina,1-1,Switzerland,50%
+B,2026-06-23,23:00,Vancouver,Switzerland,Canada,1-1,Switzerland,44%
+B,2026-06-24,21:00,Toronto,Bosnia & Herzegovina,Qatar,1-1,Bosnia & Herzegovina,40%
+C,2026-06-13,23:00,New York,Brazil,Morocco,1-1,Brazil,43%
+C,2026-06-14,02:00,Boston,Haiti,Scotland,1-1,Scotland,53%
+C,2026-06-19,23:00,Boston,Scotland,Morocco,0-1,Morocco,55%
+C,2026-06-20,18:00,Miami,Brazil,Haiti,2-0,Brazil,69%
+C,2026-06-24,23:00,Miami,Scotland,Brazil,1-1,Brazil,53%
+C,2026-06-24,21:00,Atlanta,Morocco,Haiti,1-0,Morocco,68%
+D,2026-06-13,03:00,Los Angeles,USA,Paraguay,1-0,USA,57%
+D,2026-06-14,05:00,Vancouver,Australia,Turkey,1-1,Turkey,44%
+D,2026-06-19,19:00,Kansas City,Paraguay,Australia,1-1,Australia,38%
+D,2026-06-20,18:00,Dallas,USA,Turkey,1-1,USA,48%
+D,2026-06-25,18:00,Seattle,USA,Australia,1-1,USA,53%
+D,2026-06-25,21:00,Miami,Turkey,Paraguay,1-1,Turkey,40%
+E,2026-06-14,18:00,Houston,Germany,Curacao,2-0,Germany,79%
+E,2026-06-15,01:00,Atlanta,Ivory Coast,Ecuador,1-1,Ecuador,39%
+E,2026-06-20,20:00,Houston,Ecuador,Germany,0-2,Germany,61%
+E,2026-06-21,15:00,Miami,Curacao,Ivory Coast,0-1,Ivory Coast,63%
+E,2026-06-25,21:00,New York,Ecuador,Curacao,1-0,Ecuador,64%
+E,2026-06-26,18:00,Seattle,Germany,Ivory Coast,2-0,Germany,62%
+F,2026-06-14,21:00,Dallas,Netherlands,Japan,1-1,Netherlands,39%
+F,2026-06-15,04:00,Seattle,Sweden,Tunisia,1-0,Sweden,51%
+F,2026-06-20,15:00,Dallas,Japan,Sweden,1-1,Japan,38%
+F,2026-06-21,15:00,Dallas,Netherlands,Tunisia,1-0,Netherlands,57%
+F,2026-06-25,21:00,Vancouver,Netherlands,Sweden,2-1,Netherlands,58%
+F,2026-06-26,18:00,Los Angeles,Japan,Tunisia,1-0,Japan,50%
+G,2026-06-15,15:00,Seattle,Belgium,Egypt,1-1,Belgium,48%
+G,2026-06-15,15:00,Vancouver,Iran,New Zealand,1-1,Iran,49%
+G,2026-06-21,22:00,Seattle,Belgium,Iran,1-1,Belgium,54%
+G,2026-06-21,22:00,Vancouver,Egypt,New Zealand,1-0,Egypt,60%
+G,2026-06-26,22:00,Seattle,Egypt,Iran,1-1,Egypt,38%
+G,2026-06-26,22:00,Vancouver,Belgium,New Zealand,2-0,Belgium,69%
+H,2026-06-15,12:00,Atlanta,Spain,Cape Verde,1-0,Spain,67%
+H,2026-06-16,15:00,Houston,Uruguay,Saudi Arabia,2-0,Uruguay,66%
+H,2026-06-21,12:00,Atlanta,Spain,Saudi Arabia,2-0,Spain,79%
+H,2026-06-21,15:00,Houston,Uruguay,Cape Verde,1-0,Uruguay,61%
+H,2026-06-26,21:00,Guadalajara,Uruguay,Spain,1-2,Spain,56%
+H,2026-06-26,21:00,Houston,Cape Verde,Saudi Arabia,1-1,Saudi Arabia,40%
+I,2026-06-16,15:00,Kansas City,France,Iraq,2-0,France,77%
+I,2026-06-16,18:00,Los Angeles,Norway,Senegal,1-1,Norway,42%
+I,2026-06-22,15:00,Los Angeles,France,Norway,1-1,France,49%
+I,2026-06-22,15:00,Kansas City,Senegal,Iraq,1-0,Senegal,53%
+I,2026-06-26,18:00,Kansas City,France,Senegal,1-1,France,51%
+I,2026-06-26,20:00,San Francisco,Norway,Iraq,2-0,Norway,66%
+J,2026-06-16,21:00,Dallas,Argentina,Jordan,2-0,Argentina,78%
+J,2026-06-17,15:00,Kansas City,Algeria,Austria,1-1,Algeria,52%
+J,2026-06-22,17:00,Kansas City,Argentina,Algeria,1-0,Argentina,55%
+J,2026-06-22,21:00,Dallas,Austria,Jordan,2-0,Austria,68%
+J,2026-06-26,21:00,Philadelphia,Argentina,Austria,1-1,Argentina,57%
+J,2026-06-27,15:00,Kansas City,Jordan,Algeria,1-1,Algeria,47%
+K,2026-06-17,15:00,Miami,Portugal,Uzbekistan,2-0,Portugal,69%
+K,2026-06-17,18:00,Miami,DR Congo,Colombia,0-1,Colombia,57%
+K,2026-06-23,15:00,Miami,Portugal,DR Congo,1-0,Portugal,62%
+K,2026-06-24,15:00,Miami,Colombia,Uzbekistan,1-0,Colombia,62%
+K,2026-06-27,17:00,Miami,Colombia,Portugal,1-1,Portugal,43%
+K,2026-06-27,19:30,Atlanta,DR Congo,Uzbekistan,0-1,Uzbekistan,48%
+L,2026-06-15,18:00,New York,England,Panama,2-0,England,63%
+L,2026-06-15,18:00,Philadelphia,Croatia,Ghana,1-0,Croatia,59%
+L,2026-06-21,15:00,New York,England,Croatia,1-1,England,44%
 L,2026-06-21,15:00,Philadelphia,Ghana,Panama,1-1,Panama,45%
-L,2026-06-27,15:00,New York,Panama,England,0-0,England,38%
-L,2026-06-27,17:00,Philadelphia,Croatia,Ghana,1-1,Croatia,51%
+L,2026-06-27,15:00,New York,England,Ghana,2-0,England,69%
+L,2026-06-27,17:00,Philadelphia,Croatia,Panama,1-0,Croatia,56%
 
 TABLA DE POSICIONES
 Grupo,Pos,Equipo,Pts,PG,PE,PP,GF,GC,DG
-A,1,Mexico,9,3,0,0,4,0,4
-A,2,South Korea,6,2,0,1,3,1,2
-A,3,Czechia,3,1,0,2,1,3,-2
-A,4,South Africa,0,0,0,3,0,4,-4
-B,1,Switzerland,7,2,1,0,4,2,2
-B,2,Canada,5,1,2,0,4,3,1
-B,3,Bosnia & Herzegovina,2,0,2,1,3,4,-1
+A,1,South Korea,5,1,2,0,3,2,1
+A,2,Mexico,3,0,3,0,3,3,0
+A,3,Czechia,3,0,3,0,3,3,0
+A,4,South Africa,2,0,2,1,2,3,-1
+B,1,Canada,5,1,2,0,4,3,1
+B,2,Switzerland,5,1,2,0,3,2,1
+B,3,Bosnia & Herzegovina,3,0,3,0,3,3,0
 B,4,Qatar,1,0,1,2,2,4,-2
-C,1,Brazil,7,2,1,0,5,2,3
-C,2,Scotland,4,1,1,1,2,2,0
-C,3,Morocco,4,1,1,1,2,3,-1
-C,4,Haiti,1,0,1,2,2,4,-2
-D,1,USA,9,3,0,0,5,1,4
-D,2,Turkey,4,1,1,1,3,2,1
-D,3,Australia,2,0,2,1,3,4,-1
-D,4,Paraguay,1,0,1,2,1,5,-4
-E,1,Germany,6,2,0,1,5,3,2
-E,2,Ivory Coast,6,2,0,1,3,2,1
-E,3,Ecuador,4,1,1,1,2,2,0
-E,4,Curacao,1,0,1,2,2,5,-3
-F,1,Netherlands,9,3,0,0,6,2,4
-F,2,Japan,4,1,1,1,3,4,-1
-F,3,Sweden,2,0,2,1,3,4,-1
-F,4,Tunisia,1,0,1,2,3,5,-2
-G,1,Belgium,9,3,0,0,5,2,3
-G,2,Iran,2,0,2,1,3,4,-1
-G,3,New Zealand,2,0,2,1,3,4,-1
-G,4,Egypt,2,0,2,1,2,3,-1
-H,1,Uruguay,7,2,1,0,4,2,2
-H,2,Spain,6,2,0,1,4,3,1
-H,3,Saudi Arabia,4,1,1,1,3,3,0
-H,4,Cape Verde,0,0,0,3,2,5,-3
-I,1,France,9,3,0,0,6,2,4
-I,2,Norway,6,2,0,1,4,4,0
-I,3,Senegal,1,0,1,2,3,5,-2
-I,4,Iraq,1,0,1,2,3,5,-2
-J,1,Argentina,9,3,0,0,6,1,5
-J,2,Algeria,4,1,1,1,2,3,-1
-J,3,Austria,2,0,2,1,2,4,-2
-J,4,Jordan,1,0,1,2,2,4,-2
-K,1,Colombia,9,3,0,0,4,1,3
-K,2,Portugal,6,2,0,1,4,3,1
-K,3,Uzbekistan,1,0,1,2,3,5,-2
-K,4,DR Congo,1,0,1,2,2,4,-2
-L,1,England,7,2,1,0,4,1,3
-L,2,Ghana,3,0,3,0,3,3,0
-L,3,Panama,2,0,2,1,2,3,-1
-L,4,Croatia,2,0,2,1,2,4,-2
+C,1,Morocco,7,2,1,0,3,1,2
+C,2,Brazil,5,1,2,0,4,2,2
+C,3,Scotland,2,0,2,1,2,3,-1
+C,4,Haiti,1,0,1,2,1,4,-3
+D,1,USA,5,1,2,0,3,2,1
+D,2,Australia,3,0,3,0,3,3,0
+D,3,Turkey,3,0,3,0,3,3,0
+D,4,Paraguay,2,0,2,1,2,3,-1
+E,1,Germany,9,3,0,0,6,0,6
+E,2,Ecuador,4,1,1,1,2,3,-1
+E,3,Ivory Coast,4,1,1,1,2,3,-1
+E,4,Curacao,0,0,0,3,0,4,-4
+F,1,Netherlands,7,2,1,0,4,2,2
+F,2,Japan,5,1,2,0,3,2,1
+F,3,Sweden,4,1,1,1,3,3,0
+F,4,Tunisia,0,0,0,3,0,3,-3
+G,1,Belgium,5,1,2,0,4,2,2
+G,2,Egypt,5,1,2,0,3,2,1
+G,3,Iran,3,0,3,0,3,3,0
+G,4,New Zealand,1,0,1,2,1,4,-3
+H,1,Spain,9,3,0,0,5,1,4
+H,2,Uruguay,6,2,0,1,4,2,2
+H,3,Cape Verde,1,0,1,2,1,3,-2
+H,4,Saudi Arabia,1,0,1,2,1,5,-4
+I,1,France,5,1,2,0,4,2,2
+I,2,Norway,5,1,2,0,4,2,2
+I,3,Senegal,5,1,2,0,3,2,1
+I,4,Iraq,0,0,0,3,0,5,-5
+J,1,Argentina,7,2,1,0,4,1,3
+J,2,Austria,5,1,2,0,4,2,2
+J,3,Algeria,2,0,2,1,2,3,-1
+J,4,Jordan,1,0,1,2,1,5,-4
+K,1,Portugal,7,2,1,0,4,1,3
+K,2,Colombia,7,2,1,0,3,1,2
+K,3,Uzbekistan,3,1,0,2,1,3,-2
+K,4,DR Congo,0,0,0,3,0,3,-3
+L,1,England,7,2,1,0,5,1,4
+L,2,Croatia,7,2,1,0,3,1,2
+L,3,Ghana,1,0,1,2,1,4,-3
+L,4,Panama,1,0,1,2,1,4,-3
 
 ELIMINATORIAS
 Ronda,Fecha,Sede,Partido,Resultado,Ganador,Confianza
-KO,,Boston,Germany vs Czechia,2-1,Germany,75%
-KO,,New York,France vs Morocco,2-0,France,67%
-KO,,Los Angeles,South Korea vs Canada,1-1,South Korea,50%
-KO,,Monterrey,Netherlands vs Scotland,2-1,Netherlands,66%
-KO,,Dallas,Portugal vs Ghana,2-1,Portugal,66%
-KO,,Miami,Uruguay vs Algeria,1-1,Uruguay,59%
-KO,,Seattle,USA vs Bosnia & Herzegovina,2-1,USA,62%
-KO,,Kansas City,Belgium vs Ecuador,1-1,Belgium,58%
-KO,,Houston,Brazil vs Japan,2-0,Brazil,68%
-KO,,Dallas,Ivory Coast vs Norway,1-1,Ivory Coast,53%
-KO,,Mexico City,Mexico vs Sweden,2-0,Mexico,65%
-KO,,Philadelphia,England vs Saudi Arabia,2-1,England,68%
-KO,,Toronto,Argentina vs Spain,2-0,Argentina,74%
-KO,,Atlanta,Turkey vs Iran,1-1,Turkey,54%
-KO,,Vancouver,Switzerland vs New Zealand,1-1,Switzerland,55%
-KO,,Atlanta,Colombia vs Australia,1-1,Colombia,58%
-KO,,Boston,Germany vs France,2-0,Germany,77%
-KO,,Los Angeles,South Korea vs Netherlands,1-0,South Korea,52%
-KO,,Dallas,Portugal vs Uruguay,2-0,Portugal,64%
-KO,,Seattle,USA vs Belgium,2-0,USA,65%
-KO,,Houston,Brazil vs Ivory Coast,1-0,Brazil,69%
-KO,,Mexico City,Mexico vs England,1-0,Mexico,61%
-KO,,Toronto,Argentina vs Turkey,2-0,Argentina,68%
-KO,,Vancouver,Switzerland vs Colombia,1-0,Switzerland,55%
-KO,,Philadelphia,Germany vs South Korea,2-0,Germany,74%
-KO,,Atlanta,Portugal vs USA,1-0,Portugal,65%
-KO,,Miami,Brazil vs Mexico,2-0,Brazil,68%
-KO,,New York,Argentina vs Switzerland,2-0,Argentina,72%
-KO,,Dallas,Germany vs Portugal,2-0,Germany,77%
-KO,,Atlanta,Brazil vs Argentina,2-0,Brazil,70%
-KO,,Miami,Portugal vs Argentina,2-0,Portugal,68%
-KO,,New York,Germany vs Brazil,2-0,Germany,74%
+KO,,Boston,Germany vs Czechia,1-0,Germany,59%
+KO,,New York,France vs Turkey,1-1,France,47%
+KO,,Los Angeles,Mexico vs Switzerland,1-1,Mexico,41%
+KO,,Monterrey,Netherlands vs Brazil,1-1,Brazil,38%
+KO,,Toronto,Colombia vs Croatia,1-1,Colombia,39%
+KO,,Los Angeles,Spain vs Austria,2-0,Spain,70%
+KO,,San Francisco,USA vs Bosnia & Herzegovina,2-0,USA,62%
+KO,,Seattle,Belgium vs Ivory Coast,1-1,Belgium,50%
+KO,,Houston,Morocco vs Japan,1-1,Japan,45%
+KO,,Dallas,Ecuador vs Norway,1-1,Norway,38%
+KO,,Mexico City,South Korea vs Sweden,1-1,Sweden,41%
+KO,,Atlanta,England vs Senegal,1-0,England,54%
+KO,,Miami,Argentina vs Uruguay,1-1,Argentina,45%
+KO,,Dallas,Australia vs Egypt,1-1,Egypt,45%
+KO,,Vancouver,Canada vs Iran,1-1,Canada,39%
+KO,,Kansas City,Portugal vs Uzbekistan,1-0,Portugal,64%
+KO,,Philadelphia,Mexico vs Japan,1-1,Japan,41%
+KO,,Houston,Germany vs Brazil,1-1,Brazil,42%
+KO,,New York,France vs Norway,1-1,France,50%
+KO,,Mexico City,Sweden vs England,1-2,England,58%
+KO,,Dallas,USA vs Belgium,1-1,Belgium,40%
+KO,,Seattle,Colombia vs Spain,1-1,Spain,47%
+KO,,Atlanta,Canada vs Argentina,1-1,Argentina,50%
+KO,,Vancouver,Portugal vs Egypt,1-1,Portugal,49%
+KO,,Philadelphia,Japan vs Brazil,1-1,Brazil,50%
+KO,,Atlanta,France vs England,1-1,France,43%
+KO,,Miami,Belgium vs Spain,1-1,Spain,55%
+KO,,New York,Argentina vs Portugal,1-1,Argentina,43%
+KO,,Dallas,Brazil vs France,1-1,France,45%
+KO,,Atlanta,Spain vs Argentina,1-1,Spain,40%
+KO,,Miami,Brazil vs Argentina,1-1,Argentina,47%
+KO,,New York,France vs Spain,1-1,France,42%
 
 RESULTADOS FINALES
-Campeon:,Germany
-Subcampeon:,Brazil
-3er Puesto:,Portugal
+Campeon:,France
+Subcampeon:,Spain
+3er Puesto:,Argentina

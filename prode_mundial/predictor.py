@@ -1,76 +1,111 @@
 # -*- coding: utf-8 -*-
 # Motor de prediccion con factores ponderados
 
+import json
 import math
+import os
 import random
+from difflib import SequenceMatcher
 from data import get_team, get_venue, CITY_COORDS, BASE_CAMPS
 
-# Pesos de cada factor
+PLAYERS_FILE = os.path.join(os.path.dirname(__file__), "output", "players.json")
+
+# Pesos de cada factor (suman 100%, randomness es aditivo)
 WEIGHTS = {
-    "team_strength": 0.30,
+    "team_strength": 0.25,
     "market_value": 0.15,
-    "home_advantage": 0.12,
-    "climate": 0.10,
-    "travel": 0.08,
-    "history": 0.06,
-    "morale": 0.06,
-    "foreign_pct": 0.04,
-    "age_penalty": 0.04,
-    "fanbase": 0.05,
-    "randomness": 0.10,
+    "player_stats": 0.15,
+    "home_advantage": 0.10,
+    "climate": 0.08,
+    "travel": 0.05,
+    "history": 0.05,
+    "morale": 0.05,
+    "age_penalty": 0.05,
+    "foreign_pct": 0.07,
 }
+
+def _load_players():
+    if not os.path.exists(PLAYERS_FILE):
+        return {}
+    with open(PLAYERS_FILE, encoding="utf-8") as f:
+        return json.load(f)
 
 def calculate_team_strength(team_name):
     team = get_team(team_name)
-    rank_score = max(0, 100 - team["rank"]) * 0.3
-    # Replace odds_score with market_value_score
-    mv_total = team.get("market_value_total", 0)
-    market_value_score = min(20, mv_total / 12.5) * 0.25  # 12.5M = 1pt, 250M = 20pt
-    tier_score = (8 - team["tier"]) * 10 * 0.20
-    form_score = team["form_streak"] * 100 * 0.15
-    goals_score = (team["goals_scored_avg"] - team["goals_conceded_avg"] + 2) * 10 * 0.10
-    return rank_score + market_value_score + tier_score + form_score + goals_score
+    rank_score = max(0, 100 - team["rank"]) * 0.6
+    tier_score = (8 - team["tier"]) * 10 * 0.4
+    return rank_score + tier_score
 
-def calculate_home_advantage(team_a, team_b, venue_country):
+def _load_team_players(team_name, players_data):
+    return players_data.get(team_name, [])
+
+def calculate_player_stats_factor(team_a, team_b):
+    players = _load_players()
+    if not players:
+        return 0
+
+    def team_avg_goals(team_name):
+        squad = players.get(team_name, [])
+        if not squad:
+            return 0
+        total_goals = sum(p.get("goals_2025", 0) for p in squad)
+        return total_goals / len(squad)
+
+    def team_avg_assists(team_name):
+        squad = players.get(team_name, [])
+        if not squad:
+            return 0
+        total_assists = sum(p.get("assists_2025", 0) for p in squad)
+        return total_assists / len(squad)
+
+    ga = team_avg_goals(team_a) + team_avg_assists(team_a) * 0.5
+    gb = team_avg_goals(team_b) + team_avg_assists(team_b) * 0.5
+    diff = ga - gb
+    return max(-10, min(10, diff))
+
+def calculate_home_advantage(team_a, team_b, venue_country, is_neutral=False):
     team_a_data = get_team(team_a)
     team_b_data = get_team(team_b)
     advantage_a = 0
     advantage_b = 0
-
-    if team_a_data["home_continent"] and venue_country == team_a_data.get("confederation", "").replace("CONCACAF", "USA"):
-        pass
 
     if team_a_data["confederation"] == "CONCACAF" and venue_country in ("USA", "Mexico", "Canada"):
         advantage_a += 8
     if team_b_data["confederation"] == "CONCACAF" and venue_country in ("USA", "Mexico", "Canada"):
         advantage_b += 8
 
+    mexico_bonus_home = 20
+    mexico_bonus_away = 5 if is_neutral else 10
     if team_a == "Mexico" and venue_country == "Mexico":
-        advantage_a += 20
+        advantage_a += mexico_bonus_home
     elif team_a == "Mexico":
-        advantage_a += 10
+        advantage_a += mexico_bonus_away
     if team_b == "Mexico" and venue_country == "Mexico":
-        advantage_b += 20
+        advantage_b += mexico_bonus_home
     elif team_b == "Mexico":
-        advantage_b += 10
+        advantage_b += mexico_bonus_away
 
+    usa_bonus_home = 15
+    usa_bonus_away = 4 if is_neutral else 8
     if team_a == "USA" and venue_country == "USA":
-        advantage_a += 15
+        advantage_a += usa_bonus_home
     elif team_a == "USA":
-        advantage_a += 8
+        advantage_a += usa_bonus_away
     if team_b == "USA" and venue_country == "USA":
-        advantage_b += 15
+        advantage_b += usa_bonus_home
     elif team_b == "USA":
-        advantage_b += 8
+        advantage_b += usa_bonus_away
 
+    canada_bonus_home = 15
+    canada_bonus_away = 2 if is_neutral else 5
     if team_a == "Canada" and venue_country == "Canada":
-        advantage_a += 15
+        advantage_a += canada_bonus_home
     elif team_a == "Canada":
-        advantage_a += 5
+        advantage_a += canada_bonus_away
     if team_b == "Canada" and venue_country == "Canada":
-        advantage_b += 15
+        advantage_b += canada_bonus_home
     elif team_b == "Canada":
-        advantage_b += 5
+        advantage_b += canada_bonus_away
 
     diaspora_a = team_a_data.get("diaspora_in_usa", 0)
     diaspora_b = team_b_data.get("diaspora_in_usa", 0)
@@ -227,11 +262,6 @@ def calculate_age_penalty_factor(team_a, team_b):
     penalty_b = abs(b - optimal) * 0.5
     return penalty_b - penalty_a  # positive = a has advantage
 
-def calculate_fanbase_factor(team_a, team_b):
-    a = get_team(team_a).get("global_fanbase", 2)
-    b = get_team(team_b).get("global_fanbase", 2)
-    return (a - b) * 1.5
-
 def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Group Stage"):
     venue = get_venue(venue_name)
     venue_country = venue["country"]
@@ -242,7 +272,9 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
 
     mv_diff = calculate_market_value_factor(team_a, team_b) * WEIGHTS["market_value"]
 
-    home_diff = calculate_home_advantage(team_a, team_b, venue_country) * WEIGHTS["home_advantage"]
+    ps_diff = calculate_player_stats_factor(team_a, team_b) * WEIGHTS["player_stats"]
+
+    home_diff = calculate_home_advantage(team_a, team_b, venue_country, is_neutral) * WEIGHTS["home_advantage"]
 
     climate_diff = calculate_climate_impact(team_a, team_b, venue_name) * WEIGHTS["climate"]
 
@@ -256,24 +288,25 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
 
     age_diff = calculate_age_penalty_factor(team_a, team_b) * WEIGHTS["age_penalty"]
 
-    fan_diff = calculate_fanbase_factor(team_a, team_b) * WEIGHTS["fanbase"]
+    total_diff = (strength_diff + mv_diff + ps_diff + home_diff + climate_diff +
+                  travel_diff + history_diff + morale_diff + foreign_diff + age_diff)
 
-    random_factor = random.gauss(0, 7) * WEIGHTS["randomness"]
+    random_factor = random.gauss(0, 0.7) * 10
+    total_diff += random_factor
 
-    total_diff = (strength_diff + mv_diff + home_diff + climate_diff +
-                  travel_diff + history_diff + morale_diff + foreign_diff +
-                  age_diff + fan_diff + random_factor)
-
-    total_diff = max(-30, min(30, total_diff))
+    total_diff_scaled = total_diff / 100
 
     team_a_data = get_team(team_a)
     team_b_data = get_team(team_b)
 
-    expected_goals_a = team_a_data["goals_scored_avg"] + (total_diff / 30) * 1.2
-    expected_goals_b = team_b_data["goals_conceded_avg"] - (total_diff / 30) * 0.8
+    base_a = (team_a_data["goals_scored_avg"] + team_b_data["goals_conceded_avg"]) / 2
+    base_b = (team_b_data["goals_scored_avg"] + team_a_data["goals_conceded_avg"]) / 2
+
+    expected_goals_a = base_a * (1 + total_diff_scaled)
+    expected_goals_b = base_b * (1 - total_diff_scaled)
 
     expected_goals_a = max(0.2, min(4.5, expected_goals_a))
-    expected_goals_b = max(0.1, min(4.0, expected_goals_b))
+    expected_goals_b = max(0.2, min(4.5, expected_goals_b))
 
     sims = 1000
     wins_a = 0
@@ -320,6 +353,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
     factors_detail = {
         "strength": round(strength_diff, 1),
         "market_value": round(mv_diff, 1),
+        "player_stats": round(ps_diff, 1),
         "home": round(home_diff, 1),
         "climate": round(climate_diff, 1),
         "travel": round(travel_diff, 1),
@@ -327,7 +361,6 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
         "morale": round(morale_diff, 1),
         "foreign_pct": round(foreign_diff, 1),
         "age_penalty": round(age_diff, 1),
-        "fanbase": round(fan_diff, 1),
         "random": round(random_factor, 1),
     }
 

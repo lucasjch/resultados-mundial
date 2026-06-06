@@ -19,20 +19,22 @@ Script Python que analiza los 135 partidos del Mundial 2026 y predice resultados
 
 ```
 prode_mundial/
-├── scraper.py        # Scraper de plantillas (Promiedos + Transfermarkt)
-├── data.py           # Datos de equipos, sedes, fixture, bases operativas
-├── predictor.py      # Motor de 10 factores ponderados + simulación Poisson
-├── bracket.py        # Bracket oficial 2026 (R32, R16, QF, SF, 3°, Final)
-├── output.py         # Exportación CSV/JSON
-├── main.py           # Orquestador principal
-├── wikiscraper.py    # Scraper individual de Wikipedia vía API
+├── scraper.py           # Scraper de plantillas (Promiedos + Transfermarkt)
+├── data.py              # Datos de equipos, sedes, fixture, bases operativas
+├── predictor.py         # Motor de 9 factores ponderados + simulación Poisson
+├── stats_scraper.py     # Scraper de estadísticas individuales (Transfermarkt API)
+├── bracket.py           # Bracket oficial 2026 (R32, R16, QF, SF, 3°, Final)
+├── output.py            # Exportación CSV/JSON
+├── main.py              # Orquestador principal
+├── wikiscraper.py       # Scraper individual de Wikipedia vía API
 └── output/
-    ├── players.json          # 1245 jugadores (enriquecido vía wikiscraper)
-    ├── wiki_cache.json       # Caché de Wikipedia scraping
-    ├── fase_grupos.csv/json  # Partidos de grupos
-    ├── tabla_posiciones.csv  # Posiciones finales
-    ├── eliminatorias.csv     # Llaves KO
-    └── prode_completo.csv    # Prode completo (135 partidos)
+    ├── players.json              # 1245 jugadores (enriquecido vía wikiscraper + Transfermarkt)
+    ├── wiki_cache.json           # Caché de Wikipedia scraping
+    ├── tm_stats_cache.json       # Caché de Transfermarkt stats
+    ├── fase_grupos.csv/json      # Partidos de grupos
+    ├── tabla_posiciones.csv      # Posiciones finales
+    ├── eliminatorias.csv         # Llaves KO
+    └── prode_completo.csv        # Prode completo (135 partidos)
 ```
 
 ## Plan de Fases
@@ -40,49 +42,63 @@ prode_mundial/
 | # | Fase | Estado |
 |---|------|--------|
 | 1 | Ejecutar wikiscraper.py (1112/1245 jugadores) | ✅ Completado |
-| 2 | Decidir fuente de asistencias | ⬜ Pendiente |
-| 3 | Integrar stats individuales como factores en predictor.py | ⬜ Pendiente |
-| 4 | Arreglar modelo de predicción (pesos, redundancias, fórmula) | ⬜ Pendiente |
+| 2 | Decidir fuente de asistencias | ✅ Completado |
+| 3 | Integrar stats individuales como factores en predictor.py | ✅ Completado |
+| 4 | Arreglar modelo de predicción (pesos, redundancias, fórmula) | ✅ Completado |
 | 5 | Revisar predicciones Grupo A con factores mejorados | ⬜ Pendiente |
-| 6 | Ejecutar simulación completa (main.py) | ⬜ Pendiente |
+| 6 | Ejecutar simulación completa (main.py) | ✅ Completado |
+| — | **Bloque A**: Fix fixture/venue bugs | ✅ Completado |
+| — | **Bloque B**: Market Value Parser + Estimaciones | ✅ Completado |
+| — | **Bloque C**: Team Data Calibrations + TM_TEAM_OVERRIDES | ✅ Completado |
+| — | **Bloque D**: Actualizar temperaturas de sedes con pronóstico 2026 | ✅ Completado |
+| — | **Bloque E**: Ajustar modelo (form/goals fuera de team_strength, player_stats 15%, is_neutral) | ✅ Completado |
+| — | **Bloque F**: Re-ejecutar stats_scraper + main.py | ⬜ Parcial (caché existente OK, --force lento) |
 
 ## Decisiones Tomadas
 
 1. **Wikiscraper**: Se agregó checkpoint incremental cada 50 jugadores para evitar perder progreso en timeouts.
-2. **UTF-8 fix**: En Windows requiere `$env:PYTHONIOENCODING='utf-8'` antes de ejecutar wikiscraper.
+2. **UTF-8 fix**: En Windows requiere `$env:PYTHONIOENCODING='utf-8'` antes de ejecutar scripts Python con caracteres UTF-8.
 3. **LSP**: `python-lsp-server` (pylsp) instalado globalmente. `opencode.jsonc` con `"lsp": true` en la raíz.
 4. **Repositorio**: `https://github.com/lucasjch/resultados-mundial.git`, branch `master`.
+5. **Fuente de asistencias → Transfermarkt API**: La API `tmapi-alpha.transfermarkt.technology` devuelve stats detalladas por partido (goles, asistencias, minutos) sin rate limit. Reemplaza FBref (bloqueado por Cloudflare).
+6. **Transfermarkt endpoints**: `/quickselect/teams/FIWC` → 48 equipos, `/quickselect/players/{teamId}` → jugadores, `/player/{playerId}/performance-game` → stats por temporada.
 
-## Correcciones Pendientes en predictor.py (discutido con Gemini)
+## Correcciones Aplicadas en predictor.py (Fase 4 + Bloque E)
 
-### Problemas identificados:
+### Problemas solucionados (Fase 4):
+1. **Pesos sumaban 110%** → Redistribuidos a 100%, eliminados `fanbase` y `randomness` de los pesos.
+2. **Redundancia (multicolinealidad)** → `team_strength` ya NO incluye `market_value`. `fanbase` eliminado y absorbido por `home_advantage`.
+3. **Fórmula de goles esperados** → Ahora cruza ataque vs defensa: `base_A = (goals_scored_avg_A + goals_conceded_avg_B) / 2`.
+4. **Randomness aditivo** → Ya no es un peso; es `random.gauss(0, 0.7) * 10` sumado a `total_diff`.
+5. **Nuevo factor**: `player_stats` (10%) que agrega goles+asistencias promedio por plantilla desde Transfermarkt.
 
-1. **Pesos suman 110%**: `30+15+12+10+8+6+6+4+4+5+10 = 110%`. Hay que redistribuir a 100%.
-2. **Redundancia (multicolinealidad)**: `team_strength` ya incluye `market_value` internamente, pero después se pondera `market_value` como factor separado al 15%. También `fanbase` se solapa con `home_advantage`.
-3. **Fórmula de goles esperados**: No cruza ataque vs defensa. Actual: `λ_A = goals_scored_avg_A + (total_diff/30) × 1.2`. Debería ser: `base_A = (goals_scored_avg_A + goals_conceded_avg_B) / 2`.
-4. **Randomness**: Está dentro de la matriz de pesos (10%) cuando debería ser un término aditivo independiente.
+### Cambios Bloque E:
+1. **`calculate_team_strength`** — eliminados `form_score` (redundante con `morale`) y `goals_score` (redundante con la fórmula base). Ahora solo usa rank + tier.
+2. **Pesos rebalanceados** — `player_stats` subió de 10% → 15%, `team_strength` bajó de 28% → 25%, `home_advantage` bajó de 12% → 10%, `foreign_pct` subió de 5% → 7%. Suma = 100%.
+3. **`is_neutral`** — Implementado en `calculate_home_advantage()`. Cuando `is_neutral=True` (KO stages), los bonos de México/USA/Canadá fuera de casa se reducen ~50%.
 
-### Pesos sugeridos (corregidos al 100%):
+### Pesos actuales (suma = 100%):
 
 | Factor | Peso | Nota |
 |--------|------|------|
-| team_strength | 35% | Sacar market_value de adentro |
-| market_value | 20% | Ya no duplicado |
-| home_advantage | 12% | Absorbe fanbase |
+| team_strength | 25% | Solo rank + tier (sin form/goals) |
+| market_value | 15% | Factor independiente |
+| player_stats | 15% | Goals + 0.5×Assists promedio por jugador |
+| home_advantage | 10% | Incluye fanbase/diaspora; is_neutral reduce bonos |
 | climate | 8% | |
 | travel | 5% | |
 | history | 5% | |
 | morale | 5% | |
 | age_penalty | 5% | |
-| foreign_pct | 5% | |
-| randomness | — | Término aditivo, no peso |
+| foreign_pct | 7% | |
+| randomness | — | Término aditivo `gauss(0,0.7)×10` |
 
-### Nueva fórmula de goles esperados:
+### Fórmula de goles esperados:
 ```
 total_diff = Σ(factor_i × peso_i)   # sin randomness
 random_factor = random.gauss(0, 0.7) * 10
 total_diff += random_factor
-total_diff_scaled = total_diff / 100  # normalizado
+total_diff_scaled = total_diff / 100
 
 base_a = (goals_scored_avg_a + goals_conceded_avg_b) / 2
 base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
@@ -92,13 +108,95 @@ base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
 
 ## Seed
 
-`seed = 42` en `main.py`. Resultado actual: Germany campeón, Brazil subcampeón, Portugal 3°.
+`seed = 42` en `main.py`. Resultado actual: France campeón, Spain subcampeón, Argentina 3°.
+
+## Bloque A: Fix fixture/venue bugs (Completado)
+
+### Cambios aplicados:
+
+1. **Group L fixtures** (data.py:1106-1107):
+   - "Panama vs England" → "England vs Ghana"
+   - "Croatia vs Ghana" (duplicado) → "Croatia vs Panama"
+   - Resultado: 6 partidos únicos, cada equipo juega 3.
+
+2. **Conflictos horarios resueltos** (data.py):
+   - Dallas 18:00 2026-06-20: Ecuador vs Germany movido a Houston 20:00
+   - Seattle 18:00 2026-06-25: Netherlands vs Sweden movido a Vancouver 21:00
+   - Los Angeles 18:00 2026-06-26: Norway vs Iraq movido a San Francisco 20:00
+
+3. **R32 bracket venues** (bracket.py:8 cambios):
+   `Dallas→Toronto, Miami→Los Angeles, Seattle→San Francisco, Kansas City→Seattle, Philadelphia→Atlanta, Toronto→Miami, Atlanta→Dallas, Atlanta→Kansas City`
+
+4. **R16 pairings & venues** (bracket.py):
+   - Pairings actualizados al bracket oficial FIFA 2026
+   - Venues: `[Boston, LA, Dallas, Seattle, Houston, Mexico City, Toronto, Vancouver]` → `[Philadelphia, Houston, New York, Mexico City, Dallas, Seattle, Atlanta, Vancouver]`
+
+## Bloque B: Market Value Parser + Estimaciones (Completado)
+
+### Cambios aplicados:
+
+1. **Fix parse_market_value()** (scraper.py:96):
+   - Agregado `'mio' in val_lower` para manejar el sufijo alemán "Mio" ("20 Mio. €")
+   - Se unificó con el bloque `'mill'` ya que ambos representan millones
+
+2. **Estimaciones de market value** (data.py:1149-1190):
+   - Agregado `_MARKET_VALUE_ESTIMATES` con valores estimados para los 48 equipos (millones €)
+   - Basado en tier + ajustes por equipo: Tier 1 (~1000M) → Tier 8 (~5M)
+   - Modificado `_enrich_teams()` para usar estimaciones cuando no hay player-level market values
+   - El factor `market_value` (15%) ahora tiene efecto real en predicciones
+
+### Valores estimados (top/bottom):
+| Rango | Equipos | Valor |
+|-------|---------|-------|
+| Top | France 1100, Argentina 1000, England 950, Spain 900 | ~1000M |
+| Mid | USA 350, Uruguay 300, Croatia 300 | ~300M |
+| Low | Haiti 10, Cape Verde 8, Curacao 5 | ~8M |
+
+## Bloque C: Team Data Calibrations + TM_TEAM_OVERRIDES (Completado)
+
+### Cambios aplicados:
+
+1. **TM_TEAM_OVERRIDES** (stats_scraper.py):
+   - Agregados: `Ivory Coast→Côte d'Ivoire`, `Czechia→Czech Republic`, `Cape Verde→Cabo Verde`, `South Korea→Korea Republic`
+   - Total: 9 overrides → 49 team names mapeables
+
+2. **Germany form_streak** (data.py:302):
+   - `1.0` (10 victorias consecutivas irreales) → `0.70` con form_10 corregido
+
+3. **Tiers recalibrados** (data.py):
+   - Croatia: 4→3, Uruguay: 4→3, USA: 4→3, Japan: 4→3
+   - Norway: 3→4, South Korea: 5→4, Sweden: 5→4, Austria: 5→4
+
+4. **FANBASE** (data.py:1129-1147):
+   - Eliminados equipos que no clasificaron (Italy, Poland, Denmark, Serbia, Nigeria, Cameroon)
+   - Croatia subió de 4→5 por éxito reciente en Mundiales
+
+## Bloque D: Actualizar temperaturas de sedes con pronóstico 2026 (Completado)
+
+### Verificación:
+- Se compararon los 16 avg_temp actuales con datos pronosticados para junio-julio 2026 de worldcuptourism.com y prepyourtrip.com
+- Todos los valores coinciden exactamente con los datos de worldcuptourism.com
+- No se requirieron cambios
+
+## Bloque E: Ajustar modelo (Completado)
+
+### Cambios aplicados en predictor.py:
+
+1. **`calculate_team_strength`** — eliminados `form_score` y `goals_score` (redundantes con `morale` y la fórmula base de goles esperados). Ahora solo usa `rank_score` + `tier_score`.
+2. **Pesos rebalanceados** — `player_stats` subió de 10% a 15%, `team_strength` bajó de 28% a 25%, `home_advantage` bajó de 12% a 10%, `foreign_pct` subió de 5% a 7%. Suma = 100%.
+3. **`is_neutral`** — parámetro agregado a `calculate_home_advantage()`. Cuando es True (KO stages), los bonos de México/USA/Canadá fuera de casa se reducen ~50% (Mexico 10→5, USA 8→4, Canada 5→2).
 
 ## Comandos Útiles
 
 ```powershell
 # Ejecutar wikiscraper
 $env:PYTHONIOENCODING='utf-8'; python prode_mundial/wikiscraper.py
+
+# Ejecutar scraper de estadísticas (Transfermarkt)
+$env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py
+
+# Forzar re-scrapeo de estadísticas (ignorar caché)
+$env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py --force
 
 # Ejecutar simulación completa
 python prode_mundial/main.py
