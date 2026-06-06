@@ -107,6 +107,13 @@ prode_mundial/
     (no necesariamente del ganador). Ahora `confidence = prob_winner * 100`, donde
     `prob_winner` es la probabilidad del equipo que efectivamente ganó según el
     score Poisson.
+16. **Top scorer deterministic seed**: `random.seed(0)` dentro de
+    `compute_top_scorers()` para distribución reproducible de goles entre
+    jugadores, SIN afectar los resultados de los partidos (post-simulación).
+17. **`players.json` es `{team: [players]}`**: No `{player_name: data}`. Requiere
+    `get_player_team()` para lookup inverso de equipo → jugador.
+18. **ejecutar.bat en raíz**: Menú interactivo PowerShell/.bat portable. No
+    requiere instalación en PATH.
 
 ## Correcciones Aplicadas en predictor.py (Fase 4 + Bloque E)
 
@@ -157,6 +164,8 @@ prode_mundial/
 | squad_depth     | 8%   | Ratio de jugadores de impacto en plantilla |
 | travel_fatigue  | 5%   | Km totales acumulados viajando |
 | jet_lag         | 3%   | Diferencia horaria sede vs país de origen |
+| randomness      | —    | Ya no se usa. Antes: `gauss(0,0.7)×10` |
+
 ### Fórmula de goles esperados
 
 ```python
@@ -358,6 +367,44 @@ Resultado: Germany 🇩🇪 campeón, Spain 🇪🇸 subcampeón, Colombia 🇨�
    local.
 8. **Advertencia `R16_PAIRINGS`**: Comentario prominente sobre índices frágiles
    que dependen del orden de `R32_BRACKET`.
+
+## Bloque J: Top Scorer + ejecutar.bat (Completado)
+
+### top_scorer.py (J)
+
+1. **`_build_team_weights(team_name, players_data)`**: Construye pesos por
+   jugador usando `(goals_2026 * position_weight + 0.1)`. Position weights:
+   FW=1.0, MF=0.4, DF=0.05. El `+0.1` evita pesos cero para defensores.
+2. **`distribute_goals(team_name, total_goals, players_data)`**: Distribuye
+   `total_goals` enteros muestreando `random.choices()` con los pesos
+   normalizados. Retorna `Counter[player_name]`.
+3. **`compute_top_scorers(all_match_results, players_data)`**: Itera los 135
+   partidos del prode completo, distribuye goles de local y visitante por
+   separado, suma totales globales.
+4. **`get_player_team(player_name, players_data)`**: Busca a qué equipo
+   pertenece un jugador. Necesaria porque `players.json` está indexado por
+   equipo, no por jugador.
+5. **Seed determinista**: Se llama `random.seed(0)` al inicio de
+   `compute_top_scorers()` para que la distribución de goles sea reproducible
+   SIN afectar los resultados de los partidos (se ejecuta post-simulación).
+
+### main.py (J)
+
+1. **`--goleadores`**: Modo silencioso que suprime stdout de la simulación con
+   `contextlib.redirect_stdout(io.StringIO())`, imprime solo la tabla de
+   goleadores al final.
+2. **Seed como argumento**: `python main.py 123` o `python main.py --seed 123`.
+3. **Integración**: `run_top_scorers()` se llama al final de
+   `run_full_simulation()` con el prode completo, iterando los dicts de
+   `all_results_group` y `ko_results`.
+
+### ejecutar.bat (J)
+
+Menú interactivo con 4 opciones:
+1. **Simulación completa** — `python prode_mundial/main.py` (seed 256)
+2. **Seed personalizada** — pide número y ejecuta `python prode_mundial/main.py <N>`
+3. **Tabla de goleadores** — `python prode_mundial/main.py --goleadores`
+4. **Salir**
 
 ## Comandos Útiles
 
