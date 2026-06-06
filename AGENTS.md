@@ -21,7 +21,7 @@ Script Python que analiza los 135 partidos del Mundial 2026 y predice resultados
 prode_mundial/
 ├── scraper.py           # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py              # Datos de equipos, sedes, fixture, bases operativas
-├── predictor.py         # Motor de 9 factores ponderados + simulación Poisson
+├── predictor.py         # Motor de 14 factores ponderados + simulación Poisson
 ├── stats_scraper.py     # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py           # Bracket oficial 2026 (R32, R16, QF, SF, 3°, Final)
 ├── output.py            # Exportación CSV/JSON
@@ -45,7 +45,7 @@ prode_mundial/
 | 2 | Decidir fuente de asistencias | ✅ Completado |
 | 3 | Integrar stats individuales como factores en predictor.py | ✅ Completado |
 | 4 | Arreglar modelo de predicción (pesos, redundancias, fórmula) | ✅ Completado |
-| 5 | Revisar predicciones Grupo A con factores mejorados | ⬜ Pendiente |
+| 5 | Revisar predicciones Grupo A con factores mejorados | ✅ Completado |
 | 6 | Ejecutar simulación completa (main.py) | ✅ Completado |
 | — | **Bloque A**: Fix fixture/venue bugs | ✅ Completado |
 | — | **Bloque B**: Market Value Parser + Estimaciones | ✅ Completado |
@@ -77,6 +77,8 @@ prode_mundial/
 1. **`calculate_team_strength`** — eliminados `form_score` (redundante con `morale`) y `goals_score` (redundante con la fórmula base). Ahora solo usa rank + tier.
 2. **Pesos rebalanceados** — `player_stats` subió de 10% → 15%, `team_strength` bajó de 28% → 25%, `home_advantage` bajó de 12% → 10%, `foreign_pct` subió de 5% → 7%. Suma = 100%.
 3. **`is_neutral`** — Implementado en `calculate_home_advantage()`. Cuando `is_neutral=True` (KO stages), los bonos de México/USA/Canadá fuera de casa se reducen ~50%.
+
+> ⚠️ Estos pesos fueron rebalanceados nuevamente en el Bloque G (ver tabla abajo).
 
 ### Pesos actuales (suma = 100%):
 
