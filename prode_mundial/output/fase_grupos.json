@@ -9,31 +9,33 @@
     "team_b": "South Africa",
     "score_a": 3,
     "score_b": 1,
-    "expected_goals_a": 1.59,
-    "expected_goals_b": 0.95,
+    "expected_goals_a": 1.55,
+    "expected_goals_b": 0.98,
     "winner": "Mexico",
     "probabilities": {
-      "a_win": 51.1,
-      "draw": 26.1,
-      "b_win": 22.8
+      "a_win": 49.8,
+      "draw": 26.5,
+      "b_win": 23.7
     },
-    "confidence": 51.1,
+    "confidence": 49.8,
     "factors": {
       "strength": 0.6,
-      "market_value": 0.6,
+      "market_value": 0.5,
       "player_stats": 0.2,
       "odds": 0.0,
-      "home": 0.6,
+      "home": 0.5,
       "climate": 0.0,
       "travel": 0.0,
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": -0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.1,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.1,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.3
     }
   },
   {
@@ -50,15 +52,15 @@
     "expected_goals_b": 1.26,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 39.2,
-      "draw": 26.7,
+      "a_win": 39.6,
+      "draw": 26.3,
       "b_win": 34.1
     },
-    "confidence": 26.7,
+    "confidence": 26.3,
     "factors": {
-      "strength": 0.3,
+      "strength": 0.2,
       "market_value": -0.0,
-      "player_stats": -0.3,
+      "player_stats": -0.2,
       "odds": 0.0,
       "home": 0.0,
       "climate": 0.1,
@@ -66,11 +68,13 @@
       "history": 0.0,
       "morale": 0.0,
       "foreign_pct": -0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.2
     }
   },
   {
@@ -83,13 +87,13 @@
     "team_b": "South Africa",
     "score_a": 2,
     "score_b": 2,
-    "expected_goals_a": 1.39,
+    "expected_goals_a": 1.38,
     "expected_goals_b": 1.07,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 45.7,
+      "a_win": 45.5,
       "draw": 26.1,
-      "b_win": 28.2
+      "b_win": 28.3
     },
     "confidence": 26.1,
     "factors": {
@@ -103,11 +107,13 @@
       "history": 0.3,
       "morale": 0.0,
       "foreign_pct": -0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": -0.1,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.2
     }
   },
   {
@@ -120,31 +126,33 @@
     "team_b": "Czechia",
     "score_a": 4,
     "score_b": 3,
-    "expected_goals_a": 1.6,
-    "expected_goals_b": 1.12,
+    "expected_goals_a": 1.56,
+    "expected_goals_b": 1.15,
     "winner": "Mexico",
     "probabilities": {
-      "a_win": 48.5,
-      "draw": 23.1,
-      "b_win": 28.5
+      "a_win": 47.1,
+      "draw": 23.4,
+      "b_win": 29.5
     },
-    "confidence": 48.5,
+    "confidence": 47.1,
     "factors": {
-      "strength": 0.4,
+      "strength": 0.3,
       "market_value": 0.3,
-      "player_stats": -0.2,
+      "player_stats": -0.1,
       "odds": 0.0,
-      "home": 0.6,
+      "home": 0.5,
       "climate": 0.3,
       "travel": 0.0,
       "history": -0.1,
       "morale": 0.1,
       "foreign_pct": -0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.1,
+      "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.3
     }
   },
   {
@@ -157,31 +165,33 @@
     "team_b": "South Korea",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.49,
-    "expected_goals_b": 1.17,
+    "expected_goals_a": 1.47,
+    "expected_goals_b": 1.19,
     "winner": "South Korea",
     "probabilities": {
-      "a_win": 47.9,
-      "draw": 24.0,
-      "b_win": 28.1
+      "a_win": 46.9,
+      "draw": 24.6,
+      "b_win": 28.5
     },
-    "confidence": 24.0,
+    "confidence": 24.6,
     "factors": {
       "strength": 0.1,
-      "market_value": 0.4,
+      "market_value": 0.3,
       "player_stats": 0.1,
       "odds": 0.0,
-      "home": 0.6,
+      "home": 0.5,
       "climate": 0.2,
       "travel": 0.0,
       "history": -0.1,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.1,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -194,17 +204,17 @@
     "team_b": "South Africa",
     "score_a": 4,
     "score_b": 2,
-    "expected_goals_a": 1.35,
-    "expected_goals_b": 1.15,
+    "expected_goals_a": 1.34,
+    "expected_goals_b": 1.16,
     "winner": "Czechia",
     "probabilities": {
-      "a_win": 41.9,
-      "draw": 27.4,
-      "b_win": 30.7
+      "a_win": 41.3,
+      "draw": 27.1,
+      "b_win": 31.7
     },
-    "confidence": 27.4,
+    "confidence": 27.1,
     "factors": {
-      "strength": 0.3,
+      "strength": 0.2,
       "market_value": 0.2,
       "player_stats": 0.4,
       "odds": 0.0,
@@ -214,11 +224,13 @@
       "history": 0.3,
       "morale": -0.0,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.1,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -231,31 +243,33 @@
     "team_b": "Bosnia & Herzegovina",
     "score_a": 3,
     "score_b": 0,
-    "expected_goals_a": 1.66,
-    "expected_goals_b": 1.2,
+    "expected_goals_a": 1.68,
+    "expected_goals_b": 1.19,
     "winner": "Canada",
     "probabilities": {
-      "a_win": 49.0,
-      "draw": 25.5,
-      "b_win": 25.5
+      "a_win": 48.4,
+      "draw": 25.8,
+      "b_win": 25.8
     },
-    "confidence": 49.0,
+    "confidence": 48.4,
     "factors": {
-      "strength": 0.5,
+      "strength": 0.4,
       "market_value": 0.2,
-      "player_stats": -0.2,
+      "player_stats": -0.1,
       "odds": 0.0,
-      "home": 0.5,
+      "home": 0.4,
       "climate": -0.1,
       "travel": -0.0,
       "history": 0.0,
       "morale": 0.1,
       "foreign_pct": -0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.5,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -268,19 +282,19 @@
     "team_b": "Switzerland",
     "score_a": 2,
     "score_b": 2,
-    "expected_goals_a": 1.06,
-    "expected_goals_b": 1.77,
+    "expected_goals_a": 1.08,
+    "expected_goals_b": 1.74,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 21.5,
-      "draw": 25.3,
-      "b_win": 53.1
+      "a_win": 23.3,
+      "draw": 24.3,
+      "b_win": 52.3
     },
-    "confidence": 53.1,
+    "confidence": 52.3,
     "factors": {
-      "strength": -0.7,
+      "strength": -0.6,
       "market_value": -0.5,
-      "player_stats": -0.2,
+      "player_stats": -0.1,
       "odds": -0.1,
       "home": -0.0,
       "climate": -0.0,
@@ -288,11 +302,13 @@
       "history": -0.1,
       "morale": -0.1,
       "foreign_pct": -0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.2
     }
   },
   {
@@ -305,31 +321,33 @@
     "team_b": "Qatar",
     "score_a": 1,
     "score_b": 3,
-    "expected_goals_a": 1.76,
+    "expected_goals_a": 1.75,
     "expected_goals_b": 1.12,
     "winner": "Qatar",
     "probabilities": {
-      "a_win": 51.8,
-      "draw": 23.1,
-      "b_win": 25.1
+      "a_win": 51.5,
+      "draw": 23.0,
+      "b_win": 25.5
     },
-    "confidence": 51.8,
+    "confidence": 51.5,
     "factors": {
-      "strength": 0.5,
-      "market_value": 0.3,
+      "strength": 0.4,
+      "market_value": 0.2,
       "player_stats": 0.1,
       "odds": 0.0,
-      "home": 0.5,
+      "home": 0.4,
       "climate": 0.0,
       "travel": 0.1,
       "history": 0.0,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.4,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.2
     }
   },
   {
@@ -342,17 +360,17 @@
     "team_b": "Bosnia & Herzegovina",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.68,
-    "expected_goals_b": 1.14,
+    "expected_goals_a": 1.67,
+    "expected_goals_b": 1.15,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 52.4,
-      "draw": 23.6,
-      "b_win": 24.0
+      "a_win": 52.2,
+      "draw": 23.5,
+      "b_win": 24.3
     },
-    "confidence": 52.4,
+    "confidence": 52.2,
     "factors": {
-      "strength": 0.7,
+      "strength": 0.6,
       "market_value": 0.4,
       "player_stats": -0.1,
       "odds": 0.1,
@@ -362,11 +380,13 @@
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -379,31 +399,33 @@
     "team_b": "Canada",
     "score_a": 2,
     "score_b": 3,
-    "expected_goals_a": 1.41,
-    "expected_goals_b": 1.34,
+    "expected_goals_a": 1.39,
+    "expected_goals_b": 1.36,
     "winner": "Canada",
     "probabilities": {
-      "a_win": 38.1,
-      "draw": 26.2,
-      "b_win": 35.7
+      "a_win": 37.1,
+      "draw": 25.3,
+      "b_win": 37.5
     },
-    "confidence": 26.2,
+    "confidence": 25.3,
     "factors": {
       "strength": 0.2,
       "market_value": 0.2,
-      "player_stats": 0.1,
-      "odds": 0.1,
-      "home": -0.5,
+      "player_stats": 0.0,
+      "odds": 0.0,
+      "home": -0.4,
       "climate": 0.0,
       "travel": -0.1,
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": -0.4,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -416,19 +438,19 @@
     "team_b": "Qatar",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.53,
-    "expected_goals_b": 1.38,
+    "expected_goals_a": 1.51,
+    "expected_goals_b": 1.39,
     "winner": "Bosnia & Herzegovina",
     "probabilities": {
-      "a_win": 42.7,
-      "draw": 26.4,
-      "b_win": 30.9
+      "a_win": 41.7,
+      "draw": 25.9,
+      "b_win": 32.4
     },
-    "confidence": 42.7,
+    "confidence": 41.7,
     "factors": {
       "strength": -0.0,
       "market_value": 0.1,
-      "player_stats": 0.3,
+      "player_stats": 0.2,
       "odds": 0.0,
       "home": 0.0,
       "climate": -0.1,
@@ -436,11 +458,13 @@
       "history": 0.0,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.2
     }
   },
   {
@@ -453,31 +477,33 @@
     "team_b": "Morocco",
     "score_a": 1,
     "score_b": 0,
-    "expected_goals_a": 1.56,
-    "expected_goals_b": 1.15,
+    "expected_goals_a": 1.53,
+    "expected_goals_b": 1.18,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 45.5,
-      "draw": 25.3,
-      "b_win": 29.2
+      "a_win": 43.9,
+      "draw": 25.1,
+      "b_win": 30.9
     },
-    "confidence": 45.5,
+    "confidence": 43.9,
     "factors": {
       "strength": 0.1,
       "market_value": 0.0,
       "player_stats": 0.0,
-      "odds": 0.4,
+      "odds": 0.3,
       "home": 0.1,
       "climate": 0.1,
       "travel": 0.0,
       "history": 0.1,
       "morale": -0.0,
       "foreign_pct": -0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.1,
+      "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -490,19 +516,19 @@
     "team_b": "Scotland",
     "score_a": 2,
     "score_b": 0,
-    "expected_goals_a": 0.97,
-    "expected_goals_b": 1.65,
+    "expected_goals_a": 0.96,
+    "expected_goals_b": 1.67,
     "winner": "Haiti",
     "probabilities": {
-      "a_win": 21.9,
-      "draw": 24.4,
-      "b_win": 53.7
+      "a_win": 21.7,
+      "draw": 24.5,
+      "b_win": 53.9
     },
-    "confidence": 53.7,
+    "confidence": 53.9,
     "factors": {
-      "strength": -0.7,
-      "market_value": -0.3,
-      "player_stats": -0.3,
+      "strength": -0.6,
+      "market_value": -0.2,
+      "player_stats": -0.4,
       "odds": -0.0,
       "home": 0.2,
       "climate": 0.2,
@@ -510,11 +536,13 @@
       "history": 0.0,
       "morale": -0.1,
       "foreign_pct": -0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -527,18 +555,18 @@
     "team_b": "Morocco",
     "score_a": 6,
     "score_b": 2,
-    "expected_goals_a": 1.05,
+    "expected_goals_a": 1.04,
     "expected_goals_b": 1.53,
     "winner": "Scotland",
     "probabilities": {
-      "a_win": 24.9,
+      "a_win": 24.8,
       "draw": 26.0,
-      "b_win": 49.1
+      "b_win": 49.2
     },
-    "confidence": 49.1,
+    "confidence": 49.2,
     "factors": {
-      "strength": -0.6,
-      "market_value": -0.8,
+      "strength": -0.5,
+      "market_value": -0.7,
       "player_stats": -0.2,
       "odds": -0.1,
       "home": -0.0,
@@ -547,11 +575,13 @@
       "history": -0.3,
       "morale": -0.1,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.2,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -564,31 +594,33 @@
     "team_b": "Haiti",
     "score_a": 6,
     "score_b": 3,
-    "expected_goals_a": 2.26,
-    "expected_goals_b": 0.67,
+    "expected_goals_a": 2.24,
+    "expected_goals_b": 0.68,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 72.6,
-      "draw": 19.1,
-      "b_win": 8.3
+      "a_win": 72.5,
+      "draw": 18.9,
+      "b_win": 8.5
     },
-    "confidence": 72.6,
+    "confidence": 72.5,
     "factors": {
-      "strength": 1.4,
-      "market_value": 1.1,
-      "player_stats": 0.5,
-      "odds": 0.5,
+      "strength": 1.3,
+      "market_value": 1.0,
+      "player_stats": 0.6,
+      "odds": 0.4,
       "home": -0.1,
       "climate": -0.1,
       "travel": 0.0,
       "history": 0.4,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -600,32 +632,34 @@
     "team_a": "Scotland",
     "team_b": "Brazil",
     "score_a": 0,
-    "score_b": 4,
-    "expected_goals_a": 0.97,
-    "expected_goals_b": 1.85,
+    "score_b": 3,
+    "expected_goals_a": 0.99,
+    "expected_goals_b": 1.82,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 22.0,
-      "draw": 23.1,
-      "b_win": 54.9
+      "a_win": 21.9,
+      "draw": 24.1,
+      "b_win": 53.9
     },
-    "confidence": 54.9,
+    "confidence": 53.9,
     "factors": {
-      "strength": -0.7,
-      "market_value": -0.8,
+      "strength": -0.6,
+      "market_value": -0.7,
       "player_stats": -0.2,
-      "odds": -0.5,
-      "home": -0.2,
+      "odds": -0.4,
+      "home": -0.1,
       "climate": -0.1,
       "travel": 0.0,
       "history": -0.4,
       "morale": -0.0,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": -0.1,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -636,21 +670,21 @@
     "venue_country": "USA",
     "team_a": "Morocco",
     "team_b": "Haiti",
-    "score_a": 1,
+    "score_a": 2,
     "score_b": 0,
-    "expected_goals_a": 1.91,
-    "expected_goals_b": 0.74,
+    "expected_goals_a": 1.93,
+    "expected_goals_b": 0.73,
     "winner": "Morocco",
     "probabilities": {
-      "a_win": 65.9,
-      "draw": 20.7,
-      "b_win": 13.4
+      "a_win": 66.3,
+      "draw": 20.9,
+      "b_win": 12.9
     },
-    "confidence": 65.9,
+    "confidence": 66.3,
     "factors": {
-      "strength": 1.3,
-      "market_value": 1.1,
-      "player_stats": 0.5,
+      "strength": 1.2,
+      "market_value": 1.0,
+      "player_stats": 0.6,
       "odds": 0.1,
       "home": -0.2,
       "climate": 0.0,
@@ -658,11 +692,13 @@
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.2,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.1,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -679,14 +715,14 @@
     "expected_goals_b": 1.01,
     "winner": "USA",
     "probabilities": {
-      "a_win": 52.5,
-      "draw": 25.1,
-      "b_win": 22.4
+      "a_win": 52.1,
+      "draw": 25.5,
+      "b_win": 22.5
     },
-    "confidence": 52.5,
+    "confidence": 52.1,
     "factors": {
-      "strength": 0.5,
-      "market_value": 0.6,
+      "strength": 0.4,
+      "market_value": 0.5,
       "player_stats": 0.3,
       "odds": 0.1,
       "home": 0.3,
@@ -695,11 +731,13 @@
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": -0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -716,15 +754,15 @@
     "expected_goals_b": 1.58,
     "winner": "Turkey",
     "probabilities": {
-      "a_win": 30.0,
+      "a_win": 30.5,
       "draw": 26.1,
-      "b_win": 43.9
+      "b_win": 43.5
     },
-    "confidence": 43.9,
+    "confidence": 43.5,
     "factors": {
       "strength": -0.1,
       "market_value": -0.3,
-      "player_stats": -0.2,
+      "player_stats": -0.3,
       "odds": -0.0,
       "home": 0.0,
       "climate": 0.0,
@@ -732,11 +770,13 @@
       "history": -0.2,
       "morale": -0.0,
       "foreign_pct": -0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.2
     }
   },
   {
@@ -749,19 +789,19 @@
     "team_b": "Australia",
     "score_a": 0,
     "score_b": 2,
-    "expected_goals_a": 1.26,
-    "expected_goals_b": 1.29,
+    "expected_goals_a": 1.25,
+    "expected_goals_b": 1.3,
     "winner": "Australia",
     "probabilities": {
-      "a_win": 38.0,
-      "draw": 27.3,
-      "b_win": 34.7
+      "a_win": 35.8,
+      "draw": 27.7,
+      "b_win": 36.5
     },
-    "confidence": 27.3,
+    "confidence": 27.7,
     "factors": {
-      "strength": -0.2,
+      "strength": -0.1,
       "market_value": 0.0,
-      "player_stats": 0.0,
+      "player_stats": 0.1,
       "odds": 0.0,
       "home": 0.1,
       "climate": 0.0,
@@ -769,11 +809,13 @@
       "history": 0.1,
       "morale": -0.0,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -786,18 +828,18 @@
     "team_b": "Turkey",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.56,
-    "expected_goals_b": 1.29,
+    "expected_goals_a": 1.53,
+    "expected_goals_b": 1.32,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 45.3,
-      "draw": 24.7,
-      "b_win": 30.1
+      "a_win": 44.1,
+      "draw": 25.4,
+      "b_win": 30.5
     },
-    "confidence": 45.3,
+    "confidence": 44.1,
     "factors": {
-      "strength": 0.2,
-      "market_value": 0.3,
+      "strength": 0.1,
+      "market_value": 0.2,
       "player_stats": 0.1,
       "odds": 0.0,
       "home": 0.4,
@@ -806,11 +848,13 @@
       "history": 0.0,
       "morale": 0.0,
       "foreign_pct": -0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.3
     }
   },
   {
@@ -823,31 +867,33 @@
     "team_b": "Australia",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.68,
-    "expected_goals_b": 1.1,
+    "expected_goals_a": 1.67,
+    "expected_goals_b": 1.11,
     "winner": "Australia",
     "probabilities": {
-      "a_win": 52.2,
-      "draw": 24.1,
-      "b_win": 23.7
+      "a_win": 51.8,
+      "draw": 24.3,
+      "b_win": 23.9
     },
-    "confidence": 52.2,
+    "confidence": 51.8,
     "factors": {
       "strength": 0.3,
-      "market_value": 0.6,
-      "player_stats": 0.3,
+      "market_value": 0.5,
+      "player_stats": 0.4,
       "odds": 0.1,
-      "home": 0.5,
+      "home": 0.4,
       "climate": -0.1,
       "travel": -0.0,
       "history": 0.2,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -860,15 +906,15 @@
     "team_b": "Paraguay",
     "score_a": 0,
     "score_b": 0,
-    "expected_goals_a": 1.5,
-    "expected_goals_b": 1.16,
+    "expected_goals_a": 1.53,
+    "expected_goals_b": 1.14,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 46.4,
-      "draw": 25.7,
-      "b_win": 27.9
+      "a_win": 48.8,
+      "draw": 24.4,
+      "b_win": 26.8
     },
-    "confidence": 25.7,
+    "confidence": 48.8,
     "factors": {
       "strength": 0.3,
       "market_value": 0.3,
@@ -880,11 +926,13 @@
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.3
     }
   },
   {
@@ -897,18 +945,18 @@
     "team_b": "Curacao",
     "score_a": 2,
     "score_b": 0,
-    "expected_goals_a": 2.52,
+    "expected_goals_a": 2.53,
     "expected_goals_b": 0.55,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 81.3,
-      "draw": 12.6,
-      "b_win": 6.1
+      "a_win": 80.9,
+      "draw": 12.9,
+      "b_win": 6.2
     },
-    "confidence": 81.3,
+    "confidence": 80.9,
     "factors": {
-      "strength": 1.4,
-      "market_value": 1.1,
+      "strength": 1.2,
+      "market_value": 1.0,
       "player_stats": 0.4,
       "odds": 0.3,
       "home": -0.1,
@@ -917,11 +965,13 @@
       "history": 0.4,
       "morale": 0.2,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.2
     }
   },
   {
@@ -934,18 +984,18 @@
     "team_b": "Ecuador",
     "score_a": 0,
     "score_b": 0,
-    "expected_goals_a": 1.26,
-    "expected_goals_b": 1.34,
+    "expected_goals_a": 1.27,
+    "expected_goals_b": 1.33,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 36.7,
-      "draw": 24.9,
-      "b_win": 38.4
+      "a_win": 37.7,
+      "draw": 24.7,
+      "b_win": 37.7
     },
-    "confidence": 24.9,
+    "confidence": 24.7,
     "factors": {
       "strength": -0.2,
-      "market_value": 0.7,
+      "market_value": 0.6,
       "player_stats": 0.1,
       "odds": -0.0,
       "home": -0.1,
@@ -954,11 +1004,13 @@
       "history": -0.1,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -971,31 +1023,33 @@
     "team_b": "Germany",
     "score_a": 0,
     "score_b": 2,
-    "expected_goals_a": 1.02,
-    "expected_goals_b": 1.82,
+    "expected_goals_a": 1.01,
+    "expected_goals_b": 1.83,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 22.1,
-      "draw": 22.2,
-      "b_win": 55.7
+      "a_win": 21.8,
+      "draw": 22.9,
+      "b_win": 55.3
     },
-    "confidence": 55.7,
+    "confidence": 55.3,
     "factors": {
       "strength": -0.3,
-      "market_value": -0.7,
+      "market_value": -0.6,
       "player_stats": -0.2,
-      "odds": -0.3,
+      "odds": -0.2,
       "home": 0.0,
       "climate": 0.0,
       "travel": -0.0,
       "history": -0.3,
       "morale": -0.1,
       "foreign_pct": -0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.2
     }
   },
   {
@@ -1013,26 +1067,28 @@
     "winner": "Curacao",
     "probabilities": {
       "a_win": 15.9,
-      "draw": 23.1,
-      "b_win": 61.0
+      "draw": 23.0,
+      "b_win": 61.1
     },
-    "confidence": 61.0,
+    "confidence": 61.1,
     "factors": {
-      "strength": -0.9,
-      "market_value": -1.1,
+      "strength": -0.8,
+      "market_value": -1.0,
       "player_stats": -0.3,
       "odds": -0.0,
-      "home": 0.2,
+      "home": 0.1,
       "climate": 0.0,
       "travel": 0.0,
       "history": -0.0,
       "morale": -0.1,
       "foreign_pct": -0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -1045,31 +1101,33 @@
     "team_b": "Curacao",
     "score_a": 2,
     "score_b": 3,
-    "expected_goals_a": 1.94,
-    "expected_goals_b": 0.78,
+    "expected_goals_a": 1.93,
+    "expected_goals_b": 0.79,
     "winner": "Curacao",
     "probabilities": {
       "a_win": 63.0,
-      "draw": 22.5,
-      "b_win": 14.5
+      "draw": 22.7,
+      "b_win": 14.3
     },
     "confidence": 63.0,
     "factors": {
-      "strength": 1.1,
+      "strength": 0.9,
       "market_value": 0.4,
       "player_stats": 0.2,
-      "odds": 0.1,
+      "odds": 0.0,
       "home": -0.0,
       "climate": -0.1,
       "travel": 0.0,
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -1082,15 +1140,15 @@
     "team_b": "Ivory Coast",
     "score_a": 2,
     "score_b": 2,
-    "expected_goals_a": 1.85,
+    "expected_goals_a": 1.86,
     "expected_goals_b": 0.99,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 57.3,
-      "draw": 23.3,
-      "b_win": 19.3
+      "a_win": 58.1,
+      "draw": 23.1,
+      "b_win": 18.8
     },
-    "confidence": 57.3,
+    "confidence": 58.1,
     "factors": {
       "strength": 0.5,
       "market_value": 0.0,
@@ -1102,11 +1160,13 @@
       "history": 0.4,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.2
     }
   },
   {
@@ -1119,31 +1179,33 @@
     "team_b": "Japan",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.52,
-    "expected_goals_b": 1.19,
+    "expected_goals_a": 1.51,
+    "expected_goals_b": 1.2,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 43.4,
-      "draw": 25.0,
-      "b_win": 31.6
+      "a_win": 43.1,
+      "draw": 24.5,
+      "b_win": 32.3
     },
-    "confidence": 43.4,
+    "confidence": 43.1,
     "factors": {
       "strength": 0.1,
       "market_value": 0.5,
-      "player_stats": -0.0,
-      "odds": 0.2,
+      "player_stats": -0.1,
+      "odds": 0.1,
       "home": -0.0,
       "climate": 0.0,
       "travel": 0.0,
       "history": 0.2,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -1160,13 +1222,13 @@
     "expected_goals_b": 1.11,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 49.5,
-      "draw": 23.9,
-      "b_win": 26.6
+      "a_win": 48.9,
+      "draw": 24.1,
+      "b_win": 27.0
     },
-    "confidence": 49.5,
+    "confidence": 48.9,
     "factors": {
-      "strength": 0.3,
+      "strength": 0.2,
       "market_value": 0.2,
       "player_stats": 0.2,
       "odds": 0.0,
@@ -1176,11 +1238,13 @@
       "history": 0.3,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -1193,19 +1257,19 @@
     "team_b": "Sweden",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.42,
-    "expected_goals_b": 1.33,
+    "expected_goals_a": 1.43,
+    "expected_goals_b": 1.32,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 39.4,
-      "draw": 23.5,
-      "b_win": 37.1
+      "a_win": 39.5,
+      "draw": 23.6,
+      "b_win": 36.9
     },
-    "confidence": 23.5,
+    "confidence": 23.6,
     "factors": {
       "strength": 0.3,
       "market_value": 0.2,
-      "player_stats": 0.2,
+      "player_stats": 0.3,
       "odds": 0.0,
       "home": 0.0,
       "climate": 0.0,
@@ -1213,11 +1277,13 @@
       "history": -0.2,
       "morale": 0.0,
       "foreign_pct": -0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -1234,13 +1300,13 @@
     "expected_goals_b": 0.9,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 59.5,
+      "a_win": 59.8,
       "draw": 22.9,
-      "b_win": 17.5
+      "b_win": 17.3
     },
-    "confidence": 59.5,
+    "confidence": 59.8,
     "factors": {
-      "strength": 0.7,
+      "strength": 0.6,
       "market_value": 0.9,
       "player_stats": 0.4,
       "odds": 0.2,
@@ -1250,11 +1316,13 @@
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -1271,14 +1339,14 @@
     "expected_goals_b": 1.22,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 48.2,
-      "draw": 25.1,
-      "b_win": 26.7
+      "a_win": 48.3,
+      "draw": 24.7,
+      "b_win": 26.9
     },
-    "confidence": 48.2,
+    "confidence": 48.3,
     "factors": {
       "strength": 0.4,
-      "market_value": 0.7,
+      "market_value": 0.6,
       "player_stats": 0.2,
       "odds": 0.2,
       "home": 0.0,
@@ -1287,11 +1355,13 @@
       "history": 0.0,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -1304,19 +1374,19 @@
     "team_b": "Tunisia",
     "score_a": 2,
     "score_b": 0,
-    "expected_goals_a": 1.58,
+    "expected_goals_a": 1.59,
     "expected_goals_b": 0.99,
     "winner": "Japan",
     "probabilities": {
       "a_win": 49.7,
-      "draw": 24.6,
-      "b_win": 25.7
+      "draw": 24.7,
+      "b_win": 25.6
     },
     "confidence": 49.7,
     "factors": {
-      "strength": 0.6,
+      "strength": 0.5,
       "market_value": 0.4,
-      "player_stats": 0.4,
+      "player_stats": 0.5,
       "odds": 0.1,
       "home": 0.0,
       "climate": 0.0,
@@ -1324,11 +1394,13 @@
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": -0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -1345,14 +1417,14 @@
     "expected_goals_b": 1.17,
     "winner": "Belgium",
     "probabilities": {
-      "a_win": 45.8,
-      "draw": 25.3,
+      "a_win": 45.4,
+      "draw": 25.7,
       "b_win": 28.9
     },
-    "confidence": 45.8,
+    "confidence": 45.4,
     "factors": {
       "strength": 0.4,
-      "market_value": 0.8,
+      "market_value": 0.7,
       "player_stats": 0.1,
       "odds": 0.1,
       "home": 0.0,
@@ -1361,11 +1433,13 @@
       "history": 0.2,
       "morale": -0.0,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -1378,17 +1452,17 @@
     "team_b": "New Zealand",
     "score_a": 2,
     "score_b": 0,
-    "expected_goals_a": 1.52,
+    "expected_goals_a": 1.51,
     "expected_goals_b": 1.19,
     "winner": "Iran",
     "probabilities": {
-      "a_win": 44.1,
-      "draw": 25.6,
-      "b_win": 30.3
+      "a_win": 43.3,
+      "draw": 25.9,
+      "b_win": 30.7
     },
-    "confidence": 44.1,
+    "confidence": 43.3,
     "factors": {
-      "strength": 1.0,
+      "strength": 0.9,
       "market_value": -0.0,
       "player_stats": 0.1,
       "odds": 0.0,
@@ -1398,11 +1472,13 @@
       "history": 0.0,
       "morale": 0.0,
       "foreign_pct": -0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -1415,18 +1491,18 @@
     "team_b": "Iran",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.67,
-    "expected_goals_b": 1.06,
+    "expected_goals_a": 1.64,
+    "expected_goals_b": 1.08,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 49.6,
-      "draw": 25.1,
-      "b_win": 25.3
+      "a_win": 48.9,
+      "draw": 25.0,
+      "b_win": 26.1
     },
-    "confidence": 49.6,
+    "confidence": 48.9,
     "factors": {
       "strength": 0.3,
-      "market_value": 1.0,
+      "market_value": 0.9,
       "player_stats": 0.1,
       "odds": 0.1,
       "home": -0.0,
@@ -1435,11 +1511,13 @@
       "history": 0.3,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": 0.1,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.1
     }
   },
   {
@@ -1452,17 +1530,17 @@
     "team_b": "New Zealand",
     "score_a": 3,
     "score_b": 1,
-    "expected_goals_a": 1.64,
-    "expected_goals_b": 1.08,
+    "expected_goals_a": 1.62,
+    "expected_goals_b": 1.1,
     "winner": "Egypt",
     "probabilities": {
-      "a_win": 48.7,
-      "draw": 25.5,
-      "b_win": 25.8
+      "a_win": 48.4,
+      "draw": 24.9,
+      "b_win": 26.7
     },
-    "confidence": 48.7,
+    "confidence": 48.4,
     "factors": {
-      "strength": 0.9,
+      "strength": 0.8,
       "market_value": 0.2,
       "player_stats": 0.1,
       "odds": 0.0,
@@ -1472,11 +1550,13 @@
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -1489,19 +1569,19 @@
     "team_b": "Iran",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.42,
-    "expected_goals_b": 1.19,
+    "expected_goals_a": 1.4,
+    "expected_goals_b": 1.2,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 42.5,
-      "draw": 25.2,
-      "b_win": 32.3
+      "a_win": 41.1,
+      "draw": 25.1,
+      "b_win": 33.8
     },
-    "confidence": 25.2,
+    "confidence": 25.1,
     "factors": {
       "strength": -0.1,
       "market_value": 0.2,
-      "player_stats": -0.1,
+      "player_stats": -0.0,
       "odds": 0.0,
       "home": -0.0,
       "climate": 0.0,
@@ -1509,11 +1589,13 @@
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.1,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.1
     }
   },
   {
@@ -1526,18 +1608,18 @@
     "team_b": "New Zealand",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.92,
-    "expected_goals_b": 0.96,
+    "expected_goals_a": 1.89,
+    "expected_goals_b": 0.98,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 57.5,
-      "draw": 23.0,
-      "b_win": 19.5
+      "a_win": 55.3,
+      "draw": 24.3,
+      "b_win": 20.4
     },
-    "confidence": 57.5,
+    "confidence": 55.3,
     "factors": {
-      "strength": 1.3,
-      "market_value": 1.0,
+      "strength": 1.1,
+      "market_value": 0.9,
       "player_stats": 0.2,
       "odds": 0.1,
       "home": 0.0,
@@ -1546,11 +1628,13 @@
       "history": 0.3,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -1563,31 +1647,33 @@
     "team_b": "Cape Verde",
     "score_a": 3,
     "score_b": 0,
-    "expected_goals_a": 2.19,
-    "expected_goals_b": 0.64,
+    "expected_goals_a": 2.24,
+    "expected_goals_b": 0.62,
     "winner": "Spain",
     "probabilities": {
-      "a_win": 72.7,
-      "draw": 17.5,
-      "b_win": 9.7
+      "a_win": 74.5,
+      "draw": 17.3,
+      "b_win": 8.3
     },
-    "confidence": 72.7,
+    "confidence": 74.5,
     "factors": {
-      "strength": 1.4,
-      "market_value": 1.0,
+      "strength": 1.2,
+      "market_value": 0.9,
       "player_stats": 0.3,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.1,
       "climate": 0.0,
       "travel": 0.0,
       "history": 0.4,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": 0.6,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.2
     }
   },
   {
@@ -1600,19 +1686,19 @@
     "team_b": "Saudi Arabia",
     "score_a": 3,
     "score_b": 2,
-    "expected_goals_a": 1.79,
-    "expected_goals_b": 0.91,
+    "expected_goals_a": 1.77,
+    "expected_goals_b": 0.93,
     "winner": "Uruguay",
     "probabilities": {
-      "a_win": 56.8,
-      "draw": 24.1,
-      "b_win": 19.1
+      "a_win": 55.3,
+      "draw": 25.0,
+      "b_win": 19.7
     },
-    "confidence": 56.8,
+    "confidence": 55.3,
     "factors": {
-      "strength": 0.9,
-      "market_value": 0.6,
-      "player_stats": -0.0,
+      "strength": 0.8,
+      "market_value": 0.5,
+      "player_stats": 0.1,
       "odds": 0.1,
       "home": 0.1,
       "climate": 0.0,
@@ -1620,11 +1706,13 @@
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.3
     }
   },
   {
@@ -1637,31 +1725,33 @@
     "team_b": "Saudi Arabia",
     "score_a": 4,
     "score_b": 0,
-    "expected_goals_a": 2.13,
-    "expected_goals_b": 0.72,
+    "expected_goals_a": 2.15,
+    "expected_goals_b": 0.71,
     "winner": "Spain",
     "probabilities": {
-      "a_win": 71.5,
-      "draw": 16.8,
+      "a_win": 71.3,
+      "draw": 16.9,
       "b_win": 11.7
     },
-    "confidence": 71.5,
+    "confidence": 71.3,
     "factors": {
-      "strength": 1.2,
-      "market_value": 1.0,
+      "strength": 1.1,
+      "market_value": 0.9,
       "player_stats": 0.3,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.0,
       "climate": 0.0,
       "travel": 0.0,
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.6,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.1
     }
   },
   {
@@ -1673,20 +1763,20 @@
     "team_a": "Uruguay",
     "team_b": "Cape Verde",
     "score_a": 1,
-    "score_b": 1,
-    "expected_goals_a": 1.86,
-    "expected_goals_b": 0.82,
-    "winner": "Empate",
+    "score_b": 2,
+    "expected_goals_a": 1.82,
+    "expected_goals_b": 0.84,
+    "winner": "Cape Verde",
     "probabilities": {
-      "a_win": 60.3,
-      "draw": 23.3,
-      "b_win": 16.4
+      "a_win": 59.3,
+      "draw": 22.9,
+      "b_win": 17.8
     },
-    "confidence": 60.3,
+    "confidence": 59.3,
     "factors": {
-      "strength": 1.0,
+      "strength": 0.9,
       "market_value": 0.5,
-      "player_stats": 0.0,
+      "player_stats": 0.1,
       "odds": 0.1,
       "home": 0.1,
       "climate": 0.0,
@@ -1694,11 +1784,13 @@
       "history": 0.4,
       "morale": 0.1,
       "foreign_pct": -0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.6,
+      "trophy_pedigree": 0.1,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -1710,32 +1802,34 @@
     "team_a": "Uruguay",
     "team_b": "Spain",
     "score_a": 0,
-    "score_b": 0,
-    "expected_goals_a": 1.12,
-    "expected_goals_b": 1.65,
-    "winner": "Empate",
+    "score_b": 2,
+    "expected_goals_a": 1.09,
+    "expected_goals_b": 1.69,
+    "winner": "Spain",
     "probabilities": {
-      "a_win": 25.8,
-      "draw": 24.3,
-      "b_win": 49.9
+      "a_win": 25.0,
+      "draw": 23.5,
+      "b_win": 51.5
     },
-    "confidence": 49.9,
+    "confidence": 51.5,
     "factors": {
       "strength": -0.3,
       "market_value": -0.4,
-      "player_stats": -0.3,
-      "odds": -0.5,
+      "player_stats": -0.2,
+      "odds": -0.4,
       "home": 0.0,
       "climate": 0.0,
       "travel": 0.0,
       "history": 0.0,
       "morale": -0.1,
       "foreign_pct": -0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.6,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.2
     }
   },
   {
@@ -1746,21 +1840,21 @@
     "venue_country": "USA",
     "team_a": "Cape Verde",
     "team_b": "Saudi Arabia",
-    "score_a": 2,
-    "score_b": 1,
-    "expected_goals_a": 1.19,
-    "expected_goals_b": 1.36,
-    "winner": "Cape Verde",
+    "score_a": 1,
+    "score_b": 2,
+    "expected_goals_a": 1.2,
+    "expected_goals_b": 1.35,
+    "winner": "Saudi Arabia",
     "probabilities": {
-      "a_win": 31.3,
-      "draw": 26.8,
-      "b_win": 41.9
+      "a_win": 31.7,
+      "draw": 27.7,
+      "b_win": 40.5
     },
-    "confidence": 26.8,
+    "confidence": 27.7,
     "factors": {
-      "strength": -0.2,
+      "strength": -0.1,
       "market_value": 0.0,
-      "player_stats": -0.0,
+      "player_stats": 0.0,
       "odds": 0.0,
       "home": -0.0,
       "climate": 0.0,
@@ -1768,11 +1862,13 @@
       "history": -0.1,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.6,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.3
     }
   },
   {
@@ -1784,32 +1880,34 @@
     "team_a": "France",
     "team_b": "Iraq",
     "score_a": 2,
-    "score_b": 0,
-    "expected_goals_a": 2.21,
-    "expected_goals_b": 0.71,
+    "score_b": 1,
+    "expected_goals_a": 2.2,
+    "expected_goals_b": 0.72,
     "winner": "France",
     "probabilities": {
-      "a_win": 73.1,
-      "draw": 17.8,
-      "b_win": 9.1
+      "a_win": 72.9,
+      "draw": 17.9,
+      "b_win": 9.2
     },
-    "confidence": 73.1,
+    "confidence": 72.9,
     "factors": {
-      "strength": 1.2,
-      "market_value": 1.1,
+      "strength": 1.0,
+      "market_value": 1.0,
       "player_stats": 0.9,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.0,
       "climate": -0.2,
       "travel": -0.0,
       "history": 0.4,
       "morale": 0.2,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -1820,21 +1918,21 @@
     "venue_country": "USA",
     "team_a": "Norway",
     "team_b": "Senegal",
-    "score_a": 3,
-    "score_b": 2,
-    "expected_goals_a": 1.47,
-    "expected_goals_b": 1.27,
+    "score_a": 2,
+    "score_b": 1,
+    "expected_goals_a": 1.49,
+    "expected_goals_b": 1.26,
     "winner": "Norway",
     "probabilities": {
-      "a_win": 39.7,
-      "draw": 25.3,
-      "b_win": 35.0
+      "a_win": 40.4,
+      "draw": 24.8,
+      "b_win": 34.8
     },
-    "confidence": 25.3,
+    "confidence": 24.8,
     "factors": {
       "strength": -0.2,
       "market_value": -0.3,
-      "player_stats": 0.1,
+      "player_stats": 0.2,
       "odds": -0.0,
       "home": 0.0,
       "climate": 0.0,
@@ -1842,11 +1940,13 @@
       "history": -0.1,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -1857,33 +1957,35 @@
     "venue_country": "USA",
     "team_a": "France",
     "team_b": "Norway",
-    "score_a": 2,
+    "score_a": 0,
     "score_b": 0,
-    "expected_goals_a": 1.8,
-    "expected_goals_b": 1.23,
-    "winner": "France",
+    "expected_goals_a": 1.79,
+    "expected_goals_b": 1.24,
+    "winner": "Empate",
     "probabilities": {
-      "a_win": 51.7,
-      "draw": 23.9,
-      "b_win": 24.4
+      "a_win": 51.0,
+      "draw": 23.5,
+      "b_win": 25.5
     },
-    "confidence": 51.7,
+    "confidence": 51.0,
     "factors": {
-      "strength": 0.6,
+      "strength": 0.5,
       "market_value": 0.4,
-      "player_stats": 0.4,
-      "odds": 0.5,
+      "player_stats": 0.3,
+      "odds": 0.4,
       "home": 0.0,
       "climate": 0.0,
       "travel": -0.0,
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -1896,31 +1998,33 @@
     "team_b": "Iraq",
     "score_a": 5,
     "score_b": 2,
-    "expected_goals_a": 1.65,
-    "expected_goals_b": 0.9,
+    "expected_goals_a": 1.64,
+    "expected_goals_b": 0.91,
     "winner": "Senegal",
     "probabilities": {
-      "a_win": 57.1,
-      "draw": 23.1,
-      "b_win": 19.8
+      "a_win": 55.8,
+      "draw": 23.4,
+      "b_win": 20.8
     },
-    "confidence": 57.1,
+    "confidence": 55.8,
     "factors": {
       "strength": 0.7,
-      "market_value": 1.0,
-      "player_stats": 0.3,
-      "odds": 0.1,
+      "market_value": 0.9,
+      "player_stats": 0.4,
+      "odds": 0.0,
       "home": 0.0,
       "climate": 0.0,
       "travel": -0.0,
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -1933,31 +2037,33 @@
     "team_b": "Senegal",
     "score_a": 3,
     "score_b": 1,
-    "expected_goals_a": 1.75,
+    "expected_goals_a": 1.76,
     "expected_goals_b": 1.03,
     "winner": "France",
     "probabilities": {
-      "a_win": 55.7,
-      "draw": 22.4,
-      "b_win": 21.9
+      "a_win": 56.1,
+      "draw": 22.2,
+      "b_win": 21.7
     },
-    "confidence": 55.7,
+    "confidence": 56.1,
     "factors": {
       "strength": 0.4,
       "market_value": 0.0,
       "player_stats": 0.5,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.0,
       "climate": -0.2,
       "travel": -0.0,
       "history": 0.2,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": -0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -1971,18 +2077,18 @@
     "score_a": 1,
     "score_b": 0,
     "expected_goals_a": 1.88,
-    "expected_goals_b": 0.93,
+    "expected_goals_b": 0.92,
     "winner": "Norway",
     "probabilities": {
-      "a_win": 58.1,
-      "draw": 23.5,
-      "b_win": 18.4
+      "a_win": 58.5,
+      "draw": 23.2,
+      "b_win": 18.3
     },
-    "confidence": 58.1,
+    "confidence": 58.5,
     "factors": {
-      "strength": 0.6,
-      "market_value": 0.7,
-      "player_stats": 0.4,
+      "strength": 0.5,
+      "market_value": 0.6,
+      "player_stats": 0.6,
       "odds": 0.0,
       "home": 0.0,
       "climate": -0.1,
@@ -1990,11 +2096,13 @@
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -2007,31 +2115,33 @@
     "team_b": "Jordan",
     "score_a": 3,
     "score_b": 1,
-    "expected_goals_a": 2.11,
-    "expected_goals_b": 0.66,
+    "expected_goals_a": 2.09,
+    "expected_goals_b": 0.67,
     "winner": "Argentina",
     "probabilities": {
-      "a_win": 71.1,
-      "draw": 18.6,
-      "b_win": 10.3
+      "a_win": 70.8,
+      "draw": 18.5,
+      "b_win": 10.7
     },
-    "confidence": 71.1,
+    "confidence": 70.8,
     "factors": {
-      "strength": 1.3,
-      "market_value": 1.1,
-      "player_stats": 0.4,
-      "odds": 0.5,
+      "strength": 1.1,
+      "market_value": 1.0,
+      "player_stats": 0.5,
+      "odds": 0.4,
       "home": 0.2,
       "climate": 0.0,
       "travel": 0.1,
       "history": 0.4,
       "morale": 0.2,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -2048,15 +2158,15 @@
     "expected_goals_b": 1.33,
     "winner": "Austria",
     "probabilities": {
-      "a_win": 36.7,
-      "draw": 25.7,
-      "b_win": 37.7
+      "a_win": 34.8,
+      "draw": 25.8,
+      "b_win": 39.4
     },
-    "confidence": 25.7,
+    "confidence": 25.8,
     "factors": {
       "strength": -0.1,
       "market_value": 0.2,
-      "player_stats": 0.3,
+      "player_stats": 0.4,
       "odds": -0.0,
       "home": 0.0,
       "climate": 0.2,
@@ -2064,11 +2174,13 @@
       "history": -0.2,
       "morale": 0.0,
       "foreign_pct": -0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -2085,27 +2197,29 @@
     "expected_goals_b": 0.96,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 57.3,
-      "draw": 22.5,
-      "b_win": 20.3
+      "a_win": 57.1,
+      "draw": 22.4,
+      "b_win": 20.5
     },
-    "confidence": 57.3,
+    "confidence": 57.1,
     "factors": {
-      "strength": 0.7,
+      "strength": 0.6,
       "market_value": 0.5,
       "player_stats": 0.1,
-      "odds": 0.5,
-      "home": 0.2,
+      "odds": 0.4,
+      "home": 0.1,
       "climate": -0.1,
       "travel": 0.0,
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": -0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -2118,15 +2232,15 @@
     "team_b": "Jordan",
     "score_a": 0,
     "score_b": 0,
-    "expected_goals_a": 1.66,
-    "expected_goals_b": 0.98,
+    "expected_goals_a": 1.64,
+    "expected_goals_b": 0.99,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 54.1,
-      "draw": 24.7,
-      "b_win": 21.3
+      "a_win": 53.9,
+      "draw": 24.4,
+      "b_win": 21.7
     },
-    "confidence": 54.1,
+    "confidence": 53.9,
     "factors": {
       "strength": 0.7,
       "market_value": 0.3,
@@ -2138,11 +2252,13 @@
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.1
     }
   },
   {
@@ -2156,30 +2272,32 @@
     "score_a": 1,
     "score_b": 1,
     "expected_goals_a": 1.77,
-    "expected_goals_b": 0.98,
+    "expected_goals_b": 0.99,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 55.7,
-      "draw": 23.5,
-      "b_win": 20.9
+      "a_win": 55.4,
+      "draw": 23.6,
+      "b_win": 21.0
     },
-    "confidence": 55.7,
+    "confidence": 55.4,
     "factors": {
       "strength": 0.5,
       "market_value": 0.7,
-      "player_stats": 0.4,
-      "odds": 0.5,
-      "home": 0.2,
+      "player_stats": 0.5,
+      "odds": 0.4,
+      "home": 0.1,
       "climate": 0.1,
       "travel": 0.1,
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": -0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.1,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -2192,17 +2310,17 @@
     "team_b": "Algeria",
     "score_a": 1,
     "score_b": 4,
-    "expected_goals_a": 0.97,
-    "expected_goals_b": 1.62,
+    "expected_goals_a": 0.98,
+    "expected_goals_b": 1.6,
     "winner": "Algeria",
     "probabilities": {
-      "a_win": 22.6,
-      "draw": 23.1,
-      "b_win": 54.3
+      "a_win": 22.9,
+      "draw": 24.2,
+      "b_win": 52.9
     },
-    "confidence": 54.3,
+    "confidence": 52.9,
     "factors": {
-      "strength": -0.6,
+      "strength": -0.5,
       "market_value": -0.5,
       "player_stats": -0.4,
       "odds": -0.0,
@@ -2212,11 +2330,13 @@
       "history": -0.1,
       "morale": -0.1,
       "foreign_pct": -0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -2229,31 +2349,33 @@
     "team_b": "Uzbekistan",
     "score_a": 3,
     "score_b": 3,
-    "expected_goals_a": 2.02,
-    "expected_goals_b": 0.84,
+    "expected_goals_a": 2.04,
+    "expected_goals_b": 0.83,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 65.9,
-      "draw": 19.7,
+      "a_win": 66.3,
+      "draw": 19.3,
       "b_win": 14.4
     },
-    "confidence": 65.9,
+    "confidence": 66.3,
     "factors": {
-      "strength": 1.0,
-      "market_value": 0.9,
+      "strength": 0.9,
+      "market_value": 0.8,
       "player_stats": 0.7,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.1,
       "climate": 0.1,
       "travel": 0.0,
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.6,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -2266,19 +2388,19 @@
     "team_b": "Colombia",
     "score_a": 0,
     "score_b": 2,
-    "expected_goals_a": 0.91,
-    "expected_goals_b": 1.74,
+    "expected_goals_a": 0.92,
+    "expected_goals_b": 1.73,
     "winner": "Colombia",
     "probabilities": {
       "a_win": 20.0,
-      "draw": 23.1,
-      "b_win": 56.9
+      "draw": 23.5,
+      "b_win": 56.5
     },
-    "confidence": 56.9,
+    "confidence": 56.5,
     "factors": {
       "strength": -0.6,
       "market_value": -0.5,
-      "player_stats": -0.5,
+      "player_stats": -0.6,
       "odds": -0.1,
       "home": -0.2,
       "climate": 0.0,
@@ -2286,11 +2408,13 @@
       "history": -0.1,
       "morale": -0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": 0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -2303,31 +2427,33 @@
     "team_b": "DR Congo",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.97,
-    "expected_goals_b": 0.83,
+    "expected_goals_a": 2.0,
+    "expected_goals_b": 0.81,
     "winner": "DR Congo",
     "probabilities": {
-      "a_win": 63.1,
-      "draw": 22.7,
-      "b_win": 14.2
+      "a_win": 63.7,
+      "draw": 22.5,
+      "b_win": 13.7
     },
-    "confidence": 63.1,
+    "confidence": 63.7,
     "factors": {
-      "strength": 0.8,
-      "market_value": 0.8,
+      "strength": 0.7,
+      "market_value": 0.7,
       "player_stats": 0.7,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.1,
       "climate": -0.1,
       "travel": 0.0,
       "history": 0.3,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": 0.5,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -2340,19 +2466,19 @@
     "team_b": "Uzbekistan",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.78,
-    "expected_goals_b": 0.93,
+    "expected_goals_a": 1.76,
+    "expected_goals_b": 0.94,
     "winner": "Uzbekistan",
     "probabilities": {
-      "a_win": 56.1,
-      "draw": 23.9,
-      "b_win": 20.1
+      "a_win": 54.4,
+      "draw": 24.7,
+      "b_win": 20.9
     },
-    "confidence": 56.1,
+    "confidence": 54.4,
     "factors": {
-      "strength": 0.8,
+      "strength": 0.7,
       "market_value": 0.6,
-      "player_stats": 0.5,
+      "player_stats": 0.6,
       "odds": 0.1,
       "home": 0.2,
       "climate": 0.2,
@@ -2360,11 +2486,13 @@
       "history": 0.2,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.1
     }
   },
   {
@@ -2377,31 +2505,33 @@
     "team_b": "Portugal",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.25,
-    "expected_goals_b": 1.56,
+    "expected_goals_a": 1.22,
+    "expected_goals_b": 1.6,
     "winner": "Portugal",
     "probabilities": {
-      "a_win": 29.9,
-      "draw": 24.6,
-      "b_win": 45.5
+      "a_win": 28.5,
+      "draw": 25.6,
+      "b_win": 45.9
     },
-    "confidence": 45.5,
+    "confidence": 45.9,
     "factors": {
       "strength": -0.2,
-      "market_value": -0.3,
-      "player_stats": -0.3,
-      "odds": -0.4,
+      "market_value": -0.2,
+      "player_stats": -0.1,
+      "odds": -0.3,
       "home": 0.1,
       "climate": 0.1,
       "travel": -0.1,
       "history": -0.1,
       "morale": -0.0,
       "foreign_pct": -0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": -0.6,
+      "trophy_pedigree": -0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -2418,15 +2548,15 @@
     "expected_goals_b": 1.28,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 35.6,
-      "draw": 27.5,
-      "b_win": 36.9
+      "a_win": 36.8,
+      "draw": 26.2,
+      "b_win": 37.0
     },
-    "confidence": 27.5,
+    "confidence": 26.2,
     "factors": {
       "strength": 0.1,
       "market_value": 0.1,
-      "player_stats": 0.0,
+      "player_stats": -0.0,
       "odds": 0.0,
       "home": 0.0,
       "climate": 0.0,
@@ -2434,11 +2564,13 @@
       "history": 0.0,
       "morale": -0.0,
       "foreign_pct": 0.1,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.1
+      "experience": 0.1,
+      "trophy_pedigree": 0.0,
+      "height_advantage": -0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -2451,31 +2583,33 @@
     "team_b": "Panama",
     "score_a": 0,
     "score_b": 3,
-    "expected_goals_a": 2.09,
-    "expected_goals_b": 0.78,
+    "expected_goals_a": 2.06,
+    "expected_goals_b": 0.8,
     "winner": "Panama",
     "probabilities": {
-      "a_win": 67.2,
-      "draw": 19.1,
-      "b_win": 13.7
+      "a_win": 66.9,
+      "draw": 19.0,
+      "b_win": 14.1
     },
-    "confidence": 67.2,
+    "confidence": 66.9,
     "factors": {
-      "strength": 0.8,
-      "market_value": 1.0,
-      "player_stats": 0.9,
-      "odds": 0.5,
-      "home": -0.2,
+      "strength": 0.7,
+      "market_value": 0.9,
+      "player_stats": 1.0,
+      "odds": 0.4,
+      "home": -0.1,
       "climate": -0.2,
       "travel": -0.0,
       "history": 0.4,
       "morale": 0.1,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": -0.6,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.2
     }
   },
   {
@@ -2488,17 +2622,17 @@
     "team_b": "Ghana",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.58,
+    "expected_goals_a": 1.57,
     "expected_goals_b": 1.09,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 48.3,
-      "draw": 25.3,
-      "b_win": 26.5
+      "a_win": 47.9,
+      "draw": 25.1,
+      "b_win": 26.9
     },
-    "confidence": 48.3,
+    "confidence": 47.9,
     "factors": {
-      "strength": 1.0,
+      "strength": 0.9,
       "market_value": 0.1,
       "player_stats": 0.2,
       "odds": 0.0,
@@ -2508,11 +2642,13 @@
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "age_penalty": -0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": -0.1,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": -0.0
     }
   },
   {
@@ -2525,31 +2661,33 @@
     "team_b": "Croatia",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.72,
+    "expected_goals_a": 1.73,
     "expected_goals_b": 1.06,
     "winner": "Croatia",
     "probabilities": {
-      "a_win": 54.5,
-      "draw": 23.6,
-      "b_win": 21.9
+      "a_win": 54.6,
+      "draw": 23.8,
+      "b_win": 21.6
     },
-    "confidence": 54.5,
+    "confidence": 54.6,
     "factors": {
       "strength": 0.2,
       "market_value": 0.4,
       "player_stats": 0.6,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.0,
       "climate": 0.0,
       "travel": -0.0,
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": 0.0
+      "experience": -0.0,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -2562,17 +2700,17 @@
     "team_b": "Panama",
     "score_a": 0,
     "score_b": 0,
-    "expected_goals_a": 1.4,
-    "expected_goals_b": 1.25,
+    "expected_goals_a": 1.37,
+    "expected_goals_b": 1.28,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 39.1,
-      "draw": 24.9,
-      "b_win": 35.9
+      "a_win": 37.9,
+      "draw": 25.3,
+      "b_win": 36.7
     },
-    "confidence": 24.9,
+    "confidence": 25.3,
     "factors": {
-      "strength": -0.5,
+      "strength": -0.4,
       "market_value": 0.4,
       "player_stats": 0.1,
       "odds": 0.0,
@@ -2582,11 +2720,13 @@
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.0,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": -0.6,
+      "trophy_pedigree": 0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   },
   {
@@ -2599,31 +2739,33 @@
     "team_b": "Ghana",
     "score_a": 2,
     "score_b": 2,
-    "expected_goals_a": 2.04,
+    "expected_goals_a": 2.03,
     "expected_goals_b": 0.87,
     "winner": "Empate",
     "probabilities": {
-      "a_win": 66.1,
-      "draw": 17.9,
-      "b_win": 16.0
+      "a_win": 65.3,
+      "draw": 18.2,
+      "b_win": 16.5
     },
-    "confidence": 66.1,
+    "confidence": 65.3,
     "factors": {
-      "strength": 1.3,
-      "market_value": 0.6,
+      "strength": 1.1,
+      "market_value": 0.5,
       "player_stats": 0.8,
-      "odds": 0.5,
+      "odds": 0.4,
       "home": 0.0,
       "climate": -0.2,
       "travel": -0.0,
       "history": 0.2,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": 0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.0
+      "experience": -0.2,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.1
     }
   },
   {
@@ -2636,19 +2778,19 @@
     "team_b": "Panama",
     "score_a": 3,
     "score_b": 1,
-    "expected_goals_a": 1.64,
-    "expected_goals_b": 0.99,
+    "expected_goals_a": 1.6,
+    "expected_goals_b": 1.01,
     "winner": "Croatia",
     "probabilities": {
-      "a_win": 52.2,
-      "draw": 25.0,
-      "b_win": 22.8
+      "a_win": 51.5,
+      "draw": 25.7,
+      "b_win": 22.7
     },
-    "confidence": 52.2,
+    "confidence": 51.5,
     "factors": {
       "strength": 0.5,
-      "market_value": 0.6,
-      "player_stats": 0.3,
+      "market_value": 0.5,
+      "player_stats": 0.4,
       "odds": 0.0,
       "home": -0.2,
       "climate": -0.2,
@@ -2656,11 +2798,13 @@
       "history": 0.3,
       "morale": 0.0,
       "foreign_pct": 0.1,
-      "age_penalty": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
+      "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "jet_lag": -0.1
+      "experience": -0.6,
+      "trophy_pedigree": 0.1,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0
     }
   }
 ]

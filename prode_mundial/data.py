@@ -1258,6 +1258,23 @@ def _enrich_teams():
                 est = _MARKET_VALUE_ESTIMATES.get(name, 50)
                 team["market_value_total"] = est
                 team["market_value_avg"] = est / 26
+
+            caps = [p.get("intl_caps", 0) or 0 for p in squad]
+            team["avg_caps"] = sum(caps) / len(caps)
+
+            trophies = [p.get("trophy_count", 0) or 0 for p in squad]
+            team["avg_trophies"] = sum(trophies) / len(trophies)
+
+            heights = [p.get("height") for p in squad if p.get("height")]
+            team["avg_height"] = sum(heights) / len(heights) if heights else 1.80
+
+            club_counts = {}
+            for p in squad:
+                club = p.get("current_club") or p.get("club_name", "")
+                if club:
+                    club_counts[club] = club_counts.get(club, 0) + 1
+            pairs = sum(c * (c - 1) // 2 for c in club_counts.values())
+            team["club_pairs"] = min(10.0, pairs / 3.0)
         else:
             team["squad_size"] = 26
             team["avg_age"] = 27.0

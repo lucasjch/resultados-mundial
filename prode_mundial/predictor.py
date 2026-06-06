@@ -5,29 +5,30 @@ import json
 import math
 import os
 import random
-from data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS,
-                  VENUE_TIMEZONES, HOME_TIMEZONES, SQUAD_DEPTH, haversine)
+from data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS, haversine)
 
 PLAYERS_FILE = os.path.join(os.path.dirname(__file__), "output", "players.json")
 _PLAYERS_CACHE = None
 
-# Pesos de cada factor (suman 100%, randomness es aditivo)
+# Pesos de cada factor (suman 100%)
 WEIGHTS = {
-    "team_strength": 0.18,
-    "market_value": 0.11,
+    "team_strength": 0.16,
     "player_stats": 0.11,
-    "odds": 0.05,
-    "home_advantage": 0.08,
-    "climate": 0.06,
-    "travel": 0.03,
+    "market_value": 0.10,
+    "experience": 0.06,
+    "home_advantage": 0.07,
+    "rest_days": 0.06,
+    "squad_depth": 0.06,
+    "climate": 0.05,
+    "foreign_pct": 0.04,
+    "travel_fatigue": 0.04,
     "history": 0.04,
     "morale": 0.04,
-    "age_penalty": 0.03,
-    "foreign_pct": 0.05,
-    "rest_days": 0.07,
-    "squad_depth": 0.07,
-    "travel_fatigue": 0.05,
-    "jet_lag": 0.03,
+    "trophy_pedigree": 0.04,
+    "odds": 0.04,
+    "height_advantage": 0.03,
+    "club_chemistry": 0.03,
+    "travel": 0.03,
 }
 
 _NORM_MAX = {
@@ -36,7 +37,6 @@ _NORM_MAX = {
     "climate": 25,
     "history": 20,
     "morale": 15,
-    "age": 8,
     "odds": 1.0,
 }
 
@@ -89,22 +89,23 @@ def calculate_player_stats_factor(team_a, team_b):
         injured = INJURED_OUT.get(team_name, [])
         return [p for p in squad if p.get("name", "") not in injured]
 
-    def team_avg_goals(team_name):
+    def team_weighted_avg(team_name):
         squad = _filtered_squad(team_name)
         if not squad:
             return 0
-        total_goals = sum(p.get("goals_2026", 0) for p in squad)
-        return total_goals / len(squad)
+        total_weight = 0
+        total_val = 0
+        for p in squad:
+            mins = p.get("minutes_2026", 0) or 0
+            w = min(mins, 3000) / 3000
+            w = max(w, 0.2)
+            val = (p.get("goals_2026", 0) or 0) + (p.get("assists_2026", 0) or 0) * 0.5
+            total_val += val * w
+            total_weight += w
+        return total_val / total_weight if total_weight else 0
 
-    def team_avg_assists(team_name):
-        squad = _filtered_squad(team_name)
-        if not squad:
-            return 0
-        total_assists = sum(p.get("assists_2026", 0) for p in squad)
-        return total_assists / len(squad)
-
-    ga = team_avg_goals(team_a) + team_avg_assists(team_a) * 0.5
-    gb = team_avg_goals(team_b) + team_avg_assists(team_b) * 0.5
+    ga = team_weighted_avg(team_a)
+    gb = team_weighted_avg(team_b)
     diff = ga - gb
     return max(-10, min(10, diff))
 
@@ -306,17 +307,44 @@ def calculate_foreign_pct_factor(team_a, team_b, team_a_data=None, team_b_data=N
     b = team_b_data.get("foreign_pct", 0.8)
     return (a - b) * 10
 
-def calculate_age_penalty_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+def calculate_experience_factor(team_a, team_b, team_a_data=None, team_b_data=None):
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
         team_b_data = get_team(team_b)
-    optimal = 27
-    a = team_a_data.get("avg_age", 27)
-    b = team_b_data.get("avg_age", 27)
-    penalty_a = abs(a - optimal) * 0.5
-    penalty_b = abs(b - optimal) * 0.5
-    return penalty_b - penalty_a  # positive = a has advantage
+    a = team_a_data.get("avg_caps", 15)
+    b = team_b_data.get("avg_caps", 15)
+    diff = (a - b) / 30
+    return max(-10, min(10, diff))
+
+def calculate_trophy_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
+    a = team_a_data.get("avg_trophies", 1)
+    b = team_b_data.get("avg_trophies", 1)
+    diff = (a - b) / 5
+    return max(-10, min(10, diff))
+
+def calculate_height_advantage(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
+    a = team_a_data.get("avg_height", 1.80)
+    b = team_b_data.get("avg_height", 1.80)
+    diff = (a - b) / 0.05
+    return max(-10, min(10, diff))
+
+def calculate_club_chemistry(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
+    a = team_a_data.get("club_pairs", 0)
+    b = team_b_data.get("club_pairs", 0)
+    return max(-10, min(10, a - b))
 
 def calculate_rest_days(team_a, team_b, rest_a=None, rest_b=None):
     ra = rest_a if rest_a is not None else 5
@@ -331,17 +359,21 @@ def calculate_travel_fatigue(team_a, team_b, travel_km_a=0, travel_km_b=0):
     return max(-10, min(10, fb - fa))
 
 def calculate_squad_depth_factor(team_a, team_b):
-    a = SQUAD_DEPTH.get(team_a, 3)
-    b = SQUAD_DEPTH.get(team_b, 3)
+    players = _load_players()
+    if not players:
+        return 0
+    def _depth(team_name):
+        squad = players.get(team_name, [])
+        if not squad:
+            return 3
+        non_starters = [p for p in squad if p.get("role", "squad") != "starter"]
+        if not non_starters:
+            return 0
+        useful = sum(1 for p in non_starters if (p.get("minutes_2026", 0) or 0) > 500)
+        return useful / max(len(non_starters), 1) * 10
+    a = _depth(team_a)
+    b = _depth(team_b)
     return max(-10, min(10, (a - b) * 2))
-
-def calculate_jet_lag(team_a, team_b, venue_name):
-    venue_offset = VENUE_TIMEZONES.get(venue_name, -5)
-    tz_a = HOME_TIMEZONES.get(team_a, venue_offset)
-    tz_b = HOME_TIMEZONES.get(team_b, venue_offset)
-    diff_a = abs(tz_a - venue_offset) * 0.7
-    diff_b = abs(tz_b - venue_offset) * 0.7
-    return max(-5, min(5, diff_b - diff_a))
 
 def simulate_match_cards(team_a_data, team_b_data):
     yc_a = poisson_sample(team_a_data.get("yellow_rate", 2.0))
@@ -399,18 +431,18 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         _NORM_MAX["morale"]
     ) * WEIGHTS["morale"]
     foreign_diff = calculate_foreign_pct_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["foreign_pct"]
-    age_diff = _norm(
-        calculate_age_penalty_factor(team_a, team_b, team_a_data, team_b_data),
-        _NORM_MAX["age"]
-    ) * WEIGHTS["age_penalty"]
     rest_diff = calculate_rest_days(team_a, team_b, rest_days_a, rest_days_b) * WEIGHTS["rest_days"]
     depth_diff = calculate_squad_depth_factor(team_a, team_b) * WEIGHTS["squad_depth"]
     fatigue_diff = calculate_travel_fatigue(team_a, team_b, travel_km_a, travel_km_b) * WEIGHTS["travel_fatigue"]
-    jet_diff = calculate_jet_lag(team_a, team_b, venue_name) * WEIGHTS["jet_lag"]
+    exp_diff = calculate_experience_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["experience"]
+    trophy_diff = calculate_trophy_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["trophy_pedigree"]
+    height_diff = calculate_height_advantage(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["height_advantage"]
+    chem_diff = calculate_club_chemistry(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["club_chemistry"]
 
     total_diff = (strength_diff + mv_diff + ps_diff + odds_diff + home_diff + climate_diff +
-                  travel_diff + history_diff + morale_diff + foreign_diff + age_diff +
-                  rest_diff + depth_diff + fatigue_diff + jet_diff)
+                  travel_diff + history_diff + morale_diff + foreign_diff +
+                  rest_diff + depth_diff + fatigue_diff +
+                  exp_diff + trophy_diff + height_diff + chem_diff)
 
     deterministic_scaled = total_diff / 25
 
@@ -481,11 +513,13 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         "history": round(history_diff, 1),
         "morale": round(morale_diff, 1),
         "foreign_pct": round(foreign_diff, 1),
-        "age_penalty": round(age_diff, 1),
         "rest_days": round(rest_diff, 1),
         "squad_depth": round(depth_diff, 1),
         "travel_fatigue": round(fatigue_diff, 1),
-        "jet_lag": round(jet_diff, 1),
+        "experience": round(exp_diff, 1),
+        "trophy_pedigree": round(trophy_diff, 1),
+        "height_advantage": round(height_diff, 1),
+        "club_chemistry": round(chem_diff, 1),
     }
 
     fp_delta_a = fp_delta_b = yc_a = yc_b = rc_a = rc_b = 0
