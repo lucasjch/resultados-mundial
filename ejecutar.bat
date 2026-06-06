@@ -13,24 +13,26 @@ echo ====================================
 echo       PRODE MUNDIAL 2026
 echo ====================================
 echo.
-echo  1. Simulacion completa (seed 256)
+echo  1. Ensemble 100 semillas (default)
 echo  2. Simulacion con seed personalizada
 echo  3. Tabla de goleadores
-echo  4. Salir
+echo  4. Optimizador (X2 + Campeon + SF + Goleador)
+echo  5. Salir
 echo.
 echo ====================================
-set /p op="Seleccione opcion [1-4]: "
+set /p op="Seleccione opcion [1-5]: "
 
-if "%op%"=="1" goto full
+if "%op%"=="1" goto ensemble
 if "%op%"=="2" goto custom
 if "%op%"=="3" goto top
-if "%op%"=="4" goto salir
+if "%op%"=="4" goto optimizer
+if "%op%"=="5" goto salir
 goto menu
 
-:full
+:ensemble
 cls
 echo ====================================
-echo  Simulacion completa - Seed 256
+echo  Ensemble 100 semillas + Fase KO determinista
 echo ====================================
 echo.
 python prode_mundial/main.py
@@ -48,11 +50,10 @@ echo ====================================
 echo  Seed personalizada
 echo ====================================
 echo.
-set /p seed="Ingrese seed (Enter = 42): "
-if "%seed%"=="" set seed=42
+set /p seed="Ingrese seed (Enter = 256): "
+if "%seed%"=="" set seed=256
 echo.
 echo  Ejecutando simulacion con seed !seed!...
-echo.
 python prode_mundial/main.py !seed!
 echo.
 pause
@@ -65,6 +66,28 @@ echo  Tabla de Goleadores
 echo ====================================
 echo.
 python prode_mundial/main.py --goleadores
+echo.
+pause
+goto menu
+
+:optimizer
+cls
+echo ====================================
+echo  OPTIMIZADOR PRODE 2026
+echo ====================================
+echo  Analiza X2, campeon, semifinalistas
+echo  y goleador. Recomienda los mejores
+echo  picks para maximizar puntos.
+echo.
+echo  NOTA: Tarda ~75s (Monte Carlo 1000 sims)
+echo.
+pause
+cls
+echo ====================================
+echo  Ejecutando optimizador...
+echo ====================================
+echo.
+python prode_mundial/optimizer.py
 echo.
 pause
 goto menu

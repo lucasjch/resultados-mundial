@@ -3,62 +3,60 @@
 
 import sys
 import os
+import argparse
 from contextlib import redirect_stdout
 from io import StringIO
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from bracket import run_full_simulation
+from bracket import run_full_simulation, ensemble_simulation
 from output import export_all
-from top_scorer import compute_top_scorers, get_player_team
+from top_scorer import compute_top_scorers
 
-def main():
-    seed = 256
-    top_scorer_only = False
-
-    for arg in sys.argv[1:]:
-        if arg == "--top" or arg == "--goleadores":
-            top_scorer_only = True
-        elif arg == "--seed" or arg == "-s":
-            continue
-        else:
-            try:
-                seed = int(arg)
-            except ValueError:
-                pass
-
-    if "--seed" in sys.argv or "-s" in sys.argv:
-        idx = sys.argv.index("--seed") if "--seed" in sys.argv else sys.argv.index("-s")
-        if idx + 1 < len(sys.argv):
-            try:
-                seed = int(sys.argv[idx + 1])
-            except ValueError:
-                pass
-
-    if not top_scorer_only:
-        print("=" * 70)
-        print("  PREDICCION MUNDIAL 2026 - PRODE COMPLETO")
-        print(f"  Seed: {seed}")
-        print("=" * 70)
-        group_predictions, group_results, ko_predictions = run_full_simulation(seed=seed)
-    else:
-        with redirect_stdout(StringIO()):
-            group_predictions, group_results, ko_predictions = run_full_simulation(seed=seed)
-
-    if not top_scorer_only:
-        print()
-
+def run_top_scorers(group_predictions, ko_predictions):
+    top_scorers, _ = compute_top_scorers(group_predictions, ko_predictions, top_n=30)
     print("=" * 70)
     print("  TABLA DE GOLEADORES")
     print("=" * 70)
-    top_scorers, _ = compute_top_scorers(group_predictions, ko_predictions, top_n=30)
     print(f"  {'Jugador':35s} {'Equipo':20s} {'Goles':>5s}")
     print("  " + "-" * 62)
-    for rank, (player, goals) in enumerate(top_scorers, 1):
+    for rank, (player, team, goals) in enumerate(top_scorers, 1):
         if goals == 0:
             break
-        team = get_player_team(player)[:20]
         print(f"  {rank:<3d} {player:35s} {team:20s} {goals:>3d}")
+    return top_scorers
+
+def main():
+    parser = argparse.ArgumentParser(description="Prode Mundial 2026")
+    parser.add_argument("seed", nargs="?", type=int, default=None, help="Seed (default: ensemble 100 seeds)")
+    parser.add_argument("--seed", "-s", type=int, dest="seed_flag", help="Seed (alternativo)")
+    parser.add_argument("--goleadores", "--top", action="store_true", help="Solo tabla de goleadores")
+    parser.add_argument("--no-ensemble", action="store_true", help="Usar seed unica en vez de ensemble")
+    args = parser.parse_args()
+
+    seed = args.seed if args.seed_flag is None else args.seed_flag
+    single_seed = args.no_ensemble or seed is not None
+    top_scorer_only = args.goleadores
+
+    if single_seed:
+        s = seed if seed is not None else 256
+        if not top_scorer_only:
+            print(f"Seed: {s}")
+        with redirect_stdout(StringIO()) if top_scorer_only else nullcontext():
+            group_predictions, group_results, ko_predictions = run_full_simulation(seed=s)
+    else:
+        n = 100
+        if not top_scorer_only:
+            print(f"Ensemble {n} seeds...")
+            group_predictions, group_results, ko_predictions, _ = ensemble_simulation(n_seeds=n)
+        else:
+            with redirect_stdout(StringIO()):
+                group_predictions, group_results, ko_predictions, _ = ensemble_simulation(n_seeds=n)
+
+    if not top_scorer_only:
+        print()
+    run_top_scorers(group_predictions, ko_predictions)
 
     if not top_scorer_only:
         print(f"\n{'='*70}")
@@ -72,6 +70,12 @@ def main():
         print(f"\n  Resultados disponibles en: output/")
 
     return group_predictions, group_results, ko_predictions
+
+def nullcontext():
+    class NullContext:
+        def __enter__(self): pass
+        def __exit__(self, *a): pass
+    return NullContext()
 
 if __name__ == "__main__":
     main()

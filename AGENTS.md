@@ -24,7 +24,7 @@ para completar un prode. Exporta a CSV y JSON.
 prode_mundial/
 ├── scraper.py           # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py              # Datos de equipos, sedes, fixture, bases operativas, haversine, card rates
-├── predictor.py         # Motor de 14 factores ponderados + simulación Poisson
+├── predictor.py         # Motor de 15 factores ponderados + simulación Poisson
 ├── stats_scraper.py     # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py           # Bracket oficial 2026 + H2H tiebreaker + safety net KO
 ├── output.py            # Exportación CSV/JSON
@@ -61,6 +61,7 @@ prode_mundial/
 | —  | **Bloque H**: Fair Play + FIFA 2026 tiebreaker cascade + safety net KO | ✅ Completado |
 | —  | **Bloque I**: Fix probabilidades (noise removal) + confidence del winner real | ✅ Completado |
 | —  | **Bloque J**: Top scorer + ejecutar.bat menú interactivo | ✅ Completado |
+| —  | **Bloque K**: Ensemble 100 seeds + upset correction + factor odds | ✅ Completado |
 
 ## Decisiones Tomadas
 
@@ -150,8 +151,8 @@ prode_mundial/
 
 | Factor          | Peso | Nota |
 |-----------------|:----:|------|
-| team_strength   | 19%  | Solo rank + tier (sin form/goals) |
-| market_value    | 12%  | Factor independiente |
+| team_strength   | 17%  | Solo rank + tier (sin form/goals) |
+| market_value    | 11%  | Factor independiente |
 | player_stats    | 12%  | Goals + 0.5×Assists promedio por jugador (temporada 2025/26) |
 | home_advantage  | 8%   | Incluye fanbase/diaspora; is_neutral reduce bonos |
 | climate         | 6%   | Temperatura + altitud del estadio |
@@ -160,10 +161,11 @@ prode_mundial/
 | morale          | 4%   | Racha de resultados reciente |
 | age_penalty     | 3%   | Edad promedio de la plantilla |
 | foreign_pct     | 5%   | % de jugadores en ligas extranjeras |
-| rest_days       | 8%   | Penalidad si <4 días entre partidos |
-| squad_depth     | 8%   | Ratio de jugadores de impacto en plantilla |
+| rest_days       | 7%   | Penalidad si <4 días entre partidos |
+| squad_depth     | 7%   | Ratio de jugadores de impacto en plantilla |
 | travel_fatigue  | 5%   | Km totales acumulados viajando |
 | jet_lag         | 3%   | Diferencia horaria sede vs país de origen |
+| odds            | 5%   | Cuotas de apuestas DraftKings pre-torneo |
 | randomness      | —    | Ya no se usa. Antes: `gauss(0,0.7)×10` |
 
 ### Fórmula de goles esperados
@@ -180,24 +182,21 @@ base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
 
 ## Seed
 
-`seed = 256` en `main.py`. Elegido como el más representativo tras Monte Carlo
-de 1500 seeds (52/72 partidos de grupo coinciden con λ determinista).
-Resultado: Germany 🇩🇪 campeón, Spain 🇪🇸 subcampeón, Colombia 🇨🇴 3°.
+Por defecto `main.py` corre un **ensemble de 100 seeds** con Poisson draw
+(`skip_sims=True`) y selecciona la primera seed donde el campeón más frecuente
+ganó, luego enriquece esa seed con probabilidades completas (`skip_sims=False`).
+Esto elimina accidentes estadísticos de seed fija y asegura que el campeón del
+bracket final coincida con la distribución del modelo.
 
-### Monte Carlo (1500 seeds) — Probabilidades de campeonato
+Resultado (ensemble): Argentina 🇦🇷 campeón (1-0 vs France en final).
+
+### Ensemble (100 seeds) — Probabilidades de campeonato
 
 | Rango | Equipo | Prob |
 |-------|--------|:----:|
-| 1 | Germany | 9.6% |
-| 2 | France | 8.6% |
-| 3 | Argentina | 8.5% |
-| 4 | England | 8.1% |
-| 5 | Spain | 7.8% |
-| 6 | Brazil | 6.4% |
-| 7 | Portugal | 5.9% |
-| 8 | Netherlands | 4.6% |
-| 9 | Belgium | 4.1% |
-| 10 | USA | 3.5% |
+| 1 | Argentina | 91% |
+| 2 | France | 8% |
+| 3 | Spain | 1% |
 
 ## Bloque A: Fix fixture/venue bugs (Completado)
 
@@ -400,11 +399,12 @@ Resultado: Germany 🇩🇪 campeón, Spain 🇪🇸 subcampeón, Colombia 🇨�
 
 ### ejecutar.bat (J)
 
-Menú interactivo con 4 opciones:
-1. **Simulación completa** — `python prode_mundial/main.py` (seed 256)
+Menú interactivo con 5 opciones:
+1. **Simulación completa (ensemble)** — `python prode_mundial/main.py` (100 seeds)
 2. **Seed personalizada** — pide número y ejecuta `python prode_mundial/main.py <N>`
-3. **Tabla de goleadores** — `python prode_mundial/main.py --goleadores`
-4. **Salir**
+3. **Seed única (sin ensemble)** — `python prode_mundial/main.py --no-ensemble <N>`
+4. **Tabla de goleadores** — `python prode_mundial/main.py --goleadores`
+5. **Salir**
 
 ## Comandos Útiles
 
@@ -418,7 +418,7 @@ $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py
 # Forzar re-scrapeo de estadísticas (ignorar caché)
 $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py --force
 
-# Ejecutar simulación completa (con goleadores)
+# Ejecutar simulación completa (ensemble 100 seeds, con goleadores)
 python prode_mundial/main.py
 
 # Solo tabla de goleadores (modo silencioso)

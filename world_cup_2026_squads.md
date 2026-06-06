@@ -421,7 +421,7 @@ Only 8 players remain from 2022 historic semi-final run.
 | Kai Havertz | 26 | Arsenal | Starter (CF/CAM) |
 | Leroy Sane | 30 | Galatasaray | Squad |
 | Nick Woltemade | 24 | Newcastle | Target man |
-| Deniz Undav | 29 | Stuttgart | Striker |
+| Deniz Undav | 29 | Stuttgart | Striker *(INJURED — OUT via INJURED_OUT)* |
 | Maximilian Beier | 23 | Dortmund | Striker |
 | Jamie Leweling | 25 | Stuttgart | Winger |
 
@@ -1171,6 +1171,7 @@ First WC since 1974.
 4. Some lower-profile teams (Qatar, Haiti, Curacao, Cape Verde, Iraq, Jordan, Uzbekistan, Panama) had limited English-language coverage of their full squads.
 
 5. All squads were finalized by the June 1, 2026 FIFA deadline. Some late injury replacements may have occurred after source publication dates.
+6. **INJURED_OUT list**: 15 players excluded from goal distribution in `top_scorer.py` (Deniz Undav among them). These players remain in squad data but are filtered from scorer tables.
 
 ---
 

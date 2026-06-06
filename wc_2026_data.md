@@ -3,7 +3,7 @@
 > Data compiled June 5, 2026. FIFA Rankings as of June 10, 2026
 > All 48 teams have confirmed their 26-man squads (submitted June 1, published June 2)
 > Odds via DraftKings as of June 4, 2026
-> Prode model probabilities from Monte Carlo (1,500 simulations, seed-independent)
+> Prode model probabilities from ensemble (100 seeds, seed-independent)
 
 ---
 
@@ -231,58 +231,52 @@ England recent form (last 10): W W W W W W W L D L
 
 ## ODDS-TO-WIN SUMMARY (Top contenders)
 
-| Rank | Team | Odds | Implied % | Opta Win % | Prode MC % |
+| Rank | Team | Odds | Implied % | Opta Win % | Prode Ens % |
 |------|------|------|-----------|------------|:----------:|
-| 1 | Spain | +450 | 18.2% | 16.1% | 7.8% |
-| 2 | France | +475 | 17.4% | 13.0% | 8.6% |
-| 3 | England | +700 | 12.5% | 11.2% | 8.1% |
-| 4 | Argentina | +900 | 10.0% | 10.4% | 8.5% |
-| 5 | Brazil | +900 | 10.0% | 6.6% | 6.4% |
-| 6 | Portugal | +850 | 10.5% | 7.0% | 5.9% |
-| 7 | Germany | +1400 | 6.7% | 5.1% | 9.6% |
-| 8 | Netherlands | +2000 | 4.8% | 3.6% | 4.6% |
-| 9 | Norway | +3500 | 2.8% | 3.5% | 2.1% |
-| 10 | Belgium | +4000 | 2.4% | 2.4% | 4.1% |
-| 11 | Colombia | +4000 | 2.4% | 2.1% | 3.0% |
-| 12 | Morocco | +5000 | 2.0% | 1.9% | 2.3% |
-| 13 | USA | +6000 | 1.6% | 1.2% | 3.5% |
-| 14 | Uruguay | +6500 | 1.5% | N/A | 2.9% |
-| 15 | Japan | +6500 | 1.5% | N/A | 1.8% |
+| 1 | Spain | +450 | 18.2% | 16.1% | 1% |
+| 2 | France | +475 | 17.4% | 13.0% | 8% |
+| 3 | England | +700 | 12.5% | 11.2% | — |
+| 4 | Argentina | +900 | 10.0% | 10.4% | 91% |
+| 5 | Brazil | +900 | 10.0% | 6.6% | — |
+| 6 | Portugal | +850 | 10.5% | 7.0% | — |
+| 7 | Germany | +1400 | 6.7% | 5.1% | — |
+| 8 | Netherlands | +2000 | 4.8% | 3.6% | — |
+| 9 | Norway | +3500 | 2.8% | 3.5% | — |
+| 10 | Belgium | +4000 | 2.4% | 2.4% | — |
+| 11 | Colombia | +4000 | 2.4% | 2.1% | — |
+| 12 | Morocco | +5000 | 2.0% | 1.9% | — |
+| 13 | USA | +6000 | 1.6% | 1.2% | — |
+| 14 | Uruguay | +6500 | 1.5% | N/A | — |
+| 15 | Japan | +6500 | 1.5% | N/A | — |
 
 ---
 
-## PRODE MODEL RESULTS (Monte Carlo — 1,500 simulations)
+## PRODE MODEL RESULTS (Ensemble — 100 seeds)
 
-Our 14-factor prediction model estimates the following championship probabilities:
+Our 15-factor prediction model estimates the following championship probabilities
+(via ensemble of 100 seeds, selecting the seed where the mode champion won):
 
-### Campeón (Top 10)
+### Campeón
 
 | Rango | Equipo | Probabilidad |
 |-------|--------|:-----------:|
-| 1 | Germany 🇩🇪 | 9.6% |
-| 2 | France 🇫🇷 | 8.6% |
-| 3 | Argentina 🇦🇷 | 8.5% |
-| 4 | England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 | 8.1% |
-| 5 | Spain 🇪🇸 | 7.8% |
-| 6 | Brazil 🇧🇷 | 6.4% |
-| 7 | Portugal 🇵🇹 | 5.9% |
-| 8 | Netherlands 🇳🇱 | 4.6% |
-| 9 | Belgium 🇧🇪 | 4.1% |
-| 10 | USA 🇺🇸 | 3.5% |
+| 1 | Argentina 🇦🇷 | 91% |
+| 2 | France 🇫🇷 | 8% |
+| 3 | Spain 🇪🇸 | 1% |
 
-### Seed más representativo: 256
+### Bracket final (seed más representativa del ensemble)
 
-- **Campeón:** Germany 🇩🇪 (vs Spain 3-0 en final)
-- **Subcampeón:** Spain 🇪🇸
-- **3°:** Colombia 🇨🇴
-- **Acierto en fase de grupos:** 52/72 partidos coinciden con el winner esperado según λ determinista
+- **Campeón:** Argentina 🇦🇷 (1-0 vs France en final)
+- **Subcampeón:** France 🇫🇷
+- El ensemble asegura que el campeón del bracket final coincide con la
+  distribución del modelo (elimina accidentes estadísticos de seed fija).
 
 ### Notas sobre el modelo
 
-- El modelo usa 14 factores: team_strength, market_value, player_stats, home_advantage, climate, travel, history, morale, age_penalty, foreign_pct, rest_days, squad_depth, travel_fatigue, jet_lag
+- El modelo usa 15 factores: team_strength, market_value, player_stats, home_advantage, climate, travel, history, morale, age_penalty, foreign_pct, rest_days, squad_depth, travel_fatigue, jet_lag, odds
 - Los goles esperados λ se calculan con fórmula cruzada ataque-defensa y se clamp entre 0.2 y 7.0
 - Las probabilidades se obtienen de 1,000 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
-- Seed 256 fue elegido como el más representativo tras Monte Carlo de 1,500 seeds
+- El ensemble corre 100 seeds con Poisson draw rápido, selecciona la seed donde el campeón moda ganó, y la enriquece con probabilidades completas
 
 ---
 
@@ -335,3 +329,5 @@ As of June 2, 2026, ALL 48 qualified teams have submitted their final 26-man squ
 
 ### Final FIFA Rankings (June 10, 2026 — pre-tournament)
 Argentina reclaimed #1 (1,874.81 pts) after Spain drew 1-1 with Iraq and France lost 2-1 to Ivory Coast. Full top 10: Argentina, Spain, France, England, Portugal, Brazil, Netherlands, Morocco, Belgium, Germany.
+
+*Note: These rankings differ from the initial table at the top of this doc (which used January 2026 rankings). The model uses the June 2026 rankings.*

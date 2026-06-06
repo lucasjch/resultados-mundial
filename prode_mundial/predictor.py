@@ -13,9 +13,10 @@ _PLAYERS_CACHE = None
 
 # Pesos de cada factor (suman 100%, randomness es aditivo)
 WEIGHTS = {
-    "team_strength": 0.19,
-    "market_value": 0.12,
-    "player_stats": 0.12,
+    "team_strength": 0.18,
+    "market_value": 0.11,
+    "player_stats": 0.11,
+    "odds": 0.05,
     "home_advantage": 0.08,
     "climate": 0.06,
     "travel": 0.03,
@@ -23,11 +24,36 @@ WEIGHTS = {
     "morale": 0.04,
     "age_penalty": 0.03,
     "foreign_pct": 0.05,
-    "rest_days": 0.08,
-    "squad_depth": 0.08,
+    "rest_days": 0.07,
+    "squad_depth": 0.07,
     "travel_fatigue": 0.05,
     "jet_lag": 0.03,
 }
+
+_NORM_MAX = {
+    "strength": 88,
+    "home": 40,
+    "climate": 25,
+    "history": 20,
+    "morale": 15,
+    "age": 8,
+    "odds": 1.0,
+}
+
+def _american_to_prob(odds):
+    if odds < 0:
+        return -odds / (-odds + 100)
+    return 100 / (odds + 100)
+
+def calculate_odds_factor(team_a, team_b, team_a_data, team_b_data):
+    prob_a = _american_to_prob(team_a_data.get("odds_win", 10000))
+    prob_b = _american_to_prob(team_b_data.get("odds_win", 10000))
+    return max(-10, min(10, (prob_a - prob_b) * 10))
+
+def _norm(value, theoretical_max):
+    if theoretical_max <= 0:
+        return 0.0
+    return max(-10.0, min(10.0, value / theoretical_max * 10.0))
 
 def _load_players():
     global _PLAYERS_CACHE
@@ -53,19 +79,25 @@ def calculate_team_strength_from_data(team_data):
 
 
 def calculate_player_stats_factor(team_a, team_b):
+    from data import INJURED_OUT
     players = _load_players()
     if not players:
         return 0
 
-    def team_avg_goals(team_name):
+    def _filtered_squad(team_name):
         squad = players.get(team_name, [])
+        injured = INJURED_OUT.get(team_name, [])
+        return [p for p in squad if p.get("name", "") not in injured]
+
+    def team_avg_goals(team_name):
+        squad = _filtered_squad(team_name)
         if not squad:
             return 0
         total_goals = sum(p.get("goals_2026", 0) for p in squad)
         return total_goals / len(squad)
 
     def team_avg_assists(team_name):
-        squad = players.get(team_name, [])
+        squad = _filtered_squad(team_name)
         if not squad:
             return 0
         total_assists = sum(p.get("assists_2026", 0) for p in squad)
@@ -326,39 +358,61 @@ def simulate_match_cards(team_a_data, team_b_data):
     return fp_loss(yc_a, rc_a), fp_loss(yc_b, rc_b), yc_a, yc_b, rc_a, rc_b
 
 
-def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Group Stage",
-                  rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0):
+def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None, round_name="Group Stage",
+                  rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0, skip_sims=False):
     venue = get_venue(venue_name)
     venue_country = venue["country"]
 
     team_a_data = get_team(team_a)
     team_b_data = get_team(team_b)
 
-    strength_a = calculate_team_strength_from_data(team_a_data)
-    strength_b = calculate_team_strength_from_data(team_b_data)
-    strength_diff = (strength_a - strength_b) * WEIGHTS["team_strength"]
+    if allows_draw is None:
+        allows_draw = not is_neutral
+
+    strength_diff = _norm(
+        calculate_team_strength_from_data(team_a_data) -
+        calculate_team_strength_from_data(team_b_data),
+        _NORM_MAX["strength"]
+    ) * WEIGHTS["team_strength"]
 
     mv_diff = calculate_market_value_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["market_value"]
     ps_diff = calculate_player_stats_factor(team_a, team_b) * WEIGHTS["player_stats"]
-    home_diff = calculate_home_advantage(team_a, team_b, venue_country, is_neutral, team_a_data, team_b_data) * WEIGHTS["home_advantage"]
-    climate_diff = calculate_climate_impact(team_a, team_b, venue_name, team_a_data, team_b_data) * WEIGHTS["climate"]
+    odds_diff = _norm(
+        calculate_odds_factor(team_a, team_b, team_a_data, team_b_data),
+        _NORM_MAX["odds"]
+    ) * WEIGHTS["odds"]
+    home_diff = _norm(
+        calculate_home_advantage(team_a, team_b, venue_country, is_neutral, team_a_data, team_b_data),
+        _NORM_MAX["home"]
+    ) * WEIGHTS["home_advantage"]
+    climate_diff = _norm(
+        calculate_climate_impact(team_a, team_b, venue_name, team_a_data, team_b_data),
+        _NORM_MAX["climate"]
+    ) * WEIGHTS["climate"]
     travel_diff = calculate_travel_impact(team_a, team_b, venue_name) * WEIGHTS["travel"]
-    history_diff = calculate_history_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["history"]
-    morale_diff = calculate_morale(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["morale"]
+    history_diff = _norm(
+        calculate_history_factor(team_a, team_b, team_a_data, team_b_data),
+        _NORM_MAX["history"]
+    ) * WEIGHTS["history"]
+    morale_diff = _norm(
+        calculate_morale(team_a, team_b, team_a_data, team_b_data),
+        _NORM_MAX["morale"]
+    ) * WEIGHTS["morale"]
     foreign_diff = calculate_foreign_pct_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["foreign_pct"]
-    age_diff = calculate_age_penalty_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["age_penalty"]
+    age_diff = _norm(
+        calculate_age_penalty_factor(team_a, team_b, team_a_data, team_b_data),
+        _NORM_MAX["age"]
+    ) * WEIGHTS["age_penalty"]
     rest_diff = calculate_rest_days(team_a, team_b, rest_days_a, rest_days_b) * WEIGHTS["rest_days"]
     depth_diff = calculate_squad_depth_factor(team_a, team_b) * WEIGHTS["squad_depth"]
     fatigue_diff = calculate_travel_fatigue(team_a, team_b, travel_km_a, travel_km_b) * WEIGHTS["travel_fatigue"]
     jet_diff = calculate_jet_lag(team_a, team_b, venue_name) * WEIGHTS["jet_lag"]
 
-    total_diff = (strength_diff + mv_diff + ps_diff + home_diff + climate_diff +
+    total_diff = (strength_diff + mv_diff + ps_diff + odds_diff + home_diff + climate_diff +
                   travel_diff + history_diff + morale_diff + foreign_diff + age_diff +
                   rest_diff + depth_diff + fatigue_diff + jet_diff)
 
-    random_factor = random.gauss(0, 0.7) * 10
-
-    deterministic_scaled = total_diff / 100
+    deterministic_scaled = total_diff / 25
 
     base_a = (team_a_data["goals_scored_avg"] + team_b_data["goals_conceded_avg"]) / 2
     base_b = (team_b_data["goals_scored_avg"] + team_a_data["goals_conceded_avg"]) / 2
@@ -366,26 +420,29 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
     det_goals_a = max(0.2, min(7.0, base_a * (1 + deterministic_scaled)))
     det_goals_b = max(0.2, min(7.0, base_b * (1 - deterministic_scaled)))
 
-    score_a = poisson_sample(det_goals_a)
-    score_b = poisson_sample(det_goals_b)
-
-    sims = 1000
-    wins_a = 0
-    wins_b = 0
-    draws = 0
-    for _ in range(sims):
-        g_a = poisson_sample(det_goals_a)
-        g_b = poisson_sample(det_goals_b)
-        if g_a > g_b:
-            wins_a += 1
-        elif g_b > g_a:
-            wins_b += 1
-        else:
-            draws += 1
-
-    prob_a_win = wins_a / sims
-    prob_b_win = wins_b / sims
-    prob_draw = draws / sims
+    if skip_sims:
+        score_a = poisson_sample(det_goals_a)
+        score_b = poisson_sample(det_goals_b)
+        prob_a_win = prob_b_win = prob_draw = 0.0
+    else:
+        score_a = round(det_goals_a)
+        score_b = round(det_goals_b)
+        sims = 1000
+        wins_a = 0
+        wins_b = 0
+        draws = 0
+        for _ in range(sims):
+            g_a = poisson_sample(det_goals_a)
+            g_b = poisson_sample(det_goals_b)
+            if g_a > g_b:
+                wins_a += 1
+            elif g_b > g_a:
+                wins_b += 1
+            else:
+                draws += 1
+        prob_a_win = wins_a / sims
+        prob_b_win = wins_b / sims
+        prob_draw = draws / sims
 
     if score_a > score_b:
         winner = team_a
@@ -397,7 +454,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
         loser = team_a
         result_type = "visitante"
         confidence = prob_b_win * 100
-    elif is_neutral:
+    elif not allows_draw:
         tiebreaker = (morale_diff + depth_diff + random.gauss(0, 1))
         if tiebreaker >= 0:
             winner = team_a
@@ -417,6 +474,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
         "strength": round(strength_diff, 1),
         "market_value": round(mv_diff, 1),
         "player_stats": round(ps_diff, 1),
+        "odds": round(odds_diff, 1),
         "home": round(home_diff, 1),
         "climate": round(climate_diff, 1),
         "travel": round(travel_diff, 1),
@@ -428,10 +486,11 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
         "squad_depth": round(depth_diff, 1),
         "travel_fatigue": round(fatigue_diff, 1),
         "jet_lag": round(jet_diff, 1),
-        "random": round(random_factor, 1),
     }
 
-    fp_delta_a, fp_delta_b, yc_a, yc_b, rc_a, rc_b = simulate_match_cards(team_a_data, team_b_data)
+    fp_delta_a = fp_delta_b = yc_a = yc_b = rc_a = rc_b = 0
+    if not skip_sims:
+        fp_delta_a, fp_delta_b, yc_a, yc_b, rc_a, rc_b = simulate_match_cards(team_a_data, team_b_data)
 
     return {
         "team_a": team_a,

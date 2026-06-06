@@ -3,6 +3,7 @@
 # equipo según su desempeño en la temporada 2025/26 y su posición.
 
 import json, os, random
+from data import INJURED_OUT
 
 _PLAYERS = None
 
@@ -32,16 +33,21 @@ def _build_team_weights(team_name):
     squad = players.get(team_name, [])
     if not squad:
         return []
+    injured = INJURED_OUT.get(team_name, [])
     weights = []
     for p in squad:
+        name = p.get("name", "")
+        if name in injured:
+            continue
         goals = p.get("goals_2026", 0) or 0
+        assists = p.get("assists_2026", 0) or 0
         mins = p.get("minutes_2026", 0) or 0
         pos = p.get("position", "")
-        name = p.get("name", "")
         pw = _position_weight(pos)
-        if pw == 0 or mins < 90:
+        if pw == 0 or mins < 450:
             continue
-        w = max(goals * pw + 0.1, 0.01)
+        goals_per_90 = (goals + assists * 0.3) / mins * 90
+        w = max(goals_per_90 * pw + 0.1, 0.01)
         weights.append((name, w, pw, goals, mins, pos))
     total = sum(w for _, w, _, _, _, _ in weights) or 1
     weighted = [(n, w / total, pw, g, m, pos) for n, w, pw, g, m, pos in weights]
@@ -100,5 +106,8 @@ def compute_top_scorers(group_predictions, ko_predictions, top_n=20):
             for player, g in dist.items():
                 player_goals[player] = player_goals.get(player, 0) + g
 
-    sorted_players = sorted(player_goals.items(), key=lambda x: (-x[1], x[0]))
+    sorted_players = sorted(
+        [(name, get_player_team(name), goals) for name, goals in player_goals.items()],
+        key=lambda x: (-x[2], x[0])
+    )
     return sorted_players[:top_n], player_goals

@@ -498,7 +498,7 @@ TEAMS = {
         "diaspora_in_usa": 58000,
     },
     "Spain": {
-        "rank": 2, "rank_pts": 1873.02, "tier": 1, "odds_win": 450, "odds_group": -475,
+        "rank": 3, "rank_pts": 1873.02, "tier": 1, "odds_win": 450, "odds_group": -475,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Luis de la Fuente", "captain": "Rodri",
         "avg_temp_home": 17, "altitude_home": 650,
@@ -564,7 +564,7 @@ TEAMS = {
         "diaspora_in_usa": 45000,
     },
     "France": {
-        "rank": 3, "rank_pts": 1869.43, "tier": 1, "odds_win": 475, "odds_group": -215,
+        "rank": 2, "rank_pts": 1869.43, "tier": 1, "odds_win": 475, "odds_group": -215,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Didier Deschamps", "captain": "Kylian Mbappe",
         "avg_temp_home": 13, "altitude_home": 100,
@@ -1197,6 +1197,18 @@ def _compute_squad_depth():
     return depth
 
 SQUAD_DEPTH = _compute_squad_depth()
+
+INJURED_OUT = {
+    "Germany": ["Deniz Undav"],
+    "Brazil": ["Rodrygo", "Estevão"],
+    "England": ["Cole Palmer", "Phil Foden", "Trent Alexander-Arnold", "Harry Maguire"],
+    "France": ["Hugo Ekitike"],
+    "Japan": ["Kaoru Mitoma"],
+    "Netherlands": ["Xavi Simons"],
+    "Sweden": ["Dejan Kulusevski"],
+    "Iran": ["Sardar Azmoun"],
+    "Ghana": ["Mohammed Kudus"],
+}
 
 _CONF_CARD_RATES = {
     "UEFA":     {"yellow_rate": 2.1, "red_rate": 0.05},
