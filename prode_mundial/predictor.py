@@ -5,11 +5,11 @@ import json
 import math
 import os
 import random
-from difflib import SequenceMatcher
 from data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS,
-                  VENUE_TIMEZONES, HOME_TIMEZONES, SQUAD_DEPTH)
+                  VENUE_TIMEZONES, HOME_TIMEZONES, SQUAD_DEPTH, haversine)
 
 PLAYERS_FILE = os.path.join(os.path.dirname(__file__), "output", "players.json")
+_PLAYERS_CACHE = None
 
 # Pesos de cada factor (suman 100%, randomness es aditivo)
 WEIGHTS = {
@@ -30,19 +30,27 @@ WEIGHTS = {
 }
 
 def _load_players():
+    global _PLAYERS_CACHE
+    if _PLAYERS_CACHE is not None:
+        return _PLAYERS_CACHE
     if not os.path.exists(PLAYERS_FILE):
-        return {}
+        _PLAYERS_CACHE = {}
+        return _PLAYERS_CACHE
     with open(PLAYERS_FILE, encoding="utf-8") as f:
-        return json.load(f)
+        _PLAYERS_CACHE = json.load(f)
+    return _PLAYERS_CACHE
 
 def calculate_team_strength(team_name):
     team = get_team(team_name)
-    rank_score = max(0, 100 - team["rank"]) * 0.6
-    tier_score = (8 - team["tier"]) * 10 * 0.4
+    return calculate_team_strength_from_data(team)
+
+def calculate_team_strength_from_data(team_data):
+
+    rank_score = max(0, 100 - team_data["rank"]) * 0.6
+    tier_score = (8 - team_data["tier"]) * 10 * 0.4
     return rank_score + tier_score
 
-def _load_team_players(team_name, players_data):
-    return players_data.get(team_name, [])
+
 
 def calculate_player_stats_factor(team_a, team_b):
     players = _load_players()
@@ -68,9 +76,12 @@ def calculate_player_stats_factor(team_a, team_b):
     diff = ga - gb
     return max(-10, min(10, diff))
 
-def calculate_home_advantage(team_a, team_b, venue_country, is_neutral=False):
-    team_a_data = get_team(team_a)
-    team_b_data = get_team(team_b)
+def calculate_home_advantage(team_a, team_b, venue_country, is_neutral=False,
+                             team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
     advantage_a = 0
     advantage_b = 0
 
@@ -136,14 +147,17 @@ def calculate_home_advantage(team_a, team_b, venue_country, is_neutral=False):
 
     return advantage_a - advantage_b
 
-def calculate_climate_impact(team_a, team_b, venue_name):
+def calculate_climate_impact(team_a, team_b, venue_name,
+                             team_a_data=None, team_b_data=None):
     venue = get_venue(venue_name)
     venue_temp = venue["avg_temp"]
     venue_altitude = venue["altitude"]
     has_roof = venue["roof"]
 
-    team_a_data = get_team(team_a)
-    team_b_data = get_team(team_b)
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
 
     climate_a = 0
     climate_b = 0
@@ -191,24 +205,13 @@ def calculate_climate_impact(team_a, team_b, venue_name):
 
     return climate_a - climate_b
 
-def _haversine(lat1, lon1, lat2, lon2):
-    """Distance in km between two lat/lon points."""
-    R = 6371
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = (math.sin(dlat / 2) ** 2 +
-         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) *
-         math.sin(dlon / 2) ** 2)
-    return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-
 def _base_to_venue_dist(team, venue_name):
-    """Distance from team's base camp to match venue (km)."""
     base = BASE_CAMPS.get(team, "Dallas")
     base_coords = CITY_COORDS.get(base)
     venue_coords = CITY_COORDS.get(venue_name)
     if not base_coords or not venue_coords:
         return 0
-    return _haversine(base_coords[0], base_coords[1], venue_coords[0], venue_coords[1])
+    return haversine(base_coords[0], base_coords[1], venue_coords[0], venue_coords[1])
 
 def calculate_travel_impact(team_a, team_b, venue_name):
     da = _base_to_venue_dist(team_a, venue_name)
@@ -216,9 +219,11 @@ def calculate_travel_impact(team_a, team_b, venue_name):
     diff = (db - da) / 1000
     return max(-6, min(6, diff))
 
-def calculate_history_factor(team_a, team_b):
-    team_a_data = get_team(team_a)
-    team_b_data = get_team(team_b)
+def calculate_history_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
 
     history_scores = {
         "campeon": 20, "final": 15, "semifinal": 12, "cuartos": 8,
@@ -240,29 +245,43 @@ def calculate_history_factor(team_a, team_b):
     score_b = get_history_score(team_b_data["wc_history"])
     return score_a - score_b
 
-def calculate_morale(team_a, team_b):
-    team_a_data = get_team(team_a)
-    team_b_data = get_team(team_b)
+def calculate_morale(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
     morale_a = team_a_data["form_streak"] * 15
     morale_b = team_b_data["form_streak"] * 15
     return morale_a - morale_b
 
-def calculate_market_value_factor(team_a, team_b):
-    a = get_team(team_a).get("market_value_total", 0)
-    b = get_team(team_b).get("market_value_total", 0)
+def calculate_market_value_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
+    a = team_a_data.get("market_value_total", 0)
+    b = team_b_data.get("market_value_total", 0)
     # Log scale: difference in market value (capped)
     diff = (min(a, 500) - min(b, 500)) / 50  # 50M = 1pt diff, max ~10pt
     return max(-10, min(10, diff))
 
-def calculate_foreign_pct_factor(team_a, team_b):
-    a = get_team(team_a).get("foreign_pct", 0.8)
-    b = get_team(team_b).get("foreign_pct", 0.8)
+def calculate_foreign_pct_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
+    a = team_a_data.get("foreign_pct", 0.8)
+    b = team_b_data.get("foreign_pct", 0.8)
     return (a - b) * 10
 
-def calculate_age_penalty_factor(team_a, team_b):
+def calculate_age_penalty_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    if team_a_data is None:
+        team_a_data = get_team(team_a)
+    if team_b_data is None:
+        team_b_data = get_team(team_b)
     optimal = 27
-    a = get_team(team_a).get("avg_age", 27)
-    b = get_team(team_b).get("avg_age", 27)
+    a = team_a_data.get("avg_age", 27)
+    b = team_b_data.get("avg_age", 27)
     penalty_a = abs(a - optimal) * 0.5
     penalty_b = abs(b - optimal) * 0.5
     return penalty_b - penalty_a  # positive = a has advantage
@@ -292,39 +311,45 @@ def calculate_jet_lag(team_a, team_b, venue_name):
     diff_b = abs(tz_b - venue_offset) * 0.7
     return max(-5, min(5, diff_b - diff_a))
 
+def simulate_match_cards(team_a_data, team_b_data):
+    yc_a = poisson_sample(team_a_data.get("yellow_rate", 2.0))
+    yc_b = poisson_sample(team_b_data.get("yellow_rate", 2.0))
+    rc_a = 1 if random.random() < team_a_data.get("red_rate", 0.05) else 0
+    rc_b = 1 if random.random() < team_b_data.get("red_rate", 0.05) else 0
+
+    def fp_loss(yellows, reds):
+        loss = yellows * (-1)
+        if reds == 1:
+            loss += -4
+        return loss
+
+    return fp_loss(yc_a, rc_a), fp_loss(yc_b, rc_b), yc_a, yc_b, rc_a, rc_b
+
+
 def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Group Stage",
                   rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0):
     venue = get_venue(venue_name)
     venue_country = venue["country"]
 
-    strength_a = calculate_team_strength(team_a)
-    strength_b = calculate_team_strength(team_b)
+    team_a_data = get_team(team_a)
+    team_b_data = get_team(team_b)
+
+    strength_a = calculate_team_strength_from_data(team_a_data)
+    strength_b = calculate_team_strength_from_data(team_b_data)
     strength_diff = (strength_a - strength_b) * WEIGHTS["team_strength"]
 
-    mv_diff = calculate_market_value_factor(team_a, team_b) * WEIGHTS["market_value"]
-
+    mv_diff = calculate_market_value_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["market_value"]
     ps_diff = calculate_player_stats_factor(team_a, team_b) * WEIGHTS["player_stats"]
-
-    home_diff = calculate_home_advantage(team_a, team_b, venue_country, is_neutral) * WEIGHTS["home_advantage"]
-
-    climate_diff = calculate_climate_impact(team_a, team_b, venue_name) * WEIGHTS["climate"]
-
+    home_diff = calculate_home_advantage(team_a, team_b, venue_country, is_neutral, team_a_data, team_b_data) * WEIGHTS["home_advantage"]
+    climate_diff = calculate_climate_impact(team_a, team_b, venue_name, team_a_data, team_b_data) * WEIGHTS["climate"]
     travel_diff = calculate_travel_impact(team_a, team_b, venue_name) * WEIGHTS["travel"]
-
-    history_diff = calculate_history_factor(team_a, team_b) * WEIGHTS["history"]
-
-    morale_diff = calculate_morale(team_a, team_b) * WEIGHTS["morale"]
-
-    foreign_diff = calculate_foreign_pct_factor(team_a, team_b) * WEIGHTS["foreign_pct"]
-
-    age_diff = calculate_age_penalty_factor(team_a, team_b) * WEIGHTS["age_penalty"]
-
+    history_diff = calculate_history_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["history"]
+    morale_diff = calculate_morale(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["morale"]
+    foreign_diff = calculate_foreign_pct_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["foreign_pct"]
+    age_diff = calculate_age_penalty_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["age_penalty"]
     rest_diff = calculate_rest_days(team_a, team_b, rest_days_a, rest_days_b) * WEIGHTS["rest_days"]
-
     depth_diff = calculate_squad_depth_factor(team_a, team_b) * WEIGHTS["squad_depth"]
-
     fatigue_diff = calculate_travel_fatigue(team_a, team_b, travel_km_a, travel_km_b) * WEIGHTS["travel_fatigue"]
-
     jet_diff = calculate_jet_lag(team_a, team_b, venue_name) * WEIGHTS["jet_lag"]
 
     total_diff = (strength_diff + mv_diff + ps_diff + home_diff + climate_diff +
@@ -332,34 +357,25 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
                   rest_diff + depth_diff + fatigue_diff + jet_diff)
 
     random_factor = random.gauss(0, 0.7) * 10
-    total_diff += random_factor
 
-    total_diff_scaled = total_diff / 100
-
-    team_a_data = get_team(team_a)
-    team_b_data = get_team(team_b)
+    deterministic_scaled = total_diff / 100
 
     base_a = (team_a_data["goals_scored_avg"] + team_b_data["goals_conceded_avg"]) / 2
     base_b = (team_b_data["goals_scored_avg"] + team_a_data["goals_conceded_avg"]) / 2
 
-    expected_goals_a = base_a * (1 + total_diff_scaled)
-    expected_goals_b = base_b * (1 - total_diff_scaled)
+    det_goals_a = max(0.2, min(7.0, base_a * (1 + deterministic_scaled)))
+    det_goals_b = max(0.2, min(7.0, base_b * (1 - deterministic_scaled)))
 
-    expected_goals_a = max(0.2, min(4.5, expected_goals_a))
-    expected_goals_b = max(0.2, min(4.5, expected_goals_b))
+    score_a = poisson_sample(det_goals_a)
+    score_b = poisson_sample(det_goals_b)
 
     sims = 1000
     wins_a = 0
     wins_b = 0
     draws = 0
-    goals_a_dist = []
-    goals_b_dist = []
-
     for _ in range(sims):
-        g_a = poisson_sample(expected_goals_a)
-        g_b = poisson_sample(expected_goals_b)
-        goals_a_dist.append(g_a)
-        goals_b_dist.append(g_b)
+        g_a = poisson_sample(det_goals_a)
+        g_b = poisson_sample(det_goals_b)
         if g_a > g_b:
             wins_a += 1
         elif g_b > g_a:
@@ -371,24 +387,31 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
     prob_b_win = wins_b / sims
     prob_draw = draws / sims
 
-    most_likely_goals_a = max(set(goals_a_dist), key=goals_a_dist.count)
-    most_likely_goals_b = max(set(goals_b_dist), key=goals_b_dist.count)
-
-    dominant = max(prob_a_win, prob_b_win, prob_draw)
-    confidence = dominant * 100
-
-    if prob_a_win > prob_b_win and prob_a_win > prob_draw:
+    if score_a > score_b:
         winner = team_a
         loser = team_b
         result_type = "local"
-    elif prob_b_win > prob_a_win and prob_b_win > prob_draw:
+        confidence = prob_a_win * 100
+    elif score_b > score_a:
         winner = team_b
         loser = team_a
         result_type = "visitante"
+        confidence = prob_b_win * 100
+    elif is_neutral:
+        tiebreaker = (morale_diff + depth_diff + random.gauss(0, 1))
+        if tiebreaker >= 0:
+            winner = team_a
+            loser = team_b
+        else:
+            winner = team_b
+            loser = team_a
+        result_type = "penales"
+        confidence = max(prob_a_win, prob_b_win) * 100
     else:
         winner = "Empate"
         loser = ""
         result_type = "empate"
+        confidence = prob_draw * 100
 
     factors_detail = {
         "strength": round(strength_diff, 1),
@@ -408,6 +431,8 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
         "random": round(random_factor, 1),
     }
 
+    fp_delta_a, fp_delta_b, yc_a, yc_b, rc_a, rc_b = simulate_match_cards(team_a_data, team_b_data)
+
     return {
         "team_a": team_a,
         "team_b": team_b,
@@ -417,14 +442,20 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, round_name="Grou
         "winner": winner,
         "loser": loser,
         "result_type": result_type,
-        "score_a": most_likely_goals_a,
-        "score_b": most_likely_goals_b,
-        "expected_goals_a": round(expected_goals_a, 2),
-        "expected_goals_b": round(expected_goals_b, 2),
+        "score_a": score_a,
+        "score_b": score_b,
+        "expected_goals_a": round(det_goals_a, 2),
+        "expected_goals_b": round(det_goals_b, 2),
         "prob_a_win": round(prob_a_win * 100, 1),
         "prob_b_win": round(prob_b_win * 100, 1),
         "prob_draw": round(prob_draw * 100, 1),
         "confidence": round(confidence, 1),
+        "fp_delta_a": fp_delta_a,
+        "fp_delta_b": fp_delta_b,
+        "yc_a": yc_a,
+        "yc_b": yc_b,
+        "rc_a": rc_a,
+        "rc_b": rc_b,
         "factors": factors_detail,
     }
 

@@ -10,7 +10,7 @@ from bracket import run_full_simulation
 from output import export_all
 
 def main():
-    seed = 42
+    seed = 256
 
     group_predictions, group_results, ko_predictions = run_full_simulation(seed=seed)
 

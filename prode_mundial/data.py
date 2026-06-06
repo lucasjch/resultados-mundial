@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Datos completos del Mundial 2026
 
+import math
+
 TEAMS = {
     "Mexico": {
-        "rank": 15, "rank_pts": 1681.03, "tier": 4, "odds_win": 9000, "odds_group": -125,
+        "rank": 14, "rank_pts": 1687.48, "tier": 4, "odds_win": 9000, "odds_group": -125,
         "confederation": "CONCACAF", "home_continent": True,
         "coach": "Javier Aguirre", "captain": "Edson Alvarez",
         "avg_temp_home": 24, "altitude_home": 2240,
@@ -28,7 +30,7 @@ TEAMS = {
         "diaspora_in_usa": 37200000,
     },
     "South Korea": {
-        "rank": 25, "rank_pts": 1588.66, "tier": 4, "odds_win": 40000, "odds_group": 350,
+        "rank": 25, "rank_pts": 1591.63, "tier": 4, "odds_win": 40000, "odds_group": 350,
         "confederation": "AFC", "home_continent": False,
         "coach": "Hong Myungbo", "captain": "Son Heung-min",
         "avg_temp_home": 14, "altitude_home": 50,
@@ -47,7 +49,7 @@ TEAMS = {
         "diaspora_in_usa": 1800000,
     },
     "South Africa": {
-        "rank": 60, "rank_pts": 1429.73, "tier": 5, "odds_win": 100000, "odds_group": 1200,
+        "rank": 60, "rank_pts": 1428.38, "tier": 5, "odds_win": 100000, "odds_group": 1200,
         "confederation": "CAF", "home_continent": False,
         "coach": "Hugo Broos", "captain": "Ronwen Williams",
         "avg_temp_home": 22, "altitude_home": 1700,
@@ -64,7 +66,7 @@ TEAMS = {
         "diaspora_in_usa": 102000,
     },
     "Czechia": {
-        "rank": 41, "rank_pts": 1501.38, "tier": 5, "odds_win": 50000, "odds_group": 350,
+        "rank": 39, "rank_pts": 1505.74, "tier": 5, "odds_win": 50000, "odds_group": 350,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Miroslav Koubek", "captain": "Ladislav Krejci",
         "avg_temp_home": 10, "altitude_home": 250,
@@ -82,7 +84,7 @@ TEAMS = {
         "diaspora_in_usa": 210000,
     },
     "Canada": {
-        "rank": 30, "rank_pts": 1556.48, "tier": 5, "odds_win": 20000, "odds_group": 200,
+        "rank": 30, "rank_pts": 1559.48, "tier": 5, "odds_win": 20000, "odds_group": 200,
         "confederation": "CONCACAF", "home_continent": True,
         "coach": "Jesse Marsch", "captain": "Alphonso Davies",
         "avg_temp_home": 6, "altitude_home": 100,
@@ -101,7 +103,7 @@ TEAMS = {
         "diaspora_in_usa": 1050000,
     },
     "Switzerland": {
-        "rank": 19, "rank_pts": 1649.40, "tier": 4, "odds_win": 6500, "odds_group": -135,
+        "rank": 19, "rank_pts": 1650.75, "tier": 4, "odds_win": 6500, "odds_group": -135,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Murat Yakin", "captain": "Granit Xhaka",
         "avg_temp_home": 10, "altitude_home": 500,
@@ -120,7 +122,7 @@ TEAMS = {
         "diaspora_in_usa": 420000,
     },
     "Qatar": {
-        "rank": 55, "rank_pts": 1454.96, "tier": 7, "odds_win": 150000, "odds_group": 3000,
+        "rank": 55, "rank_pts": 1452.38, "tier": 7, "odds_win": 150000, "odds_group": 3000,
         "confederation": "AFC", "home_continent": False,
         "coach": "Tintin Marquez", "captain": "Akram Afif",
         "avg_temp_home": 33, "altitude_home": 10,
@@ -135,7 +137,7 @@ TEAMS = {
         "diaspora_in_usa": 28000,
     },
     "Bosnia & Herzegovina": {
-        "rank": 71, "rank_pts": 1385.84, "tier": 6, "odds_win": 50000, "odds_group": 600,
+        "rank": 64, "rank_pts": 1385.77, "tier": 6, "odds_win": 50000, "odds_group": 600,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Sergej Barbarez", "captain": "Edin Dzeko",
         "avg_temp_home": 12, "altitude_home": 500,
@@ -151,7 +153,7 @@ TEAMS = {
         "diaspora_in_usa": 300000,
     },
     "Brazil": {
-        "rank": 6, "rank_pts": 1761.16, "tier": 2, "odds_win": 900, "odds_group": -350,
+        "rank": 6, "rank_pts": 1762.66, "tier": 2, "odds_win": 900, "odds_group": -350,
         "confederation": "CONMEBOL", "home_continent": False,
         "coach": "Carlo Ancelotti", "captain": "Marquinhos",
         "avg_temp_home": 26, "altitude_home": 100,
@@ -175,7 +177,7 @@ TEAMS = {
         "diaspora_in_usa": 1800000,
     },
     "Morocco": {
-        "rank": 8, "rank_pts": 1755.87, "tier": 3, "odds_win": 5000, "odds_group": 400,
+        "rank": 7, "rank_pts": 1757.29, "tier": 3, "odds_win": 5000, "odds_group": 400,
         "confederation": "CAF", "home_continent": False,
         "coach": "Mohamed Ouahbi", "captain": "Achraf Hakimi",
         "avg_temp_home": 22, "altitude_home": 400,
@@ -196,7 +198,7 @@ TEAMS = {
         "diaspora_in_usa": 690000,
     },
     "Scotland": {
-        "rank": 43, "rank_pts": 1498.35, "tier": 5, "odds_win": 20000, "odds_group": 1000,
+        "rank": 43, "rank_pts": 1499.92, "tier": 5, "odds_win": 20000, "odds_group": 1000,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Steve Clarke", "captain": "Andy Robertson",
         "avg_temp_home": 8, "altitude_home": 50,
@@ -214,7 +216,7 @@ TEAMS = {
         "diaspora_in_usa": 250000,
     },
     "Haiti": {
-        "rank": 83, "rank_pts": 1291.71, "tier": 8, "odds_win": 250000, "odds_group": 12000,
+        "rank": 82, "rank_pts": 1293.09, "tier": 8, "odds_win": 250000, "odds_group": 12000,
         "confederation": "CONCACAF", "home_continent": True,
         "coach": "Sebastien Migne", "captain": "Johnny Placide",
         "avg_temp_home": 28, "altitude_home": 0,
@@ -229,7 +231,7 @@ TEAMS = {
         "diaspora_in_usa": 1050000,
     },
     "USA": {
-        "rank": 16, "rank_pts": 1673.13, "tier": 3, "odds_win": 6000, "odds_group": 140,
+        "rank": 16, "rank_pts": 1675.71, "tier": 3, "odds_win": 6000, "odds_group": 140,
         "confederation": "CONCACAF", "home_continent": True,
         "coach": "Mauricio Pochettino", "captain": "Christian Pulisic",
         "avg_temp_home": 13, "altitude_home": 200,
@@ -248,7 +250,7 @@ TEAMS = {
         "diaspora_in_usa": 0,
     },
     "Paraguay": {
-        "rank": 40, "rank_pts": 1503.50, "tier": 5, "odds_win": 30000, "odds_group": 400,
+        "rank": 40, "rank_pts": 1505.35, "tier": 5, "odds_win": 30000, "odds_group": 400,
         "confederation": "CONMEBOL", "home_continent": False,
         "coach": "Daniel Garnero", "captain": "Gustavo Gomez",
         "avg_temp_home": 25, "altitude_home": 100,
@@ -263,7 +265,7 @@ TEAMS = {
         "diaspora_in_usa": 690000,
     },
     "Australia": {
-        "rank": 27, "rank_pts": 1580.67, "tier": 5, "odds_win": 60000, "odds_group": 800,
+        "rank": 27, "rank_pts": 1578.65, "tier": 5, "odds_win": 60000, "odds_group": 800,
         "confederation": "AFC", "home_continent": False,
         "coach": "Graham Arnold", "captain": "Mathew Ryan",
         "avg_temp_home": 22, "altitude_home": 50,
@@ -279,7 +281,7 @@ TEAMS = {
         "diaspora_in_usa": 98000,
     },
     "Turkey": {
-        "rank": 22, "rank_pts": 1599.04, "tier": 4, "odds_win": 9000, "odds_group": 175,
+        "rank": 22, "rank_pts": 1601.99, "tier": 4, "odds_win": 9000, "odds_group": 175,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Vincenzo Montella", "captain": "Hakan Calhanoglu",
         "avg_temp_home": 15, "altitude_home": 100,
@@ -295,7 +297,7 @@ TEAMS = {
         "diaspora_in_usa": 550000,
     },
     "Germany": {
-        "rank": 10, "rank_pts": 1730.37, "tier": 2, "odds_win": 1400, "odds_group": -250,
+        "rank": 10, "rank_pts": 1731.3, "tier": 2, "odds_win": 1400, "odds_group": -250,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Julian Nagelsmann", "captain": "Ilkay Gundogan",
         "avg_temp_home": 10, "altitude_home": 100,
@@ -315,7 +317,7 @@ TEAMS = {
         "diaspora_in_usa": 1600000,
     },
     "Ecuador": {
-        "rank": 23, "rank_pts": 1594.78, "tier": 4, "odds_win": 8000, "odds_group": 370,
+        "rank": 24, "rank_pts": 1596.48, "tier": 4, "odds_win": 8000, "odds_group": 370,
         "confederation": "CONMEBOL", "home_continent": False,
         "coach": "Felix Sanchez", "captain": "Enner Valencia",
         "avg_temp_home": 22, "altitude_home": 2850,
@@ -332,7 +334,7 @@ TEAMS = {
         "diaspora_in_usa": 620000,
     },
     "Ivory Coast": {
-        "rank": 37, "rank_pts": 1532.98, "tier": 5, "odds_win": 25000, "odds_group": 600,
+        "rank": 33, "rank_pts": 1540.87, "tier": 5, "odds_win": 25000, "odds_group": 600,
         "confederation": "CAF", "home_continent": False,
         "coach": "Emerse Fae", "captain": "Franck Kessie",
         "avg_temp_home": 28, "altitude_home": 50,
@@ -349,7 +351,7 @@ TEAMS = {
         "diaspora_in_usa": 215000,
     },
     "Curacao": {
-        "rank": 81, "rank_pts": 1294.65, "tier": 8, "odds_win": 250000, "odds_group": 12000,
+        "rank": 83, "rank_pts": 1293.08, "tier": 8, "odds_win": 250000, "odds_group": 12000,
         "confederation": "CONCACAF", "home_continent": True,
         "coach": "Dick Advocaat", "captain": "Leandro Bacuna",
         "avg_temp_home": 28, "altitude_home": 0,
@@ -364,7 +366,7 @@ TEAMS = {
         "diaspora_in_usa": 180000,
     },
     "Netherlands": {
-        "rank": 7, "rank_pts": 1757.87, "tier": 3, "odds_win": 2000, "odds_group": -125,
+        "rank": 8, "rank_pts": 1751.09, "tier": 3, "odds_win": 2000, "odds_group": -125,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Ronald Koeman", "captain": "Virgil van Dijk",
         "avg_temp_home": 10, "altitude_home": 10,
@@ -383,7 +385,7 @@ TEAMS = {
         "diaspora_in_usa": 420000,
     },
     "Japan": {
-        "rank": 18, "rank_pts": 1660.43, "tier": 3, "odds_win": 6500, "odds_group": 275,
+        "rank": 18, "rank_pts": 1661.58, "tier": 3, "odds_win": 6500, "odds_group": 275,
         "confederation": "AFC", "home_continent": False,
         "coach": "Hajime Moriyasu", "captain": "Wataru Endo",
         "avg_temp_home": 16, "altitude_home": 50,
@@ -400,7 +402,7 @@ TEAMS = {
         "diaspora_in_usa": 780000,
     },
     "Sweden": {
-        "rank": 42, "rank_pts": 1514.77, "tier": 4, "odds_win": 12000, "odds_group": 450,
+        "rank": 38, "rank_pts": 1509.79, "tier": 4, "odds_win": 12000, "odds_group": 450,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Jon Dahl Tomasson", "captain": "Victor Lindelof",
         "avg_temp_home": 6, "altitude_home": 10,
@@ -417,7 +419,7 @@ TEAMS = {
         "diaspora_in_usa": 450000,
     },
     "Tunisia": {
-        "rank": 47, "rank_pts": 1483.05, "tier": 6, "odds_win": 50000, "odds_group": 1200,
+        "rank": 46, "rank_pts": 1479.09, "tier": 6, "odds_win": 50000, "odds_group": 1200,
         "confederation": "CAF", "home_continent": False,
         "coach": "Kais Yaacoubi", "captain": "Youssef Msakni",
         "avg_temp_home": 25, "altitude_home": 10,
@@ -433,7 +435,7 @@ TEAMS = {
         "diaspora_in_usa": 135000,
     },
     "Belgium": {
-        "rank": 9, "rank_pts": 1734.71, "tier": 3, "odds_win": 4000, "odds_group": -220,
+        "rank": 9, "rank_pts": 1739.54, "tier": 3, "odds_win": 4000, "odds_group": -220,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Domenico Tedesco", "captain": "Kevin De Bruyne",
         "avg_temp_home": 10, "altitude_home": 50,
@@ -452,7 +454,7 @@ TEAMS = {
         "diaspora_in_usa": 380000,
     },
     "Egypt": {
-        "rank": 29, "rank_pts": 1563.24, "tier": 5, "odds_win": 30000, "odds_group": 400,
+        "rank": 29, "rank_pts": 1565.56, "tier": 5, "odds_win": 30000, "odds_group": 400,
         "confederation": "CAF", "home_continent": False,
         "coach": "Hossam Hassan", "captain": "Mohamed Salah",
         "avg_temp_home": 28, "altitude_home": 50,
@@ -467,7 +469,7 @@ TEAMS = {
         "diaspora_in_usa": 255000,
     },
     "Iran": {
-        "rank": 21, "rank_pts": 1615.30, "tier": 5, "odds_win": 70000, "odds_group": 650,
+        "rank": 20, "rank_pts": 1619.58, "tier": 5, "odds_win": 70000, "odds_group": 650,
         "confederation": "AFC", "home_continent": False,
         "coach": "Amir Ghalenoei", "captain": "Ehsan Hajsafi",
         "avg_temp_home": 22, "altitude_home": 1100,
@@ -482,7 +484,7 @@ TEAMS = {
         "diaspora_in_usa": 520000,
     },
     "New Zealand": {
-        "rank": 85, "rank_pts": 1281.57, "tier": 7, "odds_win": 150000, "odds_group": 2000,
+        "rank": 85, "rank_pts": 1276.67, "tier": 7, "odds_win": 150000, "odds_group": 2000,
         "confederation": "OFC", "home_continent": False,
         "coach": "Darren Bazeley", "captain": "Chris Wood",
         "avg_temp_home": 14, "altitude_home": 50,
@@ -496,7 +498,7 @@ TEAMS = {
         "diaspora_in_usa": 58000,
     },
     "Spain": {
-        "rank": 2, "rank_pts": 1876.40, "tier": 1, "odds_win": 450, "odds_group": -475,
+        "rank": 2, "rank_pts": 1873.02, "tier": 1, "odds_win": 450, "odds_group": -475,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Luis de la Fuente", "captain": "Rodri",
         "avg_temp_home": 17, "altitude_home": 650,
@@ -533,7 +535,7 @@ TEAMS = {
         "diaspora_in_usa": 230000,
     },
     "Saudi Arabia": {
-        "rank": 61, "rank_pts": 1421.43, "tier": 7, "odds_win": 100000, "odds_group": 3000,
+        "rank": 61, "rank_pts": 1421.54, "tier": 7, "odds_win": 100000, "odds_group": 3000,
         "confederation": "AFC", "home_continent": False,
         "coach": "Roberto Mancini", "captain": "Salem Al-Dawsari",
         "avg_temp_home": 33, "altitude_home": 10,
@@ -547,7 +549,7 @@ TEAMS = {
         "diaspora_in_usa": 112000,
     },
     "Cape Verde": {
-        "rank": 67, "rank_pts": 1366.13, "tier": 8, "odds_win": 100000, "odds_group": 6000,
+        "rank": 68, "rank_pts": 1369.3, "tier": 8, "odds_win": 100000, "odds_group": 6000,
         "confederation": "CAF", "home_continent": False,
         "coach": "Bubista", "captain": "Ryan Mendes",
         "avg_temp_home": 25, "altitude_home": 10,
@@ -562,7 +564,7 @@ TEAMS = {
         "diaspora_in_usa": 45000,
     },
     "France": {
-        "rank": 1, "rank_pts": 1877.32, "tier": 1, "odds_win": 475, "odds_group": -215,
+        "rank": 3, "rank_pts": 1869.43, "tier": 1, "odds_win": 475, "odds_group": -215,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Didier Deschamps", "captain": "Kylian Mbappe",
         "avg_temp_home": 13, "altitude_home": 100,
@@ -584,7 +586,7 @@ TEAMS = {
         "diaspora_in_usa": 415000,
     },
     "Norway": {
-        "rank": 37, "rank_pts": 1510.49, "tier": 4, "odds_win": 15000, "odds_group": 600,
+        "rank": 31, "rank_pts": 1555.59, "tier": 4, "odds_win": 15000, "odds_group": 600,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Stale Solbakken", "captain": "Martin Odegaard",
         "avg_temp_home": 6, "altitude_home": 10,
@@ -599,7 +601,7 @@ TEAMS = {
         "diaspora_in_usa": 180000,
     },
     "Senegal": {
-        "rank": 14, "rank_pts": 1688.99, "tier": 4, "odds_win": 9000, "odds_group": 750,
+        "rank": 15, "rank_pts": 1686.41, "tier": 4, "odds_win": 9000, "odds_group": 750,
         "confederation": "CAF", "home_continent": False,
         "coach": "Pape Thiaw", "captain": "Sadio Mane",
         "avg_temp_home": 28, "altitude_home": 10,
@@ -616,7 +618,7 @@ TEAMS = {
         "diaspora_in_usa": 250000,
     },
     "Iraq": {
-        "rank": 58, "rank_pts": 1447.14, "tier": 7, "odds_win": 150000, "odds_group": 8000,
+        "rank": 56, "rank_pts": 1451.16, "tier": 7, "odds_win": 150000, "odds_group": 8000,
         "confederation": "AFC", "home_continent": False,
         "coach": "Jesus Casas", "captain": "Saad Natiq",
         "avg_temp_home": 28, "altitude_home": 50,
@@ -630,7 +632,7 @@ TEAMS = {
         "diaspora_in_usa": 210000,
     },
     "Argentina": {
-        "rank": 3, "rank_pts": 1874.81, "tier": 1, "odds_win": 900, "odds_group": -265,
+        "rank": 1, "rank_pts": 1874.81, "tier": 1, "odds_win": 900, "odds_group": -265,
         "confederation": "CONMEBOL", "home_continent": False,
         "coach": "Lionel Scaloni", "captain": "Lionel Messi",
         "avg_temp_home": 17, "altitude_home": 50,
@@ -653,7 +655,7 @@ TEAMS = {
         "diaspora_in_usa": 2300000,
     },
     "Algeria": {
-        "rank": 28, "rank_pts": 1564.26, "tier": 5, "odds_win": 35000, "odds_group": 800,
+        "rank": 28, "rank_pts": 1571.04, "tier": 5, "odds_win": 35000, "odds_group": 800,
         "confederation": "CAF", "home_continent": False,
         "coach": "Vladimir Petkovic", "captain": "Riyad Mahrez",
         "avg_temp_home": 28, "altitude_home": 100,
@@ -668,7 +670,7 @@ TEAMS = {
         "diaspora_in_usa": 350000,
     },
     "Austria": {
-        "rank": 24, "rank_pts": 1593.45, "tier": 4, "odds_win": 15000, "odds_group": 370,
+        "rank": 23, "rank_pts": 1597.41, "tier": 4, "odds_win": 15000, "odds_group": 370,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Ralf Rangnick", "captain": "David Alaba",
         "avg_temp_home": 9, "altitude_home": 200,
@@ -685,7 +687,7 @@ TEAMS = {
         "diaspora_in_usa": 345000,
     },
     "Jordan": {
-        "rank": 64, "rank_pts": 1391.45, "tier": 7, "odds_win": 250000, "odds_group": 5000,
+        "rank": 63, "rank_pts": 1390.1, "tier": 7, "odds_win": 250000, "odds_group": 5000,
         "confederation": "AFC", "home_continent": False,
         "coach": "Jamal Sellami", "captain": "Musa Al-Taamari",
         "avg_temp_home": 22, "altitude_home": 800,
@@ -721,7 +723,7 @@ TEAMS = {
         "diaspora_in_usa": 580000,
     },
     "Colombia": {
-        "rank": 13, "rank_pts": 1693.09, "tier": 3, "odds_win": 4000, "odds_group": 200,
+        "rank": 13, "rank_pts": 1695.99, "tier": 3, "odds_win": 4000, "odds_group": 200,
         "confederation": "CONMEBOL", "home_continent": False,
         "coach": "Nestor Lorenzo", "captain": "James Rodriguez",
         "avg_temp_home": 27, "altitude_home": 300,
@@ -739,7 +741,7 @@ TEAMS = {
         "diaspora_in_usa": 1200000,
     },
     "Uzbekistan": {
-        "rank": 52, "rank_pts": 1465.34, "tier": 7, "odds_win": 150000, "odds_group": 3500,
+        "rank": 50, "rank_pts": 1461.21, "tier": 7, "odds_win": 150000, "odds_group": 3500,
         "confederation": "AFC", "home_continent": False,
         "coach": "Srecko Katanec", "captain": "Eldor Shomurodov",
         "avg_temp_home": 16, "altitude_home": 400,
@@ -754,7 +756,7 @@ TEAMS = {
         "diaspora_in_usa": 58000,
     },
     "DR Congo": {
-        "rank": 48, "rank_pts": 1478.35, "tier": 6, "odds_win": 100000, "odds_group": 1400,
+        "rank": 45, "rank_pts": 1479.68, "tier": 6, "odds_win": 100000, "odds_group": 1400,
         "confederation": "CAF", "home_continent": False,
         "coach": "Sebastien Desabre", "captain": "Chancel Mbemba",
         "avg_temp_home": 27, "altitude_home": 400,
@@ -793,7 +795,7 @@ TEAMS = {
         "diaspora_in_usa": 680000,
     },
     "Croatia": {
-        "rank": 11, "rank_pts": 1717.07, "tier": 3, "odds_win": 9000, "odds_group": 320,
+        "rank": 11, "rank_pts": 1712.24, "tier": 3, "odds_win": 9000, "odds_group": 320,
         "confederation": "UEFA", "home_continent": False,
         "coach": "Zlatko Dalic", "captain": "Luka Modric",
         "avg_temp_home": 13, "altitude_home": 100,
@@ -811,7 +813,7 @@ TEAMS = {
         "diaspora_in_usa": 245000,
     },
     "Ghana": {
-        "rank": 72, "rank_pts": 1346.31, "tier": 6, "odds_win": 30000, "odds_group": 1100,
+        "rank": 73, "rank_pts": 1346.88, "tier": 6, "odds_win": 30000, "odds_group": 1100,
         "confederation": "CAF", "home_continent": False,
         "coach": "Otto Addo", "captain": "Thomas Partey",
         "avg_temp_home": 28, "altitude_home": 50,
@@ -827,7 +829,7 @@ TEAMS = {
         "diaspora_in_usa": 235000,
     },
     "Panama": {
-        "rank": 33, "rank_pts": 1540.64, "tier": 6, "odds_win": 100000, "odds_group": 4000,
+        "rank": 34, "rank_pts": 1540.59, "tier": 6, "odds_win": 100000, "odds_group": 4000,
         "confederation": "CONCACAF", "home_continent": True,
         "coach": "Thomas Christiansen", "captain": "Anibal Godoy",
         "avg_temp_home": 28, "altitude_home": 10,
@@ -1196,6 +1198,25 @@ def _compute_squad_depth():
 
 SQUAD_DEPTH = _compute_squad_depth()
 
+_CONF_CARD_RATES = {
+    "UEFA":     {"yellow_rate": 2.1, "red_rate": 0.05},
+    "CONMEBOL": {"yellow_rate": 2.5, "red_rate": 0.08},
+    "CONCACAF": {"yellow_rate": 2.3, "red_rate": 0.06},
+    "CAF":      {"yellow_rate": 2.0, "red_rate": 0.05},
+    "AFC":      {"yellow_rate": 1.8, "red_rate": 0.04},
+    "OFC":      {"yellow_rate": 1.8, "red_rate": 0.04},
+}
+
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = (math.sin(dlat / 2) ** 2 +
+         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) *
+         math.sin(dlon / 2) ** 2)
+    return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+
 def _enrich_teams():
     import json, os
     players_path = os.path.join(os.path.dirname(__file__), "output", "players.json")
@@ -1235,5 +1256,9 @@ def _enrich_teams():
         conf = team.get("confederation", "")
         team.setdefault("foreign_pct", _FOREIGN_PCT_ESTIMATES.get(conf, 0.8))
         team["global_fanbase"] = _FANBASE.get(name, 2)
+
+        rates = _CONF_CARD_RATES.get(conf, {"yellow_rate": 2.0, "red_rate": 0.05})
+        team["yellow_rate"] = rates["yellow_rate"]
+        team["red_rate"] = rates["red_rate"]
 
 _enrich_teams()

@@ -3,25 +3,17 @@
 # Formato oficial: 12 grupos, top2 + 8 mejores terceros -> R32 -> R16 -> QF -> SF -> Final
 
 from datetime import datetime
-from predictor import predict_match, calculate_team_strength
-from data import FIXTURES, GROUPS, CITY_COORDS
+from predictor import predict_match
+from data import FIXTURES, GROUPS, CITY_COORDS, haversine
 
-def _haversine(lat1, lon1, lat2, lon2):
-    R = 6371
-    import math
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = (math.sin(dlat / 2) ** 2 +
-         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) *
-         math.sin(dlon / 2) ** 2)
-    return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
 
 def _venue_dist(venue_a, venue_b):
     coords_a = CITY_COORDS.get(venue_a)
     coords_b = CITY_COORDS.get(venue_b)
     if not coords_a or not coords_b:
         return 0
-    return _haversine(coords_a[0], coords_a[1], coords_b[0], coords_b[1])
+    return haversine(coords_a[0], coords_a[1], coords_b[0], coords_b[1])
 
 def compute_team_history(group_predictions):
     history = {}
@@ -89,6 +81,9 @@ R32_BRACKET = [
 ]
 
 # Round of 16 pairings (winners of matches above) — official FIFA 2026
+# ⚠️ R16_PAIRINGS uses hard-coded indices into r32_results (build_round_of_32 outputs).
+# If R32_BRACKET order changes (new FIFA release), these indices will silently break.
+# To fix: re-derive from the official bracket diagram, not the match list order.
 R16_PAIRINGS = [
     (2, 8),   # R16-1: M03(2A/2B) vs M09(1C/2F) → Philadelphia
     (0, 3),   # R16-2: M01(1E/3rd) vs M04(1F/2C) → Houston
@@ -111,11 +106,63 @@ FINAL_VENUE = "New York"
 THIRD_VENUE = "Miami"
 
 
+def _get_team_ranking(team_name):
+    from data import get_team
+    return get_team(team_name).get("rank", 100)
+
+
+def _h2h_key(team_name, group_name, tied_names):
+    """Compute (h2h_pts, h2h_gd, h2h_gf) within tied teams only."""
+    h2h = _h2h_matches.get(group_name, {})
+    h2h_pts = h2h_gd = h2h_gf = 0
+    for opponent, matches in h2h.get(team_name, {}).items():
+        if opponent not in tied_names:
+            continue
+        for m in matches:
+            g_diff = m["goals_a"] - m["goals_b"]
+            h2h_gd += g_diff
+            h2h_gf += m["goals_a"]
+            if g_diff > 0:
+                h2h_pts += 3
+            elif g_diff == 0:
+                h2h_pts += 1
+    return h2h_pts, h2h_gd, h2h_gf
+
+
+def _sort_group(group_name, standings):
+    """Sort group standings using FIFA 2026 Article 13 cascade."""
+    teams = [(name, data) for name, data in standings.items()]
+
+    def sort_key(item):
+        name, d = item
+        return (-d["pts"], -d["gd"], -d["gf"], -d.get("fp", 0), _get_team_ranking(name))
+
+    teams.sort(key=sort_key)
+
+    pts_groups = {}
+    for name, d in teams:
+        pts_groups.setdefault(d["pts"], []).append(name)
+
+    result = []
+    for pts, tied_names in pts_groups.items():
+        if len(tied_names) == 1:
+            result.append((tied_names[0], standings[tied_names[0]]))
+        else:
+            tied = [(n, standings[n]) for n in tied_names]
+            tied.sort(key=lambda x: _h2h_key(x[0], group_name, tied_names), reverse=True)
+            result.extend(tied)
+
+    return result
+
+_h2h_matches = {}
+
 def simulate_group_stage(predictions):
     group_results = {}
     for g in GROUPS:
-        group_results[g] = {t: {"pts": 0, "gd": 0, "gf": 0, "ga": 0, "w": 0, "d": 0, "l": 0} for t in GROUPS[g]}
+        group_results[g] = {t: {"pts": 0, "gd": 0, "gf": 0, "ga": 0, "w": 0, "d": 0, "l": 0, "fp": 0} for t in GROUPS[g]}
 
+    global _h2h_matches
+    _h2h_matches.clear()
     for p in predictions:
         g = p["round"].split()[-1]
         a, b = p["team_a"], p["team_b"]
@@ -127,6 +174,25 @@ def simulate_group_stage(predictions):
         group_results[g][b]["gf"] += gb
         group_results[g][b]["ga"] += ga
         group_results[g][b]["gd"] -= gd
+
+        fp_a = p.get("fp_delta_a", 0)
+        fp_b = p.get("fp_delta_b", 0)
+        group_results[g][a]["fp"] += fp_a
+        group_results[g][b]["fp"] += fp_b
+
+        if g not in _h2h_matches:
+            _h2h_matches[g] = {}
+        if a not in _h2h_matches[g]:
+            _h2h_matches[g][a] = {}
+        if b not in _h2h_matches[g]:
+            _h2h_matches[g][b] = {}
+        if b not in _h2h_matches[g][a]:
+            _h2h_matches[g][a][b] = []
+        if a not in _h2h_matches[g][b]:
+            _h2h_matches[g][b][a] = []
+        _h2h_matches[g][a][b].append({"goals_a": ga, "goals_b": gb})
+        _h2h_matches[g][b][a].append({"goals_a": gb, "goals_b": ga})
+
         if ga > gb:
             group_results[g][a]["pts"] += 3
             group_results[g][a]["w"] += 1
@@ -143,8 +209,7 @@ def simulate_group_stage(predictions):
 
     sorted_results = {}
     for g in group_results:
-        st = sorted(group_results[g].items(), key=lambda x: (x[1]["pts"], x[1]["gd"], x[1]["gf"]), reverse=True)
-        sorted_results[g] = st
+        sorted_results[g] = _sort_group(g, group_results[g])
 
     return sorted_results
 
@@ -159,9 +224,10 @@ def determine_qualified(group_results):
         group_winners[g] = table[0][0]
         group_runners[g] = table[1][0]
         if len(table) >= 3:
-            third_placed.append((g, table[2][0], table[2][1]["pts"], table[2][1]["gd"], table[2][1]["gf"]))
+            t3 = table[2][1]
+            third_placed.append((g, table[2][0], t3["pts"], t3["gd"], t3["gf"], t3.get("fp", 0), _get_team_ranking(table[2][0])))
 
-    third_placed.sort(key=lambda x: (x[2], x[3], x[4]), reverse=True)
+    third_placed.sort(key=lambda x: (-x[2], -x[3], -x[4], -x[5], x[6]))
     best_third = third_placed[:8]
 
     return group_winners, group_runners, [t[1] for t in best_third], best_third
@@ -233,7 +299,14 @@ def build_round_of_32(group_winners, group_runners, best_third, best_third_with_
     return matches
 
 
+def _ranking_winner(team_a, team_b, data_a, data_b):
+    if data_a.get("ranking", 100) < data_b.get("ranking", 100):
+        return team_a, team_b
+    return team_b, team_a
+
+
 def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01"):
+    from data import get_team
     results = []
     for item in matches:
         if len(item) == 3:
@@ -256,6 +329,15 @@ def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01")
         result = predict_match(team_a, team_b, venue, is_neutral=True, round_name="KO",
                                rest_days_a=rest_a, rest_days_b=rest_b,
                                travel_km_a=travel_a, travel_km_b=travel_b)
+
+        if result["winner"] == "Empate":
+            data_a = get_team(team_a)
+            data_b = get_team(team_b)
+            w, l = _ranking_winner(team_a, team_b, data_a, data_b)
+            result["winner"] = w
+            result["loser"] = l
+            result["result_type"] = "penales"
+
         results.append(result)
     return results
 
@@ -297,8 +379,8 @@ def run_full_simulation(seed=42):
     group_winners, group_runners, best_third, third_details = determine_qualified(group_results)
 
     print("\n>>> MEJORES TERCEROS CLASIFICADOS:")
-    for i, (g, team, pts, gd, gf) in enumerate(third_details):
-        print(f"  {i+1}. Grupo {g}: {team} ({pts} pts, GD:{gd:+d})")
+    for i, (g, team, pts, gd, gf, fp, rank) in enumerate(third_details):
+        print(f"  {i+1}. Grupo {g}: {team} ({pts} pts, GD:{gd:+d}, FP:{fp}, Rank:{rank})")
 
     # ── Team history (rest days, travel fatigue) ─────────────────────
     team_history = compute_team_history(group_predictions)
