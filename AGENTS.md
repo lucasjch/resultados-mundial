@@ -116,8 +116,9 @@ prode_mundial/
    `market_value`. `fanbase` eliminado y absorbido por `home_advantage`.
 3. **Fórmula de goles esperados** → Ahora cruza ataque vs defensa:
    `base_A = (goals_scored_avg_A + goals_conceded_avg_B) / 2`.
-4. **Randomness aditivo** → Ya no es un peso; es
-   `random.gauss(0, 0.7) * 10` sumado a `total_diff`.
+4. **Randomness eliminado** → `random.gauss(0, 0.7) * 10` ya no se suma a
+   `total_diff`. El λ determinista captura toda la varianza del modelo sin
+   ruido extra que degradaba las probabilidades.
 5. **Nuevo factor**: `player_stats` (10%) que agrega goles+asistencias promedio
    por plantilla desde Transfermarkt.
 
@@ -154,20 +155,16 @@ prode_mundial/
 | squad_depth     | 8%   | Ratio de jugadores de impacto en plantilla |
 | travel_fatigue  | 5%   | Km totales acumulados viajando |
 | jet_lag         | 3%   | Diferencia horaria sede vs país de origen |
-| randomness      | —    | Término aditivo `gauss(0,0.7)×10` |
-
 ### Fórmula de goles esperados
 
 ```python
 total_diff = Σ(factor_i × peso_i)   # sin randomness
-random_factor = random.gauss(0, 0.7) * 10
-total_diff += random_factor
 total_diff_scaled = total_diff / 100
 
 base_a = (goals_scored_avg_a + goals_conceded_avg_b) / 2
 base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
-λ_a = base_a * (1 + total_diff_scaled)
-λ_b = base_b * (1 - total_diff_scaled)
+λ_a = max(0.2, min(7.0, base_a * (1 + total_diff_scaled)))
+λ_b = max(0.2, min(7.0, base_b * (1 - total_diff_scaled)))
 ```
 
 ## Seed
