@@ -138,16 +138,19 @@ class ProdeGUI:
         self._tab_ko = ttk.Frame(nb)
         self._tab_stats = ttk.Frame(nb)
         self._tab_goleadores = ttk.Frame(nb)
+        self._tab_bonus = ttk.Frame(nb)
 
         nb.add(self._tab_groups, text=" Fase de Grupos ")
         nb.add(self._tab_ko, text=" Eliminatorias ")
         nb.add(self._tab_stats, text=" Estadisticas ")
         nb.add(self._tab_goleadores, text=" Goleadores ")
+        nb.add(self._tab_bonus, text=" Bonus ")
 
         self._build_groups_tab()
         self._build_ko_tab()
         self._build_stats_tab()
         self._build_goleadores_tab()
+        self._build_bonus_tab()
 
         status = tk.Label(self.root, text="Datos cargados desde output/",
                           bg=_COLORS["card_bg"], fg=_COLORS["fg"],
@@ -183,10 +186,14 @@ class ProdeGUI:
         items = self.data.get(tab_name, [])
         if not items:
             return
+        if tab_name == "groups":
+            filtered = self._filtered_group_indices
+            n = len(filtered)
+        else:
+            n = len(items)
         idx = self._idx[tab_name]
-        self._idx[tab_name] = (idx + delta) % len(items)
-        show = {"groups": "_show_group_match", "knockout": "_show_ko_match",
-                "goleadores": "_show_goleadores"}.get(tab_name)
+        self._idx[tab_name] = (idx + delta) % n
+        show = {"groups": "_show_group_match", "knockout": "_show_ko_match"}.get(tab_name)
         if show:
             getattr(self, show)()
 
@@ -197,9 +204,10 @@ class ProdeGUI:
         score_b = match.get("score_b", 0)
         venue = match.get("venue", "")
         conf = match.get("confidence", 0)
-        prob_a = match.get("prob_a_win", 0)
-        prob_b = match.get("prob_b_win", 0)
-        prob_d = match.get("prob_draw", 0)
+        probs = match.get("probabilities", {})
+        prob_a = probs.get("a_win", 0)
+        prob_b = probs.get("b_win", 0)
+        prob_d = probs.get("draw", 0)
 
         card = tk.Frame(parent, bg=_COLORS["card_bg"],
                         highlightbackground=_COLORS["card_border"],
@@ -241,9 +249,37 @@ class ProdeGUI:
 
     def _build_groups_tab(self):
         parent = self._tab_groups
+        self._group_filter = None
+        self._filtered_group_indices = list(range(len(self.data["groups"])))
+
+        filter_frame = tk.Frame(parent, bg=_COLORS["bg"])
+        filter_frame.pack(fill=tk.X, padx=10, pady=(5, 0))
+        tk.Label(filter_frame, text="Grupo:", font=("Arial", 10, "bold"),
+                 bg=_COLORS["bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 5))
+        groups_list = ["Todos"] + [chr(65 + i) for i in range(12)]
+        self._group_combo = ttk.Combobox(filter_frame, values=groups_list,
+                                          state="readonly", width=10, font=("Arial", 10))
+        self._group_combo.current(0)
+        self._group_combo.pack(side=tk.LEFT)
+        self._group_combo.bind("<<ComboboxSelected>>", self._on_group_filter)
+
         self._nav_frame(parent, "groups")
         self._card_frame_groups = tk.Frame(parent, bg=_COLORS["bg"])
         self._card_frame_groups.pack(fill=tk.BOTH, expand=True)
+        self._show_group_match()
+
+    def _on_group_filter(self, event=None):
+        sel = self._group_combo.get()
+        if sel == "Todos":
+            self._group_filter = None
+            self._filtered_group_indices = list(range(len(self.data["groups"])))
+        else:
+            self._group_filter = sel
+            self._filtered_group_indices = [
+                i for i, m in enumerate(self.data["groups"])
+                if m.get("round", "").endswith(sel)
+            ]
+        self._idx["groups"] = 0
         self._show_group_match()
 
     def _show_group_match(self):
@@ -254,9 +290,17 @@ class ProdeGUI:
             tk.Label(self._card_frame_groups, text="No hay datos. Ejecute main.py primero.",
                      bg=_COLORS["bg"], fg=_COLORS["fg"], font=("Arial", 14)).pack(expand=True)
             return
+        filtered = self._filtered_group_indices
         idx = self._idx["groups"]
-        m = matches[idx]
-        total = len(matches)
+        if idx >= len(filtered):
+            idx = 0
+            self._idx["groups"] = 0
+        m = matches[filtered[idx]]
+        total = len(filtered)
+        grp = m.get("round", "")
+        lbl = getattr(self, "_lbl_groups", None)
+        if lbl:
+            lbl.config(text=f"{grp}  -  Partido {idx+1}/{total}")
         self._match_card(self._card_frame_groups, m, idx, total)
 
     def _build_ko_tab(self):
@@ -337,51 +381,184 @@ class ProdeGUI:
 
     def _build_goleadores_tab(self):
         parent = self._tab_goleadores
-        nav_f = self._nav_frame(parent, "goleadores")
-        content_f = tk.Frame(parent, bg=_COLORS["bg"])
-        content_f.pack(fill=tk.BOTH, expand=True)
-        self._card_frame_gol = content_f
-        self._show_goleadores()
+        header = tk.Frame(parent, bg=_COLORS["bg"])
+        header.pack(fill=tk.X, padx=10, pady=5)
+        tk.Label(header, text="Tabla de Goleadores",
+                 font=("Arial", 14, "bold"), bg=_COLORS["bg"],
+                 fg=_COLORS["accent"]).pack(side=tk.LEFT)
 
-    def _show_goleadores(self):
-        for w in self._card_frame_gol.winfo_children():
-            w.destroy()
+        canvas = tk.Canvas(parent, bg=_COLORS["bg"], highlightthickness=0)
+        scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
+        scroll_frame = tk.Frame(canvas, bg=_COLORS["bg"])
+        scroll_frame.bind("<Configure>", lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")))
+        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
         scorers = self.data.get("goleadores", [])
         if not scorers:
-            tk.Label(self._card_frame_gol, text="No hay datos de goleadores.",
-                     bg=_COLORS["bg"], fg=_COLORS["fg"], font=("Arial", 14)).pack(expand=True)
+            tk.Label(scroll_frame, text="No hay datos de goleadores.",
+                     bg=_COLORS["bg"], fg=_COLORS["fg"],
+                     font=("Arial", 14)).pack(expand=True)
             return
-        idx = self._idx["goleadores"]
-        s = scorers[idx] if idx < len(scorers) else scorers[0]
-        total = len(scorers)
 
-        card = tk.Frame(self._card_frame_gol, bg=_COLORS["card_bg"],
+        hdr = tk.Frame(scroll_frame, bg=_COLORS["card_bg"])
+        hdr.pack(fill=tk.X, padx=10, pady=(5, 0))
+        for txt, w in [("#", 4), ("Jugador", 30), ("Equipo", 22), ("Goles", 8)]:
+            tk.Label(hdr, text=txt, font=("Consolas", 10, "bold"),
+                     bg=_COLORS["card_bg"], fg=_COLORS["accent"],
+                     width=w, anchor=tk.W).pack(side=tk.LEFT)
+
+        for rank, s in enumerate(scorers, 1):
+            player = s.get("player", "?")
+            team = s.get("team", "")
+            goles = s.get("raw_goals", s.get("goals", 0))
+            if goles == 0:
+                break
+            row = tk.Frame(scroll_frame, bg=_COLORS["card_bg"] if rank % 2 == 0
+                           else _COLORS["bg"])
+            row.pack(fill=tk.X, padx=10)
+            tk.Label(row, text=str(rank), font=("Consolas", 10),
+                     bg=row["bg"], fg=_COLORS["fg"],
+                     width=4, anchor=tk.W).pack(side=tk.LEFT)
+            tk.Label(row, text=_safe(player), font=("Consolas", 10),
+                     bg=row["bg"], fg=_COLORS["fg"],
+                     width=30, anchor=tk.W).pack(side=tk.LEFT)
+            tk.Label(row, text=_safe(team), font=("Consolas", 10),
+                     bg=row["bg"], fg=_COLORS["fg"],
+                     width=22, anchor=tk.W).pack(side=tk.LEFT)
+            tk.Label(row, text=str(goles), font=("Consolas", 10, "bold"),
+                     bg=row["bg"], fg=_COLORS["star"],
+                     width=8, anchor=tk.W).pack(side=tk.LEFT)
+
+    def _compute_bonus_data(self):
+        ko = self.data.get("knockout", [])
+        groups = self.data.get("groups", [])
+        scorers = self.data.get("goleadores", [])
+        bonus = {}
+
+        if ko:
+            final = ko[-1]
+            bonus["champion"] = final.get("winner", "?")
+            bonus["champion_conf"] = final.get("confidence", 0)
+            bonus["runner_up"] = final.get("loser", "?")
+            bonus["final_score"] = f"{final.get('score_a', 0)}-{final.get('score_b', 0)}"
+            if len(ko) >= 2:
+                third = ko[-2]
+                bonus["third_place"] = third.get("winner", "?")
+                bonus["third_score"] = f"{third.get('score_a', 0)}-{third.get('score_b', 0)}"
+
+        if scorers:
+            ts = scorers[0]
+            bonus["top_scorer"] = ts.get("player", "?")
+            bonus["top_scorer_team"] = ts.get("team", "")
+            bonus["top_scorer_goals"] = ts.get("raw_goals", ts.get("goals", 0))
+
+        all_matches = groups + ko
+        goals_scored = {}
+        goals_conceded = {}
+        max_total = 0
+        best_match = {}
+        for m in all_matches:
+            a = m.get("team_a", "?")
+            b = m.get("team_b", "?")
+            sa = m.get("score_a", 0)
+            sb = m.get("score_b", 0)
+            goals_scored[a] = goals_scored.get(a, 0) + sa
+            goals_scored[b] = goals_scored.get(b, 0) + sb
+            goals_conceded[a] = goals_conceded.get(a, 0) + sb
+            goals_conceded[b] = goals_conceded.get(b, 0) + sa
+            total = sa + sb
+            if total > max_total:
+                max_total = total
+                best_match = {"teams": f"{a} vs {b}", "score": f"{sa}-{sb}", "goals": total}
+
+        if goals_scored:
+            bonus["most_goals_team"] = max(goals_scored, key=goals_scored.get)
+            bonus["most_goals_total"] = goals_scored[bonus["most_goals_team"]]
+        if goals_conceded:
+            bonus["best_defense"] = min(goals_conceded, key=goals_conceded.get)
+            bonus["best_defense_ga"] = goals_conceded[bonus["best_defense"]]
+        if best_match:
+            bonus["best_match"] = best_match
+
+        return bonus
+
+    def _build_bonus_tab(self):
+        parent = self._tab_bonus
+        canvas = tk.Canvas(parent, bg=_COLORS["bg"], highlightthickness=0)
+        scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
+        scroll_frame = tk.Frame(canvas, bg=_COLORS["bg"])
+        scroll_frame.bind("<Configure>", lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")))
+        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        bonus = self._compute_bonus_data()
+
+        tk.Label(scroll_frame, text="Pronosticos Bonus",
+                 font=("Arial", 18, "bold"), bg=_COLORS["bg"],
+                 fg=_COLORS["accent"]).pack(pady=(15, 10))
+
+        items = [
+            ("\U0001F3C6  Campeon", bonus.get("champion", "?"),
+             f"Confianza: {bonus.get('champion_conf', 0):.0f}%",
+             _COLORS["star"]),
+            ("\U0001F948  Subcampeon", bonus.get("runner_up", "?"),
+             f"Final: {bonus.get('final_score', '')}",
+             _COLORS["fg"]),
+            ("\U0001F949  Tercer Puesto", bonus.get("third_place", "?"),
+             f"3er puesto: {bonus.get('third_score', '')}",
+             _COLORS["fg"]),
+        ]
+        for label, value, detail, color in items:
+            self._bonus_card(scroll_frame, label, str(value), detail, color)
+
+        ts = bonus.get("top_scorer", "")
+        if ts:
+            ts_team = bonus.get("top_scorer_team", "")
+            ts_goals = bonus.get("top_scorer_goals", 0)
+            self._bonus_card(scroll_frame, "\u26BD  Goleador",
+                             f"{ts} ({ts_team})",
+                             f"Goles: {ts_goals}",
+                             _COLORS["yellow"])
+
+        mt = bonus.get("most_goals_team", "")
+        if mt:
+            self._bonus_card(scroll_frame, "\U0001F525  Equipo con mas goles",
+                             mt,
+                             f"Total: {bonus.get('most_goals_total', 0)} goles",
+                             _COLORS["green"])
+
+        bd = bonus.get("best_defense", "")
+        if bd:
+            self._bonus_card(scroll_frame, "\U0001F6E1  Mejor defensa",
+                             bd,
+                             f"Solo {bonus.get('best_defense_ga', 0)} goles recibidos",
+                             _COLORS["green"])
+
+        bm = bonus.get("best_match", {})
+        if bm:
+            self._bonus_card(scroll_frame, "\U0001F4A5  Partido con mas goles",
+                             f"{bm.get('teams', '')}",
+                             f"{bm.get('score', '')} ({bm.get('goals', 0)} goles)",
+                             _COLORS["accent"])
+
+    def _bonus_card(self, parent, title, value, detail, color):
+        card = tk.Frame(parent, bg=_COLORS["card_bg"],
                         highlightbackground=_COLORS["card_border"],
                         highlightthickness=2, relief=tk.RIDGE)
-        card.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
-
-        tk.Label(card, text=s.get("player", "?"),
-                 font=("Arial", 22, "bold"), bg=_COLORS["card_bg"],
-                 fg=_COLORS["accent"]).pack(pady=10)
-
-        tk.Label(card, text=s.get("team", ""),
-                 font=("Arial", 14), bg=_COLORS["card_bg"],
-                 fg=_COLORS["fg"]).pack()
-
-        goles = s.get("raw_goals", s.get("goals", 0))
-        tk.Label(card, text=f"Goles: {goles}",
-                 font=("Arial", 18, "bold"), bg=_COLORS["card_bg"],
-                 fg=_COLORS["star"]).pack(pady=10)
-
-        posicion = idx + 1
-        tk.Label(card, text=f"Posicion: {posicion}/{total}",
-                 font=("Arial", 10), bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
-
-        tier = s.get("tier", "")
-        if tier:
-            tk.Label(card, text=f"Tier: {tier}",
-                     font=("Arial", 10), bg=_COLORS["card_bg"],
-                     fg=_COLORS["yellow"]).pack()
+        card.pack(fill=tk.X, padx=20, pady=8)
+        tk.Label(card, text=title, font=("Arial", 12, "bold"),
+                 bg=_COLORS["card_bg"], fg=color).pack(anchor=tk.W, padx=15, pady=(8, 0))
+        tk.Label(card, text=value, font=("Arial", 16, "bold"),
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(anchor=tk.W, padx=15, pady=2)
+        tk.Label(card, text=detail, font=("Arial", 10),
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(anchor=tk.W, padx=15, pady=(0, 8))
 
 
 def main():

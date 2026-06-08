@@ -211,11 +211,37 @@ def export_full_prode_csv(group_predictions, group_results, ko_predictions, file
 
     print(f"\n  PRODE COMPLETO exportado: {filepath}")
 
+def export_group_tables_json(group_results, filepath=None):
+    """Exporta tabla de posiciones por grupo a JSON."""
+    ensure_output_dir()
+    if filepath is None:
+        filepath = os.path.join(OUTPUT_DIR, "tabla_posiciones.json")
+    data = {}
+    for g, teams in group_results.items():
+        rows = []
+        for i, (team, d) in enumerate(teams):
+            rows.append({
+                "position": i + 1,
+                "team": team,
+                "pts": d["pts"],
+                "w": d["w"],
+                "d": d["d"],
+                "l": d["l"],
+                "gf": d["gf"],
+                "ga": d["ga"],
+                "gd": d["gd"],
+            })
+        data[g] = rows
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"  -> JSON exportado: {filepath}")
+
 def export_all(group_predictions, group_results, ko_predictions):
     """Exporta todos los formatos de salida."""
     export_group_stage_csv(group_predictions)
     export_group_stage_json(group_predictions)
     export_group_tables_csv(group_results)
+    export_group_tables_json(group_results)
     export_knockout_csv(ko_predictions)
     export_knockout_json(ko_predictions)
     export_full_prode_csv(group_predictions, group_results, ko_predictions)
