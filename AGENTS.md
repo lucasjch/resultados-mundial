@@ -119,6 +119,10 @@ prode_mundial/
 18. **ejecutar.bat en raíz**: Menú interactivo PowerShell/.bat portable. No
     requiere instalación en PATH.
 19. **Score promedio de 1500 sims**: El score final de cada partido es
+20. **LSP instalado en sesión 2026-06-08**: Se instaló `python-lsp-server` 1.14.0
+    (faltaba en el clone fresco). `opencode.jsonc` ya tenía `"lsp": true`.
+
+## Score promedio de 1500 sims: El score final de cada partido es
     `round(sum_a / 1500, round(sum_b / 1500))` — promedio de 1500 Poisson draws,
     no un draw único ni el lambda crudo. Eliminado `skip_sims`, `ensemble_simulation()`,
     y toda la lógica de selección de seed. Un solo resultado determinista y reproducible.
@@ -473,4 +477,12 @@ python prode_mundial/main.py --goleadores
 
 # Git push
 git add -A; git commit -m "mensaje"; git push origin master
+```
+
+## Sesiones
+
+| Fecha | Acción | Detalle |
+|-------|--------|---------|
+| 2026-06-08 | `git reset --hard origin/master` | Reposincronizado a `e9fe83f` (Bloque N) — trajo display.py, optimizer.py, stats_scraper.py, top_scorer.py, ejecutar.bat, AGENTS.md, opencode.jsonc, outputs |
+| 2026-06-08 | Instalación LSP | Se instaló `python-lsp-server` 1.14.0 (faltaba post-clone). `opencode.jsonc` ya tenía `"lsp": true` |
 ```
