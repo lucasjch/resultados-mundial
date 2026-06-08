@@ -12,7 +12,7 @@ import json
 import math
 import os
 import random
-from data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS, haversine)
+from prode_mundial.data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS, haversine)
 
 PLAYERS_FILE = os.path.join(os.path.dirname(__file__), "output", "players.json")
 _PLAYERS_CACHE = None

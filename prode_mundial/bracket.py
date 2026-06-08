@@ -8,8 +8,8 @@ clasificacion de stakes MD3, y safety net KO con ranking FIFA.
 
 import re
 from datetime import datetime
-from predictor import predict_match
-from data import GROUPS, CITY_COORDS, haversine
+from prode_mundial.predictor import predict_match
+from prode_mundial.data import GROUPS, CITY_COORDS, haversine
 
 _RE_ASCII = re.compile(r'[^\x20-\x7e]')
 def _safe(text):
@@ -407,8 +407,7 @@ def classify_stakes(standings):
 def run_full_simulation(seed=42, quiet=False):
     """Orquesta simulacion completa: grupos + KO."""
     import random
-    from predictor import predict_match
-    from data import FIXTURES, GROUPS
+    from prode_mundial.data import FIXTURES, GROUPS
 
     random.seed(seed)
 

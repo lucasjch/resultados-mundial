@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Distribucion de goles a jugadores para calculo de top goleador."""
 
-import json, os, random
-from data import INJURED_OUT
+import json, os, random, sys
+from prode_mundial.data import INJURED_OUT
 
 _PLAYERS = None
 
@@ -11,7 +11,11 @@ def _load_players():
     global _PLAYERS
     if _PLAYERS is not None:
         return _PLAYERS
-    path = os.path.join(os.path.dirname(__file__), "output", "players.json")
+    if getattr(sys, 'frozen', False):
+        base = os.path.join(sys._MEIPASS, "prode_mundial")
+    else:
+        base = os.path.dirname(__file__)
+    path = os.path.join(base, "output", "players.json")
     with open(path, encoding="utf-8") as f:
         _PLAYERS = json.load(f)
     return _PLAYERS

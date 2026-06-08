@@ -197,7 +197,7 @@ def compute_percentiles(mc_data):
 
 def get_plausibility(team_name, round_name):
     """Calcula que tan plausible es que un equipo llegue a cierta ronda."""
-    from data import get_team
+    from prode_mundial.data import get_team
     team = get_team(team_name)
     tier = team.get("tier", 5)
     wc = team.get("wc_history", "")
@@ -327,7 +327,7 @@ def run_monte_carlo(iterations=1000, seed_offset=0):
     """Ejecuta simulaciones Monte Carlo para probabilidades de rondas."""
     from io import StringIO
     from contextlib import redirect_stdout
-    from bracket import run_full_simulation
+    from prode_mundial.bracket import run_full_simulation
 
     champion_counts = Counter()
     semifinalist_counts = Counter()
@@ -434,7 +434,7 @@ def get_monte_carlo_rankings(mc_data):
 # ─── Top Scorer ──────────────────────────────────────────────────────────
 def analyze_top_scorer(gp, kp, top_n=15):
     """Analiza top goleadores con ajuste por tier."""
-    from top_scorer import compute_top_scorers, get_player_team, distribute_goals, get_team_weights
+    from prode_mundial.top_scorer import compute_top_scorers, get_player_team, distribute_goals, get_team_weights
 
     raw_scorers, all_goals = compute_top_scorers(gp, kp, top_n=60)
 
@@ -676,7 +676,7 @@ def main():
 
     # ── Load base simulation ──
     print(f"\n>>> Cargando simulacion base (seed {args.seed})...")
-    from bracket import run_full_simulation
+    from prode_mundial.bracket import run_full_simulation
     from io import StringIO
     from contextlib import redirect_stdout
 

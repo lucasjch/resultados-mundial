@@ -9,23 +9,34 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+import sv_ttk
+
+if getattr(sys, 'frozen', False):
+    BASE_DIR = sys._MEIPASS
+    sys.path.insert(0, os.path.join(BASE_DIR, "prode_mundial"))
+    OUTPUT_DIR = os.path.join(BASE_DIR, "prode_mundial", "output")
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, BASE_DIR)
+    parent_of_pkg = os.path.dirname(BASE_DIR)
+    if parent_of_pkg not in sys.path:
+        sys.path.insert(0, parent_of_pkg)
+    OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+FLAGS_DIR = os.path.join(OUTPUT_DIR, "flags")
 
 _TEAM_FLAGS = {
-    "Mexico":"MX","South Korea":"KR","South Africa":"ZA","Czechia":"CZ",
-    "Canada":"CA","Switzerland":"CH","Qatar":"QA","Bosnia & Herzegovina":"BA",
-    "Brazil":"BR","Morocco":"MA","Scotland":"GB","Haiti":"HT","USA":"US",
-    "Paraguay":"PY","Australia":"AU","Turkey":"TR","Germany":"DE",
-    "Ecuador":"EC","Ivory Coast":"CI","Curacao":"CW","Netherlands":"NL",
-    "Japan":"JP","Sweden":"SE","Tunisia":"TN","Belgium":"BE","Egypt":"EG",
-    "Iran":"IR","New Zealand":"NZ","Spain":"ES","Uruguay":"UY",
-    "Saudi Arabia":"SA","Cape Verde":"CV","France":"FR","Norway":"NO",
-    "Senegal":"SN","Iraq":"IQ","Argentina":"AR","Algeria":"DZ",
-    "Austria":"AT","Jordan":"JO","Portugal":"PT","Colombia":"CO",
-    "Uzbekistan":"UZ","DR Congo":"CD","England":"GB","Croatia":"HR",
-    "Ghana":"GH","Panama":"PA",
+    "Mexico":"mx","South Korea":"kr","South Africa":"za","Czechia":"cz",
+    "Canada":"ca","Switzerland":"ch","Qatar":"qa","Bosnia & Herzegovina":"ba",
+    "Brazil":"br","Morocco":"ma","Scotland":"gb-sct","Haiti":"ht","USA":"us",
+    "Paraguay":"py","Australia":"au","Turkey":"tr","Germany":"de",
+    "Ecuador":"ec","Ivory Coast":"ci","Curacao":"cw","Netherlands":"nl",
+    "Japan":"jp","Sweden":"se","Tunisia":"tn","Belgium":"be","Egypt":"eg",
+    "Iran":"ir","New Zealand":"nz","Spain":"es","Uruguay":"uy",
+    "Saudi Arabia":"sa","Cape Verde":"cv","France":"fr","Norway":"no",
+    "Senegal":"sn","Iraq":"iq","Argentina":"ar","Algeria":"dz",
+    "Austria":"at","Jordan":"jo","Portugal":"pt","Colombia":"co",
+    "Uzbekistan":"uz","DR Congo":"cd","England":"gb-eng","Croatia":"hr",
+    "Ghana":"gh","Panama":"pa",
 }
 
 _COLORS = {
@@ -51,6 +62,8 @@ def _safe(text):
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+if not os.path.exists(FLAGS_DIR):
+    os.makedirs(FLAGS_DIR, exist_ok=True)
 
 
 def load_json(filename):
@@ -117,27 +130,79 @@ class ProdeGUI:
         root.geometry("960x720")
         root.resizable(True, True)
 
-        groups = load_json("fase_grupos.json") or []
-        knockout = load_json("eliminatorias.json") or []
+        groups = knockout = tables = prode = goleadores = None
+        try:
+            import prode_mundial.bracket as _pmb
+            import prode_mundial.data as _pmd
+            import prode_mundial.top_scorer as _pmt
+            import prode_mundial.output as _pmo
+            gp, gr, kp = _pmb.run_full_simulation(quiet=True)
+            import prode_mundial.top_scorer as _pmt
+            import prode_mundial.output as _pmo
+            gp, gr, kp = _pmb.run_full_simulation(quiet=True)
+            scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
+            goleadores = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
+            groups, knockout, tables = gp, kp, gr
+            prode = groups + knockout
+            _pmo.export_all(gp, gr, kp)
+        except Exception:
+            import traceback; traceback.print_exc()
+
+        groups = groups or load_json("fase_grupos.json") or []
+        knockout = knockout or load_json("eliminatorias.json") or []
+        tables = tables or load_json("tabla_posiciones.json") or {}
+        prode = prode or load_json("prode_completo.json") or []
+        goleadores = goleadores or self._load_goleadores(groups, knockout)
+
         self.data = {
             "groups": groups,
             "knockout": knockout,
-            "tables": load_json("tabla_posiciones.json") or {},
-            "prode": load_json("prode_completo.json") or [],
-            "goleadores": self._load_goleadores(groups, knockout),
+            "tables": tables,
+            "prode": prode,
+            "goleadores": goleadores,
         }
         self._idx = {"groups": 0, "knockout": 0}
+        self._flag_cache = {}
         self._build_ui()
 
     def _load_goleadores(self, gp, kp):
         if gp or kp:
             try:
-                sys.path.insert(0, BASE_DIR)
-                from top_scorer import compute_top_scorers
-                return compute_top_scorers(gp, kp, top_n=20)
+                from prode_mundial.top_scorer import compute_top_scorers
+                scorers, _ = compute_top_scorers(gp, kp, top_n=20)
+                return [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
             except Exception:
-                pass
+                import traceback; traceback.print_exc()
         return []
+
+    def _get_flag(self, team, width=24, height=18):
+        code = _TEAM_FLAGS.get(team, "")
+        if not code:
+            return None
+        key = f"{code}_{width}x{height}"
+        if key in self._flag_cache:
+            return self._flag_cache[key]
+        flag_path = os.path.join(FLAGS_DIR, f"{code}.png")
+        if not os.path.exists(flag_path):
+            try:
+                import requests
+                url = f"https://flagcdn.com/24x18/{code}.png"
+                r = requests.get(url, timeout=10)
+                if r.status_code == 200:
+                    with open(flag_path, "wb") as f:
+                        f.write(r.content)
+            except Exception:
+                return None
+        if not os.path.exists(flag_path):
+            return None
+        try:
+            from PIL import Image, ImageTk
+            img = Image.open(flag_path).resize((width, height), Image.LANCZOS)
+            photo = ImageTk.PhotoImage(img)
+            self._flag_cache[key] = photo
+            return photo
+        except Exception:
+            return None
 
     def _styled_btn(self, parent, text, cmd):
         btn = tk.Button(parent, text=text, font=_FONT_M,
@@ -154,32 +219,37 @@ class ProdeGUI:
         header.pack(fill=tk.X, padx=15, pady=(10, 0))
         header.pack_propagate(False)
 
-        banner_path = os.path.join(OUTPUT_DIR, "wc26_logo.png")
-        if os.path.exists(banner_path):
+        imput_dir = os.path.join(BASE_DIR, "prode_mundial", "imput") if getattr(sys, 'frozen', False) else os.path.join(BASE_DIR, "imput")
+        imput_path = os.path.join(imput_dir, "fifa_world_cup_2026_cover.jpg")
+        if os.path.exists(imput_path):
             try:
                 from PIL import Image, ImageTk
-                img = Image.open(banner_path)
-                resample = 1
-                img = img.resize((180, 55), resample)
+                img = Image.open(imput_path)
+                target_h = 64
+                ratio = target_h / img.height
+                display_w = int(img.width * ratio)
+                img = img.resize((display_w, target_h), Image.LANCZOS)
                 self._banner_img = ImageTk.PhotoImage(img)
                 lbl_banner = tk.Label(header, image=self._banner_img, bg=_COLORS["bg"])
                 lbl_banner.pack(side=tk.LEFT, padx=5)
             except Exception:
                 pass
+        else:
+            tk.Label(header, text="Mundial 2026",
+                     font=_FONT_H, bg=_COLORS["bg"],
+                     fg=_COLORS["accent"]).pack(side=tk.LEFT, padx=15)
 
-        tk.Label(header, text="Mundial 2026",
-                 font=_FONT_H, bg=_COLORS["bg"],
-                 fg=_COLORS["accent"]).pack(side=tk.LEFT, padx=15)
-
-        tk.Label(header, text="Predicciones PRODE",
-                 font=_FONT_SH, bg=_COLORS["bg"],
-                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT, padx=5, pady=(12, 0))
+            tk.Label(header, text="Predicciones PRODE",
+                     font=_FONT_SH, bg=_COLORS["bg"],
+                     fg=_COLORS["subtitle"]).pack(side=tk.LEFT, padx=5, pady=(12, 0))
 
         nb = ttk.Notebook(self.root)
         nb.pack(fill=tk.BOTH, expand=True, padx=15, pady=10)
 
         style = ttk.Style()
-        style.theme_use("clam")
+        sv_ttk.set_theme("dark")
+        style.configure("Vertical.TScrollbar", background="#1a1a4a", troughcolor=_COLORS["bg"],
+                         arrowcolor=_COLORS["fg"], gripcount=0)
         style.configure("TNotebook", background=_COLORS["bg"], borderwidth=0)
         style.configure("TNotebook.Tab",
                         background=_COLORS["card_bg"],
@@ -263,9 +333,13 @@ class ProdeGUI:
         vs_frame = tk.Frame(card, bg=_COLORS["card_bg"])
         vs_frame.pack(expand=True, pady=(20, 5))
 
-        lbl_a = tk.Label(vs_frame, text=flag_name(team_a), font=_FONT_TEAM,
-                         bg=_COLORS["card_bg"], fg=_COLORS["fg"])
-        lbl_a.pack(side=tk.LEFT, padx=15)
+        team_frame_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        team_frame_a.pack(side=tk.LEFT, padx=15)
+        flag_a = self._get_flag(team_a, 24, 18)
+        if flag_a:
+            tk.Label(team_frame_a, image=flag_a, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 5))
+        tk.Label(team_frame_a, text=team_a, font=_FONT_TEAM,
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
 
         score_frame = tk.Frame(vs_frame, bg=_COLORS["score_bg"] if "score_bg" in _COLORS else _COLORS["card_bg"],
                                 highlightbackground=_COLORS["card_border"],
@@ -275,16 +349,31 @@ class ProdeGUI:
                  font=_FONT_SCORE, bg=score_frame["bg"],
                  fg=_COLORS["accent"]).pack()
 
-        lbl_b = tk.Label(vs_frame, text=flag_name(team_b), font=_FONT_TEAM,
-                         bg=_COLORS["card_bg"], fg=_COLORS["fg"])
-        lbl_b.pack(side=tk.LEFT, padx=15)
+        team_frame_b = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        team_frame_b.pack(side=tk.LEFT, padx=15)
+        flag_b = self._get_flag(team_b, 24, 18)
+        if flag_b:
+            tk.Label(team_frame_b, image=flag_b, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 5))
+        tk.Label(team_frame_b, text=team_b, font=_FONT_TEAM,
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
 
         prob_frame = tk.Frame(card, bg=_COLORS["card_bg"])
         prob_frame.pack(pady=5)
-        tk.Label(prob_frame,
-                 text=f"  {flag_name(team_a)}: {prob_a:.0f}%  |  Empate: {prob_d:.0f}%  |  {flag_name(team_b)}: {prob_b:.0f}%  ",
+        pflag_a = self._get_flag(team_a, 16, 12)
+        if pflag_a:
+            tk.Label(prob_frame, image=pflag_a, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
+        tk.Label(prob_frame, text=f" {team_a}: {prob_a:.0f}%  |  ",
                  font=_FONT_M, bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack()
+                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+        tk.Label(prob_frame, text=f"Empate: {prob_d:.0f}%  |  ",
+                 font=_FONT_M, bg=_COLORS["card_bg"],
+                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+        pflag_b = self._get_flag(team_b, 16, 12)
+        if pflag_b:
+            tk.Label(prob_frame, image=pflag_b, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
+        tk.Label(prob_frame, text=f" {team_b}: {prob_b:.0f}%",
+                 font=_FONT_M, bg=_COLORS["card_bg"],
+                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
 
         stars = stars_html(conf)
         star_lbl = tk.Label(card, text=stars, font=("Corbel", 20),
@@ -401,6 +490,10 @@ class ProdeGUI:
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        def _on_stats_wheel(e):
+            canvas.yview_scroll(int(-1*(e.delta/120)), "units")
+        canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_stats_wheel))
+        canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
 
         sorted_groups = sorted(tables.keys())
         cols = 3
@@ -445,13 +538,19 @@ class ProdeGUI:
                     ga = d.get("ga", 0)
                 else:
                     continue
-                fn = flag_name(team_name)
-                prefix = "\u2605" if rank <= 2 else " "
-                line = f"{prefix} {fn:24s} {pts:3d} {gd:+3d} {gf:3d} {ga:3d}"
                 clr = _COLORS["green"] if rank <= 2 else _COLORS["fg"]
-                tk.Label(grp_frame, text=line, font=_FONT_TAB,
+                row_f = tk.Frame(grp_frame, bg=_COLORS["card_bg"])
+                row_f.pack(fill=tk.X)
+                rflag = self._get_flag(team_name, 16, 12)
+                tk.Label(row_f, text="\u2605" if rank <= 2 else " ",
+                         font=_FONT_TAB, bg=_COLORS["card_bg"], fg=clr).pack(side=tk.LEFT)
+                if rflag:
+                    tk.Label(row_f, image=rflag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(2, 3))
+                tk.Label(row_f, text=f"{team_name:20s}", font=_FONT_TAB,
                          bg=_COLORS["card_bg"], fg=clr,
-                         anchor=tk.W).pack(fill=tk.X)
+                         anchor=tk.W).pack(side=tk.LEFT)
+                tk.Label(row_f, text=f"{pts:3d} {gd:+3d} {gf:3d} {ga:3d}",
+                         font=_FONT_TAB, bg=_COLORS["card_bg"], fg=clr).pack(side=tk.RIGHT)
 
         third = self._compute_third_placed(tables)
         if third:
@@ -463,7 +562,7 @@ class ProdeGUI:
 
             hdr3 = tk.Frame(scroll_frame, bg=_COLORS["bg"])
             hdr3.pack(fill=tk.X, padx=20)
-            for txt, w in [("", 3), ("Equipo", 28), ("Grp", 4), ("Pts", 5), ("GD", 5), ("GF", 5)]:
+            for txt, w in [("", 4), ("Equipo", 24), ("Grp", 4), ("Pts", 5), ("GD", 5), ("GF", 5)]:
                 tk.Label(hdr3, text=txt, font=_FONT_TAB_H,
                          bg=_COLORS["bg"], fg=_COLORS["subtitle"],
                          width=w, anchor=tk.W).pack(side=tk.LEFT)
@@ -477,8 +576,11 @@ class ProdeGUI:
                 clr3 = _COLORS["green"] if qualifies else _COLORS["fg"]
                 tk.Label(row3, text=icon, font=_FONT_TAB, bg=row_bg,
                          fg=clr3, width=3).pack(side=tk.LEFT)
-                tk.Label(row3, text=flag_name(tm), font=_FONT_TAB, bg=row_bg,
-                         fg=clr3, width=28, anchor=tk.W).pack(side=tk.LEFT)
+                tflag = self._get_flag(tm, 16, 12)
+                if tflag:
+                    tk.Label(row3, image=tflag, bg=row_bg).pack(side=tk.LEFT, padx=(0, 3))
+                tk.Label(row3, text=tm, font=_FONT_TAB, bg=row_bg,
+                         fg=clr3, width=24, anchor=tk.W).pack(side=tk.LEFT)
                 tk.Label(row3, text=grp, font=_FONT_TAB, bg=row_bg,
                          fg=_COLORS["subtitle"], width=4).pack(side=tk.LEFT)
                 tk.Label(row3, text=str(pts3), font=_FONT_TAB, bg=row_bg,
@@ -529,6 +631,10 @@ class ProdeGUI:
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        def _on_goals_wheel(e):
+            canvas.yview_scroll(int(-1*(e.delta/120)), "units")
+        canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_goals_wheel))
+        canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
 
         scorers = self.data.get("goleadores", [])
         if not scorers:
@@ -559,9 +665,12 @@ class ProdeGUI:
             tk.Label(row, text=_safe(player), font=_FONT_TAB,
                      bg=row["bg"], fg=_COLORS["fg"],
                      width=30, anchor=tk.W).pack(side=tk.LEFT)
-            tk.Label(row, text=flag_name(team), font=_FONT_TAB,
+            tflag = self._get_flag(team, 16, 12)
+            if tflag:
+                tk.Label(row, image=tflag, bg=row["bg"]).pack(side=tk.LEFT, padx=(0, 3))
+            tk.Label(row, text=team, font=_FONT_TAB,
                      bg=row["bg"], fg=_COLORS["fg"],
-                     width=24, anchor=tk.W).pack(side=tk.LEFT)
+                     width=22, anchor=tk.W).pack(side=tk.LEFT)
             tk.Label(row, text=str(goles), font=_FONT_TAB_H,
                      bg=row["bg"], fg=_COLORS["star"],
                      width=8, anchor=tk.W).pack(side=tk.LEFT)
@@ -643,15 +752,23 @@ class ProdeGUI:
 
         return bonus
 
-    def _bonus_card(self, parent, title, value, detail, color):
+    def _bonus_card(self, parent, title, value, detail, color, flag_team=None):
         card = tk.Frame(parent, bg=_COLORS["card_bg"],
                         highlightbackground=_COLORS["card_border"],
                         highlightthickness=1, relief=tk.FLAT)
         card.pack(fill=tk.X, padx=20, pady=6)
         tk.Label(card, text=title, font=("Corbel", 13, "bold"),
                  bg=_COLORS["card_bg"], fg=color).pack(anchor=tk.W, padx=15, pady=(8, 0))
-        tk.Label(card, text=value, font=("Corbel", 17, "bold"),
-                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(anchor=tk.W, padx=15, pady=2)
+
+        vf = tk.Frame(card, bg=_COLORS["card_bg"])
+        vf.pack(anchor=tk.W, padx=15, pady=2)
+        if flag_team:
+            bf = self._get_flag(flag_team, 24, 18)
+            if bf:
+                tk.Label(vf, image=bf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 6))
+        tk.Label(vf, text=value, font=("Corbel", 17, "bold"),
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
+
         tk.Label(card, text=detail, font=_FONT_M,
                  bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(anchor=tk.W, padx=15, pady=(0, 8))
 
@@ -666,6 +783,10 @@ class ProdeGUI:
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        def _on_bonus_wheel(e):
+            canvas.yview_scroll(int(-1*(e.delta/120)), "units")
+        canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_bonus_wheel))
+        canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
 
         bonus = self._compute_bonus_data()
 
@@ -717,27 +838,37 @@ class ProdeGUI:
             ts_team = bonus.get("top_scorer_team", "")
             ts_goals = bonus.get("top_scorer_goals", 0)
             self._bonus_card(scroll_frame, "\u26BD  Goleador",
-                             f"{ts} ({flag_name(ts_team)})",
+                             f"{ts} ({ts_team})",
                              f"Goles: {ts_goals}",
-                             _COLORS["yellow"])
+                             _COLORS["yellow"], flag_team=ts_team)
 
         # 4 Semifinalists
         sfs = bonus.get("semifinalists", [])
         if sfs:
-            sf_text = "  |  ".join(flag_name(t) for t in sfs)
-            self._bonus_card(scroll_frame, "\U0001F3C6  4 Semifinalistas",
-                             sf_text,
-                             "1 pt por cada acierto",
-                             _COLORS["green"])
+            sf_card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+                               highlightbackground=_COLORS["card_border"],
+                               highlightthickness=1, relief=tk.FLAT)
+            sf_card.pack(fill=tk.X, padx=20, pady=6)
+            tk.Label(sf_card, text="\U0001F3C6  4 Semifinalistas",
+                     font=("Corbel", 13, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["green"]).pack(anchor=tk.W, padx=15, pady=(8, 0))
+            sf_vf = tk.Frame(sf_card, bg=_COLORS["card_bg"])
+            sf_vf.pack(anchor=tk.W, padx=15, pady=2)
+            for i, sf_t in enumerate(sfs):
+                if i > 0:
+                    tk.Label(sf_vf, text="  |  ", font=("Corbel", 17, "bold"),
+                             bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
+                sf_flag = self._get_flag(sf_t, 24, 18)
+                if sf_flag:
+                    tk.Label(sf_vf, image=sf_flag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 4))
+                tk.Label(sf_vf, text=sf_t, font=("Corbel", 17, "bold"),
+                         bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
+            tk.Label(sf_card, text="1 pt por cada acierto", font=_FONT_M,
+                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(anchor=tk.W, padx=15, pady=(0, 8))
 
         # Classified per group
         classified = bonus.get("classified", {})
         if classified:
-            lines = []
-            for g in sorted(classified.keys()):
-                t1, t2 = classified[g]
-                lines.append(f"  {g}: {flag_name(t1)}, {flag_name(t2)}")
-            cls_text = "\n".join(lines)
             inner = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
                              highlightbackground=_COLORS["card_border"],
                              highlightthickness=1, relief=tk.FLAT)
@@ -745,14 +876,22 @@ class ProdeGUI:
             tk.Label(inner, text="Clasificados por Grupo",
                      font=("Corbel", 13, "bold"), bg=_COLORS["card_bg"],
                      fg=_COLORS["green"]).pack(anchor=tk.W, padx=15, pady=(8, 2))
-            tk.Label(inner, text=cls_text, font=_FONT_M,
-                     bg=_COLORS["card_bg"],
-                     fg=_COLORS["fg"], justify=tk.LEFT).pack(anchor=tk.W, padx=15, pady=(0, 8))
+            for g in sorted(classified.keys()):
+                t1, t2 = classified[g]
+                c_line = tk.Frame(inner, bg=_COLORS["card_bg"])
+                c_line.pack(anchor=tk.W, padx=15, pady=1)
+                tk.Label(c_line, text=f"  {g}:  ", font=_FONT_M,
+                         bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+                for ct in (t1, t2):
+                    cf = self._get_flag(ct, 16, 12)
+                    if cf:
+                        tk.Label(c_line, image=cf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(2, 3))
+                    tk.Label(c_line, text=ct, font=_FONT_M,
+                             bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 8))
 
         # x2 recommendations
         try:
-            sys.path.insert(0, BASE_DIR)
-            from optimizer import analyze_x2
+            from prode_mundial.optimizer import analyze_x2
             x2_data = analyze_x2(group_predictions=self.data["groups"])
             if x2_data:
                 x2_inner = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
@@ -767,16 +906,20 @@ class ProdeGUI:
                          font=_FONT_S, bg=_COLORS["card_bg"],
                          fg=_COLORS["subtitle"]).pack(anchor=tk.W, padx=15, pady=(0, 2))
                 for i, r in enumerate(x2_data[:3], 1):
-                    fa = flag_name(r["team_a"])
-                    fb = flag_name(r["team_b"])
-                    line = (f"  {i}. {fa} vs {fb}  |  "
-                            f"Pronostico: {r['predicted']}  |  "
-                            f"P(acierto): {r['p_result_pct']:.0f}%  |  "
-                            f"EV gain: +{r['ev_gain']:.3f}")
-                    tk.Label(x2_inner, text=line, font=_FONT_M,
-                             bg=_COLORS["card_bg"],
-                             fg=_COLORS["fg"], justify=tk.LEFT,
-                             anchor=tk.W).pack(fill=tk.X, padx=15, pady=1)
+                    x2_line = tk.Frame(x2_inner, bg=_COLORS["card_bg"])
+                    x2_line.pack(fill=tk.X, padx=15, pady=2)
+                    tk.Label(x2_line, text=f"  {i}.  ", font=_FONT_M,
+                             bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
+                    for x2t in (r["team_a"], r["team_b"]):
+                        xf = self._get_flag(x2t, 16, 12)
+                        if xf:
+                            tk.Label(x2_line, image=xf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 3))
+                    tk.Label(x2_line, text=f"{r['team_a']} vs {r['team_b']}  |  "
+                             f"Pronostico: {r['predicted']}  |  "
+                             f"P(acierto): {r['p_result_pct']:.0f}%  |  "
+                             f"EV gain: +{r['ev_gain']:.3f}",
+                             font=_FONT_M, bg=_COLORS["card_bg"],
+                             fg=_COLORS["fg"], anchor=tk.W).pack(side=tk.LEFT, padx=(4, 0))
         except Exception:
             pass
 
@@ -784,15 +927,15 @@ class ProdeGUI:
         mt = bonus.get("most_goals_team", "")
         if mt:
             self._bonus_card(scroll_frame, "\U0001F525  Equipo con mas goles",
-                             flag_name(mt),
+                             mt,
                              f"Total: {bonus.get('most_goals_total', 0)} goles",
-                             _COLORS["green"])
+                             _COLORS["green"], flag_team=mt)
         bd = bonus.get("best_defense", "")
         if bd:
             self._bonus_card(scroll_frame, "\U0001F6E1  Mejor defensa",
-                             flag_name(bd),
+                             bd,
                              f"Solo {bonus.get('best_defense_ga', 0)} goles recibidos",
-                             _COLORS["green"])
+                             _COLORS["green"], flag_team=bd)
         bm = bonus.get("best_match", {})
         if bm:
             self._bonus_card(scroll_frame, "\U0001F4A5  Partido con mas goles",
