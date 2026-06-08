@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Distribuye los goles reales de cada partido entre los jugadores de cada
-# equipo según su desempeño en la temporada 2025/26 y su posición.
+"""Distribucion de goles a jugadores para calculo de top goleador."""
 
 import json, os, random
 from data import INJURED_OUT
@@ -8,6 +7,7 @@ from data import INJURED_OUT
 _PLAYERS = None
 
 def _load_players():
+    """Carga players.json desde output."""
     global _PLAYERS
     if _PLAYERS is not None:
         return _PLAYERS
@@ -17,6 +17,7 @@ def _load_players():
     return _PLAYERS
 
 def _position_weight(pos):
+    """Peso segun posicion: FW=1.0, MF=0.4, DF=0.05."""
     p = (pos or "").lower()
     if any(x in p for x in ("delantero", "forward", "striker", "extremo", "fw", "cf", "lw", "rw")):
         return 1.0
@@ -29,6 +30,7 @@ def _position_weight(pos):
     return 0.1
 
 def _build_team_weights(team_name):
+    """Construye pesos individuales de goles para un equipo."""
     players = _load_players()
     squad = players.get(team_name, [])
     if not squad:
@@ -56,11 +58,13 @@ def _build_team_weights(team_name):
 _PLAYER_CACHE = {}
 
 def get_team_weights(team_name):
+    """Retorna pesos normalizados de jugadores de un equipo."""
     if team_name not in _PLAYER_CACHE:
         _PLAYER_CACHE[team_name] = _build_team_weights(team_name)
     return _PLAYER_CACHE[team_name]
 
 def distribute_goals(team_name, num_goals):
+    """Distribuye goles entre jugadores segun pesos."""
     weights = get_team_weights(team_name)
     if not weights or num_goals == 0:
         return {}
@@ -73,6 +77,7 @@ def distribute_goals(team_name, num_goals):
     return goals
 
 def _build_player_team_map():
+    """Construye mapa inverso jugador->equipo."""
     players = _load_players()
     result = {}
     for team_name, squad in players.items():
@@ -85,12 +90,14 @@ def _build_player_team_map():
 _PLAYER_TEAM_CACHE = None
 
 def get_player_team(player_name):
+    """Retorna equipo de un jugador."""
     global _PLAYER_TEAM_CACHE
     if _PLAYER_TEAM_CACHE is None:
         _PLAYER_TEAM_CACHE = _build_player_team_map()
     return _PLAYER_TEAM_CACHE.get(player_name, "?")
 
 def compute_top_scorers(group_predictions, ko_predictions, top_n=20):
+    """Calcula tabla de goleadores tras simulacion."""
     random.seed(0)
     player_goals = {}
 

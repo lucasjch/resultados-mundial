@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Orquestador principal - Prediccion Mundial 2026
+"""Orquestador principal: simula el torneo completo y exporta resultados."""
 
 import sys
 import os
@@ -12,6 +12,7 @@ import time
 _RE_ASCII = re.compile(r'[^\x20-\x7e]')
 
 def _safe(text):
+    """Limpia caracteres no ASCII para Windows."""
     return _RE_ASCII.sub('?', str(text))
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -21,6 +22,7 @@ from output import export_all
 from top_scorer import compute_top_scorers
 
 def run_top_scorers(group_predictions, ko_predictions):
+    """Imprime tabla de goleadores en consola."""
     top_scorers, _ = compute_top_scorers(group_predictions, ko_predictions, top_n=30)
     print("=" * 70)
     print("  TABLA DE GOLEADORES")
@@ -34,6 +36,7 @@ def run_top_scorers(group_predictions, ko_predictions):
     return top_scorers
 
 def main():
+    """Punto de entrada: flags --goleadores."""
     parser = argparse.ArgumentParser(description="Prode Mundial 2026")
     parser.add_argument("--goleadores", "--top", action="store_true", help="Solo tabla de goleadores")
     args = parser.parse_args()
@@ -65,6 +68,7 @@ def main():
     return group_predictions, group_results, ko_predictions
 
 def nullcontext():
+    """Context manager nulo para redirect opcional."""
     class NullContext:
         def __enter__(self): pass
         def __exit__(self, *a): pass

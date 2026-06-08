@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Scraper de plantillas completas: Promiedos (28) + Transfermarkt (20)
+"""Scraper de plantillas: Promiedos (28 equipos) + Transfermarkt (20 equipos)."""
 
 import html as html_module
 import json
@@ -63,6 +63,7 @@ TEAM_SOURCES = {
 
 
 def _fetch_with_retry(url, max_retries=4, base_delay=2):
+    """Fetch con exponential backoff y hasta 4 reintentos."""
     req = urllib.request.Request(url, headers={
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
     })
@@ -89,10 +90,12 @@ def _fetch_with_retry(url, max_retries=4, base_delay=2):
     raise RuntimeError(f"Fetch failed after {max_retries} retries: {url}")
 
 def fetch_url(url):
+    """Wrapper de _fetch_with_retry con valores por defecto."""
     return _fetch_with_retry(url)
 
 
 def parse_market_value(val_str):
+    """Parsea string de valor de mercado a float (millones EUR)."""
     if not val_str:
         return None
     val_str = val_str.replace(',', '.').replace(' ', '').replace('\u20ac', '').strip()
@@ -113,6 +116,7 @@ def parse_market_value(val_str):
 
 
 def parse_promiedos(html):
+    """Parsea HTML de Promiedos extrayendo jugadores de la tabla."""
     players = []
     pos_endings = [
         "Lateral Izquierdo", "Lateral Derecho",
@@ -210,6 +214,7 @@ def parse_promiedos(html):
 
 
 def clean_text(html):
+    """Limpia HTML a texto plano."""
     text = re.sub(r'<[^>]+>', ' ', html)
     text = html_module.unescape(text)
     text = re.sub(r'\s+', ' ', text).strip()
@@ -245,6 +250,7 @@ def extract_items_table(html):
 
 
 def parse_transfermarkt(html):
+    """Parsea HTML de Transfermarkt extrayendo jugadores con valores de mercado."""
     players = []
 
     table_html = extract_items_table(html)
@@ -314,6 +320,7 @@ def parse_transfermarkt(html):
 
 
 def scrape_all():
+    """Scrapea los 48 equipos de Promiedos y Transfermarkt, guarda players.json."""
     results = {}
 
     for team_name, (source, slug, ident) in TEAM_SOURCES.items():

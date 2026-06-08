@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Visualizador de predicciones desde archivos de salida
+"""Visor de predicciones en consola desde archivos JSON de salida."""
 
 import json
 import os
@@ -8,11 +8,13 @@ import sys
 
 _RE_ASCII = re.compile(r'[^\x20-\x7e]')
 def _safe(text):
+    """Limpia caracteres no ASCII para Windows."""
     return _RE_ASCII.sub('?', str(text))
 
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
 def _load_json(filename):
+    """Carga un archivo JSON desde el directorio output."""
     path = os.path.join(OUTPUT_DIR, filename)
     if not os.path.exists(path):
         return None
@@ -20,18 +22,22 @@ def _load_json(filename):
         return json.load(f)
 
 def _fmt_score(p):
+    """Formatea resultado como string A-B."""
     return f"{p['score_a']}-{p['score_b']}"
 
 def _fmt_xg(p):
+    """Formatea goles esperados como string xG A-B."""
     return f"xG {p.get('expected_goals_a','?')}-{p.get('expected_goals_b','?')}"
 
 def _fmt_result(p):
+    """Formatea ganador con confianza."""
     conf = p.get("confidence", 0)
     if isinstance(conf, (int, float)):
         return f"{p['winner']} ({conf:.0f}%)"
     return str(p["winner"])
 
 def _load_group_tables():
+    """Calcula tabla de posiciones desde JSON de grupos."""
     from data import GROUPS
     data = _load_json("fase_grupos.json")
     if not data:
@@ -70,6 +76,7 @@ def _load_group_tables():
     return tables
 
 def show_all_groups():
+    """Muestra todos los grupos en consola."""
     data = _load_json("fase_grupos.json")
     if not data:
         print(" No hay predicciones de fase de grupos.")
@@ -83,6 +90,7 @@ def show_all_groups():
         show_group(g, data)
 
 def show_group(letter, data=None):
+    """Muestra un grupo especifico en consola."""
     if data is None:
         data = _load_json("fase_grupos.json")
     if not data:
@@ -103,6 +111,7 @@ def show_group(letter, data=None):
         print()
 
 def show_tabla_posiciones():
+    """Muestra tabla de posiciones en consola."""
     tables = _load_group_tables()
     if not tables:
         print(" No hay predicciones de fase de grupos.")
@@ -118,6 +127,7 @@ def show_tabla_posiciones():
         print()
 
 def show_all_playoffs():
+    """Muestra todas las eliminatorias en consola."""
     data = _load_json("eliminatorias.json")
     if not data:
         print(" No hay predicciones de playoffs.")
@@ -138,6 +148,7 @@ def show_all_playoffs():
             print()
 
 def show_round(round_name):
+    """Muestra una ronda especifica de eliminatorias en consola."""
     data = _load_json("eliminatorias.json")
     if not data:
         print(" No hay predicciones de playoffs.")

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Exportacion de resultados a CSV y JSON
+"""Exportacion a CSV y JSON de los resultados de la simulacion."""
 
 import csv
 import json
@@ -8,9 +8,11 @@ import os
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
 def ensure_output_dir():
+    """Crea directorio output si no existe."""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def export_group_stage_csv(predictions, filepath=None):
+    """Exporta partidos de grupos a CSV."""
     ensure_output_dir()
     if filepath is None:
         filepath = os.path.join(OUTPUT_DIR, "fase_grupos.csv")
@@ -41,6 +43,7 @@ def export_group_stage_csv(predictions, filepath=None):
     print(f"  -> CSV exportado: {filepath}")
 
 def export_group_stage_json(predictions, filepath=None):
+    """Exporta partidos de grupos a JSON."""
     ensure_output_dir()
     if filepath is None:
         filepath = os.path.join(OUTPUT_DIR, "fase_grupos.json")
@@ -74,6 +77,7 @@ def export_group_stage_json(predictions, filepath=None):
     print(f"  -> JSON exportado: {filepath}")
 
 def export_group_tables_csv(group_results, filepath=None):
+    """Exporta tabla de posiciones por grupo a CSV."""
     ensure_output_dir()
     if filepath is None:
         filepath = os.path.join(OUTPUT_DIR, "tabla_posiciones.csv")
@@ -95,6 +99,7 @@ def export_group_tables_csv(group_results, filepath=None):
     print(f"  -> CSV exportado: {filepath}")
 
 def export_knockout_csv(predictions, filepath=None):
+    """Exporta llaves KO a CSV."""
     ensure_output_dir()
     if filepath is None:
         filepath = os.path.join(OUTPUT_DIR, "eliminatorias.csv")
@@ -122,6 +127,7 @@ def export_knockout_csv(predictions, filepath=None):
     print(f"  -> CSV exportado: {filepath}")
 
 def export_knockout_json(predictions, filepath=None):
+    """Exporta llaves KO a JSON."""
     ensure_output_dir()
     if filepath is None:
         filepath = os.path.join(OUTPUT_DIR, "eliminatorias.json")
@@ -154,6 +160,7 @@ def export_knockout_json(predictions, filepath=None):
     print(f"  -> JSON exportado: {filepath}")
 
 def export_full_prode_csv(group_predictions, group_results, ko_predictions, filepath=None):
+    """Exporta prode completo en un solo CSV."""
     ensure_output_dir()
     if filepath is None:
         filepath = os.path.join(OUTPUT_DIR, "prode_completo.csv")
@@ -205,6 +212,7 @@ def export_full_prode_csv(group_predictions, group_results, ko_predictions, file
     print(f"\n  PRODE COMPLETO exportado: {filepath}")
 
 def export_all(group_predictions, group_results, ko_predictions):
+    """Exporta todos los formatos de salida."""
     export_group_stage_csv(group_predictions)
     export_group_stage_json(group_predictions)
     export_group_tables_csv(group_results)

@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""Motor de prediccion: 18 factores ponderados + Poisson (1500 sims) + Dixon-Coles tau.
+
+Funciones principales:
+    predict_match()      - Predice un partido completo con scores y factores.
+    calculate_team_strength() - Evalua fortaleza del equipo basado en ranking FIFA y tier.
+"""
 # Motor de prediccion con factores ponderados
 # Incluye correccion Dixon-Coles τ para bajos puntajes
 
@@ -46,21 +52,25 @@ _NORM_MAX = {
 }
 
 def _american_to_prob(odds):
+    """Convierte cuotas americanas a probabilidad decimal."""
     if odds < 0:
         return -odds / (-odds + 100)
     return 100 / (odds + 100)
 
 def calculate_odds_factor(team_a, team_b, team_a_data, team_b_data):
+    """Diferencia de cuotas DraftKings entre dos equipos."""
     prob_a = _american_to_prob(team_a_data.get("odds_win", 10000))
     prob_b = _american_to_prob(team_b_data.get("odds_win", 10000))
     return max(-10, min(10, (prob_a - prob_b) * 10))
 
 def _norm(value, theoretical_max):
+    """Normaliza un valor al rango [-10, 10] dividiendo por su maximo teorico."""
     if theoretical_max <= 0:
         return 0.0
     return max(-10.0, min(10.0, value / theoretical_max * 10.0))
 
 def _load_players():
+    """Carga lazy el JSON de jugadores desde players.json."""
     global _PLAYERS_CACHE
     if _PLAYERS_CACHE is not None:
         return _PLAYERS_CACHE
@@ -72,11 +82,12 @@ def _load_players():
     return _PLAYERS_CACHE
 
 def calculate_team_strength(team_name):
+    """Evalua fortaleza del equipo basado en ranking FIFA y tier."""
     team = get_team(team_name)
     return calculate_team_strength_from_data(team)
 
 def calculate_team_strength_from_data(team_data):
-
+    """Calcula fortaleza desde un dict de datos de equipo."""
     rank_score = max(0, 100 - team_data["rank"]) * 0.6
     tier_score = (8 - team_data["tier"]) * 10 * 0.4
     return rank_score + tier_score
@@ -84,6 +95,7 @@ def calculate_team_strength_from_data(team_data):
 
 
 def calculate_player_stats_factor(team_a, team_b):
+    """Diferencia de rendimiento individual (goles+asistencias) entre plantillas."""
     from data import INJURED_OUT
     players = _load_players()
     if not players:
@@ -116,6 +128,7 @@ def calculate_player_stats_factor(team_a, team_b):
 
 def calculate_home_advantage(team_a, team_b, venue_country, is_neutral=False,
                              team_a_data=None, team_b_data=None):
+    """Ventaja de localia: pais sede, fanbase CONCACAF, diaspora."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -187,6 +200,7 @@ def calculate_home_advantage(team_a, team_b, venue_country, is_neutral=False,
 
 def calculate_climate_impact(team_a, team_b, venue_name,
                              team_a_data=None, team_b_data=None):
+    """Impacto climatico: temperatura, altitud y techo del estadio."""
     venue = get_venue(venue_name)
     venue_temp = venue["avg_temp"]
     venue_altitude = venue["altitude"]
@@ -244,6 +258,7 @@ def calculate_climate_impact(team_a, team_b, venue_name,
     return climate_a - climate_b
 
 def _base_to_venue_dist(team, venue_name):
+    """Distancia desde el base camp del equipo hasta la sede."""
     base = BASE_CAMPS.get(team, "Dallas")
     base_coords = CITY_COORDS.get(base)
     venue_coords = CITY_COORDS.get(venue_name)
@@ -252,12 +267,14 @@ def _base_to_venue_dist(team, venue_name):
     return haversine(base_coords[0], base_coords[1], venue_coords[0], venue_coords[1])
 
 def calculate_travel_impact(team_a, team_b, venue_name):
+    """Diferencia de distancia base camp->sede entre equipos."""
     da = _base_to_venue_dist(team_a, venue_name)
     db = _base_to_venue_dist(team_b, venue_name)
     diff = (db - da) / 1000
     return max(-6, min(6, diff))
 
 def calculate_history_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia en historial mundialista entre equipos."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -284,6 +301,7 @@ def calculate_history_factor(team_a, team_b, team_a_data=None, team_b_data=None)
     return score_a - score_b
 
 def calculate_morale(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia de moral basada en racha de resultados reciente."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -293,6 +311,7 @@ def calculate_morale(team_a, team_b, team_a_data=None, team_b_data=None):
     return morale_a - morale_b
 
 def calculate_market_value_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia de valor de plantilla (escala log)."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -304,6 +323,7 @@ def calculate_market_value_factor(team_a, team_b, team_a_data=None, team_b_data=
     return max(-10, min(10, diff))
 
 def calculate_foreign_pct_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia de porcentaje de jugadores en ligas extranjeras."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -313,6 +333,7 @@ def calculate_foreign_pct_factor(team_a, team_b, team_a_data=None, team_b_data=N
     return (a - b) * 10
 
 def calculate_experience_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia de experiencia promedio (caps internacionales)."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -323,6 +344,7 @@ def calculate_experience_factor(team_a, team_b, team_a_data=None, team_b_data=No
     return max(-10, min(10, diff))
 
 def calculate_trophy_factor(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia de trofeos promedio por jugador."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -333,6 +355,7 @@ def calculate_trophy_factor(team_a, team_b, team_a_data=None, team_b_data=None):
     return max(-10, min(10, diff))
 
 def calculate_height_advantage(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia de altura promedio (ventaja aerea)."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -343,6 +366,7 @@ def calculate_height_advantage(team_a, team_b, team_a_data=None, team_b_data=Non
     return max(-10, min(10, diff))
 
 def calculate_club_chemistry(team_a, team_b, team_a_data=None, team_b_data=None):
+    """Diferencia de pares del mismo club (coordinacion)."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
@@ -352,6 +376,7 @@ def calculate_club_chemistry(team_a, team_b, team_a_data=None, team_b_data=None)
     return max(-10, min(10, a - b))
 
 def calculate_rest_days(team_a, team_b, rest_a=None, rest_b=None):
+    """Penaliza equipos con menos de 4 dias de descanso."""
     ra = rest_a if rest_a is not None else 5
     rb = rest_b if rest_b is not None else 5
     penalty_a = max(0, (4 - ra)) * 3
@@ -359,11 +384,13 @@ def calculate_rest_days(team_a, team_b, rest_a=None, rest_b=None):
     return max(-10, min(10, penalty_b - penalty_a))
 
 def calculate_travel_fatigue(team_a, team_b, travel_km_a=0, travel_km_b=0):
+    """Penaliza equipos con mayor kilometraje acumulado viajando."""
     fa = min(travel_km_a, 30000) / 3000
     fb = min(travel_km_b, 30000) / 3000
     return max(-10, min(10, fb - fa))
 
 def calculate_squad_depth_factor(team_a, team_b):
+    """Ventaja para equipos con mas suplentes de impacto (>500 min)."""
     players = _load_players()
     if not players:
         return 0
@@ -381,6 +408,7 @@ def calculate_squad_depth_factor(team_a, team_b):
     return max(-10, min(10, (a - b) * 2))
 
 def calculate_stakes_factor(stakes_a, stakes_b):
+    """Presion de 3ra fecha: clasificado, contendiente o eliminado."""
     values = {"qualified": -1, "contender": 1, "eliminated": -2}
     val_a = values.get(stakes_a, 0)
     val_b = values.get(stakes_b, 0)
@@ -388,6 +416,7 @@ def calculate_stakes_factor(stakes_a, stakes_b):
 
 
 def simulate_match_cards(team_a_data, team_b_data):
+    """Simula tarjetas amarillas y rojas via Poisson+Bernoulli."""
     yc_a = poisson_sample(team_a_data.get("yellow_rate", 2.0))
     yc_b = poisson_sample(team_b_data.get("yellow_rate", 2.0))
     rc_a = 1 if random.random() < team_a_data.get("red_rate", 0.05) else 0
@@ -403,12 +432,14 @@ def simulate_match_cards(team_a_data, team_b_data):
 
 
 def poisson_pmf(k, lam):
+    """Funcion de masa de probabilidad Poisson."""
     if lam <= 0:
         return 1.0 if k == 0 else 0.0
     return math.exp(-lam + k * math.log(lam) - math.lgamma(k + 1))
 
 
 def dixon_coles_tau(x, y, lam_h, lam_a, rho=DIXON_COLES_RHO):
+    """Correccion Dixon-Coles tau para resultados de bajo score."""
     if x == 0 and y == 0:
         return max(0, 1 - lam_h * lam_a * rho)
     elif x == 0 and y == 1:
@@ -421,6 +452,7 @@ def dixon_coles_tau(x, y, lam_h, lam_a, rho=DIXON_COLES_RHO):
 
 
 def _build_joint_dist(lam_h, lam_a, rho=DIXON_COLES_RHO, max_g=MAX_GOALS_DC):
+    """Construye distribucion conjunta 16x16 con correccion tau."""
     pmf_h = [poisson_pmf(k, lam_h) for k in range(max_g + 1)]
     pmf_a = [poisson_pmf(k, lam_a) for k in range(max_g + 1)]
     outcomes = []
@@ -440,6 +472,7 @@ def _build_joint_dist(lam_h, lam_a, rho=DIXON_COLES_RHO, max_g=MAX_GOALS_DC):
 def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None, round_name="Group Stage",
                   rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0,
                   stakes_a=None, stakes_b=None, md3_variance_boost=False):
+    """Predice resultado completo de un partido: scores, probabilidades, factores, tarjetas."""
     venue = get_venue(venue_name)
     venue_country = venue["country"]
 
@@ -624,6 +657,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     }
 
 def poisson_sample(lambda_val):
+    """Genera un sample Poisson para un lambda dado."""
     L = math.exp(-lambda_val)
     k = 0
     p = 1.0

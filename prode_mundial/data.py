@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-# Datos completos del Mundial 2026
+"""
+Datos de equipos, sedes, fixture, bases operativas, card rates y helpers.
+
+Contiene TEAMS (48 equipos), VENUES (16 sedes), GROUPS, FIXTURES,
+CITY_COORDS, BASE_CAMPS, y funciones get_team(), get_venue(), haversine().
+"""
 
 import math
 
@@ -1119,15 +1124,19 @@ FIXTURES = [
 ]
 
 def get_team(name):
+    """Retorna datos completos de un equipo."""
     return TEAMS[name]
 
 def get_venue(name):
+    """Retorna datos de una sede."""
     return VENUES[name]
 
 def get_group_teams(group):
+    """Retorna lista de equipos de un grupo."""
     return GROUPS[group]
 
 def get_group_fixtures(group):
+    """Retorna partidos de un grupo."""
     return [f for f in FIXTURES if f[5] == group]
 
 def get_matchday(fixture_index, fixtures=None):
@@ -1219,6 +1228,7 @@ _CONF_CARD_RATES = {
 }
 
 def haversine(lat1, lon1, lat2, lon2):
+    """Distancia en km entre dos puntos geograficos."""
     R = 6371
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)

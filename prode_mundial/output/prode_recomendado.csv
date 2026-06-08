@@ -2,71 +2,72 @@
 
 ESTRATEGIA
 Categoria,Pick Seguro,Pick Value,Rivales sin pick,Explicacion
-Campeon,Spain,France,2,El pick seguro tiene mayor probabilidad. El value pick da ventaja si acierta porque menos rivales lo tienen.
-Semifinalistas,Germany + Spain,Portugal,4,"Mezclar picks obvios + value. Si aciertas el value, sumas puntos que nadie mas tiene."
+Campeon,Spain,Germany,2,El pick seguro tiene mayor probabilidad. El value pick da ventaja si acierta porque menos rivales lo tienen.
+Semifinalistas,Spain + Germany,Portugal,4,"Mezclar picks obvios + value. Si aciertas el value, sumas puntos que nadie mas tiene."
 
 ═══ MULTIPLICADORES X2 RECOMENDADOS ═══
 #,Partido,Resultado,Ganador,P(Resultado),P(Exacto),EV Ganancia
-1,Germany vs Curacao,3-1,Germany,76.8%,6.82%,2.304
-2,France vs Iraq,2-1,France,73.1%,9.4%,2.193
-3,Spain vs Saudi Arabia,2-1,Spain,71.9%,9.4%,2.157
+1,Germany vs Curacao,2-1,Germany,79.7%,8.17%,2.391
+2,Spain vs Cape Verde,2-1,Spain,73.9%,8.93%,2.217
+3,Brazil vs Haiti,2-1,Brazil,72.3%,9.25%,2.169
 
 ═══ RECOMENDACION CAMPEON ═══
 Rank,Equipo,Probabilidad Ajustada,Factor de Diferenciacion,Valor Ajustado
-1,Spain,34.97%,1.3,2.728
-2,France,27.1%,1.23,1.992
-3,Argentina,16.77%,1.15,1.157
-4,England,10.52%,1.3,0.821
-5,Germany,10.63%,1.23,0.781
+1,Spain,40.8%,1.3,3.182
+2,Germany,25.8%,1.23,1.896
+3,France,15.5%,1.23,1.139
+4,Argentina,11.4%,1.15,0.787
+5,England,6.4%,1.3,0.499
 
 ═══ RECOMENDACION SEMIFINALISTAS (4 picks) ═══
 Prioridad,Equipo,Probabilidad Ajustada,Factor de Diferenciacion,Valor Ajustado
-1,Germany,26.09%,1.23,1.278
-2,Spain,23.72%,1.3,1.233
-3,Argentina,14.69%,1.15,0.676
-4,Portugal,10.6%,1.52,0.647
-5,France,13.1%,1.23,0.642
-6,England,11.81%,1.3,0.614
+1,Spain,25.0%,1.3,1.3
+2,Germany,25.0%,1.23,1.225
+3,France,16.25%,1.23,0.796
+4,Portugal,11.8%,1.52,0.72
+5,Argentina,13.2%,1.15,0.607
+6,England,8.75%,1.3,0.455
 
 ═══ RECOMENDACION GOLEADOR ═══
 Rank,Jugador,Equipo,Tier,Goles Raw,Goles Ajustados
-1,Kai Havertz,Germany,SuperEstrella,5,7.5
-2,Kerem Aktürkoğlu,Turkey,SuperEstrella,4,6
-3,Lionel Messi,Argentina,Leyenda,3,6
-4,Lamine Yamal,Spain,Estrella,4,4.8
-5,Julián Álvarez,Argentina,SuperEstrella,3,4.5
-6,Kylian Mbappe,France,SuperEstrella,3,4.5
-7,Mohamed Salah,Egypt,Leyenda,2,4
-8,Borja Iglesias,Spain,Estrella,3,3.6
-9,Donyell Malen,Netherlands,Estrella,3,3.6
-10,Haji Wright,USA,Estrella,3,3.6
+1,Cristiano Ronaldo,Portugal,SuperEstrella,4,6
+2,Joshua Kimmich,Germany,Leyenda,3,6
+3,Ferran Torres,Spain,SuperEstrella,3,4.5
+4,Harry Kane,England,SuperEstrella,3,4.5
+5,Kai Havertz,Germany,SuperEstrella,3,4.5
+6,Lautaro Martínez,Argentina,SuperEstrella,3,4.5
+7,Ousmane Dembélé,France,SuperEstrella,3,4.5
+8,Alex Zendejas,USA,Pro Player,4,4
+9,Brian Brobbey,Netherlands,Pro Player,4,4
+10,Ivan Perisic,Croatia,Leyenda,2,4
 
 ═══ TOP 10 X2 (completo) ═══
 Rank,Partido,Resultado,P(Resultado),P(Exacto),EV Ganancia
-1,Germany vs Curacao,3-1,76.8%,6.82%,2.304
-2,France vs Iraq,2-1,73.1%,9.4%,2.193
-3,Spain vs Saudi Arabia,2-1,71.9%,9.4%,2.157
-4,Brazil vs Haiti,2-1,71.7%,9.2%,2.151
-5,Spain vs Cape Verde,2-1,71.7%,8.91%,2.151
-6,Argentina vs Jordan,2-1,69.8%,9.26%,2.094
-7,England vs Panama,2-1,67.5%,9.72%,2.025
-8,Ecuador vs Curacao,2-1,66.9%,9.69%,2.007
-9,England vs Ghana,2-1,66.3%,9.86%,1.989
-10,Morocco vs Haiti,2-1,66.2%,9.51%,1.986
+1,Germany vs Curacao,2-1,79.7%,8.17%,2.391
+2,Spain vs Cape Verde,2-1,73.9%,8.93%,2.217
+3,Brazil vs Haiti,2-1,72.3%,9.25%,2.169
+4,Spain vs Saudi Arabia,2-1,69.6%,9.45%,2.088
+5,France vs Iraq,2-1,66.9%,9.41%,2.007
+6,Argentina vs Jordan,2-1,66.6%,9.31%,1.998
+7,England vs Panama,2-1,66.3%,9.72%,1.989
+8,Morocco vs Haiti,2-1,65.9%,9.48%,1.977
+9,Ecuador vs Curacao,2-1,64.6%,9.67%,1.938
+10,Portugal vs DR Congo,2-1,63.1%,9.78%,1.893
 
 ═══ PROBABILIDAD CAMPEON (plausibility ajustada) ═══
 Rank,Equipo,Raw %,Plausibilidad,Ajustada %
-1,Spain,36.9%,0.7,34.97%
-2,France,26.0%,0.77,27.1%
-3,Argentina,15.8%,0.78,16.77%
-4,Germany,10.2%,0.77,10.63%
-5,England,11.1%,0.7,10.52%
+1,Spain,40.8%,0.7,40.8%
+2,Germany,25.8%,0.7,25.8%
+3,France,15.5%,0.7,15.5%
+4,Argentina,11.4%,0.7,11.4%
+5,England,6.4%,0.7,6.4%
+6,Portugal,0.1%,0.7,0.1%
 
 ═══ PROBABILIDAD SEMIFINALISTA (plausibility ajustada) ═══
 Rank,Equipo,Raw %,Plausibilidad,Ajustada %
-1,Germany,100.0%,0.94,26.09%
-2,Spain,100.0%,0.85,23.72%
-3,Argentina,55.3%,0.95,14.69%
-4,France,50.2%,0.94,13.1%
-5,England,49.8%,0.85,11.81%
-6,Portugal,44.7%,0.85,10.6%
+1,Germany,100.0%,0.85,25.0%
+2,Spain,100.0%,0.85,25.0%
+3,France,65.0%,0.85,16.25%
+4,Argentina,52.8%,0.85,13.2%
+5,Portugal,47.2%,0.85,11.8%
+6,England,35.0%,0.85,8.75%

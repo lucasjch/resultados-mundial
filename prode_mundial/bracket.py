@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-# Simulacion del bracket completo del Mundial 2026
-# Formato oficial: 12 grupos, top2 + 8 mejores terceros -> R32 -> R16 -> QF -> SF -> Final
+"""
+Bracket oficial 2026: fase de grupos, R32, R16, QF, SF, 3 puesto, Final.
+
+Incluye tiebreaker FIFA articulo 13 (H2H, GD, GF, Fair Play, ranking),
+clasificacion de stakes MD3, y safety net KO con ranking FIFA.
+"""
 
 import re
 from datetime import datetime
@@ -9,11 +13,13 @@ from data import GROUPS, CITY_COORDS, haversine
 
 _RE_ASCII = re.compile(r'[^\x20-\x7e]')
 def _safe(text):
+    """Limpia caracteres no ASCII para terminal Windows."""
     return _RE_ASCII.sub('?', str(text))
 
 
 
 def _venue_dist(venue_a, venue_b):
+    """Distancia entre bases y sede usando haversine."""
     coords_a = CITY_COORDS.get(venue_a)
     coords_b = CITY_COORDS.get(venue_b)
     if not coords_a or not coords_b:
@@ -21,6 +27,7 @@ def _venue_dist(venue_a, venue_b):
     return haversine(coords_a[0], coords_a[1], coords_b[0], coords_b[1])
 
 def compute_team_history(group_predictions):
+    """Calcula ultima fecha/sede/km total por equipo tras grupos."""
     history = {}
     by_date = sorted(group_predictions, key=lambda p: p.get("date", "2026-06-10"))
     for p in by_date:
@@ -37,6 +44,7 @@ def compute_team_history(group_predictions):
     return history
 
 def _rest_days_since(last_date, current_date):
+    """Dias de descanso entre dos fechas de partido."""
     if not last_date:
         return 5
     try:
@@ -112,6 +120,7 @@ THIRD_VENUE = "Miami"
 
 
 def _get_team_ranking(team_name):
+    """Retorna ranking FIFA de un equipo (o 100 como fallback)."""
     from data import get_team
     return get_team(team_name).get("rank", 100)
 
@@ -162,6 +171,7 @@ def _sort_group(group_name, standings):
 _h2h_matches = {}
 
 def simulate_group_stage(predictions):
+    """Procesa resultados de grupos, aplica tiebreaker FIFA 2026."""
     group_results = {}
     for g in GROUPS:
         group_results[g] = {t: {"pts": 0, "gd": 0, "gf": 0, "ga": 0, "w": 0, "d": 0, "l": 0, "fp": 0} for t in GROUPS[g]}
@@ -220,6 +230,7 @@ def simulate_group_stage(predictions):
 
 
 def determine_qualified(group_results):
+    """Determina 1ros, 2dos y mejores 8 terceros."""
     group_winners = {}
     group_runners = {}
     third_placed = []
@@ -305,12 +316,14 @@ def build_round_of_32(group_winners, group_runners, best_third, best_third_with_
 
 
 def _ranking_winner(team_a, team_b, data_a, data_b):
+    """Desempate por ranking FIFA."""
     if data_a.get("rank", 100) < data_b.get("rank", 100):
         return team_a, team_b
     return team_b, team_a
 
 
 def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", round_name="KO"):
+    """Simula una ronda KO completa."""
     from data import get_team
     UPSET_CONFIDENCE_THRESHOLD = 35
     results = []
@@ -392,6 +405,7 @@ def classify_stakes(standings):
 
 
 def run_full_simulation(seed=42, quiet=False):
+    """Orquesta simulacion completa: grupos + KO."""
     import random
     from predictor import predict_match
     from data import FIXTURES, GROUPS
@@ -480,6 +494,7 @@ def run_full_simulation(seed=42, quiet=False):
     KO_DATES = ["2026-06-29", "2026-07-04", "2026-07-09", "2026-07-13", "2026-07-16", "2026-07-17"]
 
     def _extend_matches(base_matches, round_date):
+        """Convierte matches basicos a 7-tuplas con datos de descanso/fatiga."""
         extended = []
         for ta, tb, venue in base_matches:
             ha = team_history.get(ta, {})
@@ -492,6 +507,7 @@ def run_full_simulation(seed=42, quiet=False):
         return extended
 
     def _update_history(results, round_date):
+        """Propaga historial de equipos entre rondas KO."""
         for r in results:
             winner, loser = r["winner"], r["loser"]
             venue = r["venue"]

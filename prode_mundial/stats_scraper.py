@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-# Scraper de estadisticas individuales desde Transfermarkt API
-# Objetivo: goals, assists, minutes de la temporada 2025-26 (seasonId=2025)
-# Los campos se almacenan como _2026 para indicar que la temporada termina en 2026
+"""Scraper de estadisticas individuales desde Transfermarkt API (goles, asistencias, minutos)."""
 
 import json
 import os
@@ -20,6 +18,7 @@ REQUEST_DELAY = 0.5
 TARGET_SEASON = 2025
 
 def _get(url, timeout=30, max_retries=3):
+    """Fetch a URL con retry y timeout separado connect/read."""
     for attempt in range(max_retries + 1):
         try:
             resp = requests.get(url, headers=HEADERS, timeout=(10, timeout))

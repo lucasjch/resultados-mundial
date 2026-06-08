@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Optimizador de picks para PRODE Mundial 2026
-# Analiza resultados, recomienda X2, campeon, semifinalistas y goleador.
+"""Optimizador de picks para el PRODE: calcula valor esperado, diferenciacion y recomienda planilla."""
 
 import csv
 import json
@@ -13,6 +12,7 @@ from collections import Counter
 
 _RE_ASCII = re.compile(r'[^\x20-\x7e]')
 def _safe(text):
+    """Limpia caracteres no ASCII para Windows."""
     return _RE_ASCII.sub('?', str(text))
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 
 def poisson_pmf(k, lam):
+    """Funcion de masa de probabilidad Poisson."""
     if lam <= 0:
         return 1.0 if k == 0 else 0.0
     return math.exp(-lam) * (lam ** k) / math.factorial(k)
@@ -42,6 +43,7 @@ _TIER_MULTIPLIERS = {
 }
 
 def _load_all_players():
+    """Carga todos los jugadores desde players.json."""
     global _PLAYER_TIERS_CACHE
     if _PLAYER_TIERS_CACHE is not None:
         return _PLAYER_TIERS_CACHE
@@ -54,6 +56,7 @@ def _load_all_players():
     return _PLAYER_TIERS_CACHE
 
 def _find_player_data(player_name):
+    """Busca datos de un jugador por nombre en players.json."""
     players = _load_all_players()
     for team_name, squad in players.items():
         for p in squad:
@@ -63,6 +66,7 @@ def _find_player_data(player_name):
     return {}
 
 def classify_player(p):
+    """Clasifica un jugador en un tier segun caps, goles, trofeos."""
     caps = p.get("intl_caps", 0) or 0
     intlg = p.get("intl_goals", 0) or 0
     age = p.get("age", 25) or 25
@@ -94,6 +98,7 @@ def classify_player(p):
         return "Debutante"
 
 def get_player_tier(player_name):
+    """Retorna el tier y multiplicador de un jugador."""
     pdata = _find_player_data(player_name)
     if not pdata:
         return "Debutante", 0.1
@@ -137,7 +142,61 @@ _GEOPOLITICAL_PENALTY = {
     "quarterfinalist": {"Iran": 0.4},
 }
 
+_FACTOR_BONUS = {
+    "market_value": {500: 0.08, 300: 0.05},
+    "experience": {40: 0.06, 25: 0.03},
+    "player_stats": {3.0: 0.06, 1.5: 0.03},
+}
+
+_OPTIMIZER_CACHE_FILE = os.path.join(OUTPUT_DIR, "optimizer_cache.json")
+
+
+def save_optimizer_data(mc_data, rankings):
+    """Guarda datos MC en cache para carga rapida."""
+    cache = {
+        "champion": {t: mc_data["champion"].get(t, 0) for t in set(mc_data["champion"])},
+        "runnerup": {t: mc_data["runnerup"].get(t, 0) for t in set(mc_data["runnerup"])},
+        "semifinalist": {t: mc_data["semifinalist"].get(t, 0) for t in set(mc_data["semifinalist"])},
+        "quarterfinalist": {t: mc_data["quarterfinalist"].get(t, 0) for t in set(mc_data["quarterfinalist"])},
+        "total_sims": mc_data["total_sims"],
+        "rankings": rankings,
+    }
+    with open(_OPTIMIZER_CACHE_FILE, "w", encoding="utf-8") as f:
+        json.dump(cache, f, ensure_ascii=False, indent=2)
+    print(f"  Cache guardado: {_OPTIMIZER_CACHE_FILE}")
+
+
+def load_optimizer_data():
+    """Carga datos MC desde cache."""
+    if not os.path.exists(_OPTIMIZER_CACHE_FILE):
+        return None
+    with open(_OPTIMIZER_CACHE_FILE, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def compute_percentiles(mc_data):
+    """P10, P50, P90 por equipo por ronda (distribucion binomial)."""
+    import math
+    result = {}
+    total = mc_data["total_sims"]
+    for round_name in ["champion", "semifinalist", "quarterfinalist"]:
+        raw = mc_data[round_name]
+        teams = sorted(set(raw.keys()))
+        pcts = {}
+        for team in teams:
+            k = raw.get(team, 0)
+            p_hat = k / total if total > 0 else 0
+            se = math.sqrt(p_hat * (1 - p_hat) / total) if total > 0 else 0
+            pcts[team] = {
+                "P10": round(max(0, (p_hat - 1.28 * se)) * 100, 2),
+                "P50": round(p_hat * 100, 2),
+                "P90": round(min(1, (p_hat + 1.28 * se)) * 100, 2),
+            }
+        result[round_name] = pcts
+    return result
+
 def get_plausibility(team_name, round_name):
+    """Calcula que tan plausible es que un equipo llegue a cierta ronda."""
     from data import get_team
     team = get_team(team_name)
     tier = team.get("tier", 5)
@@ -154,6 +213,20 @@ def get_plausibility(team_name, round_name):
 
     base += _GARRA_BONUS.get(team_name, 0.0)
 
+    mv = team.get("market_value_total", 0) or 0
+    if mv >= 500:
+        base = min(1.0, base + 0.08)
+    elif mv >= 300:
+        base = min(1.0, base + 0.05)
+    elif mv >= 150:
+        base = min(1.0, base + 0.02)
+
+    avg_caps = team.get("avg_caps", 0) or 0
+    if avg_caps >= 40:
+        base = min(1.0, base + 0.06)
+    elif avg_caps >= 25:
+        base = min(1.0, base + 0.03)
+
     base *= _ROUND_MULTIPLIER.get(round_name, 1.0)
 
     if team_name in _GEOPOLITICAL_ZERO.get(round_name, []):
@@ -166,6 +239,7 @@ def get_plausibility(team_name, round_name):
     return max(0.0, min(1.0, base))
 
 def apply_plausibility(counts, round_name, total_sims):
+    """Aplica factor de plausibilidad a conteos de simulacion."""
     adjusted = {}
     for team, count in counts.items():
         p = get_plausibility(team, round_name)
@@ -175,6 +249,7 @@ def apply_plausibility(counts, round_name, total_sims):
 
 # ─── X2 Analysis ────────────────────────────────────────────────────────
 def analyze_x2(group_predictions=None):
+    """Analiza valor esperado de multiplicadores X2 por partido."""
     if group_predictions is None:
         group_file = os.path.join(OUTPUT_DIR, "fase_grupos.json")
         if not os.path.exists(group_file):
@@ -249,6 +324,7 @@ def analyze_x2(group_predictions=None):
 
 # ─── Monte Carlo ────────────────────────────────────────────────────────
 def run_monte_carlo(iterations=1000, seed_offset=0):
+    """Ejecuta simulaciones Monte Carlo para probabilidades de rondas."""
     from io import StringIO
     from contextlib import redirect_stdout
     from bracket import run_full_simulation
@@ -317,6 +393,7 @@ def run_monte_carlo(iterations=1000, seed_offset=0):
 
 
 def get_monte_carlo_rankings(mc_data):
+    """Procesa datos de Monte Carlo a rankings con plausibilidad."""
     total = mc_data["total_sims"]
     rankings = {}
 
@@ -356,6 +433,7 @@ def get_monte_carlo_rankings(mc_data):
 
 # ─── Top Scorer ──────────────────────────────────────────────────────────
 def analyze_top_scorer(gp, kp, top_n=15):
+    """Analiza top goleadores con ajuste por tier."""
     from top_scorer import compute_top_scorers, get_player_team, distribute_goals, get_team_weights
 
     raw_scorers, all_goals = compute_top_scorers(gp, kp, top_n=60)
@@ -401,6 +479,7 @@ _ESTIMATED_POPULARITY = {
 }
 
 def compute_differentiation_score(adj_pct, team_name, round_name):
+    """Calcula puntaje ajustado por diferenciacion (popularidad)."""
     raw_score = adj_pct / 100.0
     popularity = _ESTIMATED_POPULARITY.get(team_name, 0.02)
 
@@ -427,6 +506,7 @@ def compute_differentiation_score(adj_pct, team_name, round_name):
 
 
 def analyze_differentiation(rankings):
+    """Analiza picks de campeon y semifinalistas con factor diferenciacion."""
     results = {"champion": [], "semifinalist": []}
 
     for round_name in ["champion", "semifinalist"]:
@@ -443,6 +523,7 @@ def analyze_differentiation(rankings):
 
 # ─── Generate Planilla ───────────────────────────────────────────────────
 def generar_planilla(x2_ranking, rankings, diff_analysis, top_scorers, gp, kp):
+    """Genera planilla CSV con recomendaciones de picks."""
     planilla_path = os.path.join(OUTPUT_DIR, "prode_recomendado.csv")
 
     champ_top = diff_analysis["champion"][:5] if diff_analysis["champion"] else []
@@ -580,18 +661,27 @@ def generar_planilla(x2_ranking, rankings, diff_analysis, top_scorers, gp, kp):
 
 # ─── Main ────────────────────────────────────────────────────────────────
 def main():
+    """Punto de entrada del optimizador."""
+    import argparse
+    parser = argparse.ArgumentParser(description="Optimizador PRODE Mundial 2026")
+    parser.add_argument("--load", action="store_true",
+                        help="Cargar datos MC previos (saltar Monte Carlo)")
+    parser.add_argument("--seed", type=int, default=256,
+                        help="Seed para simulacion base (default: 256)")
+    args = parser.parse_args()
+
     print("=" * 70)
     print("  OPTIMIZADOR PRODE MUNDIAL 2026")
     print("=" * 70)
 
     # ── Load base simulation ──
-    print("\n>>> Cargando simulacion base (seed 256)...")
+    print(f"\n>>> Cargando simulacion base (seed {args.seed})...")
     from bracket import run_full_simulation
     from io import StringIO
     from contextlib import redirect_stdout
 
     with redirect_stdout(StringIO()):
-        gp, gr, kp = run_full_simulation(seed=256)
+        gp, gr, kp = run_full_simulation(seed=args.seed)
 
     print(f"  Partidos de grupos: {len(gp)}")
     print(f"  Partidos KO: {len(kp)}")
@@ -616,15 +706,48 @@ def main():
             print(f"    X2 #{i}: {_safe(r['team_a'])} vs {_safe(r['team_b'])} ({_safe(r['predicted'])}, P={r['p_result_pct']}%)")
 
     # ── Monte Carlo ──
-    print("\n>>> ANALISIS MONTE CARLO...")
-    mc_data = run_monte_carlo(iterations=1000)
-    rankings = get_monte_carlo_rankings(mc_data)
+    if args.load:
+        loaded = load_optimizer_data()
+        if loaded and loaded["total_sims"] >= 100:
+            print("\n>>> CARGANDO DATOS MC DESDE CACHE...")
+            mc_data = {
+                "champion": Counter(loaded["champion"]),
+                "runnerup": Counter(loaded["runnerup"]),
+                "semifinalist": Counter(loaded["semifinalist"]),
+                "quarterfinalist": Counter(loaded["quarterfinalist"]),
+                "total_sims": loaded["total_sims"],
+            }
+            print(f"  Cache cargado: {loaded['total_sims']} sims")
+            rankings = loaded.get("rankings") or get_monte_carlo_rankings(mc_data)
+        else:
+            print("\n>>> Cache no valido. Ejecutando Monte Carlo...")
+            mc_data = run_monte_carlo(iterations=1000)
+            rankings = get_monte_carlo_rankings(mc_data)
+            save_optimizer_data(mc_data, rankings)
+    else:
+        print("\n>>> ANALISIS MONTE CARLO...")
+        mc_data = run_monte_carlo(iterations=1000)
+        rankings = get_monte_carlo_rankings(mc_data)
+        save_optimizer_data(mc_data, rankings)
+
+    percentiles = compute_percentiles(mc_data)
 
     print(f"\n  >>> PROBABILIDADES DE CAMPEON (ajustadas por plausibilidad):")
     print(f"  {'Rank':5s} {'Equipo':25s} {'Raw %':8s} {'Plaus':8s} {'Adj %':8s}")
     print(f"  {'-'*54}")
     for i, entry in enumerate(rankings["champion"][:10], 1):
         print(f"  {i:<5d} {_safe(entry['team']):25s} {entry['raw_pct']:>6.2f}% {entry['plausibility']:>6.2f}  {entry['adj_pct']:>6.2f}%")
+
+    print(f"\n  >>> PERCENTILES (P10/P50/P90) POR RONDA:")
+    for rnd_display in ["champion", "semifinalist", "quarterfinalist"]:
+        rnd_short = {"champion": "Campeon", "semifinalist": "Semifinalista", "quarterfinalist": "Cuartos"}[rnd_display]
+        print(f"\n  {rnd_short} (P10/P50/P90):")
+        pcts = percentiles[rnd_display]
+        top3 = sorted(pcts.items(), key=lambda x: -x[1]["P50"])[:5]
+        print(f"  {'Equipo':25s}  {'P10':8s}  {'P50':8s}  {'P90':8s}")
+        print(f"  {'-'*50}")
+        for team, p in top3:
+            print(f"  {_safe(team):25s}  {p['P10']:>6.2f}%  {p['P50']:>6.2f}%  {p['P90']:>6.2f}%")
 
     print(f"\n  >>> PROBABILIDADES DE SEMIFINALISTA (ajustadas por plausibilidad):")
     print(f"  {'Rank':5s} {'Equipo':25s} {'Raw %':8s} {'Plaus':8s} {'Adj %':8s}")

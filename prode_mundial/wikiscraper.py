@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Scraper de Wikipedia para estadisticas individuales de cada jugador
+"""Scraper individual de Wikipedia via API para enriquecer jugadores con caps, trofeos, altura."""
 
 import json
 import re
@@ -17,6 +17,7 @@ REQUEST_DELAY = 1.0
 
 
 def _wiki_request(params):
+    """Ejecuta request a la API de Wikipedia."""
     params["format"] = "json"
     try:
         resp = requests.get(WIKI_API, params=params, headers=HEADERS, timeout=15)
@@ -28,6 +29,7 @@ def _wiki_request(params):
 
 
 def fetch_wikitext(page_title):
+    """Obtiene wikitext de una pagina de Wikipedia."""
     data = _wiki_request({
         "action": "parse",
         "page": page_title,
@@ -58,14 +60,14 @@ def search_page(player_name):
 
 
 def _extract_num(text):
-    """Extract first integer from text, handling wiki markup like [[Page|56]] or 5{{efn}}."""
+    """Extrae primer entero de texto manejando markup wiki."""
     text = re.sub(r'\[\[[^\]|]+\|', '', text)  # [[Page|56 -> 56
     text = re.sub(r'[^\d]', '', text.split('<!--')[0].split('{{')[0])  # strip non-digits
     return int(text) if text else 0
 
 
 def parse_infobox(wikitext):
-    """Parse {{Infobox football biography}} wikitext."""
+    """Parsea {{Infobox football biography}} extrayendo caps, altura, club."""
     stats = {}
 
     # Find full infobox (handle nested braces)
@@ -149,6 +151,7 @@ def parse_infobox(wikitext):
 
 
 def parse_honours(wikitext):
+    """Parsea seccion de honores/trofeos del wikitext."""
     honours = []
 
     match = re.search(r'==\s*Honours?\s*==\s*\n(.*?)(?:\n==\s|\Z)', wikitext, re.DOTALL)
@@ -176,7 +179,7 @@ def parse_honours(wikitext):
 
 
 def scrape_player(player_name):
-    """Scrape stats for one player from Wikipedia. Returns dict or None."""
+    """Scrapea estadisticas de un jugador desde Wikipedia."""
     result = {"name": player_name}
 
     wikitext = fetch_wikitext(player_name)
@@ -206,7 +209,7 @@ def scrape_player(player_name):
 
 
 def scrape_all_players(force=False):
-    """Scrape all players from players.json, adding Wikipedia stats."""
+    """Scrapea todos los jugadores de players.json agregando datos de Wikipedia."""
     if not os.path.exists(PLAYERS_FILE):
         print("ERROR: players.json not found. Run scraper.py first.")
         return

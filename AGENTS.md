@@ -501,6 +501,21 @@ pytest
 # Menú interactivo
 .\ejecutar.bat
 
+# Validación histórica (448 partidos 1998-2022)
+python prode_mundial/validation.py
+
+# Optimizador (modo normal)
+python prode_mundial/optimizer.py
+
+# Optimizador (cargar MC cache)
+python prode_mundial/optimizer.py --load
+
+# GUI tkinter
+python prode_mundial/gui.py
+
+# Compilar .exe (PyInstaller)
+.\build_exe.bat
+
 # Git push
 git add -A; git commit -m "mensaje"; git push origin master
 ```
@@ -514,4 +529,9 @@ git add -A; git commit -m "mensaje"; git push origin master
 | 2026-06-08 | Fase 4a: pyproject.toml + __init__.py | Package instalable con `pip install -e .`, entry point `prode-mundial`, pytest config integrado |
 | 2026-06-08 | Fase 4b: Retry resilience | `_fetch_with_retry()` en scraper.py (4 retries, 2s/4s/8s/16s), `_get()` en stats_scraper.py (3 retries, connect/read timeout separado) |
 | 2026-06-08 | Fase Tests + Dixon-Coles τ | 4 nuevos test files (83 tests), τ correction (ρ=-0.15, joint dist 16×16), 129 tests total, todo pass |
+| 2026-06-08 | **Hito 5.1**: README.md + docstrings | Resumen ejecutivo + módulo/función docstrings en 12 archivos fuente (~136 funciones). README.md con 6 comandos esenciales |
+| 2026-06-08 | **Hito 5.2**: validation.py (448 partidos) | Validación histórica 1998-2022 con 9 factores activos. Precisión global: **51.8%**. Datos embebidos (FIFA rankings, resultados, venues por torneo) |
+| 2026-06-08 | **Hito 5.3**: Optimizador mejorado | `--load` flag (carga MC cache), factor-based plausibility (market_value + avg_caps boost), percentiles P10/P50/P99 via distribución binomial |
+| 2026-06-08 | **Hito 5.4**: GUI tkinter + .exe | `gui.py` con 4 tabs (Grupos/KO/Estadisticas/Goleadores), 3D buttons, ⭐ tooltip confianza, navegación por flechas. `build_exe.bat` para PyInstaller |
+| 2026-06-08 | **Tests**: 138 tests | 9 nuevos tests de validation.py. Suite completa 138/138 pass |
 ```
