@@ -75,19 +75,19 @@ class ProdeGUI:
         root.geometry("900x680")
         root.resizable(True, True)
 
+        groups = load_json("fase_grupos.json") or []
+        knockout = load_json("eliminatorias.json") or []
         self.data = {
-            "groups": load_json("fase_grupos.json") or [],
-            "knockout": load_json("eliminatorias.json") or [],
+            "groups": groups,
+            "knockout": knockout,
             "tables": load_json("tabla_posiciones.json") or {},
             "prode": load_json("prode_completo.json") or [],
-            "goleadores": self._load_goleadores(),
+            "goleadores": self._load_goleadores(groups, knockout),
         }
         self._idx = {"groups": 0, "knockout": 0, "goleadores": 0}
         self._build_ui()
 
-    def _load_goleadores(self):
-        gp = self.data["groups"]
-        kp = self.data["knockout"]
+    def _load_goleadores(self, gp, kp):
         if gp or kp:
             try:
                 sys.path.insert(0, BASE_DIR)

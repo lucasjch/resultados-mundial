@@ -47,12 +47,12 @@ python -m PyInstaller --onefile --windowed ^
     --distpath dist ^
     --workpath build_tmp ^
     --specpath build_tmp ^
-    --add-data "prode_mundial/output;output" ^
-    --add-data "prode_mundial/__init__.py;." ^
+    --add-data "%CD%\prode_mundial\output;output" ^
+    --add-data "%CD%\prode_mundial\__init__.py;." ^
     --hidden-import json ^
     --hidden-import math ^
     --hidden-import setuptools ^
-    prode_mundial/gui.py
+    "%CD%\prode_mundial\gui.py"
 
 if %errorlevel% equ 0 (
     echo [4/4] Limpiando temporales...
