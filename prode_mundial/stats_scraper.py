@@ -19,14 +19,35 @@ CACHE_FILE = os.path.join(os.path.dirname(__file__), "output", "tm_stats_cache.j
 REQUEST_DELAY = 0.5
 TARGET_SEASON = 2025
 
-def _get(url, timeout=20):
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=timeout)
-        resp.raise_for_status()
-        return resp.json()
-    except Exception as e:
-        print(f"  [ERROR] {e}")
-        return None
+def _get(url, timeout=30, max_retries=3):
+    for attempt in range(max_retries + 1):
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=(10, timeout))
+            resp.raise_for_status()
+            return resp.json()
+        except requests.exceptions.Timeout:
+            if attempt < max_retries:
+                delay = 2 * (2 ** attempt)
+                print(f"  Timeout, retry {attempt+1}/{max_retries} in {delay}s")
+                time.sleep(delay)
+                continue
+            print(f"  [ERROR] Timeout after {max_retries} retries: {url}")
+            return None
+        except requests.exceptions.ConnectionError as e:
+            if attempt < max_retries:
+                delay = 2 * (2 ** attempt)
+                print(f"  ConnectionError, retry {attempt+1}/{max_retries} in {delay}s")
+                time.sleep(delay)
+                continue
+            print(f"  [ERROR] Connection failed: {e}")
+            return None
+        except requests.exceptions.HTTPError as e:
+            print(f"  [ERROR] HTTP {e.response.status_code}: {url}")
+            return None
+        except Exception as e:
+            print(f"  [ERROR] {e}")
+            return None
+    return None
 
 TM_TEAM_OVERRIDES = {
     "USA": "United States",

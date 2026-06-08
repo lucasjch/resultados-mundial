@@ -3,7 +3,12 @@
 
 import json
 import os
+import re
 import sys
+
+_RE_ASCII = re.compile(r'[^\x20-\x7e]')
+def _safe(text):
+    return _RE_ASCII.sub('?', str(text))
 
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
@@ -93,7 +98,7 @@ def show_group(letter, data=None):
     print(f"\n  GRUPO {letter.upper()}")
     print(f"  {'='*60}")
     for p in matches:
-        print(f"  {p['team_a']:25s} {_fmt_score(p):5s} {p['team_b']:25s}")
+        print(f"  {_safe(p['team_a']):25s} {_fmt_score(p):5s} {_safe(p['team_b']):25s}")
         print(f"  {'':25s} {_fmt_xg(p):14s}  {_fmt_result(p)}")
         print()
 
@@ -109,7 +114,7 @@ def show_tabla_posiciones():
         print(f"  {'':3s} {'Equipo':25s} {'Pts':>4s} {'W':>3s} {'D':>3s} {'L':>3s} {'GF':>3s} {'GC':>3s} {'GD':>4s}")
         print(f"  {'':3s} {'-'*25} {'-'*4} {'-'*3} {'-'*3} {'-'*3} {'-'*3} {'-'*3} {'-'*4}")
         for i, (team, d) in enumerate(tables[g]):
-            print(f"  [{i+1}] {team:25s} {d['pts']:4d} {d['w']:3d} {d['d']:3d} {d['l']:3d} {d['gf']:3d} {d['ga']:3d} {d['gd']:+4d}")
+            print(f"  [{i+1}] {_safe(team):25s} {d['pts']:4d} {d['w']:3d} {d['d']:3d} {d['l']:3d} {d['gf']:3d} {d['ga']:3d} {d['gd']:+4d}")
         print()
 
 def show_all_playoffs():
@@ -128,7 +133,7 @@ def show_all_playoffs():
         print(f"\n  {labels.get(r, r)}")
         print(f"  {'='*60}")
         for p in matches:
-            print(f"  {p['team_a']:25s} {_fmt_score(p):5s} {p['team_b']:25s}")
+            print(f"  {_safe(p['team_a']):25s} {_fmt_score(p):5s} {_safe(p['team_b']):25s}")
             print(f"  {'':25s} {_fmt_xg(p):14s}  {_fmt_result(p)}")
             print()
 
@@ -151,7 +156,7 @@ def show_round(round_name):
     print(f"\n  {labels[round_name]}")
     print(f"  {'='*60}")
     for p in matches:
-        print(f"  {p['team_a']:25s} {_fmt_score(p):5s} {p['team_b']:25s}")
+        print(f"  {_safe(p['team_a']):25s} {_fmt_score(p):5s} {_safe(p['team_b']):25s}")
         print(f"  {'':25s} {_fmt_xg(p):14s}  {_fmt_result(p)}")
         print()
 

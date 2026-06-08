@@ -3,7 +3,7 @@
 > Data compiled June 5, 2026. FIFA Rankings as of June 10, 2026
 > All 48 teams have confirmed their 26-man squads (submitted June 1, published June 2)
 > Odds via DraftKings as of June 4, 2026
-> Prode model probabilities from deterministic average of 1500 Poisson simulations per match
+> Prode model uses 18 factors + Dixon-Coles τ (ρ = −0.15) + 1500 sims deterministic average
 
 ---
 
@@ -251,9 +251,10 @@ England recent form (last 10): W W W W W W W L D L
 
 ---
 
-## PRODE MODEL RESULTS (Deterministic — 1500 sims average)
+## PRODE MODEL RESULTS (Deterministic — 1500 sims average with Dixon-Coles τ)
 
 Our 18-factor prediction model runs **1,500 Poisson simulations per match**
+with Dixon-Coles τ correction (ρ = −0.15, joint distribution 16×16)
 and averages the scores. The result is a single deterministic bracket
 (same result every run — no ensemble, no seed selection).
 
@@ -262,6 +263,7 @@ and averages the scores. The result is a single deterministic bracket
 - El modelo usa 18 factores: team_strength, player_stats, market_value, experience, home_advantage, rest_days, squad_depth, climate, foreign_pct, travel_fatigue, history, morale, trophy_pedigree, odds, height_advantage, club_chemistry, travel, stakes
 - Los goles esperados λ se calculan con fórmula cruzada ataque-defensa y se clamp entre 0.2 y 7.0
 - Las probabilidades (win/draw/loss) provienen de las frecuencias de 1,500 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
+- **Dixon-Coles τ**: Corrección de empats (ρ = −0.15) que aumenta 0-0 y 1-1, disminuye 1-0/0-1. Joint distribution 16×16 vía `_build_joint_dist()`, muestreo batch `random.choices(k=1500)`.
 - El score final es el promedio redondeado de las 1,500 simulaciones
 - Bloque L: eliminados age_penalty y jet_lag; agregados experience, trophy_pedigree, height_advantage, club_chemistry desde Wikipedia; player_stats ponderado por minutes_2026; squad_depth dinámico desde players.json
 - Bloque M: eliminado ensemble de 100 seeds, el bracket final es determinista y siempre reproducible

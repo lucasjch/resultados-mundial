@@ -6,9 +6,14 @@ import csv
 import json
 import math
 import os
+import re
 import sys
 import time
 from collections import Counter
+
+_RE_ASCII = re.compile(r'[^\x20-\x7e]')
+def _safe(text):
+    return _RE_ASCII.sub('?', str(text))
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -608,7 +613,7 @@ def main():
 
         print(f"\n  >>> RECOMENDACION: PONER X2 EN ESTOS 3 PARTIDOS:")
         for i, r in enumerate(x2_ranking[:3], 1):
-            print(f"    X2 #{i}: {r['team_a']} vs {r['team_b']} ({r['predicted']}, P={r['p_result_pct']}%)")
+            print(f"    X2 #{i}: {_safe(r['team_a'])} vs {_safe(r['team_b'])} ({_safe(r['predicted'])}, P={r['p_result_pct']}%)")
 
     # ── Monte Carlo ──
     print("\n>>> ANALISIS MONTE CARLO...")
@@ -619,13 +624,13 @@ def main():
     print(f"  {'Rank':5s} {'Equipo':25s} {'Raw %':8s} {'Plaus':8s} {'Adj %':8s}")
     print(f"  {'-'*54}")
     for i, entry in enumerate(rankings["champion"][:10], 1):
-        print(f"  {i:<5d} {entry['team']:25s} {entry['raw_pct']:>6.2f}% {entry['plausibility']:>6.2f}  {entry['adj_pct']:>6.2f}%")
+        print(f"  {i:<5d} {_safe(entry['team']):25s} {entry['raw_pct']:>6.2f}% {entry['plausibility']:>6.2f}  {entry['adj_pct']:>6.2f}%")
 
     print(f"\n  >>> PROBABILIDADES DE SEMIFINALISTA (ajustadas por plausibilidad):")
     print(f"  {'Rank':5s} {'Equipo':25s} {'Raw %':8s} {'Plaus':8s} {'Adj %':8s}")
     print(f"  {'-'*54}")
     for i, entry in enumerate(rankings["semifinalist"][:10], 1):
-        print(f"  {i:<5d} {entry['team']:25s} {entry['raw_pct']:>6.2f}% {entry['plausibility']:>6.2f}  {entry['adj_pct']:>6.2f}%")
+        print(f"  {i:<5d} {_safe(entry['team']):25s} {entry['raw_pct']:>6.2f}% {entry['plausibility']:>6.2f}  {entry['adj_pct']:>6.2f}%")
 
     # ── Diferenciación ──
     print("\n>>> ESTRATEGIA DE DIFERENCIACION...")
@@ -635,13 +640,13 @@ def main():
     print(f"  {'Rank':5s} {'Equipo':25s} {'Prob%':8s} {'Popularidad':12s} {'Valor Ajust':12s}")
     print(f"  {'-'*62}")
     for i, entry in enumerate(diff["champion"][:5], 1):
-        print(f"  {i:<5d} {entry['team']:25s} {entry['raw_score_pct']:>6.1f}% {entry['estimated_popularity']:>5.0f}%      {entry['adjusted_value']:>8.3f}")
+        print(f"  {i:<5d} {_safe(entry['team']):25s} {entry['raw_score_pct']:>6.1f}% {entry['estimated_popularity']:>5.0f}%      {entry['adjusted_value']:>8.3f}")
 
     print(f"\n  Mejores picks de SEMIFINALISTA considerando diferenciacion:")
     print(f"  {'Rank':5s} {'Equipo':25s} {'Prob%':8s} {'Popularidad':12s} {'Valor Ajust':12s}")
     print(f"  {'-'*62}")
     for i, entry in enumerate(diff["semifinalist"][:6], 1):
-        print(f"  {i:<5d} {entry['team']:25s} {entry['raw_score_pct']:>6.1f}% {entry['estimated_popularity']:>5.0f}%      {entry['adjusted_value']:>8.3f}")
+        print(f"  {i:<5d} {_safe(entry['team']):25s} {entry['raw_score_pct']:>6.1f}% {entry['estimated_popularity']:>5.0f}%      {entry['adjusted_value']:>8.3f}")
 
     # ── Top Scorer ──
     print("\n>>> ANALISIS DE GOLEADOR...")
@@ -653,7 +658,7 @@ def main():
         adj_str = f"{s['adj_goals']:.1f}"
         if s['adj_goals'] == int(s['adj_goals']):
             adj_str = str(int(s['adj_goals']))
-        print(f"  {s['rank']:<5d} {s['player']:35s} {s['tier']:15s} {s['raw_goals']:>4d}      {adj_str:>5s}")
+        print(f"  {s['rank']:<5d} {_safe(s['player']):35s} {_safe(s['tier']):15s} {s['raw_goals']:>4d}      {adj_str:>5s}")
 
     # ── Generate planilla ──
     print("\n>>> GENERANDO PLANILLA RECOMENDADA...")
@@ -687,13 +692,13 @@ def main():
 
     print(f"\n  >>> X2 (3 multiplicadores - MATEMATICO, no cambiar):")
     for i, r in enumerate(x2_ranking[:3], 1):
-        print(f"    {i}. {r['team_a']:20s} vs {r['team_b']:20s} -> {r['predicted']:5s} (confianza: {r['p_result_pct']}%)")
+        print(f"    {i}. {_safe(r['team_a']):20s} vs {_safe(r['team_b']):20s} -> {_safe(r['predicted']):5s} (confianza: {r['p_result_pct']}%)")
 
     print(f"\n  >>> CAMPEON:")
-    print(f"    Pick seguro: {safe_champ:20s} ({champ_top[0]['raw_score_pct']}%)")
+    print(f"    Pick seguro: {_safe(safe_champ):20s} ({champ_top[0]['raw_score_pct']}%)")
     if value_champ:
         not_pick = others_not_picking(value_champ["estimated_popularity"])
-        print(f"    Pick value:  {value_champ['team']:20s} ({value_champ['raw_score_pct']}%, pop: {value_champ['estimated_popularity']}%)")
+        print(f"    Pick value:  {_safe(value_champ['team']):20s} ({value_champ['raw_score_pct']}%, pop: {value_champ['estimated_popularity']}%)")
         if value_champ["team"] != safe_champ:
             print(f"    -> Si acierta, ~{not_pick} rivales NO lo tienen (ventaja)")
     if value_champ and value_champ["team"] == safe_champ:
@@ -702,12 +707,12 @@ def main():
     print(f"\n  >>> SEMIFINALISTAS (4 picks):")
     safe_sf = [e["team"] for e in sf_top[:3]]
     alternatives = [e for e in sf_top if e["team"] not in safe_sf]
-    print(f"    Pick seguro: {', '.join(safe_sf)}")
+    print(f"    Pick seguro: {', '.join(_safe(t) for t in safe_sf)}")
     if alternatives:
         val_team = alternatives[0]["team"]
         val_pop = alternatives[0]["estimated_popularity"]
-        print(f"    Pick value:  {val_team:20s} (prob: {alternatives[0]['raw_score_pct']}%, pop: {val_pop}%)")
-        print(f"    Sugerencia: {', '.join(safe_sf[:2])} + {val_team} + otro value")
+        print(f"    Pick value:  {_safe(val_team):20s} (prob: {alternatives[0]['raw_score_pct']}%, pop: {val_pop}%)")
+        print(f"    Sugerencia: {', '.join(_safe(t) for t in safe_sf[:2])} + {_safe(val_team)} + otro value")
     print(f"    Estrategia: Mezcla 3 picks obvios + 1 value. Si acertás el value, ganás puntos que nadie mas tiene.")
 
     print(f"\n  >>> GOLEADOR:")
@@ -716,13 +721,13 @@ def main():
         adj_str = f"{s['adj_goals']:.1f}"
         if s['adj_goals'] == int(s['adj_goals']):
             adj_str = str(int(s['adj_goals']))
-        print(f"    Recomendado: {s['player']:30s} ({s['team']:15s}) - {adj_str:>3s} goles (tier: {s['tier']})")
+        print(f"    Recomendado: {_safe(s['player']):30s} ({_safe(s['team']):15s}) - {adj_str:>3s} goles (tier: {_safe(s['tier'])})")
         if len(top_scorers) > 1:
             s2 = top_scorers[1]
             adj2 = f"{s2['adj_goals']:.1f}"
             if s2['adj_goals'] == int(s2['adj_goals']):
                 adj2 = str(int(s2['adj_goals']))
-            print(f"    Alternativa: {s2['player']:30s} ({s2['team']:15s}) - {adj2:>3s} goles (tier: {s2['tier']})")
+            print(f"    Alternativa: {_safe(s2['player']):30s} ({_safe(s2['team']):15s}) - {adj2:>3s} goles (tier: {_safe(s2['tier'])})")
 
     print(f"\n{'='*70}")
     print("  Planilla completa guardada en: output/prode_recomendado.csv")

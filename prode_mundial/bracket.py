@@ -2,9 +2,14 @@
 # Simulacion del bracket completo del Mundial 2026
 # Formato oficial: 12 grupos, top2 + 8 mejores terceros -> R32 -> R16 -> QF -> SF -> Final
 
+import re
 from datetime import datetime
 from predictor import predict_match
-from data import FIXTURES, GROUPS, CITY_COORDS, haversine
+from data import GROUPS, CITY_COORDS, haversine
+
+_RE_ASCII = re.compile(r'[^\x20-\x7e]')
+def _safe(text):
+    return _RE_ASCII.sub('?', str(text))
 
 
 
@@ -447,10 +452,10 @@ def run_full_simulation(seed=42, quiet=False):
 
         if not quiet:
             for result in md1_md2:
-                score_str = f"{result['team_a']} {result['score_a']}-{result['score_b']} {result['team_b']}"
+                score_str = f"{_safe(result['team_a'])} {result['score_a']}-{result['score_b']} {_safe(result['team_b'])}"
                 xg_a = result.get("expected_goals_a", "?")
                 xg_b = result.get("expected_goals_b", "?")
-                print(f"  Grupo {g}: {score_str} | xG: {xg_a}-{xg_b} | {result['winner']} ({result['confidence']:.0f}%)")
+                print(f"  Grupo {g}: {score_str} | xG: {xg_a}-{xg_b} | {_safe(result['winner'])} ({result['confidence']:.0f}%)")
 
     # ── Group tables ─────────────────────────────────────────────────
     group_results = simulate_group_stage(group_predictions)
@@ -460,7 +465,7 @@ def run_full_simulation(seed=42, quiet=False):
         for g in GROUPS:
             print(f"\n  Grupo {g}:")
             for i, (team, data) in enumerate(group_results[g]):
-                print(f"  [{i+1}] {team:25s} {data['pts']:2d} pts  W:{data['w']} D:{data['d']} L:{data['l']}  GF:{data['gf']} GC:{data['ga']} GD:{data['gd']:+d}")
+                print(f"  [{i+1}] {_safe(team):25s} {data['pts']:2d} pts  W:{data['w']} D:{data['d']} L:{data['l']}  GF:{data['gf']} GC:{data['ga']} GD:{data['gd']:+d}")
 
     # ── Qualified teams ──────────────────────────────────────────────
     group_winners, group_runners, best_third, third_details = determine_qualified(group_results)
@@ -468,7 +473,7 @@ def run_full_simulation(seed=42, quiet=False):
     if not quiet:
         print("\n>>> MEJORES TERCEROS CLASIFICADOS:")
         for i, (g, team, pts, gd, gf, fp, rank) in enumerate(third_details):
-            print(f"  {i+1}. Grupo {g}: {team} ({pts} pts, GD:{gd:+d}, FP:{fp}, Rank:{rank})")
+            print(f"  {i+1}. Grupo {g}: {_safe(team)} ({pts} pts, GD:{gd:+d}, FP:{fp}, Rank:{rank})")
 
     # ── Team history (rest days, travel fatigue) ─────────────────────
     team_history = compute_team_history(group_predictions)
@@ -506,7 +511,7 @@ def run_full_simulation(seed=42, quiet=False):
     r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], round_name="R32")
     for r in r32_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
     _update_history(r32_results, KO_DATES[0])
 
     # ── Round of 16 ──────────────────────────────────────────────────
@@ -520,7 +525,7 @@ def run_full_simulation(seed=42, quiet=False):
     r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], round_name="R16")
     for r in r16_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
     _update_history(r16_results, KO_DATES[1])
 
     # ── Quarter Finals ───────────────────────────────────────────────
@@ -535,7 +540,7 @@ def run_full_simulation(seed=42, quiet=False):
     qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], round_name="QF")
     for r in qf_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
     _update_history(qf_results, KO_DATES[2])
 
     # ── Semi Finals ──────────────────────────────────────────────────
@@ -549,7 +554,7 @@ def run_full_simulation(seed=42, quiet=False):
     sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], round_name="SF")
     for r in sf_results:
         if not quiet:
-            print(f"  {r['team_a']} {r['score_a']}-{r['score_b']} {r['team_b']} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {r['winner']} ({r['confidence']:.0f}%)")
+            print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
     _update_history(sf_results, KO_DATES[3])
 
     # ── Third place ──────────────────────────────────────────────────
@@ -570,15 +575,15 @@ def run_full_simulation(seed=42, quiet=False):
     final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], round_name="Final")[0]
 
     if not quiet:
-        print(f"  {third_result['team_a']} {third_result['score_a']}-{third_result['score_b']} {third_result['team_b']} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {third_result['winner']}")
+        print(f"  {_safe(third_result['team_a'])} {third_result['score_a']}-{third_result['score_b']} {_safe(third_result['team_b'])} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {_safe(third_result['winner'])}")
 
         print("\n>>> FINAL:")
-        print(f"  {final_result['team_a']} {final_result['score_a']}-{final_result['score_b']} {final_result['team_b']} (xG {final_result.get('expected_goals_a','?')}-{final_result.get('expected_goals_b','?')})")
+        print(f"  {_safe(final_result['team_a'])} {final_result['score_a']}-{final_result['score_b']} {_safe(final_result['team_b'])} (xG {final_result.get('expected_goals_a','?')}-{final_result.get('expected_goals_b','?')})")
 
         print(f"\n{'='*70}")
-        print(f"  *** CAMPEON: {final_result['winner']} ***")
-        print(f"  SUBCAMPEON: {final_result['loser']}")
-        print(f"  3er PUESTO: {third_result['winner']}")
+        print(f"  *** CAMPEON: {_safe(final_result['winner'])} ***")
+        print(f"  SUBCAMPEON: {_safe(final_result['loser'])}")
+        print(f"  3er PUESTO: {_safe(third_result['winner'])}")
         print(f"{'='*70}")
 
     all_ko = r32_results + r16_results + qf_results + sf_results + [third_result, final_result]

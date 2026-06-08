@@ -3,6 +3,7 @@
 > Compiled: June 6, 2026 (updated June 2026) | Sources: FIFA.com, BBC Sport, official federation announcements
 > Note: Season stats (goals/assists) reflect 2025-26 club season. Role = estimated starter/squad/bench based on available analysis.
 > Squad data used by the Prode 2026 prediction model (players.json: 1,245 players enriched from Transfermarkt API and Wikipedia). Wikipedia provides caps, trophies, height, and club info; Transfermarkt provides 2025/26 goals, assists, and minutes.
+> Package installable via `pip install -e .` (pyproject.toml + __init__.py).
 
 ---
 
@@ -1172,6 +1173,7 @@ First WC since 1974.
 
 5. All squads were finalized by the June 1, 2026 FIFA deadline. Some late injury replacements may have occurred after source publication dates.
 6. **INJURED_OUT list**: 15 players excluded from goal distribution in `top_scorer.py` (Deniz Undav among them). These players remain in squad data but are filtered from scorer tables.
+7. **Scraper resilience**: `scraper.py` usa `_fetch_with_retry()` con 4 reintentos (delay 2s/4s/8s/16s); `stats_scraper.py` reintenta 3 veces con timeout separado connect/read.
 
 ---
 

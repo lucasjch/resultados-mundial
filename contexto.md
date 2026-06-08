@@ -26,12 +26,20 @@ Script en Python que analiza los 135 partidos del Mundial 2026 y predice resulta
 prode_mundial/
 ├── scraper.py        # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py           # Datos de equipos, sedes, fixture, bases operativas
-├── predictor.py      # Motor de 17 factores ponderados + simulación Poisson
+├── predictor.py      # Motor de 18 factores ponderados + Poisson + Dixon-Coles τ
 ├── stats_scraper.py  # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py        # Bracket oficial 2026 (R32, R16, QF, SF, 3°, Final)
 ├── output.py         # Exportación CSV/JSON
 ├── main.py           # Orquestador principal
+├── top_scorer.py     # Distribución de goles a jugadores (top goleador)
 ├── wikiscraper.py    # Scraper individual de Wikipedia vía API
+├── __init__.py       # Package init (v0.1.0)
+├── tests/            # 5 test files, 129 tests
+│   ├── test_predictor.py
+│   ├── test_bracket.py
+│   ├── test_data.py
+│   ├── test_top_scorer.py
+│   └── test_output.py
 └── output/           # Resultados generados
     ├── players.json          # 1245 jugadores (enriquecido vía wikiscraper)
     ├── wiki_cache.json       # Caché de Wikipedia scraping
@@ -46,6 +54,7 @@ prode_mundial/
 ### 1. Scraping (`scraper.py`)
 - **Promiedos** (28 equipos): parsea HTML `<tr>`/`<td>` — nombre, dorsal, edad, altura
 - **Transfermarkt** (20 equipos): `html.unescape()` + regex — nombre, posición, DOB, valor de mercado
+- **Retry**: `_fetch_with_retry()` con 4 reintentos (delay 2s/4s/8s/16s) para `urllib.error.URLError`/`socket.timeout`
 - Total: **1245 jugadores** de 48 equipos
 - Output: `output/players.json`
 
@@ -71,6 +80,7 @@ prode_mundial/
 - Extrae goles, asistencias, minutos de la temporada 2025/26
 - **Fuzzy matching**: `SequenceMatcher` ≥0.75 con diferencia ≥0.1 del segundo mejor + limpieza de sufijos posicionales
 - **TM_TEAM_OVERRIDES**: 9 correcciones de nombre (e.g. `Cape Verde→Cabo Verde`, `South Korea→Korea Republic`) para mapear 49 nombres
+- **Retry**: `_get()` reintenta 3 veces con connect timeout separado (10s/read 30s) para Timeout/ConnectionError
 - Caché en `output/tm_stats_cache.json` — evita re-scrapear
 - Output: enriquece `output/players.json` con campos `goals_2026`, `assists_2026`, `minutes_2026`
 - Resultado: 1205/1245 jugadores con stats (96.8%)
@@ -92,7 +102,7 @@ prode_mundial/
 - `_enrich_teams()`: integra `players.json` en cada equipo con 6 campos extra
 
 ### 3. Predicción (`predictor.py`)
-18 factores ponderados + Poisson (1500 sims): `total_diff = Σ(factor_i × peso_i)`, sin randomness aditivo:
+18 factores ponderados + Dixon-Coles τ: `total_diff = Σ(factor_i × peso_i)`, sin randomness aditivo.
 
 | Factor | Peso | Descripción |
 |--------|:----:|-------------|
@@ -127,6 +137,11 @@ base_b = (goals_scored_avg_b + goals_conceded_avg_a) / 2
 ```
 Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 λ clamp entre 0.2 y 7.0 para evitar valores extremos.
+
+**Dixon-Coles τ correction**: Ajusta la probabilidad de scores bajos (0-0, 1-1, 1-0, 0-1) mediante
+`τ(x,y,λ_h,λ_a,ρ)` con ρ = −0.15. La tabla joint 16×16 se construye con `_build_joint_dist()`
+y se muestrea en batch `random.choices(k=1500)`. En partidos MD3 con stakes contender se usa
+Poisson independiente (el ruido gaussiano ya aproxima la corrección).
 
 ### 4. Bracket (`bracket.py`)
 - **Fase de grupos**: 72 partidos, tabla de posiciones con puntos y GD
@@ -223,6 +238,10 @@ Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 | ✅ **Bloque L** — Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | Completado |
 | ✅ **Bloque M** — Eliminar ensemble, score promedio de 1500 sims | Completado |
 | ✅ **Bloque N** — Factor Stakes (presión de 3ª fecha + varianza MD3) | Completado |
+| ✅ **Fase Tests** — 4 nuevos test files (129 tests: bracket/data/top_scorer/output) | Completado |
+| ✅ **Dixon-Coles τ** — Corrección de empates (ρ=-0.15, joint dist 16×16) | Completado |
+| ✅ **Fase 4a** — pyproject.toml + __init__.py (package installable) | Completado |
+| ✅ **Fase 4b** — Retry + exponential backoff en scrapers | Completado |
 
 ## Configuración LSP
 
@@ -233,6 +252,7 @@ Simulación Poisson con 1500 iteraciones. Score = moda de goles.
 ## Ejecución
 
 ```bash
+pip install -e .              # instalar paquete (opcional)
 python prode_mundial/main.py  # simulación completa (1500 sims por partido)
 python prode_mundial/main.py --goleadores  # solo tabla de goleadores
 .\ejecutar.bat                # menú interactivo

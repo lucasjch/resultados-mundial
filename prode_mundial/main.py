@@ -4,9 +4,15 @@
 import sys
 import os
 import argparse
+import re
 from contextlib import redirect_stdout
 from io import StringIO
 import time
+
+_RE_ASCII = re.compile(r'[^\x20-\x7e]')
+
+def _safe(text):
+    return _RE_ASCII.sub('?', str(text))
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +30,7 @@ def run_top_scorers(group_predictions, ko_predictions):
     for rank, (player, team, goals) in enumerate(top_scorers, 1):
         if goals == 0:
             break
-        print(f"  {rank:<3d} {player:35s} {team:20s} {goals:>3d}")
+        print(f"  {rank:<3d} {_safe(player):35s} {_safe(team):20s} {goals:>3d}")
     return top_scorers
 
 def main():

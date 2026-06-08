@@ -5,6 +5,8 @@ import html as html_module
 import json
 import os
 import re
+import socket
+import urllib.error
 import urllib.request
 import time
 
@@ -60,20 +62,34 @@ TEAM_SOURCES = {
 }
 
 
-def fetch_url(url):
+def _fetch_with_retry(url, max_retries=4, base_delay=2):
     req = urllib.request.Request(url, headers={
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
     })
-    with urllib.request.urlopen(req, timeout=20) as resp:
-        raw = resp.read()
-        encoding = resp.headers.get_content_charset()
-        if encoding:
-            return raw.decode(encoding, errors="replace")
-        # Try UTF-8 first, then latin-1
+    last_exc = None
+    for attempt in range(max_retries + 1):
         try:
-            return raw.decode("utf-8")
-        except UnicodeDecodeError:
-            return raw.decode("latin-1")
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                raw = resp.read()
+                encoding = resp.headers.get_content_charset()
+                if encoding:
+                    return raw.decode(encoding, errors="replace")
+                try:
+                    return raw.decode("utf-8")
+                except UnicodeDecodeError:
+                    return raw.decode("latin-1")
+        except (urllib.error.URLError, socket.timeout, OSError) as e:
+            last_exc = e
+            if attempt < max_retries:
+                delay = base_delay * (2 ** attempt)
+                print(f"  Retry {attempt+1}/{max_retries} in {delay}s: {e}")
+                time.sleep(delay)
+    if last_exc:
+        raise last_exc
+    raise RuntimeError(f"Fetch failed after {max_retries} retries: {url}")
+
+def fetch_url(url):
+    return _fetch_with_retry(url)
 
 
 def parse_market_value(val_str):

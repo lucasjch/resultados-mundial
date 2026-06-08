@@ -17,6 +17,9 @@ para completar un prode. Exporta a CSV y JSON.
 - `requests` (única dependencia externa)
 - LSP: `python-lsp-server` (pylsp) + `pylint`
 - Config LSP en `opencode.jsonc` (`"lsp": true`)
+- Build: `pyproject.toml` (setuptools) + `prode_mundial/__init__.py`
+- CI: `.github/workflows/ci.yml` (pytest + pylint + smoke test)
+- Code quality: `.pylintrc`, `.editorconfig`, `.gitignore`
 
 ## Estructura
 
@@ -24,21 +27,28 @@ para completar un prode. Exporta a CSV y JSON.
 prode_mundial/
 ├── scraper.py           # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py              # Datos de equipos, sedes, fixture, bases operativas, haversine, card rates
-├── predictor.py         # Motor de 18 factores ponderados + simulación Poisson
+├── predictor.py         # Motor de 18 factores ponderados + simulación Poisson + Dixon-Coles τ
 ├── stats_scraper.py     # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py           # Bracket oficial 2026 + H2H tiebreaker + safety net KO
 ├── output.py            # Exportación CSV/JSON
 ├── main.py              # Orquestador principal
 ├── top_scorer.py        # Distribución de goles a jugadores (top goleador)
 ├── wikiscraper.py       # Scraper individual de Wikipedia vía API
-└── output/
-    ├── players.json              # 1245 jugadores
-    ├── wiki_cache.json           # Caché de Wikipedia scraping
-    ├── tm_stats_cache.json       # Caché de Transfermarkt stats
-    ├── fase_grupos.csv/json      # Partidos de grupos
-    ├── tabla_posiciones.csv      # Posiciones finales
-    ├── eliminatorias.csv         # Llaves KO
-    └── prode_completo.csv        # Prode completo (135 partidos)
+├── __init__.py          # Package init (v0.1.0)
+├── tests/
+│   ├── test_predictor.py   # 59 tests (46 original + 13 Dixon-Coles τ)
+│   ├── test_bracket.py     # 27 tests
+│   ├── test_data.py        # 22 tests
+│   ├── test_top_scorer.py  # 11 tests
+│   └── test_output.py      # 11 tests
+├── output/
+│   ├── players.json              # 1245 jugadores
+│   ├── wiki_cache.json           # Caché de Wikipedia scraping
+│   ├── tm_stats_cache.json       # Caché de Transfermarkt stats
+│   ├── fase_grupos.csv/json      # Partidos de grupos
+│   ├── tabla_posiciones.csv      # Posiciones finales
+│   ├── eliminatorias.csv         # Llaves KO
+│   └── prode_completo.csv        # Prode completo (135 partidos)
 ```
 
 ## Plan de Fases
@@ -65,6 +75,10 @@ prode_mundial/
 | —  | **Bloque L**: Optimización completa de factores (4 nuevos, 2 eliminados, mejoras) | ✅ Completado |
 | —  | **Bloque M**: Eliminar ensemble, score promedio de 1500 sims | ✅ Completado |
 | —  | **Bloque N**: Factor Stakes (presión de 3ª fecha) + varianza MD3 | ✅ Completado |
+| —  | **Fase Tests**: 4 nuevos test files (bracket/data/top_scorer/output) | ✅ Completado |
+| —  | **Dixon-Coles τ**: Corrección de empates (ρ=-0.15, joint dist 16×16) | ✅ Completado |
+| —  | **Fase 4a**: pyproject.toml + __init__.py (package installable) | ✅ Completado |
+| —  | **Fase 4b**: Retry + exponential backoff en scraper.py y stats_scraper.py | ✅ Completado |
 
 ## Decisiones Tomadas
 
@@ -119,13 +133,19 @@ prode_mundial/
 18. **ejecutar.bat en raíz**: Menú interactivo PowerShell/.bat portable. No
     requiere instalación en PATH.
 19. **Score promedio de 1500 sims**: El score final de cada partido es
+    `round(sum_a / 1500, round(sum_b / 1500))` — promedio de 1500 Poisson draws.
 20. **LSP instalado en sesión 2026-06-08**: Se instaló `python-lsp-server` 1.14.0
-    (faltaba en el clone fresco). `opencode.jsonc` ya tenía `"lsp": true`.
-
-## Score promedio de 1500 sims: El score final de cada partido es
-    `round(sum_a / 1500, round(sum_b / 1500))` — promedio de 1500 Poisson draws,
-    no un draw único ni el lambda crudo. Eliminado `skip_sims`, `ensemble_simulation()`,
-    y toda la lógica de selección de seed. Un solo resultado determinista y reproducible.
+21. **Dixon-Coles τ (ρ = -0.15)**: Aumenta probabilidad de empates 0-0 y 1-1 (τ > 1),
+    disminuye 1-0/0-1 (τ < 1); clip `max(0, ·)` evita τ negativo en λ > 6.67.
+    `__build_joint_dist()` genera tabla 16×16, y `random.choices(k=1500)` muestrea
+    batch — más rápido que 1500 Poisson independientes.
+22. **Variance-boost saltea τ**: El ruido gaussiano(0, 0.15) en MD3 contender matches
+    ya introduce aproximación; mantener Poisson independiente evita rebuild costoso.
+23. **`pyproject.toml`**: Build con setuptools, entry point `prode-mundial`, pytest
+    config con `testpaths` + `pythonpath`. Permite `pip install -e .` y `pytest`.
+24. **Retry exponential backoff**: `scraper.py` usa `_fetch_with_retry()` con 4
+    reintentos (delay 2s/4s/8s/16s) para `urllib.error.URLError`/`socket.timeout`.
+    `stats_scraper.py` `_get()` reintenta 3 veces con timeout separado connect=10s/read=30s.
 
 ## Correcciones Aplicadas en predictor.py (Fase 4 + Bloque E)
 
@@ -203,7 +223,7 @@ de 100 seeds y la selección de seed por campeón moda.
 - No hay randomness en el resultado final (Ley de Grandes Números)
 - Las probabilidades (win/draw/loss) se calculan de las frecuencias del mismo loop
 - Un solo resultado, siempre reproducible con la misma seed interna (42)
-- Tiempo total: ~10s para los 135 partidos
+- Tiempo total: ~0.10s para los 135 partidos (gracias a `random.choices` batch vs Poisson individual)
 
 ## Bloque A: Fix fixture/venue bugs (Completado)
 
@@ -472,6 +492,12 @@ python prode_mundial/main.py
 # Solo tabla de goleadores (modo silencioso)
 python prode_mundial/main.py --goleadores
 
+# Instalar paquete (modo desarrollo)
+pip install -e .
+
+# Ejecutar todos los tests
+pytest
+
 # Menú interactivo
 .\ejecutar.bat
 
@@ -485,4 +511,7 @@ git add -A; git commit -m "mensaje"; git push origin master
 |-------|--------|---------|
 | 2026-06-08 | `git reset --hard origin/master` | Reposincronizado a `e9fe83f` (Bloque N) — trajo display.py, optimizer.py, stats_scraper.py, top_scorer.py, ejecutar.bat, AGENTS.md, opencode.jsonc, outputs |
 | 2026-06-08 | Instalación LSP | Se instaló `python-lsp-server` 1.14.0 (faltaba post-clone). `opencode.jsonc` ya tenía `"lsp": true` |
+| 2026-06-08 | Fase 4a: pyproject.toml + __init__.py | Package instalable con `pip install -e .`, entry point `prode-mundial`, pytest config integrado |
+| 2026-06-08 | Fase 4b: Retry resilience | `_fetch_with_retry()` en scraper.py (4 retries, 2s/4s/8s/16s), `_get()` en stats_scraper.py (3 retries, connect/read timeout separado) |
+| 2026-06-08 | Fase Tests + Dixon-Coles τ | 4 nuevos test files (83 tests), τ correction (ρ=-0.15, joint dist 16×16), 129 tests total, todo pass |
 ```

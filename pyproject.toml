@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "prode-mundial-2026"
+version = "0.1.0"
+description = "Predictor de resultados para el Mundial 2026 (18 factores + Poisson 1500 sims)"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31",
+]
+
+[project.scripts]
+prode-mundial = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["prode_mundial"]
+
+[tool.setuptools.package-data]
+"*" = ["output/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["prode_mundial/tests"]
+addopts = "-v --tb=short"
+pythonpath = ["prode_mundial"]
+
+[tool.pylint.basic]
+extension-pkg-allow-list = ["requests"]
+
+[tool.pylint.master]
+rcfile = ".pylintrc"

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Motor de prediccion con factores ponderados
+# Incluye correccion Dixon-Coles τ para bajos puntajes
 
 import json
 import math
@@ -9,6 +10,9 @@ from data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS, haversine)
 
 PLAYERS_FILE = os.path.join(os.path.dirname(__file__), "output", "players.json")
 _PLAYERS_CACHE = None
+
+DIXON_COLES_RHO = -0.15
+MAX_GOALS_DC = 15
 
 # Pesos de cada factor (suman 100%)
 WEIGHTS = {
@@ -398,6 +402,41 @@ def simulate_match_cards(team_a_data, team_b_data):
     return fp_loss(yc_a, rc_a), fp_loss(yc_b, rc_b), yc_a, yc_b, rc_a, rc_b
 
 
+def poisson_pmf(k, lam):
+    if lam <= 0:
+        return 1.0 if k == 0 else 0.0
+    return math.exp(-lam + k * math.log(lam) - math.lgamma(k + 1))
+
+
+def dixon_coles_tau(x, y, lam_h, lam_a, rho=DIXON_COLES_RHO):
+    if x == 0 and y == 0:
+        return max(0, 1 - lam_h * lam_a * rho)
+    elif x == 0 and y == 1:
+        return max(0, 1 + lam_h * rho)
+    elif x == 1 and y == 0:
+        return max(0, 1 + lam_a * rho)
+    elif x == 1 and y == 1:
+        return max(0, 1 - rho)
+    return 1.0
+
+
+def _build_joint_dist(lam_h, lam_a, rho=DIXON_COLES_RHO, max_g=MAX_GOALS_DC):
+    pmf_h = [poisson_pmf(k, lam_h) for k in range(max_g + 1)]
+    pmf_a = [poisson_pmf(k, lam_a) for k in range(max_g + 1)]
+    outcomes = []
+    weights = []
+    for x in range(max_g + 1):
+        px = pmf_h[x]
+        for y in range(max_g + 1):
+            p = px * pmf_a[y] * dixon_coles_tau(x, y, lam_h, lam_a, rho)
+            if p > 0:
+                outcomes.append((x, y))
+                weights.append(p)
+    total = sum(weights)
+    weights = [w / total for w in weights]
+    return outcomes, weights
+
+
 def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None, round_name="Group Stage",
                   rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0,
                   stakes_a=None, stakes_b=None, md3_variance_boost=False):
@@ -474,22 +513,32 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         (stakes_a == "contender" or stakes_b == "contender")
     )
 
-    for _ in range(SIMS):
-        if add_variance:
+    if not add_variance:
+        outcomes, joint_weights = _build_joint_dist(det_goals_a, det_goals_b)
+        chosen = random.choices(range(len(outcomes)), weights=joint_weights, k=SIMS)
+        for idx in chosen:
+            g_a, g_b = outcomes[idx]
+            sum_a += g_a
+            sum_b += g_b
+            if g_a > g_b:
+                wins_a += 1
+            elif g_b > g_a:
+                wins_b += 1
+            else:
+                draws += 1
+    else:
+        for _ in range(SIMS):
             noise = random.gauss(0, 0.15)
             g_a = poisson_sample(max(0.2, min(7.0, det_goals_a + noise)))
             g_b = poisson_sample(max(0.2, min(7.0, det_goals_b - noise)))
-        else:
-            g_a = poisson_sample(det_goals_a)
-            g_b = poisson_sample(det_goals_b)
-        sum_a += g_a
-        sum_b += g_b
-        if g_a > g_b:
-            wins_a += 1
-        elif g_b > g_a:
-            wins_b += 1
-        else:
-            draws += 1
+            sum_a += g_a
+            sum_b += g_b
+            if g_a > g_b:
+                wins_a += 1
+            elif g_b > g_a:
+                wins_b += 1
+            else:
+                draws += 1
 
     score_a = round(sum_a / SIMS)
     score_b = round(sum_b / SIMS)
