@@ -386,10 +386,12 @@ class ProdeGUI:
 
 def main():
     root = tk.Tk()
-    try:
-        root.iconbitmap(os.path.join(OUTPUT_DIR, "wc26_icon.ico"))
-    except Exception:
-        pass
+    ico = os.path.join(OUTPUT_DIR, "wc26_icon.ico")
+    if os.path.exists(ico):
+        try:
+            root.iconbitmap(ico)
+        except Exception:
+            pass
     try:
         app = ProdeGUI(root)
         root.mainloop()
