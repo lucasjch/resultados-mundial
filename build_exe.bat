@@ -9,14 +9,14 @@ echo ==========================================
 echo   Build PRODE Mundial 2026 (GUI .exe)
 echo ==========================================
 
-REM 0. Garantizar setuptools (necesario para PyInstaller)
-echo [0/4] Verificando setuptools...
-python -c "import setuptools" 2>nul
+REM 0. Garantizar pkg_resources (necesario para altgraph/PyInstaller)
+echo [0/4] Verificando pkg_resources...
+python -c "import pkg_resources" 2>nul
 if %errorlevel% neq 0 (
-    echo   Instalando setuptools...
-    pip install setuptools
+    echo   Instalando setuptools compatible...
+    pip install setuptools==69.5.1
 ) else (
-    echo   setuptools OK.
+    echo   pkg_resources OK.
 )
 
 REM 1. Verificar PyInstaller
