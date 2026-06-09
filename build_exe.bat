@@ -55,7 +55,7 @@ if %FLAG_COUNT% lss 48 (
 REM 3. Compilar .exe
 echo [4/5] Compilando GUI...
 
-python -m PyInstaller --onefile --windowed ^
+python -m PyInstaller --onefile --windowed --noupx ^
     --name "ProdeMundial2026" ^
     --distpath dist ^
     --workpath build_tmp ^
@@ -63,6 +63,8 @@ python -m PyInstaller --onefile --windowed ^
     --add-data "%CD%\prode_mundial\output;prode_mundial\output" ^
     --add-data "%CD%\prode_mundial\output\flags;prode_mundial\output\flags" ^
     --add-data "%CD%\prode_mundial\imput;prode_mundial\imput" ^
+    --icon "%CD%\prode_mundial\imput\wc26_icon.ico" ^
+    --version-file "%CD%\prode_mundial\version_info.txt" ^
     --hidden-import json ^
     --hidden-import math ^
     --hidden-import setuptools ^
