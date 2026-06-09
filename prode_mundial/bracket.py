@@ -404,12 +404,15 @@ def classify_stakes(standings):
     return stakes
 
 
-def run_full_simulation(seed=42, quiet=False):
+def run_full_simulation(seed=42, quiet=False, progress_callback=None):
     """Orquesta simulacion completa: grupos + KO."""
     import random
     from prode_mundial.data import FIXTURES, GROUPS
 
     random.seed(seed)
+
+    if progress_callback:
+        progress_callback(2, "Iniciando simulacion...")
 
     if not quiet:
         print("=" * 70)
@@ -419,7 +422,8 @@ def run_full_simulation(seed=42, quiet=False):
         # ── Group stage ──────────────────────────────────────────────────
         print("\n>>> FASE DE GRUPOS:")
     group_predictions = []
-    for g in sorted(GROUPS.keys()):
+    groups_list = sorted(GROUPS.keys())
+    for gi, g in enumerate(groups_list):
         group_matches = [f for f in FIXTURES if f[5] == g]
 
         # MD1 + MD2 (first 4 matches per group)
@@ -463,6 +467,10 @@ def run_full_simulation(seed=42, quiet=False):
 
         group_predictions.extend(md1_md2)
 
+        if progress_callback:
+            pct = 5 + (gi + 1) * 4
+            progress_callback(pct, f"Simulando Grupo {g}...")
+
         if not quiet:
             for result in md1_md2:
                 score_str = f"{_safe(result['team_a'])} {result['score_a']}-{result['score_b']} {_safe(result['team_b'])}"
@@ -481,6 +489,8 @@ def run_full_simulation(seed=42, quiet=False):
                 print(f"  [{i+1}] {_safe(team):25s} {data['pts']:2d} pts  W:{data['w']} D:{data['d']} L:{data['l']}  GF:{data['gf']} GC:{data['ga']} GD:{data['gd']:+d}")
 
     # ── Qualified teams ──────────────────────────────────────────────
+    if progress_callback:
+        progress_callback(54, "Calculando mejores terceros...")
     group_winners, group_runners, best_third, third_details = determine_qualified(group_results)
 
     if not quiet:
@@ -519,6 +529,8 @@ def run_full_simulation(seed=42, quiet=False):
                     h["last_venue"] = venue
 
     # ── Round of 32 ──────────────────────────────────────────────────
+    if progress_callback:
+        progress_callback(58, "Simulando 32vos de final...")
     r32_raw = build_round_of_32(group_winners, group_runners, best_third, third_details)
     r32_matches = _extend_matches(r32_raw, KO_DATES[0])
     if not quiet:
@@ -530,6 +542,8 @@ def run_full_simulation(seed=42, quiet=False):
     _update_history(r32_results, KO_DATES[0])
 
     # ── Round of 16 ──────────────────────────────────────────────────
+    if progress_callback:
+        progress_callback(63, "Simulando octavos de final...")
     r16_raw = []
     for (i, j), venue in zip(R16_PAIRINGS, R16_VENUES):
         if i < len(r32_results) and j < len(r32_results):
@@ -544,6 +558,8 @@ def run_full_simulation(seed=42, quiet=False):
     _update_history(r16_results, KO_DATES[1])
 
     # ── Quarter Finals ───────────────────────────────────────────────
+    if progress_callback:
+        progress_callback(67, "Simulando cuartos de final...")
     qf_raw = []
     for i in range(4):
         idx = i * 2
@@ -559,6 +575,8 @@ def run_full_simulation(seed=42, quiet=False):
     _update_history(qf_results, KO_DATES[2])
 
     # ── Semi Finals ──────────────────────────────────────────────────
+    if progress_callback:
+        progress_callback(71, "Simulando semifinales...")
     sf_raw = [
         (qf_results[0]["winner"], qf_results[1]["winner"], SF_VENUES[0]),
         (qf_results[2]["winner"], qf_results[3]["winner"], SF_VENUES[1]),
@@ -600,6 +618,9 @@ def run_full_simulation(seed=42, quiet=False):
         print(f"  SUBCAMPEON: {_safe(final_result['loser'])}")
         print(f"  3er PUESTO: {_safe(third_result['winner'])}")
         print(f"{'='*70}")
+
+    if progress_callback:
+        progress_callback(75, "Simulacion completada")
 
     all_ko = r32_results + r16_results + qf_results + sf_results + [third_result, final_result]
 

@@ -62,6 +62,7 @@ python -m PyInstaller --onefile --windowed ^
     --specpath build_tmp ^
     --add-data "%CD%\prode_mundial\output;prode_mundial\output" ^
     --add-data "%CD%\prode_mundial\output\flags;prode_mundial\output\flags" ^
+    --add-data "%CD%\prode_mundial\imput;prode_mundial\imput" ^
     --hidden-import json ^
     --hidden-import math ^
     --hidden-import setuptools ^
@@ -74,6 +75,7 @@ python -m PyInstaller --onefile --windowed ^
     --hidden-import prode_mundial.output ^
     --hidden-import prode_mundial.analysis ^
     --hidden-import prode_mundial.friendlies_data ^
+    --hidden-import prode_mundial.splash ^
     "%CD%\prode_mundial\gui.py"
 
 if %errorlevel% equ 0 (

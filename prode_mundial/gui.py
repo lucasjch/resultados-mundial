@@ -138,45 +138,44 @@ class ToolTip:
 
 
 class ProdeGUI:
-    def __init__(self, root):
+    def __init__(self, root, pre_data=None):
         self.root = root
         root.title("Prode Mundial 2026")
         root.configure(bg=_COLORS["bg"])
         root.geometry("960x720")
         root.resizable(True, True)
 
-        groups = knockout = tables = prode = goleadores = None
-        try:
-            import prode_mundial.bracket as _pmb
-            import prode_mundial.data as _pmd
-            import prode_mundial.top_scorer as _pmt
-            import prode_mundial.output as _pmo
-            gp, gr, kp = _pmb.run_full_simulation(quiet=True)
-            import prode_mundial.top_scorer as _pmt
-            import prode_mundial.output as _pmo
-            gp, gr, kp = _pmb.run_full_simulation(quiet=True)
-            scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
-            goleadores = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
-            tables = gr
-            _pmo.export_all(gp, gr, kp)
-            # Recargar desde JSON para obtener el campo "analysis" inyectado por export_all
-            groups   = load_json("fase_grupos.json") or gp or []
-            knockout = load_json("eliminatorias.json") or kp or []
-            prode    = groups + knockout
-        except Exception:
-            import traceback; traceback.print_exc()
+        if pre_data:
+            groups = pre_data.get("groups", [])
+            knockout = pre_data.get("knockout", [])
+            tables = pre_data.get("tables", {})
+            goleadores = pre_data.get("goleadores", [])
+        else:
+            groups = knockout = tables = prode = goleadores = None
+            try:
+                import prode_mundial.bracket as _pmb
+                import prode_mundial.top_scorer as _pmt
+                import prode_mundial.output as _pmo
+                gp, gr, kp = _pmb.run_full_simulation(quiet=True)
+                scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
+                goleadores = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
+                tables = gr
+                _pmo.export_all(gp, gr, kp)
+                groups = load_json("fase_grupos.json") or gp or []
+                knockout = load_json("eliminatorias.json") or kp or []
+            except Exception:
+                import traceback; traceback.print_exc()
 
-        groups = groups or load_json("fase_grupos.json") or []
-        knockout = knockout or load_json("eliminatorias.json") or []
-        tables = tables or load_json("tabla_posiciones.json") or {}
-        prode = prode or load_json("prode_completo.json") or []
-        goleadores = goleadores or self._load_goleadores(groups, knockout)
+            groups = groups or load_json("fase_grupos.json") or []
+            knockout = knockout or load_json("eliminatorias.json") or []
+            tables = tables or load_json("tabla_posiciones.json") or {}
+            goleadores = goleadores or self._load_goleadores(groups, knockout)
 
         self.data = {
             "groups": groups,
             "knockout": knockout,
             "tables": tables,
-            "prode": prode,
+            "prode": groups + knockout,
             "goleadores": goleadores,
         }
         self._idx = {"groups": 0, "knockout": 0}
@@ -1064,18 +1063,56 @@ class ProdeGUI:
 
 def main():
     root = tk.Tk()
-    ico = os.path.join(OUTPUT_DIR, "wc26_icon.ico")
-    if os.path.exists(ico):
+    from prode_mundial.splash import SplashScreen
+    splash = SplashScreen(root)
+
+    def _start():
         try:
-            root.iconbitmap(ico)
-        except Exception:
-            pass
-    try:
-        app = ProdeGUI(root)
-        root.mainloop()
-    except Exception as e:
-        messagebox.showerror("Error", f"Error al iniciar GUI:\n{e}")
-        raise
+            import prode_mundial.bracket as _pmb
+            import prode_mundial.top_scorer as _pmt
+            import prode_mundial.output as _pmo
+
+            def cb(v, t):
+                splash.set_progress(v, t)
+
+            cb(2, "Iniciando simulacion...")
+            gp, gr, kp = _pmb.run_full_simulation(quiet=True, progress_callback=cb)
+
+            cb(80, "Calculando goleadores...")
+            scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
+            goleadores_list = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
+
+            cb(88, "Exportando resultados...")
+            _pmo.export_all(gp, gr, kp)
+
+            cb(95, "Cargando interfaz grafica...")
+            grps = load_json("fase_grupos.json") or gp or []
+            kno = load_json("eliminatorias.json") or kp or []
+
+            pre_data = {
+                "groups": grps,
+                "knockout": kno,
+                "tables": gr,
+                "goleadores": goleadores_list,
+            }
+
+            cb(100, "Listo!")
+            splash.close()
+
+            ico = os.path.join(OUTPUT_DIR, "wc26_icon.ico")
+            if os.path.exists(ico):
+                try:
+                    root.iconbitmap(ico)
+                except Exception:
+                    pass
+            ProdeGUI(root, pre_data=pre_data)
+        except Exception as e:
+            splash.close()
+            messagebox.showerror("Error", f"Error al iniciar GUI:\n{e}")
+            raise
+
+    root.after(200, _start)
+    root.mainloop()
 
 
 if __name__ == "__main__":
