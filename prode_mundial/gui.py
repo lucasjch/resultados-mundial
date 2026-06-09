@@ -1063,55 +1063,68 @@ class ProdeGUI:
 
 def main():
     root = tk.Tk()
+    root.withdraw()
     from prode_mundial.splash import SplashScreen
     splash = SplashScreen(root)
 
-    def _start():
+    sim_data = {}
+
+    def _run_simulation():
         try:
             import prode_mundial.bracket as _pmb
             import prode_mundial.top_scorer as _pmt
             import prode_mundial.output as _pmo
-
-            def cb(v, t):
-                splash.set_progress(v, t)
-
-            cb(2, "Iniciando simulacion...")
-            gp, gr, kp = _pmb.run_full_simulation(quiet=True, progress_callback=cb)
-
-            cb(80, "Calculando goleadores...")
+            gp, gr, kp = _pmb.run_full_simulation(quiet=True)
             scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
             goleadores_list = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
-
-            cb(88, "Exportando resultados...")
             _pmo.export_all(gp, gr, kp)
-
-            cb(95, "Cargando interfaz grafica...")
             grps = load_json("fase_grupos.json") or gp or []
             kno = load_json("eliminatorias.json") or kp or []
-
-            pre_data = {
+            sim_data["pre_data"] = {
                 "groups": grps,
                 "knockout": kno,
                 "tables": gr,
                 "goleadores": goleadores_list,
             }
-
-            cb(100, "Listo!")
-            splash.close()
-
-            ico = os.path.join(OUTPUT_DIR, "wc26_icon.ico")
-            if os.path.exists(ico):
-                try:
-                    root.iconbitmap(ico)
-                except Exception:
-                    pass
-            ProdeGUI(root, pre_data=pre_data)
+            sim_data["done"] = True
         except Exception as e:
-            splash.close()
-            messagebox.showerror("Error", f"Error al iniciar GUI:\n{e}")
-            raise
+            sim_data["error"] = e
+            sim_data["done"] = True
 
-    root.after(200, _start)
+    import threading
+    t = threading.Thread(target=_run_simulation, daemon=True)
+    t.start()
+
+    _fake_pct = 0
+
+    def _tick():
+        nonlocal _fake_pct
+        if _fake_pct < 100:
+            _fake_pct += 1
+            splash.set_progress(_fake_pct, "Preparando simulacion...")
+            root.after(100, _tick)
+        elif sim_data.get("done"):
+            _finish()
+        else:
+            root.after(100, _tick)
+
+    def _finish():
+        splash.close()
+        if "error" in sim_data:
+            messagebox.showerror("Error", f"Error al iniciar GUI:\n{sim_data['error']}")
+            root.destroy()
+            return
+        pre_data = sim_data["pre_data"]
+        ico = os.path.join(OUTPUT_DIR, "wc26_icon.ico")
+        if os.path.exists(ico):
+            try:
+                root.iconbitmap(ico)
+            except Exception:
+                pass
+        root.deiconify()
+        ProdeGUI(root, pre_data=pre_data)
+
+    root.after(200, _tick)
     root.mainloop()
 
 

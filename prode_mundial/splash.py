@@ -62,20 +62,21 @@ class SplashScreen:
 
     def __init__(self, root):
         self.root = root
+        self._win = tk.Toplevel(root)
         self._img_orig = None
         self._bg_photo = None
         self._win_w = 720
         self._win_h = 520
 
-        root.overrideredirect(True)
-        root.configure(bg=_COLORS["bg"])
+        self._win.overrideredirect(True)
+        self._win.configure(bg=_COLORS["bg"])
         self._center(self._win_w, self._win_h)
-        root.resizable(True, True)
-        root.minsize(500, 350)
+        self._win.resizable(True, True)
+        self._win.minsize(500, 350)
 
         self._load_image()
 
-        self._canvas = tk.Canvas(root, bg=_COLORS["bg"], highlightthickness=0)
+        self._canvas = tk.Canvas(self._win, bg=_COLORS["bg"], highlightthickness=0)
         self._canvas.pack(fill=tk.BOTH, expand=True)
         self._canvas.bind("<Configure>", self._on_resize)
 
@@ -98,7 +99,7 @@ class SplashScreen:
 
         # Progress bar (centered, bottom area)
         self._bar_width = 400
-        self._progress = _GreenProgressBar(root, width=self._bar_width)
+        self._progress = _GreenProgressBar(self._win, width=self._bar_width)
         self._progress.place(relx=0.5, rely=0.80, anchor=tk.CENTER)
 
         # Footer
@@ -127,9 +128,9 @@ class SplashScreen:
                 self._img_orig = None
 
     def _center(self, w, h):
-        sw = self.root.winfo_screenwidth()
-        sh = self.root.winfo_screenheight()
-        self.root.geometry(f"{w}x{h}+{(sw - w) // 2}+{(sh - h) // 2}")
+        sw = self._win.winfo_screenwidth()
+        sh = self._win.winfo_screenheight()
+        self._win.geometry(f"{w}x{h}+{(sw - w) // 2}+{(sh - h) // 2}")
 
     def _on_resize(self, event):
         self._win_w = event.width
@@ -170,4 +171,4 @@ class SplashScreen:
         self.root.update_idletasks()
 
     def close(self):
-        self.root.destroy()
+        self._win.destroy()
