@@ -5,6 +5,7 @@
 > Odds via DraftKings as of June 4, 2026
 > Prode model uses 18 factors + Dixon-Coles τ (ρ = −0.15) + 1500 sims deterministic average
 > FIXTURES corregidos desde ESPN (Jun 8) — 72 partidos con horarios oficiales en ART (UTC-3)
+> Bloque P completado: icono del Mundial 2026 en .exe + version_info.txt + --noupx (commit `6453c64`)
 
 ---
 
@@ -269,6 +270,7 @@ and averages the scores. The result is a single deterministic bracket
 - Bloque L: eliminados age_penalty y jet_lag; agregados experience, trophy_pedigree, height_advantage, club_chemistry desde Wikipedia; player_stats ponderado por minutes_2026; squad_depth dinámico desde players.json
 - Bloque M: eliminado ensemble de 100 seeds, el bracket final es determinista y siempre reproducible
 - Bloque N: agregado factor stakes (4%) para 3ª fecha de grupos — clasifica equipos como qualified/contender/eliminated según tabla parcial y ajusta λ con varianza extra en partidos decisivos
+- Bloque P: .exe compilado con icono del Mundial 2026, version_info.txt con metadatos, --noupx anti-falso-positivo. Commit `6453c64`.
 
 ---
 

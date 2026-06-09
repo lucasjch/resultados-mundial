@@ -301,6 +301,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 |-|**Friendlies Data**: dataset de 57 amistosos + factor friendly_form|✅ Completado|
 |-|**Bloque Ñ**: Top scorer model (exponential, league boost, penalty boost, candidates)|✅ Completado|
 |-|**Bloque O**: Análisis narrativo PRODE (analysis.py + GUI display)|✅ Completado|
+|-|**Bloque P**: Icono + version_info.txt + --noupx (anti-falso-positivo)|✅ Completado|
 
 ## Decisiones Tomadas
 
@@ -334,6 +335,8 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 28. **Análisis narrativo offline**: Sin APIs externas, ~25 templates condicionales. Se genera en `main.py` y se guarda en JSON, no se calcula en la GUI.
 29. **Display del análisis**: Badge de recomendación (Frame colorido) + Text widget (read-only, height=9) arriba del score en `_match_card()`.
 30. **build_exe.bat hidden imports**: Requiere `prode_mundial.analysis` y `prode_mundial.friendlies_data` como hidden imports para PyInstaller.
+31. **Icono del Mundial**: Se usó `2026-FIFA-Logo.png` (1080×1080) convertido a `.ico` multi-size (16×16 a 256×256) vía PIL. `build_exe.bat` incluye `--icon`, `--version-file version_info.txt`, `--noupx` para reducir falsos positivos antivirus.
+32. **version_info.txt**: Metadatos VSVersionInfo con CompanyName "Lucas Congil Hadla", FileDescription, FileVersion 1.0.0, Copyright. Incrustado en .exe via `--version-file`.
 
 ## Historial de Cambios
 
@@ -458,6 +461,13 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - `gui.py`: muestra badge colorido + Text widget (height=9) arriba del score en `_match_card()`.
 - `build_exe.bat`: agregados `--hidden-import prode_mundial.analysis` y `--hidden-import prode_mundial.friendlies_data`.
 
+### Bloque P - Icono + version_info.txt + --noupx
+
+- `version_info.txt`: metadatos VSVersionInfo (CompanyName "Lucas Congil Hadla", FileDescription, FileVersion 1.0.0, Copyright).
+- `build_exe.bat`: agregados `--noupx` (reduce falsos positivos antivirus), `--version-file version_info.txt`, `--icon wc26_logo.ico`.
+- Icono `.ico` multi-size generado desde `2026-FIFA-Logo.png` (1080×1080) vía PIL.
+- .exe recompilado con icono del Mundial 2026, commit `6453c64`.
+
 ## Comandos Útiles
 
 ```powershell
@@ -509,6 +519,7 @@ git add -A; git commit -m "mensaje"; git push origin master
 ✅ **Proyecto completo** - Los 135 partidos del Mundial 2026 analizados con 18 factores + Dixon-Coles τ + Poisson (1500 sims promedio). Resultados exportados a CSV/JSON en `output/`.
 ✅ **FIXTURES corregidos** - 72 partidos de grupos con horarios ART oficiales desde ESPN (commit `80609ea`).
 ✅ **build_exe.bat** - Compilación release (`--windowed`, `ProdeMundial2026`, sin debug).
+✅ **Bloque P** - Icono del Mundial 2026, version_info.txt, --noupx anti-falso-positivo.
 
 ## Sesiones
 
@@ -531,3 +542,4 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-09|**Corrección ortográfica analysis.py**|10 fixes de tildes/ortografía en castellano argentino (arrasó, definitiva, ABIERTO, prevé, táctico, localía, presión, palmarés, química, compañeros). Output JSONs regenerados. .exe recompilado. Push a master.|
 |2026-06-09|**Fix analysis fallback (33 partidos sin narrativa)**|`_build_recommendation()` retornaba `None` cuando ningún bloque condicional matcheaba → TypeError silencioso → análisis vacío. Se agregó fallback `PARTIDO DISPUTADO` para cubrir el 100% de los partidos. JSONs regenerados, .exe recompilado.|
 |2026-06-09|**Splash Screen + Firma en GUI**|`splash.py`: pantalla de carga con imagen de fondo (cover mode), barra verde 3D, 12 frases animadas. `bracket.py`: `progress_callback` en `run_full_simulation()`. `gui.py`: integración de splash, refactor para evitar doble simulación. `build_exe.bat`: `--add-data imput` + `--hidden-import splash`. Status bar con autor. Commit `04e6ad2`.|
+|2026-06-09|**Bloque P: Icono + version_info + --noupx**|`version_info.txt` con metadatos VSVersionInfo. `build_exe.bat`: `--noupx`, `--version-file`, `--icon`. .ico generado desde `2026-FIFA-Logo.png` vía PIL. Icono anterior (balón PIL) reemplazado. .exe recompilado con icono del Mundial 2026. Commit `6453c64`, push a master.|
