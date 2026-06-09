@@ -13,6 +13,7 @@ import math
 import os
 import random
 from prode_mundial.data import (get_team, get_venue, CITY_COORDS, BASE_CAMPS, haversine)
+from prode_mundial.friendlies_data import compute_friendly_form
 
 PLAYERS_FILE = os.path.join(os.path.dirname(__file__), "output", "players.json")
 _PLAYERS_CACHE = None
@@ -33,7 +34,8 @@ WEIGHTS = {
     "foreign_pct": 0.03,
     "travel_fatigue": 0.04,
     "history": 0.04,
-    "morale": 0.04,
+    "morale": 0.02,
+    "friendly_form": 0.02,
     "trophy_pedigree": 0.04,
     "odds": 0.03,
     "height_advantage": 0.03,
@@ -96,7 +98,7 @@ def calculate_team_strength_from_data(team_data):
 
 def calculate_player_stats_factor(team_a, team_b):
     """Diferencia de rendimiento individual (goles+asistencias) entre plantillas."""
-    from data import INJURED_OUT
+    from prode_mundial.data import INJURED_OUT
     players = _load_players()
     if not players:
         return 0
@@ -310,6 +312,12 @@ def calculate_morale(team_a, team_b, team_a_data=None, team_b_data=None):
     morale_b = team_b_data["form_streak"] * 15
     return morale_a - morale_b
 
+def calculate_friendly_form_factor(team_a, team_b):
+    """Diferencia de forma en amistosos recientes."""
+    fa = compute_friendly_form(team_a)
+    fb = compute_friendly_form(team_b)
+    return max(-10, min(10, fa - fb))
+
 def calculate_market_value_factor(team_a, team_b, team_a_data=None, team_b_data=None):
     """Diferencia de valor de plantilla (escala log)."""
     if team_a_data is None:
@@ -520,11 +528,12 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     height_diff = calculate_height_advantage(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["height_advantage"]
     chem_diff = calculate_club_chemistry(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["club_chemistry"]
     stakes_diff = calculate_stakes_factor(stakes_a, stakes_b) * WEIGHTS["stakes"]
+    friendly_diff = calculate_friendly_form_factor(team_a, team_b) * WEIGHTS["friendly_form"]
 
     total_diff = (strength_diff + mv_diff + ps_diff + odds_diff + home_diff + climate_diff +
                   travel_diff + history_diff + morale_diff + foreign_diff +
                   rest_diff + depth_diff + fatigue_diff +
-                  exp_diff + trophy_diff + height_diff + chem_diff + stakes_diff)
+                  exp_diff + trophy_diff + height_diff + chem_diff + stakes_diff + friendly_diff)
 
     deterministic_scaled = total_diff / 25
 
@@ -624,6 +633,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         "height_advantage": round(height_diff, 1),
         "club_chemistry": round(chem_diff, 1),
         "stakes": round(stakes_diff, 1),
+        "friendly_form": round(friendly_diff, 1),
         "stakes_a": stakes_a,
         "stakes_b": stakes_b,
     }
@@ -646,6 +656,11 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         "prob_a_win": round(prob_a_win * 100, 1),
         "prob_b_win": round(prob_b_win * 100, 1),
         "prob_draw": round(prob_draw * 100, 1),
+        "probabilities": {
+            "a_win": round(prob_a_win * 100, 1),
+            "draw":  round(prob_draw * 100, 1),
+            "b_win": round(prob_b_win * 100, 1),
+        },
         "confidence": round(confidence, 1),
         "fp_delta_a": fp_delta_a,
         "fp_delta_b": fp_delta_b,

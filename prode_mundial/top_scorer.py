@@ -2,7 +2,8 @@
 """Distribucion de goles a jugadores para calculo de top goleador."""
 
 import json, os, random, sys
-from prode_mundial.data import INJURED_OUT
+from prode_mundial.data import INJURED_OUT, PENALTY_TAKERS, TOP_SCORER_CANDIDATES, _TOP_LEAGUE_CLUBS
+from prode_mundial.friendlies_data import get_friendly_scorers
 
 _PLAYERS = None
 
@@ -33,6 +34,29 @@ def _position_weight(pos):
         return 0.0
     return 0.1
 
+def _league_boost(club_name):
+    """Factor de calidad de liga: solo premia ligas top (nunca penaliza)."""
+    if not club_name:
+        return 1.0
+    # Clean club name (remove loan suffixes like "<br>(on loan from ...)")
+    clean = club_name.split("<br")[0].split("(")[0].split("{")[0].strip()
+    if clean in _TOP_LEAGUE_CLUBS:
+        return 1.3
+    return 1.0
+
+def _penalty_boost(team_name, player_name):
+    """Factor por ser pateador de penales: #1=1.5, #2=1.2, #3=1.0."""
+    takers = PENALTY_TAKERS.get(team_name, [])
+    if not takers:
+        return 1.0
+    if player_name == takers[0]:
+        return 1.5
+    if len(takers) > 1 and player_name == takers[1]:
+        return 1.2
+    if len(takers) > 2 and player_name == takers[2]:
+        return 1.0
+    return 1.0
+
 def _build_team_weights(team_name):
     """Construye pesos individuales de goles para un equipo."""
     players = _load_players()
@@ -40,6 +64,7 @@ def _build_team_weights(team_name):
     if not squad:
         return []
     injured = INJURED_OUT.get(team_name, [])
+    friendly_scorers = get_friendly_scorers(team_name)
     weights = []
     for p in squad:
         name = p.get("name", "")
@@ -52,8 +77,28 @@ def _build_team_weights(team_name):
         pw = _position_weight(pos)
         if pw == 0 or mins < 450:
             continue
+        club = p.get("current_club") or p.get("club_name", "")
         goals_per_90 = (goals + assists * 0.3) / mins * 90
-        w = max(goals_per_90 * pw + 0.1, 0.01)
+        # Raw base from season stats
+        raw = goals_per_90 * pw
+        # League quality boost (solo premia top 5 ligas, nunca penaliza)
+        raw *= _league_boost(club)
+        # International experience boost (si hay datos)
+        intl_caps = p.get("intl_caps", 0) or 0
+        intl_goals = p.get("intl_goals", 0) or 0
+        if intl_caps > 5 and intl_goals > 0:
+            intl_ratio = intl_goals / max(intl_caps, 1)
+            raw *= (1 + intl_ratio * 0.3)
+        # Star candidate boost
+        raw *= TOP_SCORER_CANDIDATES.get(name, 1.0)
+        # Penalty taker boost
+        raw *= _penalty_boost(team_name, name)
+        # Exponential concentration (elimina piso +0.1)
+        w = max(raw ** 1.8, 0.001)
+        # Friendly goals boost (sube de 15% a 30%)
+        friendly_goals = friendly_scorers.get(name, 0)
+        if friendly_goals > 0:
+            w *= (1 + friendly_goals * 0.30)
         weights.append((name, w, pw, goals, mins, pos))
     total = sum(w for _, w, _, _, _, _ in weights) or 1
     weighted = [(n, w / total, pw, g, m, pos) for n, w, pw, g, m, pos in weights]

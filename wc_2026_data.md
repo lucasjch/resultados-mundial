@@ -4,6 +4,7 @@
 > All 48 teams have confirmed their 26-man squads (submitted June 1, published June 2)
 > Odds via DraftKings as of June 4, 2026
 > Prode model uses 18 factors + Dixon-Coles τ (ρ = −0.15) + 1500 sims deterministic average
+> FIXTURES corregidos desde ESPN (Jun 8) — 72 partidos con horarios oficiales en ART (UTC-3)
 
 ---
 

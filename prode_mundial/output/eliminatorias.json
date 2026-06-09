@@ -5,40 +5,42 @@
     "time": "",
     "venue": "Boston",
     "team_a": "Germany",
-    "team_b": "South Africa",
+    "team_b": "Czechia",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.91,
-    "expected_goals_b": 0.82,
+    "expected_goals_a": 1.92,
+    "expected_goals_b": 0.98,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 61.8,
-      "draw": 23.9,
-      "b_win": 14.3
+      "a_win": 58.6,
+      "draw": 25.1,
+      "b_win": 16.3
     },
-    "confidence": 61.8,
+    "confidence": 58.6,
     "factors": {
-      "strength": 0.7,
-      "market_value": 0.9,
-      "player_stats": 0.3,
+      "strength": 0.5,
+      "market_value": 0.7,
+      "player_stats": -0.1,
       "odds": 0.2,
       "home": 0.1,
-      "climate": -0.2,
-      "travel": 0.1,
-      "history": 0.4,
+      "climate": 0.0,
+      "travel": 0.0,
+      "history": 0.1,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "rest_days": -0.2,
-      "squad_depth": -0.0,
-      "travel_fatigue": -0.0,
-      "experience": -0.1,
-      "trophy_pedigree": 0.1,
+      "rest_days": 0.0,
+      "squad_depth": 0.0,
+      "travel_fatigue": 0.1,
+      "experience": 0.0,
+      "trophy_pedigree": 0.0,
       "height_advantage": 0.0,
       "club_chemistry": -0.0,
       "stakes": 0.0,
+      "friendly_form": 0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "FAVORITO CON CAUTELA - Ventaja solida pero no definitive\n\nGermany, conjunto europeo (ranking 10), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta bajo la manga es Antonio Rüdiger, con Joshua Kimmich como pateador de penales designado. Bajas importantes: Deniz Undav. Su historial mundialista: campeon 1954 1974 1990 2014.\n\nCzechia, escuadra europeo (ranking 39), llega con dudas y resultados pobres. Tuvo una buena preparacion en amistosos. Su carta de presentacion es David Zima, con Tomas Chory como encargado de los penales. Su mejor actuacion historica: final 1934 1962.\n\nSe espera un partido de ritmo moderado (xG total: 2.90). Germany tiene poderio ofensivo (2.4 goles/partido) y buscara imponer su juego ofensivo. Czechia tiene argumentos para lastimar (1.5 goles/partido). Germany se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Ganador esperado: Germany (59% de probabilidad) Empate posible (25%). Confianza del modelo: 59%."
   },
   {
     "round": "R32",
@@ -49,15 +51,15 @@
     "team_b": "Scotland",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.95,
-    "expected_goals_b": 0.93,
+    "expected_goals_a": 1.94,
+    "expected_goals_b": 0.94,
     "winner": "France",
     "probabilities": {
-      "a_win": 61.1,
-      "draw": 24.7,
-      "b_win": 14.2
+      "a_win": 59.5,
+      "draw": 24.6,
+      "b_win": 15.9
     },
-    "confidence": 61.1,
+    "confidence": 59.5,
     "factors": {
       "strength": 0.7,
       "market_value": 0.7,
@@ -71,15 +73,17 @@
       "foreign_pct": 0.0,
       "rest_days": -0.2,
       "squad_depth": 0.2,
-      "travel_fatigue": -0.0,
+      "travel_fatigue": 0.0,
       "experience": 0.0,
       "trophy_pedigree": 0.1,
       "height_advantage": 0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": -0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LOCAL SEGURO - Amplio favorito, resultado confiable\n\nFrance, conjunto europeo (ranking 2), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Malo Gusto, con Kylian Mbappe como pateador de penales designado. Bajas importantes: Hugo Ekitike. Su historial mundialista: campeon 1998 2018.\n\nScotland, escuadra europeo (ranking 43), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta de presentacion es Aaron Hickey, con Lyndon Dykes como encargado de los penales. Su mejor actuacion historica: fase grupos 1954 1958 1974 1978 1982 1986 1990 1998.\n\nSe espera un partido de ritmo moderado (xG total: 2.88). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego ofensivo. Scotland tiene argumentos para lastimar (1.4 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Ganador esperado: France (60% de probabilidad) Empate posible (25%). Confianza del modelo: 60%."
   },
   {
     "round": "R32",
@@ -90,15 +94,15 @@
     "team_b": "Canada",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.35,
-    "expected_goals_b": 1.35,
+    "expected_goals_a": 1.36,
+    "expected_goals_b": 1.34,
     "winner": "South Korea",
     "probabilities": {
-      "a_win": 36.2,
-      "draw": 28.5,
-      "b_win": 35.3
+      "a_win": 36.4,
+      "draw": 30.3,
+      "b_win": 33.3
     },
-    "confidence": 36.2,
+    "confidence": 36.4,
     "factors": {
       "strength": 0.1,
       "market_value": -0.0,
@@ -118,9 +122,11 @@
       "height_advantage": -0.0,
       "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": 0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nSouth Korea, conjunto asiatico (ranking 25), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Min-jae Kim, con Heung-min Son como pateador de penales designado. Su historial mundialista: semifinal 2002.\n\nCanada, escuadra norteamericano (ranking 30), llega con resultados irregulares pero aceptables. Cumplio en los amistosos sin brillar. Su carta de presentacion es Alistair Johnston, con Alphonso Davies como encargado de los penales. Su mejor actuacion historica: fase grupos 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.70). South Korea tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego ofensivo. Por su parte, Canada cuenta con un ataque peligroso (1.7 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (30%) o definicion por detalles. Riesgo de empate alto (30%). Cuidado al pronosticar. Confianza del modelo: 36%."
   },
   {
     "round": "R32",
@@ -132,14 +138,14 @@
     "score_a": 1,
     "score_b": 1,
     "expected_goals_a": 1.44,
-    "expected_goals_b": 1.2,
+    "expected_goals_b": 1.21,
     "winner": "Netherlands",
     "probabilities": {
-      "a_win": 40.9,
-      "draw": 29.1,
-      "b_win": 29.9
+      "a_win": 40.2,
+      "draw": 31.2,
+      "b_win": 28.6
     },
-    "confidence": 40.9,
+    "confidence": 40.2,
     "factors": {
       "strength": -0.0,
       "market_value": 0.0,
@@ -153,15 +159,17 @@
       "foreign_pct": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.0,
+      "travel_fatigue": 0.0,
       "experience": -0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": 0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": -0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nNetherlands, conjunto europeo (ranking 8), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Jurriën Timber, con Cody Gakpo como pateador de penales designado. Bajas importantes: Xavi Simons. Su historial mundialista: final 1974 1978 2010.\n\nMorocco, escuadra africano (ranking 7), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta de presentacion es Nayef Aguerd, con Ismael Saibari como encargado de los penales. Su mejor actuacion historica: semifinal 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.65). Netherlands tiene poderio ofensivo (2.0 goles/partido) y buscara imponer su juego ofensivo. Morocco tiene argumentos para lastimar (1.6 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (31%) o definicion por detalles. Riesgo de empate alto (31%). Cuidado al pronosticar. Confianza del modelo: 40%."
   },
   {
     "round": "R32",
@@ -172,15 +180,15 @@
     "team_b": "Croatia",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.41,
-    "expected_goals_b": 1.24,
+    "expected_goals_a": 1.42,
+    "expected_goals_b": 1.23,
     "winner": "Colombia",
     "probabilities": {
-      "a_win": 40.9,
-      "draw": 27.9,
-      "b_win": 31.1
+      "a_win": 38.9,
+      "draw": 29.9,
+      "b_win": 31.2
     },
-    "confidence": 40.9,
+    "confidence": 38.9,
     "factors": {
       "strength": -0.0,
       "market_value": 0.2,
@@ -200,9 +208,11 @@
       "height_advantage": -0.0,
       "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nColombia, conjunto sudamericano (ranking 13), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Daniel Muñoz, con Luis Diaz como pateador de penales designado. Su historial mundialista: cuartos 2014.\n\nCroatia, escuadra europeo (ranking 11), llega con resultados irregulares pero aceptables. Tuvo una preparacion preocupante en amistosos. Su carta de presentacion es Josip Stanišić, con Luka Modric como encargado de los penales. Su mejor actuacion historica: final 2018, semifinal 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.65). Colombia tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego ofensivo. Croatia tiene argumentos para lastimar (1.6 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (30%) o definicion por detalles. Riesgo de empate alto (30%). Cuidado al pronosticar. Confianza del modelo: 39%."
   },
   {
     "round": "R32",
@@ -213,15 +223,15 @@
     "team_b": "Austria",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.84,
+    "expected_goals_a": 1.83,
     "expected_goals_b": 0.98,
     "winner": "Spain",
     "probabilities": {
-      "a_win": 55.2,
-      "draw": 26.6,
-      "b_win": 18.2
+      "a_win": 56.8,
+      "draw": 25.9,
+      "b_win": 17.3
     },
-    "confidence": 55.2,
+    "confidence": 56.8,
     "factors": {
       "strength": 0.4,
       "market_value": 0.7,
@@ -233,7 +243,7 @@
       "history": 0.1,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "rest_days": 0.0,
+      "rest_days": 0.2,
       "squad_depth": -0.0,
       "travel_fatigue": 0.0,
       "experience": 0.6,
@@ -241,9 +251,11 @@
       "height_advantage": -0.0,
       "club_chemistry": 0.2,
       "stakes": 0.0,
+      "friendly_form": -0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "FAVORITO CON CAUTELA - Ventaja solida pero no definitive\n\nSpain, conjunto europeo (ranking 3), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Marc Pubill, con Mikel Oyarzabal como pateador de penales designado. Su historial mundialista: campeon 2010.\n\nAustria, escuadra europeo (ranking 23), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta de presentacion es David Affengruber, con Marko Arnautovic como encargado de los penales. Su mejor actuacion historica: semifinal 1954.\n\nSe espera un partido de ritmo moderado (xG total: 2.81). Spain tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego ofensivo. Austria tiene argumentos para lastimar (1.6 goles/partido). Spain se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Ganador esperado: Spain (57% de probabilidad) Empate posible (26%). Confianza del modelo: 57%."
   },
   {
     "round": "R32",
@@ -258,11 +270,11 @@
     "expected_goals_b": 1.05,
     "winner": "USA",
     "probabilities": {
-      "a_win": 55.1,
-      "draw": 25.4,
-      "b_win": 19.5
+      "a_win": 57.3,
+      "draw": 23.5,
+      "b_win": 19.1
     },
-    "confidence": 55.1,
+    "confidence": 57.3,
     "factors": {
       "strength": 0.7,
       "market_value": 0.6,
@@ -276,15 +288,17 @@
       "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.0,
+      "travel_fatigue": 0.0,
       "experience": 0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": -0.0,
       "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LOCAL SEGURO - Amplio favorito, resultado confiable\n\nUSA, conjunto norteamericano (ranking 16), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Sergino Dest, con Christian Pulisic como pateador de penales designado. Su historial mundialista: semifinal 1930.\n\nBosnia & Herzegovina, escuadra europeo (ranking 64), llega con dudas y resultados pobres. Disputo amistosos sin resultados destacados. Su carta de presentacion es Nihad Mujakić, con Ermedin Demirovic como encargado de los penales. Su mejor actuacion historica: fase grupos 2014.\n\nSe espera un partido de ritmo moderado (xG total: 2.90). USA tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego ofensivo. Bosnia & Herzegovina tiene argumentos para lastimar (1.4 goles/partido).\n\n--- VEREDICTO PRODE --- Ganador esperado: USA (57% de probabilidad) Empate posible (24%). Confianza del modelo: 57%."
   },
   {
     "round": "R32",
@@ -293,17 +307,17 @@
     "venue": "Seattle",
     "team_a": "Belgium",
     "team_b": "Ecuador",
-    "score_a": 2,
+    "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.51,
-    "expected_goals_b": 1.2,
-    "winner": "Belgium",
+    "expected_goals_a": 1.5,
+    "expected_goals_b": 1.21,
+    "winner": "Ecuador",
     "probabilities": {
-      "a_win": 43.5,
-      "draw": 27.1,
-      "b_win": 29.5
+      "a_win": 41.3,
+      "draw": 28.1,
+      "b_win": 30.6
     },
-    "confidence": 43.5,
+    "confidence": 41.3,
     "factors": {
       "strength": 0.2,
       "market_value": 0.6,
@@ -315,7 +329,7 @@
       "history": 0.2,
       "morale": 0.0,
       "foreign_pct": 0.0,
-      "rest_days": -0.2,
+      "rest_days": -0.4,
       "squad_depth": -0.0,
       "travel_fatigue": 0.1,
       "experience": 0.0,
@@ -323,9 +337,11 @@
       "height_advantage": 0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nBelgium, conjunto europeo (ranking 9), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Zeno Debast, con Romelu Lukaku como pateador de penales designado. Su historial mundialista: semifinal 2018.\n\nEcuador, escuadra sudamericano (ranking 24), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta de presentacion es Félix Torres, con Enner Valencia como encargado de los penales. Su mejor actuacion historica: octavos 2006 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.71). Belgium tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego ofensivo. Ecuador tiene argumentos para lastimar (1.6 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (28%) o definicion por detalles. Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 41%."
   },
   {
     "round": "R32",
@@ -333,40 +349,42 @@
     "time": "",
     "venue": "Houston",
     "team_a": "Brazil",
-    "team_b": "Sweden",
+    "team_b": "Japan",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.72,
-    "expected_goals_b": 1.2,
+    "expected_goals_a": 1.58,
+    "expected_goals_b": 1.18,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 50.3,
-      "draw": 26.6,
-      "b_win": 23.1
+      "a_win": 45.3,
+      "draw": 28.0,
+      "b_win": 26.7
     },
-    "confidence": 50.3,
+    "confidence": 45.3,
     "factors": {
-      "strength": 0.5,
-      "market_value": 0.6,
-      "player_stats": 0.3,
+      "strength": 0.2,
+      "market_value": 0.5,
+      "player_stats": 0.0,
       "odds": 0.3,
       "home": 0.1,
       "climate": 0.0,
-      "travel": -0.1,
-      "history": 0.1,
+      "travel": -0.0,
+      "history": 0.3,
       "morale": 0.0,
-      "foreign_pct": -0.0,
+      "foreign_pct": 0.1,
       "rest_days": 0.0,
       "squad_depth": -0.1,
-      "travel_fatigue": 0.1,
-      "experience": 0.0,
+      "travel_fatigue": -0.0,
+      "experience": -0.0,
       "trophy_pedigree": 0.0,
-      "height_advantage": -0.0,
+      "height_advantage": 0.0,
       "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": 0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nBrazil, conjunto sudamericano (ranking 6), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Wesley, con Neymar como pateador de penales designado. Bajas importantes: Rodrygo, Estevão. Su historial mundialista: campeon 1958 1962 1970 1994 2002.\n\nJapan, escuadra asiatico (ranking 18), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta de presentacion es Hiroki Ito, con Takefusa Kubo como encargado de los penales. Ausencias sensibles: Kaoru Mitoma. Su mejor actuacion historica: octavos 2002 2010 2018 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.76). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego ofensivo. Japan tiene argumentos para lastimar (1.7 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (28%) o definicion por detalles. Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 45%."
   },
   {
     "round": "R32",
@@ -377,15 +395,15 @@
     "team_b": "Norway",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.24,
-    "expected_goals_b": 1.56,
+    "expected_goals_a": 1.25,
+    "expected_goals_b": 1.54,
     "winner": "Norway",
     "probabilities": {
-      "a_win": 27.4,
-      "draw": 27.3,
-      "b_win": 45.3
+      "a_win": 30.3,
+      "draw": 28.3,
+      "b_win": 41.3
     },
-    "confidence": 45.3,
+    "confidence": 41.3,
     "factors": {
       "strength": -0.1,
       "market_value": 0.4,
@@ -397,17 +415,19 @@
       "history": -0.1,
       "morale": -0.0,
       "foreign_pct": -0.0,
-      "rest_days": 0.0,
+      "rest_days": 0.2,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.1,
+      "travel_fatigue": -0.0,
       "experience": -0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": -0.0,
       "club_chemistry": -0.1,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nIvory Coast, conjunto africano (ranking 33), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta bajo la manga es Ousmane Diomande, con Elye Wahi como pateador de penales designado. Su historial mundialista: fase grupos 2006 2010 2014 2022.\n\nNorway, escuadra europeo (ranking 31), llega con resultados irregulares pero aceptables. Cumplio en los amistosos sin brillar. Su carta de presentacion es Kristoffer Ajer, con Erling Haaland como encargado de los penales. Su mejor actuacion historica: octavos 1938 1998.\n\nSe espera un partido de ritmo moderado (xG total: 2.79). Ivory Coast tiene poderio ofensivo (1.5 goles/partido) y buscara imponer su juego ofensivo. Por su parte, Norway cuenta con un ataque peligroso (2.0 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (28%) o definicion por detalles. Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 41%."
   },
   {
     "round": "R32",
@@ -415,30 +435,30 @@
     "time": "",
     "venue": "Mexico City",
     "team_a": "Mexico",
-    "team_b": "Japan",
-    "score_a": 1,
+    "team_b": "Sweden",
+    "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.4,
-    "expected_goals_b": 1.25,
+    "expected_goals_a": 1.54,
+    "expected_goals_b": 1.27,
     "winner": "Mexico",
     "probabilities": {
-      "a_win": 38.3,
-      "draw": 31.7,
-      "b_win": 29.9
+      "a_win": 43.2,
+      "draw": 27.7,
+      "b_win": 29.1
     },
-    "confidence": 38.3,
+    "confidence": 43.2,
     "factors": {
-      "strength": -0.0,
-      "market_value": 0.1,
-      "player_stats": -0.1,
-      "odds": -0.0,
+      "strength": 0.2,
+      "market_value": 0.2,
+      "player_stats": 0.2,
+      "odds": 0.0,
       "home": 0.4,
-      "climate": 0.2,
-      "travel": 0.1,
-      "history": 0.1,
+      "climate": 0.3,
+      "travel": 0.0,
+      "history": -0.1,
       "morale": 0.0,
-      "foreign_pct": 0.0,
-      "rest_days": 0.2,
+      "foreign_pct": -0.0,
+      "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
       "experience": 0.0,
@@ -446,9 +466,11 @@
       "height_advantage": -0.0,
       "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nMexico, conjunto norteamericano (ranking 14), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Jorge Sánchez, con Raul Jimenez como pateador de penales designado. Su historial mundialista: cuartos 1986 1970.\n\nSweden, escuadra europeo (ranking 38), llega con resultados irregulares pero aceptables. Tuvo una preparacion preocupante en amistosos. Su carta de presentacion es Gustaf Lagerbielke, con Viktor Gyokeres como encargado de los penales. Ausencias sensibles: Dejan Kulusevski. Su mejor actuacion historica: final 1958.\n\nSe espera un partido de ritmo moderado (xG total: 2.81). Mexico tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego ofensivo. Sweden tiene argumentos para lastimar (1.8 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (28%) o definicion por detalles. Empate posible (28%). Confianza del modelo: 43%."
   },
   {
     "round": "R32",
@@ -463,11 +485,11 @@
     "expected_goals_b": 1.02,
     "winner": "England",
     "probabilities": {
-      "a_win": 52.9,
-      "draw": 27.3,
-      "b_win": 19.9
+      "a_win": 53.3,
+      "draw": 26.7,
+      "b_win": 20.0
     },
-    "confidence": 52.9,
+    "confidence": 53.3,
     "factors": {
       "strength": 0.3,
       "market_value": 0.0,
@@ -477,19 +499,21 @@
       "climate": 0.0,
       "travel": 0.0,
       "history": 0.2,
-      "morale": 0.1,
+      "morale": 0.0,
       "foreign_pct": 0.0,
       "rest_days": -0.2,
       "squad_depth": 0.0,
-      "travel_fatigue": 0.0,
+      "travel_fatigue": -0.0,
       "experience": -0.0,
       "trophy_pedigree": 0.1,
       "height_advantage": 0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nEngland, conjunto europeo (ranking 4), llega con solidez y buenos resultados. Tuvo una buena preparacion en amistosos. Su carta bajo la manga es Ezri Konsa, con Harry Kane como pateador de penales designado. Bajas importantes: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire. Su historial mundialista: campeon 1966.\n\nSenegal, escuadra africano (ranking 15), llega con resultados irregulares pero aceptables. Tuvo una preparacion preocupante en amistosos. Su carta de presentacion es Mamadou Sarr, con Sadio Mane como encargado de los penales. Su mejor actuacion historica: cuartos 2002.\n\nSe espera un partido de ritmo moderado (xG total: 2.74). England tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego ofensivo. Senegal tiene argumentos para lastimar (1.5 goles/partido). England se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Ganador esperado: England (53% de probabilidad) Empate posible (27%). Confianza del modelo: 53%."
   },
   {
     "round": "R32",
@@ -504,11 +528,11 @@
     "expected_goals_b": 1.13,
     "winner": "Argentina",
     "probabilities": {
-      "a_win": 47.1,
-      "draw": 26.7,
-      "b_win": 26.1
+      "a_win": 47.5,
+      "draw": 26.3,
+      "b_win": 26.2
     },
-    "confidence": 47.1,
+    "confidence": 47.5,
     "factors": {
       "strength": 0.3,
       "market_value": 0.4,
@@ -520,17 +544,19 @@
       "history": 0.0,
       "morale": 0.1,
       "foreign_pct": 0.0,
-      "rest_days": 0.0,
+      "rest_days": -0.2,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.0,
+      "travel_fatigue": 0.0,
       "experience": 0.0,
       "trophy_pedigree": 0.0,
       "height_advantage": -0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nArgentina, conjunto sudamericano (ranking 1), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta bajo la manga es Leonardo Balerdi, con Lionel Messi como pateador de penales designado. Su historial mundialista: campeon 1978 1986 2022.\n\nUruguay, escuadra sudamericano (ranking 17), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta de presentacion es José María Giménez, con Darwin Nunez como encargado de los penales. Su mejor actuacion historica: campeon 1930 1950.\n\nSe espera un partido de ritmo moderado (xG total: 2.71). Argentina tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego ofensivo. Uruguay tiene argumentos para lastimar (1.8 goles/partido). Argentina se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (26%) o definicion por detalles. Empate posible (26%). Confianza del modelo: 48%."
   },
   {
     "round": "R32",
@@ -538,40 +564,42 @@
     "time": "",
     "venue": "Dallas",
     "team_a": "Turkey",
-    "team_b": "Egypt",
+    "team_b": "Iran",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.47,
-    "expected_goals_b": 1.28,
+    "expected_goals_a": 1.58,
+    "expected_goals_b": 1.18,
     "winner": "Turkey",
     "probabilities": {
-      "a_win": 40.5,
-      "draw": 28.3,
-      "b_win": 31.2
+      "a_win": 45.3,
+      "draw": 27.3,
+      "b_win": 27.5
     },
-    "confidence": 40.5,
+    "confidence": 45.3,
     "factors": {
-      "strength": 0.1,
-      "market_value": 0.2,
+      "strength": 0.0,
+      "market_value": 0.4,
       "player_stats": 0.2,
       "odds": 0.0,
       "home": 0.0,
       "climate": 0.0,
       "travel": 0.0,
-      "history": 0.2,
-      "morale": -0.0,
-      "foreign_pct": 0.0,
-      "rest_days": 0.2,
-      "squad_depth": 0.0,
-      "travel_fatigue": -0.0,
-      "experience": 0.0,
+      "history": 0.3,
+      "morale": 0.0,
+      "foreign_pct": 0.1,
+      "rest_days": 0.4,
+      "squad_depth": -0.1,
+      "travel_fatigue": 0.0,
+      "experience": -0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": 0.0,
-      "club_chemistry": 0.2,
+      "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nTurkey, conjunto europeo (ranking 22), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Zeki Celik, con Hakan Calhanoglu como pateador de penales designado. Su historial mundialista: semifinal 2002.\n\nIran, escuadra asiatico (ranking 20), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta de presentacion es Hossein Kanaani, con Mehdi Taremi como encargado de los penales. Ausencias sensibles: Sardar Azmoun. Su mejor actuacion historica: fase grupos 1978 1998 2006 2014 2018 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.76). Turkey tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego ofensivo. Iran tiene argumentos para lastimar (1.4 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (27%) o definicion por detalles. Empate posible (27%). Confianza del modelo: 45%."
   },
   {
     "round": "R32",
@@ -579,40 +607,42 @@
     "time": "",
     "venue": "Vancouver",
     "team_a": "Switzerland",
-    "team_b": "Iran",
+    "team_b": "Egypt",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.48,
-    "expected_goals_b": 1.17,
-    "winner": "Iran",
+    "expected_goals_a": 1.4,
+    "expected_goals_b": 1.25,
+    "winner": "Egypt",
     "probabilities": {
-      "a_win": 40.9,
-      "draw": 30.5,
-      "b_win": 28.7
+      "a_win": 38.9,
+      "draw": 30.4,
+      "b_win": 30.7
     },
-    "confidence": 40.9,
+    "confidence": 38.9,
     "factors": {
-      "strength": 0.1,
-      "market_value": 0.4,
-      "player_stats": -0.0,
+      "strength": 0.2,
+      "market_value": 0.3,
+      "player_stats": 0.0,
       "odds": 0.0,
       "home": 0.0,
       "climate": 0.0,
-      "travel": 0.0,
+      "travel": -0.0,
       "history": 0.1,
-      "morale": 0.0,
-      "foreign_pct": 0.1,
-      "rest_days": 0.2,
-      "squad_depth": -0.0,
-      "travel_fatigue": -0.1,
-      "experience": -0.0,
+      "morale": -0.0,
+      "foreign_pct": 0.0,
+      "rest_days": 0.4,
+      "squad_depth": 0.0,
+      "travel_fatigue": -0.0,
+      "experience": 0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": 0.0,
-      "club_chemistry": -0.2,
+      "club_chemistry": -0.1,
       "stakes": 0.0,
+      "friendly_form": 0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nSwitzerland, conjunto europeo (ranking 19), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta bajo la manga es Miro Muheim, con Breel Embolo como pateador de penales designado. Su historial mundialista: cuartos 1934 1938 1954.\n\nEgypt, escuadra africano (ranking 29), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta de presentacion es Hossam Abdelmaguid, con Mohamed Salah como encargado de los penales. Su mejor actuacion historica: octavos 1934.\n\nSe espera un partido de ritmo moderado (xG total: 2.65). Switzerland tiene poderio ofensivo (1.7 goles/partido) y buscara imponer su juego ofensivo. Egypt tiene argumentos para lastimar (1.6 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (30%) o definicion por detalles. Riesgo de empate alto (30%). Cuidado al pronosticar. Confianza del modelo: 39%."
   },
   {
     "round": "R32",
@@ -627,11 +657,11 @@
     "expected_goals_b": 1.05,
     "winner": "Portugal",
     "probabilities": {
-      "a_win": 52.9,
-      "draw": 28.0,
-      "b_win": 19.1
+      "a_win": 52.8,
+      "draw": 28.3,
+      "b_win": 18.9
     },
-    "confidence": 52.9,
+    "confidence": 52.8,
     "factors": {
       "strength": 0.4,
       "market_value": 0.5,
@@ -641,19 +671,21 @@
       "climate": -0.1,
       "travel": -0.1,
       "history": 0.2,
-      "morale": 0.1,
+      "morale": 0.0,
       "foreign_pct": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.0,
+      "travel_fatigue": 0.0,
       "experience": 0.6,
       "trophy_pedigree": 0.1,
       "height_advantage": 0.0,
       "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nPortugal, conjunto europeo (ranking 5), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta bajo la manga es Nelson Semedo, con Cristiano Ronaldo como pateador de penales designado. Su historial mundialista: semifinal 1966 2006.\n\nAlgeria, escuadra africano (ranking 28), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta de presentacion es Ramy Bensebaini, con Riyad Mahrez como encargado de los penales. Su mejor actuacion historica: octavos 2014.\n\nSe espera un partido de ritmo moderado (xG total: 2.79). Portugal tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego ofensivo. Algeria tiene argumentos para lastimar (1.5 goles/partido).\n\n--- VEREDICTO PRODE --- Ganador esperado: Portugal (53% de probabilidad) Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 53%."
   },
   {
     "round": "R16",
@@ -668,11 +700,11 @@
     "expected_goals_b": 1.67,
     "winner": "Brazil",
     "probabilities": {
-      "a_win": 23.1,
-      "draw": 27.9,
-      "b_win": 49.1
+      "a_win": 22.7,
+      "draw": 29.2,
+      "b_win": 48.1
     },
-    "confidence": 49.1,
+    "confidence": 48.1,
     "factors": {
       "strength": -0.3,
       "market_value": -0.7,
@@ -692,9 +724,11 @@
       "height_advantage": -0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO VISITANTE - Partido parejo\n\nSouth Korea, conjunto asiatico (ranking 25), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Min-jae Kim, con Heung-min Son como pateador de penales designado. Su historial mundialista: semifinal 2002.\n\nBrazil, escuadra sudamericano (ranking 6), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta de presentacion es Wesley, con Neymar como encargado de los penales. Ausencias sensibles: Rodrygo, Estevão. Su mejor actuacion historica: campeon 1958 1962 1970 1994 2002.\n\nSe espera un partido de ritmo moderado (xG total: 2.78). South Korea tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego ofensivo. Por su parte, Brazil cuenta con un ataque peligroso (2.1 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (29%) o definicion por detalles. Riesgo de empate alto (29%). Cuidado al pronosticar. Confianza del modelo: 48%."
   },
   {
     "round": "R16",
@@ -705,15 +739,15 @@
     "team_b": "Netherlands",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.63,
-    "expected_goals_b": 1.28,
+    "expected_goals_a": 1.64,
+    "expected_goals_b": 1.27,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 43.1,
-      "draw": 27.3,
-      "b_win": 29.6
+      "a_win": 47.3,
+      "draw": 23.9,
+      "b_win": 28.7
     },
-    "confidence": 43.1,
+    "confidence": 47.3,
     "factors": {
       "strength": 0.0,
       "market_value": 0.0,
@@ -733,9 +767,11 @@
       "height_advantage": 0.0,
       "club_chemistry": 0.2,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nGermany, conjunto europeo (ranking 10), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta bajo la manga es Antonio Rüdiger, con Joshua Kimmich como pateador de penales designado. Bajas importantes: Deniz Undav. Su historial mundialista: campeon 1954 1974 1990 2014.\n\nNetherlands, escuadra europeo (ranking 8), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta de presentacion es Jurriën Timber, con Cody Gakpo como encargado de los penales. Ausencias sensibles: Xavi Simons. Su mejor actuacion historica: final 1974 1978 2010.\n\nSe espera un partido de ritmo moderado (xG total: 2.91). Germany tiene poderio ofensivo (2.4 goles/partido) y buscara imponer su juego ofensivo. Netherlands tiene argumentos para lastimar (2.0 goles/partido). Germany se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (24%) o definicion por detalles. Empate posible (24%). Confianza del modelo: 47%."
   },
   {
     "round": "R16",
@@ -750,11 +786,11 @@
     "expected_goals_b": 1.24,
     "winner": "France",
     "probabilities": {
-      "a_win": 49.5,
-      "draw": 26.6,
-      "b_win": 23.9
+      "a_win": 45.7,
+      "draw": 25.3,
+      "b_win": 28.9
     },
-    "confidence": 49.5,
+    "confidence": 45.7,
     "factors": {
       "strength": 0.5,
       "market_value": 0.4,
@@ -764,19 +800,21 @@
       "climate": 0.0,
       "travel": 0.0,
       "history": 0.3,
-      "morale": 0.1,
+      "morale": 0.0,
       "foreign_pct": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.0,
+      "travel_fatigue": 0.1,
       "experience": 0.0,
       "trophy_pedigree": 0.1,
       "height_advantage": -0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": -0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nFrance, conjunto europeo (ranking 2), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Malo Gusto, con Kylian Mbappe como pateador de penales designado. Bajas importantes: Hugo Ekitike. Su historial mundialista: campeon 1998 2018.\n\nNorway, escuadra europeo (ranking 31), llega con resultados irregulares pero aceptables. Cumplio en los amistosos sin brillar. Su carta de presentacion es Kristoffer Ajer, con Erling Haaland como encargado de los penales. Su mejor actuacion historica: octavos 1938 1998.\n\nSe espera un partido de ritmo moderado (xG total: 3.02). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego ofensivo. Norway tiene argumentos para lastimar (2.0 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (25%) o definicion por detalles. Empate posible (25%). Confianza del modelo: 46%."
   },
   {
     "round": "R16",
@@ -787,15 +825,15 @@
     "team_b": "England",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.18,
-    "expected_goals_b": 1.64,
+    "expected_goals_a": 1.19,
+    "expected_goals_b": 1.63,
     "winner": "England",
     "probabilities": {
-      "a_win": 25.9,
-      "draw": 27.9,
-      "b_win": 46.2
+      "a_win": 23.5,
+      "draw": 29.1,
+      "b_win": 47.3
     },
-    "confidence": 46.2,
+    "confidence": 47.3,
     "factors": {
       "strength": -0.3,
       "market_value": -0.4,
@@ -805,19 +843,21 @@
       "climate": 0.3,
       "travel": 0.1,
       "history": -0.2,
-      "morale": -0.1,
+      "morale": -0.0,
       "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": -0.0,
-      "travel_fatigue": 0.0,
+      "travel_fatigue": 0.1,
       "experience": 0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": -0.0,
       "club_chemistry": -0.1,
       "stakes": 0.0,
+      "friendly_form": 0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO VISITANTE - Partido parejo\n\nMexico, conjunto norteamericano (ranking 14), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Jorge Sánchez, con Raul Jimenez como pateador de penales designado. Su historial mundialista: cuartos 1986 1970.\n\nEngland, escuadra europeo (ranking 4), llega con solidez y buenos resultados. Tuvo una buena preparacion en amistosos. Su carta de presentacion es Ezri Konsa, con Harry Kane como encargado de los penales. Ausencias sensibles: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire. Su mejor actuacion historica: campeon 1966.\n\nSe espera un partido de ritmo moderado (xG total: 2.82). Mexico tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego ofensivo. Por su parte, England cuenta con un ataque peligroso (2.2 goles/partido). England cuenta con una defensa solida (0.7 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (29%) o definicion por detalles. Riesgo de empate alto (29%). Cuidado al pronosticar. Confianza del modelo: 47%."
   },
   {
     "round": "R16",
@@ -825,40 +865,42 @@
     "time": "",
     "venue": "Dallas",
     "team_a": "USA",
-    "team_b": "Belgium",
-    "score_a": 1,
+    "team_b": "Ecuador",
+    "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.4,
-    "expected_goals_b": 1.4,
-    "winner": "Belgium",
+    "expected_goals_a": 1.51,
+    "expected_goals_b": 1.2,
+    "winner": "USA",
     "probabilities": {
-      "a_win": 34.1,
-      "draw": 27.8,
-      "b_win": 38.1
+      "a_win": 44.1,
+      "draw": 27.3,
+      "b_win": 28.6
     },
-    "confidence": 38.1,
+    "confidence": 44.1,
     "factors": {
-      "strength": -0.1,
-      "market_value": -0.3,
+      "strength": 0.2,
+      "market_value": 0.3,
       "player_stats": 0.2,
-      "odds": -0.0,
-      "home": 0.3,
+      "odds": 0.0,
+      "home": 0.2,
       "climate": 0.0,
-      "travel": 0.0,
-      "history": 0.0,
+      "travel": -0.0,
+      "history": 0.2,
       "morale": 0.0,
       "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.1,
-      "experience": -0.0,
-      "trophy_pedigree": -0.1,
-      "height_advantage": -0.0,
-      "club_chemistry": -0.1,
+      "travel_fatigue": 0.1,
+      "experience": 0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": -0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nUSA, conjunto norteamericano (ranking 16), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Sergino Dest, con Christian Pulisic como pateador de penales designado. Su historial mundialista: semifinal 1930.\n\nEcuador, escuadra sudamericano (ranking 24), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta de presentacion es Félix Torres, con Enner Valencia como encargado de los penales. Su mejor actuacion historica: octavos 2006 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.71). USA tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego ofensivo. Ecuador tiene argumentos para lastimar (1.6 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (27%) o definicion por detalles. Empate posible (27%). Confianza del modelo: 44%."
   },
   {
     "round": "R16",
@@ -869,15 +911,15 @@
     "team_b": "Spain",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.11,
-    "expected_goals_b": 1.67,
+    "expected_goals_a": 1.12,
+    "expected_goals_b": 1.66,
     "winner": "Spain",
     "probabilities": {
-      "a_win": 24.9,
-      "draw": 26.6,
-      "b_win": 48.5
+      "a_win": 25.0,
+      "draw": 28.9,
+      "b_win": 46.1
     },
-    "confidence": 48.5,
+    "confidence": 46.1,
     "factors": {
       "strength": -0.2,
       "market_value": -0.2,
@@ -887,60 +929,64 @@
       "climate": 0.0,
       "travel": -0.0,
       "history": -0.2,
-      "morale": -0.1,
+      "morale": -0.0,
       "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": -0.0,
-      "travel_fatigue": 0.0,
+      "travel_fatigue": -0.0,
       "experience": -0.6,
       "trophy_pedigree": -0.0,
       "height_advantage": -0.0,
       "club_chemistry": -0.2,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO VISITANTE - Partido parejo\n\nColombia, conjunto sudamericano (ranking 13), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Daniel Muñoz, con Luis Diaz como pateador de penales designado. Su historial mundialista: cuartos 2014.\n\nSpain, escuadra europeo (ranking 3), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta de presentacion es Marc Pubill, con Mikel Oyarzabal como encargado de los penales. Su mejor actuacion historica: campeon 2010.\n\nSe espera un partido de ritmo moderado (xG total: 2.78). Colombia tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego ofensivo. Por su parte, Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (29%) o definicion por detalles. Riesgo de empate alto (29%). Cuidado al pronosticar. Confianza del modelo: 46%."
   },
   {
     "round": "R16",
     "date": "",
     "time": "",
     "venue": "Atlanta",
-    "team_a": "Iran",
+    "team_a": "Egypt",
     "team_b": "Argentina",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 0.89,
-    "expected_goals_b": 1.83,
+    "expected_goals_a": 0.97,
+    "expected_goals_b": 1.73,
     "winner": "Argentina",
     "probabilities": {
-      "a_win": 18.3,
-      "draw": 23.5,
-      "b_win": 58.2
+      "a_win": 19.9,
+      "draw": 28.3,
+      "b_win": 51.7
     },
-    "confidence": 58.2,
+    "confidence": 51.7,
     "factors": {
-      "strength": -0.5,
-      "market_value": -0.9,
+      "strength": -0.6,
+      "market_value": -0.8,
       "player_stats": -0.4,
       "odds": -0.3,
       "home": -0.1,
       "climate": 0.0,
       "travel": -0.1,
-      "history": -0.4,
+      "history": -0.3,
       "morale": -0.1,
-      "foreign_pct": -0.1,
+      "foreign_pct": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.0,
-      "travel_fatigue": 0.0,
-      "experience": 0.0,
+      "squad_depth": -0.1,
+      "travel_fatigue": -0.0,
+      "experience": -0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": 0.0,
-      "club_chemistry": 0.1,
+      "club_chemistry": -0.0,
       "stakes": 0.0,
+      "friendly_form": -0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO VISITANTE - Partido parejo\n\nEgypt, conjunto africano (ranking 29), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Hossam Abdelmaguid, con Mohamed Salah como pateador de penales designado. Su historial mundialista: octavos 1934.\n\nArgentina, escuadra sudamericano (ranking 1), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta de presentacion es Leonardo Balerdi, con Lionel Messi como encargado de los penales. Su mejor actuacion historica: campeon 1978 1986 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.70). Egypt tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego ofensivo. Por su parte, Argentina cuenta con un ataque peligroso (2.1 goles/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Ganador esperado: Argentina (52% de probabilidad) Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 52%."
   },
   {
     "round": "R16",
@@ -951,15 +997,15 @@
     "team_b": "Turkey",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.72,
-    "expected_goals_b": 1.2,
+    "expected_goals_a": 1.71,
+    "expected_goals_b": 1.21,
     "winner": "Portugal",
     "probabilities": {
-      "a_win": 46.1,
-      "draw": 29.3,
-      "b_win": 24.6
+      "a_win": 48.6,
+      "draw": 28.2,
+      "b_win": 23.2
     },
-    "confidence": 46.1,
+    "confidence": 48.6,
     "factors": {
       "strength": 0.3,
       "market_value": 0.5,
@@ -973,15 +1019,17 @@
       "foreign_pct": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.1,
-      "travel_fatigue": 0.1,
+      "travel_fatigue": 0.0,
       "experience": 0.6,
       "trophy_pedigree": 0.1,
       "height_advantage": -0.0,
       "club_chemistry": -0.2,
       "stakes": 0.0,
+      "friendly_form": -0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima\n\nPortugal, conjunto europeo (ranking 5), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta bajo la manga es Nelson Semedo, con Cristiano Ronaldo como pateador de penales designado. Su historial mundialista: semifinal 1966 2006.\n\nTurkey, escuadra europeo (ranking 22), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta de presentacion es Zeki Celik, con Hakan Calhanoglu como encargado de los penales. Su mejor actuacion historica: semifinal 2002.\n\nSe espera un partido de ritmo moderado (xG total: 2.92). Portugal tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego ofensivo. Turkey tiene argumentos para lastimar (1.8 goles/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (28%) o definicion por detalles. Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 49%."
   },
   {
     "round": "QF",
@@ -996,11 +1044,11 @@
     "expected_goals_b": 1.59,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 33.0,
-      "draw": 29.2,
-      "b_win": 37.8
+      "a_win": 29.1,
+      "draw": 28.0,
+      "b_win": 42.9
     },
-    "confidence": 37.8,
+    "confidence": 42.9,
     "factors": {
       "strength": 0.0,
       "market_value": 0.0,
@@ -1014,15 +1062,17 @@
       "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": -0.1,
-      "travel_fatigue": 0.1,
+      "travel_fatigue": 0.0,
       "experience": -0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": -0.0,
       "club_chemistry": -0.2,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nBrazil, conjunto sudamericano (ranking 6), llega con resultados irregulares pero aceptables. Arraso en los amistosos de preparacion. Su carta bajo la manga es Wesley, con Neymar como pateador de penales designado. Bajas importantes: Rodrygo, Estevão. Su historial mundialista: campeon 1958 1962 1970 1994 2002.\n\nGermany, escuadra europeo (ranking 10), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta de presentacion es Antonio Rüdiger, con Joshua Kimmich como encargado de los penales. Ausencias sensibles: Deniz Undav. Su mejor actuacion historica: campeon 1954 1974 1990 2014.\n\nSe espera un partido de ritmo moderado (xG total: 2.95). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego ofensivo. Por su parte, Germany cuenta con un ataque peligroso (2.4 goles/partido). Germany cuenta con una defensa solida (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (28%) o definicion por detalles. Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 43%."
   },
   {
     "round": "QF",
@@ -1031,17 +1081,17 @@
     "venue": "Atlanta",
     "team_a": "France",
     "team_b": "England",
-    "score_a": 1,
+    "score_a": 2,
     "score_b": 1,
     "expected_goals_a": 1.49,
     "expected_goals_b": 1.46,
-    "winner": "England",
+    "winner": "France",
     "probabilities": {
-      "a_win": 35.8,
-      "draw": 28.0,
-      "b_win": 36.2
+      "a_win": 37.1,
+      "draw": 27.3,
+      "b_win": 35.7
     },
-    "confidence": 36.2,
+    "confidence": 37.1,
     "factors": {
       "strength": 0.0,
       "market_value": 0.0,
@@ -1055,22 +1105,24 @@
       "foreign_pct": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": -0.0,
+      "travel_fatigue": 0.1,
       "experience": 0.0,
       "trophy_pedigree": -0.0,
       "height_advantage": -0.0,
       "club_chemistry": -0.0,
       "stakes": 0.0,
+      "friendly_form": -0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "PARTIDO ABAJERTO - Cualquier resultado es posible\n\nFrance, conjunto europeo (ranking 2), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Malo Gusto, con Kylian Mbappe como pateador de penales designado. Bajas importantes: Hugo Ekitike. Su historial mundialista: campeon 1998 2018.\n\nEngland, escuadra europeo (ranking 4), llega con solidez y buenos resultados. Tuvo una buena preparacion en amistosos. Su carta de presentacion es Ezri Konsa, con Harry Kane como encargado de los penales. Ausencias sensibles: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire. Su mejor actuacion historica: campeon 1966.\n\nSe espera un partido de ritmo moderado (xG total: 2.95). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego ofensivo. England tiene argumentos para lastimar (2.2 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido). England cuenta con una defensa solida (0.7 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (27%) o definicion por detalles. Empate posible (27%). Confianza del modelo: 37%."
   },
   {
     "round": "QF",
     "date": "",
     "time": "",
     "venue": "Miami",
-    "team_a": "Belgium",
+    "team_a": "USA",
     "team_b": "Spain",
     "score_a": 1,
     "score_b": 2,
@@ -1079,32 +1131,34 @@
     "winner": "Spain",
     "probabilities": {
       "a_win": 24.6,
-      "draw": 27.2,
-      "b_win": 48.2
+      "draw": 28.3,
+      "b_win": 47.1
     },
-    "confidence": 48.2,
+    "confidence": 47.1,
     "factors": {
-      "strength": -0.2,
-      "market_value": -0.0,
-      "player_stats": -0.2,
+      "strength": -0.3,
+      "market_value": -0.3,
+      "player_stats": -0.1,
       "odds": -0.3,
-      "home": -0.0,
+      "home": 0.3,
       "climate": -0.1,
       "travel": -0.1,
       "history": -0.1,
-      "morale": -0.1,
-      "foreign_pct": 0.0,
+      "morale": -0.0,
+      "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": 0.1,
+      "travel_fatigue": 0.0,
       "experience": -0.6,
-      "trophy_pedigree": -0.0,
+      "trophy_pedigree": -0.1,
       "height_advantage": 0.0,
-      "club_chemistry": -0.1,
+      "club_chemistry": -0.2,
       "stakes": 0.0,
+      "friendly_form": 0.0,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "LIGERO FAVORITO VISITANTE - Partido parejo\n\nUSA, conjunto norteamericano (ranking 16), llega con resultados irregulares pero aceptables. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Sergino Dest, con Christian Pulisic como pateador de penales designado. Su historial mundialista: semifinal 1930.\n\nSpain, escuadra europeo (ranking 3), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta de presentacion es Marc Pubill, con Mikel Oyarzabal como encargado de los penales. Su mejor actuacion historica: campeon 2010.\n\nSe espera un partido de ritmo moderado (xG total: 2.82). USA tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego ofensivo. Por su parte, Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (28%) o definicion por detalles. Riesgo de empate alto (28%). Cuidado al pronosticar. Confianza del modelo: 47%."
   },
   {
     "round": "QF",
@@ -1119,11 +1173,11 @@
     "expected_goals_b": 1.36,
     "winner": "Argentina",
     "probabilities": {
-      "a_win": 36.3,
-      "draw": 29.8,
-      "b_win": 33.9
+      "a_win": 40.0,
+      "draw": 27.3,
+      "b_win": 32.7
     },
-    "confidence": 36.3,
+    "confidence": 40.0,
     "factors": {
       "strength": 0.1,
       "market_value": 0.0,
@@ -1133,19 +1187,21 @@
       "climate": 0.0,
       "travel": -0.0,
       "history": 0.1,
-      "morale": 0.1,
+      "morale": 0.0,
       "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": 0.0,
+      "travel_fatigue": 0.1,
       "experience": -0.5,
       "trophy_pedigree": -0.0,
       "height_advantage": -0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": 0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nArgentina, conjunto sudamericano (ranking 1), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta bajo la manga es Leonardo Balerdi, con Lionel Messi como pateador de penales designado. Su historial mundialista: campeon 1978 1986 2022.\n\nPortugal, escuadra europeo (ranking 5), llega con resultados irregulares pero aceptables. Tuvo una buena preparacion en amistosos. Su carta de presentacion es Nelson Semedo, con Cristiano Ronaldo como encargado de los penales. Su mejor actuacion historica: semifinal 1966 2006.\n\nSe espera un partido de ritmo moderado (xG total: 2.80). Argentina tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego ofensivo. Portugal tiene argumentos para lastimar (2.1 goles/partido). Argentina se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (27%) o definicion por detalles. Empate posible (27%). Confianza del modelo: 40%."
   },
   {
     "round": "SF",
@@ -1153,26 +1209,26 @@
     "time": "",
     "venue": "Dallas",
     "team_a": "Germany",
-    "team_b": "England",
+    "team_b": "France",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.49,
-    "expected_goals_b": 1.45,
+    "expected_goals_a": 1.51,
+    "expected_goals_b": 1.49,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 38.1,
-      "draw": 28.5,
-      "b_win": 33.3
+      "a_win": 37.0,
+      "draw": 28.6,
+      "b_win": 34.4
     },
-    "confidence": 38.1,
+    "confidence": 37.0,
     "factors": {
       "strength": -0.1,
       "market_value": 0.0,
-      "player_stats": -0.6,
-      "odds": -0.2,
-      "home": 0.0,
+      "player_stats": -0.4,
+      "odds": -0.3,
+      "home": 0.1,
       "climate": 0.0,
-      "travel": -0.0,
+      "travel": 0.0,
       "history": 0.0,
       "morale": -0.0,
       "foreign_pct": 0.0,
@@ -1184,9 +1240,11 @@
       "height_advantage": 0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nGermany, conjunto europeo (ranking 10), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta bajo la manga es Antonio Rüdiger, con Joshua Kimmich como pateador de penales designado. Bajas importantes: Deniz Undav. Su historial mundialista: campeon 1954 1974 1990 2014.\n\nFrance, escuadra europeo (ranking 2), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta de presentacion es Malo Gusto, con Kylian Mbappe como encargado de los penales. Ausencias sensibles: Hugo Ekitike. Su mejor actuacion historica: campeon 1998 2018.\n\nSe espera un partido de ritmo moderado (xG total: 3.00). Germany tiene poderio ofensivo (2.4 goles/partido) y buscara imponer su juego ofensivo. France tiene argumentos para lastimar (2.3 goles/partido). Germany se destaca por su solidez defensiva (0.6 goles recibidos/partido). France cuenta con una defensa solida (0.7 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (29%) o definicion por detalles. Riesgo de empate alto (29%). Cuidado al pronosticar. Confianza del modelo: 37%."
   },
   {
     "round": "SF",
@@ -1197,15 +1255,15 @@
     "team_b": "Argentina",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.44,
-    "expected_goals_b": 1.31,
-    "winner": "Argentina",
+    "expected_goals_a": 1.43,
+    "expected_goals_b": 1.32,
+    "winner": "Spain",
     "probabilities": {
-      "a_win": 38.7,
-      "draw": 28.6,
-      "b_win": 32.7
+      "a_win": 37.3,
+      "draw": 30.5,
+      "b_win": 32.3
     },
-    "confidence": 38.7,
+    "confidence": 37.3,
     "factors": {
       "strength": -0.0,
       "market_value": 0.0,
@@ -1225,50 +1283,54 @@
       "height_advantage": 0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
+      "friendly_form": -0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nSpain, conjunto europeo (ranking 3), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Marc Pubill, con Mikel Oyarzabal como pateador de penales designado. Su historial mundialista: campeon 2010.\n\nArgentina, escuadra sudamericano (ranking 1), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta de presentacion es Leonardo Balerdi, con Lionel Messi como encargado de los penales. Su mejor actuacion historica: campeon 1978 1986 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.75). Spain tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego ofensivo. Argentina tiene argumentos para lastimar (2.1 goles/partido). Spain se destaca por su solidez defensiva (0.6 goles recibidos/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (30%) o definicion por detalles. Riesgo de empate alto (30%). Cuidado al pronosticar. Confianza del modelo: 37%."
   },
   {
     "round": "3°",
     "date": "",
     "time": "",
     "venue": "Miami",
-    "team_a": "England",
-    "team_b": "Spain",
+    "team_a": "France",
+    "team_b": "Argentina",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.38,
-    "expected_goals_b": 1.47,
-    "winner": "England",
+    "expected_goals_a": 1.46,
+    "expected_goals_b": 1.39,
+    "winner": "Argentina",
     "probabilities": {
-      "a_win": 32.8,
-      "draw": 28.9,
-      "b_win": 38.3
+      "a_win": 37.3,
+      "draw": 29.3,
+      "b_win": 33.3
     },
-    "confidence": 38.3,
+    "confidence": 37.3,
     "factors": {
       "strength": -0.0,
       "market_value": 0.0,
-      "player_stats": 0.5,
-      "odds": -0.2,
-      "home": 0.0,
+      "player_stats": 0.2,
+      "odds": 0.2,
+      "home": -0.1,
       "climate": -0.1,
       "travel": -0.0,
       "history": 0.0,
-      "morale": 0.0,
+      "morale": -0.0,
       "foreign_pct": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
-      "travel_fatigue": 0.1,
-      "experience": -0.6,
+      "travel_fatigue": 0.0,
+      "experience": -0.0,
       "trophy_pedigree": 0.0,
       "height_advantage": 0.0,
-      "club_chemistry": -0.1,
+      "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": -0.1,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nFrance, conjunto europeo (ranking 2), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta bajo la manga es Malo Gusto, con Kylian Mbappe como pateador de penales designado. Bajas importantes: Hugo Ekitike. Su historial mundialista: campeon 1998 2018.\n\nArgentina, escuadra sudamericano (ranking 1), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta de presentacion es Leonardo Balerdi, con Lionel Messi como encargado de los penales. Su mejor actuacion historica: campeon 1978 1986 2022.\n\nSe espera un partido de ritmo moderado (xG total: 2.85). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego ofensivo. Argentina tiene argumentos para lastimar (2.1 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (29%) o definicion por detalles. Riesgo de empate alto (29%). Cuidado al pronosticar. Confianza del modelo: 37%."
   },
   {
     "round": "Final",
@@ -1276,39 +1338,41 @@
     "time": "",
     "venue": "New York",
     "team_a": "Germany",
-    "team_b": "Argentina",
+    "team_b": "Spain",
     "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.47,
-    "expected_goals_b": 1.38,
+    "expected_goals_a": 1.44,
+    "expected_goals_b": 1.45,
     "winner": "Germany",
     "probabilities": {
-      "a_win": 37.5,
-      "draw": 28.2,
-      "b_win": 34.3
+      "a_win": 33.5,
+      "draw": 31.5,
+      "b_win": 35.1
     },
-    "confidence": 37.5,
+    "confidence": 35.1,
     "factors": {
-      "strength": -0.2,
+      "strength": -0.1,
       "market_value": 0.0,
-      "player_stats": -0.2,
-      "odds": -0.1,
-      "home": -0.1,
+      "player_stats": -0.1,
+      "odds": -0.3,
+      "home": 0.0,
       "climate": -0.1,
       "travel": 0.0,
       "history": 0.0,
-      "morale": -0.1,
+      "morale": -0.0,
       "foreign_pct": 0.0,
       "rest_days": 0.0,
-      "squad_depth": -0.0,
-      "travel_fatigue": -0.1,
-      "experience": -0.0,
+      "squad_depth": 0.0,
+      "travel_fatigue": 0.0,
+      "experience": -0.6,
       "trophy_pedigree": -0.0,
       "height_advantage": 0.0,
-      "club_chemistry": 0.1,
+      "club_chemistry": 0.0,
       "stakes": 0.0,
+      "friendly_form": 0.2,
       "stakes_a": null,
       "stakes_b": null
-    }
+    },
+    "analysis": "SORPRESA POSIBLE - El underdog tiene argumentos para ganar\n\nGermany, conjunto europeo (ranking 10), llega con solidez y buenos resultados. Arraso en los amistosos de preparacion. Su carta bajo la manga es Antonio Rüdiger, con Joshua Kimmich como pateador de penales designado. Bajas importantes: Deniz Undav. Su historial mundialista: campeon 1954 1974 1990 2014.\n\nSpain, escuadra europeo (ranking 3), llega con solidez y buenos resultados. Disputo amistosos sin resultados destacados. Su carta de presentacion es Marc Pubill, con Mikel Oyarzabal como encargado de los penales. Su mejor actuacion historica: campeon 2010.\n\nSe espera un partido de ritmo moderado (xG total: 2.89). Germany tiene poderio ofensivo (2.4 goles/partido) y buscara imponer su juego ofensivo. Spain tiene argumentos para lastimar (2.2 goles/partido). Germany se destaca por su solidez defensiva (0.6 goles recibidos/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\n--- VEREDICTO PRODE --- Partido muy parejo: empate (32%) o definicion por detalles. Riesgo de empate alto (32%). Cuidado al pronosticar. Confianza del modelo: 35%."
   }
 ]

@@ -15,11 +15,11 @@ def _safe(text):
     """Limpia caracteres no ASCII para Windows."""
     return _RE_ASCII.sub('?', str(text))
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from bracket import run_full_simulation
-from output import export_all
-from top_scorer import compute_top_scorers
+from prode_mundial.bracket import run_full_simulation
+from prode_mundial.output import export_all
+from prode_mundial.top_scorer import compute_top_scorers
 
 def run_top_scorers(group_predictions, ko_predictions):
     """Imprime tabla de goleadores en consola."""

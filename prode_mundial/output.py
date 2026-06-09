@@ -5,6 +5,8 @@ import csv
 import json
 import os
 
+from prode_mundial.analysis import generate_match_analysis
+
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
 def ensure_output_dir():
@@ -70,6 +72,7 @@ def export_group_stage_json(predictions, filepath=None):
             },
             "confidence": p["confidence"],
             "factors": p["factors"],
+            "analysis": generate_match_analysis(p),
         })
 
     with open(filepath, "w", encoding="utf-8") as f:
@@ -153,6 +156,7 @@ def export_knockout_json(predictions, filepath=None):
             },
             "confidence": p["confidence"],
             "factors": p["factors"],
+            "analysis": generate_match_analysis(p),
         })
 
     with open(filepath, "w", encoding="utf-8") as f:

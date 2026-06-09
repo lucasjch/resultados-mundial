@@ -330,8 +330,24 @@ class ProdeGUI:
                         highlightthickness=1, relief=tk.FLAT)
         card.pack(fill=tk.BOTH, expand=True, padx=0, pady=0)
 
+        analysis = match.get("analysis", "")
+        if analysis:
+            rec_text, _, narrative = analysis.partition("\n\n")
+            rec_badge = tk.Frame(card, bg=_COLORS.get("accent", "#E63946"),
+                                 padx=12, pady=4)
+            rec_badge.pack(fill=tk.X, padx=15, pady=(14, 0))
+            tk.Label(rec_badge, text=rec_text, font=("Corbel", 10, "bold"),
+                     bg=rec_badge["bg"], fg="#ffffff").pack()
+            text_w = tk.Text(card, wrap=tk.WORD, height=9,
+                             bg=_COLORS["card_bg"], fg=_COLORS["fg"],
+                             font=("Corbel", 10), relief=tk.FLAT,
+                             highlightthickness=0, bd=0)
+            text_w.insert("1.0", narrative)
+            text_w.config(state=tk.DISABLED)
+            text_w.pack(fill=tk.X, padx=15, pady=(6, 0))
+
         vs_frame = tk.Frame(card, bg=_COLORS["card_bg"])
-        vs_frame.pack(expand=True, pady=(20, 5))
+        vs_frame.pack(expand=True, pady=(len(analysis) > 0 and 10 or 20, 5))
 
         team_frame_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
         team_frame_a.pack(side=tk.LEFT, padx=15)

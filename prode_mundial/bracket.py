@@ -121,7 +121,7 @@ THIRD_VENUE = "Miami"
 
 def _get_team_ranking(team_name):
     """Retorna ranking FIFA de un equipo (o 100 como fallback)."""
-    from data import get_team
+    from prode_mundial.data import get_team
     return get_team(team_name).get("rank", 100)
 
 
@@ -324,7 +324,7 @@ def _ranking_winner(team_a, team_b, data_a, data_b):
 
 def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", round_name="KO"):
     """Simula una ronda KO completa."""
-    from data import get_team
+    from prode_mundial.data import get_team
     UPSET_CONFIDENCE_THRESHOLD = 35
     results = []
     for item in matches:

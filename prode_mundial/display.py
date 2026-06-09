@@ -38,7 +38,7 @@ def _fmt_result(p):
 
 def _load_group_tables():
     """Calcula tabla de posiciones desde JSON de grupos."""
-    from data import GROUPS
+    from prode_mundial.data import GROUPS
     data = _load_json("fase_grupos.json")
     if not data:
         return None

@@ -1,73 +1,73 @@
 ﻿Grupo,Fecha,Hora,Sede,Pais,Equipo Local,Equipo Visitante,Goles Local,Goles Visitante,Goles Esp. Local,Goles Esp. Visitante,Ganador,Probabilidad Local(%),Probabilidad Empate(%),Probabilidad Visitante(%),Confianza(%)
-A,2026-06-11,21:00,Mexico City,Mexico,Mexico,South Africa,2,1,1.54,0.99,Mexico,50.0,28.9,21.1,50.0
-A,2026-06-12,04:00,Guadalajara,Mexico,South Korea,Czechia,1,1,1.39,1.26,Empate,39.0,27.7,33.3,27.7
-A,2026-06-17,21:00,Monterrey,Mexico,South Korea,South Africa,1,1,1.38,1.07,Empate,43.2,29.1,27.7,29.1
-A,2026-06-18,21:00,Guadalajara,Mexico,Mexico,Czechia,2,1,1.55,1.16,Mexico,42.8,27.3,29.9,42.8
-A,2026-06-23,21:00,Mexico City,Mexico,Mexico,South Korea,1,1,1.44,1.21,Empate,43.1,24.7,32.3,24.7
-A,2026-06-23,21:00,Toronto,Canada,Czechia,South Africa,1,1,1.34,1.16,Empate,39.2,26.7,34.1,26.7
-B,2026-06-12,21:00,Toronto,Canada,Canada,Bosnia & Herzegovina,2,1,1.67,1.19,Canada,44.8,29.3,25.9,44.8
-B,2026-06-13,21:00,San Francisco,USA,Qatar,Switzerland,1,2,1.09,1.74,Switzerland,22.5,27.5,50.1,50.1
-B,2026-06-18,21:00,Vancouver,Canada,Canada,Qatar,2,1,1.75,1.13,Canada,51.1,25.5,23.4,51.1
-B,2026-06-19,21:00,New York,USA,Switzerland,Bosnia & Herzegovina,2,1,1.67,1.15,Switzerland,46.4,28.7,24.9,46.4
-B,2026-06-23,23:00,Vancouver,Canada,Switzerland,Canada,1,1,1.39,1.36,Empate,37.1,27.5,35.3,27.5
-B,2026-06-24,21:00,Toronto,Canada,Bosnia & Herzegovina,Qatar,2,1,1.51,1.39,Bosnia & Herzegovina,40.7,27.1,32.2,40.7
-C,2026-06-13,23:00,New York,USA,Brazil,Morocco,2,1,1.52,1.18,Brazil,43.9,29.0,27.1,43.9
-C,2026-06-14,02:00,Boston,USA,Haiti,Scotland,1,2,0.96,1.67,Scotland,20.2,28.4,51.4,51.4
-C,2026-06-19,23:00,Boston,USA,Scotland,Morocco,1,2,1.05,1.53,Morocco,22.3,30.5,47.2,47.2
-C,2026-06-20,18:00,Miami,USA,Brazil,Haiti,2,1,2.23,0.69,Brazil,73.0,19.3,7.7,73.0
-C,2026-06-24,23:00,Miami,USA,Scotland,Brazil,1,2,1.01,1.79,Brazil,20.1,24.3,55.7,55.7
-C,2026-06-24,21:00,Atlanta,USA,Morocco,Haiti,2,1,1.93,0.74,Morocco,64.1,19.9,16.0,64.1
-D,2026-06-13,03:00,Los Angeles,USA,USA,Paraguay,2,1,1.61,1.02,USA,49.1,29.1,21.8,49.1
-D,2026-06-14,05:00,Vancouver,Canada,Australia,Turkey,1,2,1.23,1.58,Turkey,26.4,28.8,44.8,44.8
-D,2026-06-19,19:00,Kansas City,USA,Paraguay,Australia,1,1,1.25,1.3,Empate,33.5,31.7,34.7,31.7
-D,2026-06-20,18:00,Dallas,USA,USA,Turkey,1,1,1.53,1.32,Empate,39.5,28.5,31.9,28.5
-D,2026-06-25,18:00,Seattle,USA,USA,Australia,2,1,1.66,1.11,USA,50.0,24.8,25.2,50.0
-D,2026-06-25,21:00,Miami,USA,Turkey,Paraguay,1,1,1.52,1.14,Empate,44.6,25.0,30.4,25.0
-E,2026-06-14,18:00,Houston,USA,Germany,Curacao,3,1,2.52,0.56,Germany,79.6,14.8,5.6,79.6
-E,2026-06-15,01:00,Atlanta,USA,Ivory Coast,Ecuador,1,1,1.27,1.33,Empate,32.9,29.8,37.3,29.8
-E,2026-06-20,20:00,Houston,USA,Ecuador,Germany,1,2,1.02,1.83,Germany,19.6,26.6,53.8,53.8
-E,2026-06-21,15:00,Miami,USA,Curacao,Ivory Coast,1,2,0.83,1.89,Ivory Coast,13.2,25.5,61.3,61.3
-E,2026-06-25,21:00,New York,USA,Ecuador,Curacao,2,1,1.96,0.78,Ecuador,64.7,20.4,14.9,64.7
-E,2026-06-26,18:00,Seattle,USA,Germany,Ivory Coast,2,1,1.85,0.99,Germany,57.1,22.2,20.7,57.1
-F,2026-06-14,21:00,Dallas,USA,Netherlands,Japan,2,1,1.51,1.2,Netherlands,43.1,27.7,29.3,43.1
-F,2026-06-15,04:00,Seattle,USA,Sweden,Tunisia,2,1,1.6,1.11,Sweden,46.9,29.1,24.1,46.9
-F,2026-06-20,15:00,Dallas,USA,Japan,Sweden,1,1,1.43,1.32,Empate,38.3,26.9,34.8,26.9
-F,2026-06-21,15:00,Dallas,USA,Netherlands,Tunisia,2,1,1.81,0.9,Netherlands,57.2,26.5,16.3,57.2
-F,2026-06-25,21:00,Vancouver,Canada,Netherlands,Sweden,2,1,1.65,1.22,Netherlands,50.2,22.7,27.1,50.2
-F,2026-06-26,18:00,Los Angeles,USA,Japan,Tunisia,2,1,1.62,0.97,Japan,51.4,22.4,26.2,51.4
-G,2026-06-15,15:00,Seattle,USA,Belgium,Egypt,2,1,1.54,1.17,Belgium,45.2,25.9,28.9,45.2
-G,2026-06-15,15:00,Vancouver,Canada,Iran,New Zealand,2,1,1.51,1.2,Iran,42.7,30.1,27.1,42.7
-G,2026-06-21,22:00,Seattle,USA,Belgium,Iran,2,1,1.64,1.08,Belgium,48.0,29.5,22.5,48.0
-G,2026-06-21,22:00,Vancouver,Canada,Egypt,New Zealand,2,1,1.61,1.1,Egypt,48.7,27.9,23.4,48.7
-G,2026-06-26,22:00,Seattle,USA,Egypt,Iran,1,1,1.4,1.2,Empate,41.6,27.1,31.3,27.1
-G,2026-06-26,22:00,Vancouver,Canada,Belgium,New Zealand,2,1,1.86,1.0,Belgium,59.0,21.6,19.4,59.0
-H,2026-06-15,12:00,Atlanta,USA,Spain,Cape Verde,2,1,2.22,0.62,Spain,73.7,19.9,6.4,73.7
-H,2026-06-16,15:00,Houston,USA,Uruguay,Saudi Arabia,2,1,1.76,0.93,Uruguay,57.9,23.7,18.4,57.9
-H,2026-06-21,12:00,Atlanta,USA,Spain,Saudi Arabia,2,1,2.13,0.72,Spain,68.3,21.2,10.5,68.3
-H,2026-06-21,15:00,Houston,USA,Uruguay,Cape Verde,2,1,1.81,0.84,Uruguay,59.8,25.2,15.0,59.8
-H,2026-06-26,21:00,Guadalajara,Mexico,Uruguay,Spain,1,2,1.1,1.68,Spain,26.5,24.3,49.2,49.2
-H,2026-06-26,21:00,Houston,USA,Cape Verde,Saudi Arabia,1,1,1.2,1.35,Empate,29.7,32.6,37.7,32.6
-I,2026-06-16,15:00,Kansas City,USA,France,Iraq,2,1,2.18,0.72,France,68.6,21.4,10.0,68.6
-I,2026-06-16,18:00,Los Angeles,USA,Norway,Senegal,2,1,1.49,1.26,Norway,40.5,27.6,31.9,40.5
-I,2026-06-22,15:00,Los Angeles,USA,France,Norway,2,1,1.78,1.24,France,51.1,24.7,24.2,51.1
-I,2026-06-22,15:00,Kansas City,USA,Senegal,Iraq,2,1,1.63,0.91,Senegal,54.9,27.1,17.9,54.9
-I,2026-06-26,18:00,Kansas City,USA,France,Senegal,2,1,1.73,1.05,France,52.7,24.7,22.5,52.7
-I,2026-06-26,20:00,San Francisco,USA,Norway,Iraq,2,1,1.88,0.93,Norway,56.1,23.1,20.7,56.1
-J,2026-06-16,21:00,Dallas,USA,Argentina,Jordan,2,1,2.07,0.68,Argentina,67.4,21.9,10.7,67.4
-J,2026-06-17,15:00,Kansas City,USA,Algeria,Austria,1,1,1.32,1.33,Empate,35.5,30.2,34.3,30.2
-J,2026-06-22,17:00,Kansas City,USA,Argentina,Algeria,2,1,1.73,0.96,Argentina,54.9,25.8,19.3,54.9
-J,2026-06-22,21:00,Dallas,USA,Austria,Jordan,2,1,1.64,0.99,Austria,52.1,27.1,20.9,52.1
-J,2026-06-26,21:00,Philadelphia,USA,Argentina,Austria,2,1,1.76,0.99,Argentina,54.9,24.6,20.5,54.9
-J,2026-06-27,15:00,Kansas City,USA,Jordan,Algeria,1,2,0.96,1.63,Algeria,23.2,23.9,52.9,52.9
-K,2026-06-17,15:00,Miami,USA,Portugal,Uzbekistan,2,1,2.03,0.84,Portugal,63.7,23.9,12.5,63.7
-K,2026-06-17,18:00,Miami,USA,DR Congo,Colombia,1,2,0.92,1.72,Colombia,20.3,25.5,54.1,54.1
-K,2026-06-23,15:00,Miami,USA,Portugal,DR Congo,2,1,1.99,0.82,Portugal,63.6,22.9,13.5,63.6
-K,2026-06-24,15:00,Miami,USA,Colombia,Uzbekistan,2,1,1.76,0.95,Colombia,52.1,28.7,19.2,52.1
-K,2026-06-27,17:00,Miami,USA,Colombia,Portugal,1,2,1.22,1.59,Portugal,30.4,25.3,44.3,44.3
-K,2026-06-27,19:30,Atlanta,USA,DR Congo,Uzbekistan,1,1,1.27,1.28,Empate,34.9,31.7,33.4,31.7
-L,2026-06-15,18:00,New York,USA,England,Panama,2,1,2.05,0.8,England,65.0,22.6,12.4,65.0
-L,2026-06-15,18:00,Philadelphia,USA,Croatia,Ghana,2,1,1.57,1.1,Croatia,45.9,29.5,24.6,45.9
-L,2026-06-21,15:00,New York,USA,England,Croatia,2,1,1.72,1.06,England,53.9,26.7,19.5,53.9
-L,2026-06-21,15:00,Philadelphia,USA,Ghana,Panama,1,1,1.37,1.27,Empate,37.3,30.3,32.4,30.3
-L,2026-06-27,15:00,New York,USA,England,Ghana,2,1,2.0,0.89,England,62.1,21.3,16.5,62.1
-L,2026-06-27,17:00,Philadelphia,USA,Croatia,Panama,2,1,1.6,1.02,Croatia,50.1,24.9,24.9,50.1
+A,2026-06-11,16:00,Mexico City,Mexico,Mexico,South Africa,2,1,1.55,0.98,Mexico,50.9,28.5,20.6,50.9
+A,2026-06-11,23:00,Guadalajara,Mexico,South Korea,Czechia,1,1,1.39,1.26,Empate,39.1,27.5,33.3,27.5
+A,2026-06-18,13:00,Atlanta,USA,Czechia,South Africa,1,1,1.36,1.14,Empate,40.7,29.1,30.3,29.1
+A,2026-06-18,22:00,Guadalajara,Mexico,Mexico,South Korea,1,1,1.46,1.2,Empate,40.3,29.6,30.1,29.6
+A,2026-06-24,22:00,Mexico City,Mexico,Czechia,Mexico,1,2,1.16,1.55,Mexico,30.4,23.7,45.9,45.9
+A,2026-06-24,22:00,Monterrey,Mexico,South Africa,South Korea,1,1,1.06,1.39,Empate,28.4,27.7,43.9,27.7
+B,2026-06-12,16:00,Toronto,Canada,Canada,Bosnia & Herzegovina,2,1,1.67,1.19,Canada,44.1,29.6,26.3,44.1
+B,2026-06-13,16:00,San Francisco,USA,Qatar,Switzerland,1,2,1.08,1.74,Switzerland,23.1,27.2,49.7,49.7
+B,2026-06-18,16:00,Los Angeles,USA,Switzerland,Bosnia & Herzegovina,2,1,1.68,1.14,Switzerland,48.7,26.6,24.7,48.7
+B,2026-06-18,19:00,Vancouver,Canada,Canada,Qatar,2,1,1.75,1.13,Canada,48.3,28.1,23.6,48.3
+B,2026-06-24,16:00,Vancouver,Canada,Switzerland,Canada,1,1,1.39,1.36,Empate,37.1,27.7,35.2,27.7
+B,2026-06-24,16:00,Seattle,USA,Bosnia & Herzegovina,Qatar,2,1,1.52,1.39,Bosnia & Herzegovina,40.9,27.3,31.9,40.9
+C,2026-06-13,19:00,New York,USA,Brazil,Morocco,2,1,1.53,1.18,Brazil,44.1,29.1,26.8,44.1
+C,2026-06-13,22:00,Boston,USA,Haiti,Scotland,1,2,0.95,1.67,Scotland,19.5,28.9,51.6,51.6
+C,2026-06-19,19:00,Boston,USA,Scotland,Morocco,1,2,1.05,1.52,Morocco,22.4,30.9,46.7,46.7
+C,2026-06-19,22:00,Philadelphia,USA,Brazil,Haiti,2,1,2.24,0.68,Brazil,72.7,19.8,7.5,72.7
+C,2026-06-24,19:00,Miami,USA,Scotland,Brazil,1,2,1.01,1.79,Brazil,19.5,24.7,55.7,55.7
+C,2026-06-24,19:00,Atlanta,USA,Morocco,Haiti,2,1,1.93,0.74,Morocco,63.9,20.0,16.1,63.9
+D,2026-06-12,22:00,Los Angeles,USA,USA,Paraguay,2,1,1.6,1.03,USA,47.3,29.9,22.8,47.3
+D,2026-06-13,23:00,Vancouver,Canada,Australia,Turkey,1,2,1.22,1.59,Turkey,25.4,28.3,46.3,46.3
+D,2026-06-19,16:00,Seattle,USA,USA,Australia,2,1,1.66,1.11,USA,48.3,26.1,25.6,48.3
+D,2026-06-19,23:00,San Francisco,USA,Turkey,Paraguay,1,1,1.53,1.14,Empate,43.6,29.5,26.9,29.5
+D,2026-06-25,23:00,Los Angeles,USA,Turkey,USA,1,2,1.33,1.52,USA,35.3,23.3,41.5,41.5
+D,2026-06-25,23:00,San Francisco,USA,Paraguay,Australia,1,1,1.29,1.26,Empate,38.1,26.4,35.5,26.4
+E,2026-06-14,14:00,Houston,USA,Germany,Curacao,2,1,2.53,0.55,Germany,78.9,15.0,6.1,78.9
+E,2026-06-14,20:00,Philadelphia,USA,Ivory Coast,Ecuador,1,1,1.27,1.33,Empate,33.5,29.5,37.0,29.5
+E,2026-06-20,17:00,Toronto,Canada,Germany,Ivory Coast,2,1,1.84,0.99,Germany,54.1,26.9,19.0,54.1
+E,2026-06-20,21:00,Kansas City,USA,Ecuador,Curacao,2,1,1.93,0.79,Ecuador,63.4,23.1,13.5,63.4
+E,2026-06-25,17:00,New York,USA,Ecuador,Germany,1,2,1.02,1.82,Germany,22.4,22.0,55.6,55.6
+E,2026-06-25,17:00,Philadelphia,USA,Curacao,Ivory Coast,1,2,0.8,1.94,Ivory Coast,16.7,21.0,62.3,62.3
+F,2026-06-14,17:00,Dallas,USA,Netherlands,Japan,2,1,1.5,1.21,Netherlands,43.1,28.9,27.9,43.1
+F,2026-06-14,21:00,Monterrey,Mexico,Sweden,Tunisia,2,1,1.61,1.11,Sweden,48.5,27.9,23.5,48.5
+F,2026-06-20,14:00,Houston,USA,Netherlands,Sweden,2,1,1.65,1.22,Netherlands,45.5,27.0,27.5,45.5
+F,2026-06-20,21:00,Monterrey,Mexico,Tunisia,Japan,1,2,0.99,1.59,Japan,21.2,28.9,49.9,49.9
+F,2026-06-25,20:00,Dallas,USA,Japan,Sweden,1,1,1.44,1.31,Empate,40.7,24.5,34.8,24.5
+F,2026-06-25,20:00,Kansas City,USA,Tunisia,Netherlands,1,2,0.91,1.8,Netherlands,19.9,22.5,57.6,57.6
+G,2026-06-15,16:00,Seattle,USA,Belgium,Egypt,2,1,1.55,1.16,Belgium,45.3,26.6,28.1,45.3
+G,2026-06-15,21:00,Los Angeles,USA,Iran,New Zealand,2,1,1.53,1.18,Iran,43.8,30.1,26.1,43.8
+G,2026-06-21,16:00,Los Angeles,USA,Belgium,Iran,2,1,1.64,1.08,Belgium,49.1,28.1,22.9,49.1
+G,2026-06-21,22:00,Vancouver,Canada,New Zealand,Egypt,1,2,1.09,1.62,Egypt,23.6,28.1,48.3,48.3
+G,2026-06-27,00:00,Seattle,USA,Egypt,Iran,1,1,1.39,1.21,Empate,40.9,26.4,32.7,26.4
+G,2026-06-27,00:00,Vancouver,Canada,New Zealand,Belgium,1,2,0.99,1.87,Belgium,21.2,22.2,56.6,56.6
+H,2026-06-15,13:00,Atlanta,USA,Spain,Cape Verde,2,1,2.2,0.63,Spain,74.0,18.8,7.2,74.0
+H,2026-06-15,19:00,Miami,USA,Saudi Arabia,Uruguay,1,2,0.93,1.77,Uruguay,19.2,24.7,56.1,56.1
+H,2026-06-21,13:00,Atlanta,USA,Spain,Saudi Arabia,2,1,2.13,0.72,Spain,67.9,21.7,10.3,67.9
+H,2026-06-21,19:00,Miami,USA,Uruguay,Cape Verde,2,1,1.79,0.85,Uruguay,59.7,25.8,14.5,59.7
+H,2026-06-26,21:00,Houston,USA,Cape Verde,Saudi Arabia,1,1,1.21,1.34,Empate,32.0,29.5,38.5,29.5
+H,2026-06-26,21:00,Guadalajara,Mexico,Uruguay,Spain,1,2,1.1,1.68,Spain,26.9,24.6,48.5,48.5
+I,2026-06-16,16:00,New York,USA,France,Senegal,2,1,1.76,1.03,France,53.3,25.9,20.9,53.3
+I,2026-06-16,19:00,Boston,USA,Iraq,Norway,1,2,0.93,1.88,Norway,18.1,26.5,55.4,55.4
+I,2026-06-22,18:00,Philadelphia,USA,France,Iraq,2,1,2.18,0.72,France,71.1,20.0,8.9,71.1
+I,2026-06-22,21:00,New York,USA,Norway,Senegal,2,1,1.48,1.26,Norway,42.9,27.9,29.1,42.9
+I,2026-06-26,16:00,Boston,USA,Norway,France,1,2,1.24,1.78,France,26.0,22.7,51.3,51.3
+I,2026-06-26,16:00,Toronto,Canada,Senegal,Iraq,2,1,1.62,0.92,Senegal,53.7,26.8,19.5,53.7
+J,2026-06-16,22:00,Kansas City,USA,Argentina,Algeria,2,1,1.73,0.96,Argentina,54.2,27.5,18.3,54.2
+J,2026-06-16,23:00,San Francisco,USA,Austria,Jordan,2,1,1.64,0.99,Austria,50.1,28.9,21.0,50.1
+J,2026-06-22,14:00,Dallas,USA,Argentina,Austria,2,1,1.75,1.0,Argentina,55.0,25.9,19.1,55.0
+J,2026-06-23,00:00,San Francisco,USA,Jordan,Algeria,1,2,0.98,1.6,Algeria,20.7,30.5,48.8,48.8
+J,2026-06-27,23:00,Kansas City,USA,Algeria,Austria,1,1,1.32,1.33,Empate,36.5,27.2,36.3,27.2
+J,2026-06-27,23:00,Dallas,USA,Jordan,Argentina,1,2,0.69,2.06,Argentina,9.7,19.2,71.1,71.1
+K,2026-06-17,14:00,Houston,USA,Portugal,DR Congo,2,1,2.0,0.82,Portugal,63.7,22.4,13.9,63.7
+K,2026-06-17,21:00,Mexico City,Mexico,Uzbekistan,Colombia,1,2,0.95,1.76,Colombia,18.6,26.5,54.9,54.9
+K,2026-06-23,14:00,Houston,USA,Portugal,Uzbekistan,2,1,2.03,0.84,Portugal,61.0,23.7,15.3,61.0
+K,2026-06-23,21:00,Guadalajara,Mexico,Colombia,DR Congo,2,1,1.73,0.92,Colombia,54.7,26.3,18.9,54.7
+K,2026-06-27,20:30,Miami,USA,Colombia,Portugal,1,2,1.23,1.59,Portugal,31.1,26.1,42.8,42.8
+K,2026-06-27,20:30,Atlanta,USA,DR Congo,Uzbekistan,1,1,1.27,1.28,Empate,36.9,28.9,34.3,28.9
+L,2026-06-17,17:00,Dallas,USA,England,Croatia,2,1,1.74,1.05,England,52.1,26.9,21.1,52.1
+L,2026-06-17,20:00,Toronto,Canada,Ghana,Panama,1,1,1.37,1.28,Empate,38.5,28.3,33.2,28.3
+L,2026-06-23,17:00,Boston,USA,England,Ghana,2,1,2.03,0.87,England,60.4,23.6,16.0,60.4
+L,2026-06-23,20:00,Toronto,Canada,Panama,Croatia,1,2,1.01,1.6,Croatia,21.0,32.1,46.9,46.9
+L,2026-06-27,18:00,New York,USA,Panama,England,1,2,0.81,2.04,England,13.9,18.9,67.3,67.3
+L,2026-06-27,18:00,Philadelphia,USA,Croatia,Ghana,2,1,1.58,1.09,Croatia,47.9,24.3,27.8,47.9
