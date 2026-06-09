@@ -294,26 +294,26 @@ class ProdeGUI:
                   background=[("selected", _COLORS["tab_active"])],
                   foreground=[("selected", "#000000")])
 
+        self._tab_info = ttk.Frame(nb)
         self._tab_groups = ttk.Frame(nb)
         self._tab_ko = ttk.Frame(nb)
         self._tab_stats = ttk.Frame(nb)
         self._tab_goleadores = ttk.Frame(nb)
         self._tab_bonus = ttk.Frame(nb)
-        self._tab_info = ttk.Frame(nb)
 
+        nb.add(self._tab_info, text=" ¿Como funciona? ")
         nb.add(self._tab_groups, text=" Fase de Grupos ")
         nb.add(self._tab_ko, text=" Eliminatorias ")
         nb.add(self._tab_stats, text=" Estadisticas ")
         nb.add(self._tab_goleadores, text=" Goleadores ")
         nb.add(self._tab_bonus, text=" Bonus ")
-        nb.add(self._tab_info, text=" ¿Como funciona? ")
 
+        self._build_info_tab()
         self._build_groups_tab()
         self._build_ko_tab()
         self._build_stats_tab()
         self._build_goleadores_tab()
         self._build_bonus_tab()
-        self._build_info_tab()
 
         status = tk.Label(self.root, text="Prode Mundial 2026 — Desarrollado por Lucas Congil Hadla",
                           bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
@@ -1066,8 +1066,9 @@ class ProdeGUI:
         scrollbar = ttk.Scrollbar(parent, orient=tk.VERTICAL, command=canvas.yview)
         scroll_frame = tk.Frame(canvas, bg=_COLORS["card_bg"])
         scroll_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-        canvas.create_window((0, 0), window=scroll_frame, anchor=tk.NW, width=canvas.winfo_width())
+        canvas.create_window((0, 0), window=scroll_frame, anchor=tk.NW)
         canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.bind("<Configure>", lambda e: canvas.itemconfig(1, width=e.width))
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         def _on_enter(e):
@@ -1208,8 +1209,6 @@ class ProdeGUI:
         text.insert(tk.END, "Disfruta el Mundial 2026.\n\n", "disclaimer")
         text.insert(tk.END, "Desarrollado por Lucas Congil Hadla.\n", "footer")
         text.config(state=tk.DISABLED)
-        canvas.update_idletasks()
-        canvas.itemconfig(1, width=canvas.winfo_width())
 
     # unused idx key kept for compatibility
     _idx = {"groups": 0, "knockout": 0}
