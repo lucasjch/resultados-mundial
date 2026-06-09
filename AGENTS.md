@@ -1,4 +1,5 @@
 # Prode Mundial 2026 - AGENTS.md
+_Autor: Lucas Congil Hadla_
 
 <!-- markdownlint-disable MD013 -->
 

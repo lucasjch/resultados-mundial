@@ -274,6 +274,9 @@ class ProdeGUI:
             tk.Label(header, text="Predicciones PRODE",
                      font=("Corbel", 13), bg=_COLORS["bg"],
                      fg=_COLORS["accent2"]).pack(side=tk.LEFT, padx=5, pady=(14, 0))
+        tk.Label(header, text="por Lucas Congil Hadla",
+                 font=("Corbel", 9), bg=_COLORS["bg"],
+                 fg=_COLORS["subtitle"]).pack(side=tk.RIGHT, padx=15, pady=(14, 0))
 
         nb = ttk.Notebook(self.root)
         nb.pack(fill=tk.BOTH, expand=True, padx=15, pady=10)
@@ -310,7 +313,7 @@ class ProdeGUI:
         self._build_goleadores_tab()
         self._build_bonus_tab()
 
-        status = tk.Label(self.root, text="Datos cargados desde output/",
+        status = tk.Label(self.root, text="Prode Mundial 2026 — Desarrollado por Lucas Congil Hadla",
                           bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
                           anchor=tk.W, padx=15)
         status.pack(fill=tk.X)
