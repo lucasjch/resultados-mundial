@@ -84,7 +84,9 @@ def _build_recommendation(match):
         return "LIGERO FAVORITO VISITANTE - Partido parejo"
     if a_win > 35 and b_win > 35 and prob_draw > 25:
         return "PARTIDO ABIERTO - Cualquier resultado es posible"
-        return "SORPRESA POSIBLE - El menos favorecido puede dar el golpe"
+    if a_win >= b_win:
+        return "PARTIDO DISPUTADO - Ligera ventaja de local, sin suficiente confianza"
+    return "PARTIDO DISPUTADO - Ligera ventaja de visitante, sin suficiente confianza"
 
 def _build_narrative(match):
     team_a = match["team_a"]
