@@ -527,3 +527,4 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-09|**Friendlies Data**|`friendlies_data.py`: dataset de 57 amistosos (22 may–10 jun 2026). Factor `friendly_form` 2%. Export a `output/friendlies.json`.|
 |2026-06-09|**Top Scorer Model**|Fórmula exponencial (`raw**1.8`), `_league_boost()` solo premia (×1.3), `_penalty_boost()` según `PENALTY_TAKERS`, `TOP_SCORER_CANDIDATES` con 27 estrellas. Resultado: Messi 9, Havertz 9, Kane 8, Mbappé 8.|
 |2026-06-09|**Análisis Narrativo PRODE**|`analysis.py` con 3 secciones (Recomendación → Análisis → Veredicto). Inyectado en JSON via `output.py`. Display en GUI arriba del score. `build_exe.bat` actualizado con hidden imports.|
+|2026-06-09|**Corrección ortográfica analysis.py**|10 fixes de tildes/ortografía en castellano argentino (arrasó, definitiva, ABIERTO, prevé, táctico, localía, presión, palmarés, química, compañeros). Output JSONs regenerados. .exe recompilado. Push a master.|

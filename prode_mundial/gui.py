@@ -40,11 +40,26 @@ _TEAM_FLAGS = {
 }
 
 _COLORS = {
-    "bg": "#0a0a1a", "fg": "#d0d0e0", "accent": "#ff3366",
-    "card_bg": "#12122a", "card_border": "#2a2a5a",
-    "star": "#ffd700", "btn": "#1a1a4a", "btn_hover": "#2a2a6a",
-    "green": "#00e676", "red": "#ff1744", "yellow": "#ffea00",
-    "subtitle": "#8888bb",
+    "bg":           "#0d1117",
+    "fg":           "#e6edf3",
+    "accent":       "#c9a84c",       # dorado Copa del Mundo
+    "accent2":      "#1a6b3a",       # verde césped
+    "card_bg":      "#161b22",
+    "card_border":  "#30363d",
+    "score_bg":     "#1a6b3a",       # verde para el marcador
+    "star":         "#ffd700",
+    "btn_face":     "#238636",       # verde botón
+    "btn_shadow":   "#145522",       # sombra botón
+    "btn_hover":    "#2ea043",
+    "btn_fg":       "#ffffff",
+    "green":        "#3fb950",
+    "red":          "#f85149",
+    "yellow":       "#d29922",
+    "subtitle":     "#8b949e",
+    "badge_win":    "#1a6b3a",
+    "badge_draw":   "#9e6a03",
+    "badge_upset":  "#8b1a1a",
+    "tab_active":   "#c9a84c",
 }
 
 _FONT_H = ("Corbel", 24, "bold")
@@ -142,9 +157,12 @@ class ProdeGUI:
             gp, gr, kp = _pmb.run_full_simulation(quiet=True)
             scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
             goleadores = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
-            groups, knockout, tables = gp, kp, gr
-            prode = groups + knockout
+            tables = gr
             _pmo.export_all(gp, gr, kp)
+            # Recargar desde JSON para obtener el campo "analysis" inyectado por export_all
+            groups   = load_json("fase_grupos.json") or gp or []
+            knockout = load_json("eliminatorias.json") or kp or []
+            prode    = groups + knockout
         except Exception:
             import traceback; traceback.print_exc()
 
@@ -205,13 +223,28 @@ class ProdeGUI:
             return None
 
     def _styled_btn(self, parent, text, cmd):
-        btn = tk.Button(parent, text=text, font=_FONT_M,
-                        bg=_COLORS["btn"], fg=_COLORS["fg"],
-                        relief=tk.RAISED, bd=0, padx=12, pady=4,
-                        cursor="hand2", activebackground=_COLORS["btn_hover"],
-                        command=cmd)
-        btn.bind("<Enter>", lambda e: btn.configure(bg=_COLORS["btn_hover"]))
-        btn.bind("<Leave>", lambda e: btn.configure(bg=_COLORS["btn"]))
+        btn = tk.Button(
+            parent, text=text, font=("Corbel", 13, "bold"),
+            bg=_COLORS["btn_face"], fg=_COLORS["btn_fg"],
+            activebackground=_COLORS["btn_hover"],
+            activeforeground="#ffffff",
+            relief=tk.RAISED, bd=3,
+            padx=18, pady=6,
+            cursor="hand2",
+            command=cmd
+        )
+        def _press(e):
+            btn.config(relief=tk.SUNKEN, bg=_COLORS["btn_shadow"])
+        def _release(e):
+            btn.config(relief=tk.RAISED, bg=_COLORS["btn_face"])
+        def _enter(e):
+            btn.config(bg=_COLORS["btn_hover"])
+        def _leave(e):
+            btn.config(bg=_COLORS["btn_face"], relief=tk.RAISED)
+        btn.bind("<ButtonPress-1>", _press)
+        btn.bind("<ButtonRelease-1>", _release)
+        btn.bind("<Enter>", _enter)
+        btn.bind("<Leave>", _leave)
         return btn
 
     def _build_ui(self):
@@ -235,13 +268,12 @@ class ProdeGUI:
             except Exception:
                 pass
         else:
-            tk.Label(header, text="Mundial 2026",
-                     font=_FONT_H, bg=_COLORS["bg"],
+            tk.Label(header, text="\u26BD Mundial 2026",
+                     font=("Corbel", 26, "bold"), bg=_COLORS["bg"],
                      fg=_COLORS["accent"]).pack(side=tk.LEFT, padx=15)
-
             tk.Label(header, text="Predicciones PRODE",
-                     font=_FONT_SH, bg=_COLORS["bg"],
-                     fg=_COLORS["subtitle"]).pack(side=tk.LEFT, padx=5, pady=(12, 0))
+                     font=("Corbel", 13), bg=_COLORS["bg"],
+                     fg=_COLORS["accent2"]).pack(side=tk.LEFT, padx=5, pady=(14, 0))
 
         nb = ttk.Notebook(self.root)
         nb.pack(fill=tk.BOTH, expand=True, padx=15, pady=10)
@@ -254,11 +286,11 @@ class ProdeGUI:
         style.configure("TNotebook.Tab",
                         background=_COLORS["card_bg"],
                         foreground=_COLORS["fg"],
-                        padding=[18, 6],
-                        font=("Corbel", 11))
+                        padding=[20, 8],
+                        font=("Corbel", 12, "bold"))
         style.map("TNotebook.Tab",
-                  background=[("selected", _COLORS["btn"])],
-                  foreground=[("selected", "#ffffff")])
+                  background=[("selected", _COLORS["tab_active"])],
+                  foreground=[("selected", "#000000")])
 
         self._tab_groups = ttk.Frame(nb)
         self._tab_ko = ttk.Frame(nb)
@@ -316,92 +348,156 @@ class ProdeGUI:
         team_b = match.get("team_b", "?")
         score_a = match.get("score_a", 0)
         score_b = match.get("score_b", 0)
-        venue = match.get("venue", "")
-        conf = match.get("confidence", 0)
-        probs = match.get("probabilities", {})
-        prob_a = probs.get("a_win", 0)
-        prob_b = probs.get("b_win", 0)
-        prob_d = probs.get("draw", 0)
+        venue   = match.get("venue", "")
+        conf    = match.get("confidence", 0)
+        probs   = match.get("probabilities", {})
+        prob_a  = probs.get("a_win", 0)
+        prob_b  = probs.get("b_win", 0)
+        prob_d  = probs.get("draw", 0)
 
-        shadow = tk.Frame(parent, bg=_COLORS["bg"], padx=2, pady=2)
-        shadow.pack(fill=tk.BOTH, expand=True, padx=18, pady=8)
-        card = tk.Frame(shadow, bg=_COLORS["card_bg"],
-                        highlightbackground=_COLORS["card_border"],
-                        highlightthickness=1, relief=tk.FLAT)
-        card.pack(fill=tk.BOTH, expand=True, padx=0, pady=0)
+        # Contenedor externo con borde dorado
+        outer = tk.Frame(parent, bg=_COLORS["accent"], padx=2, pady=2)
+        outer.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
 
+        card = tk.Frame(outer, bg=_COLORS["card_bg"])
+        card.pack(fill=tk.BOTH, expand=True)
+
+        # Canvas con scroll para todo el contenido
+        canvas = tk.Canvas(card, bg=_COLORS["card_bg"], highlightthickness=0, bd=0)
+        scrollbar = tk.Scrollbar(card, orient=tk.VERTICAL, command=canvas.yview,
+                                 bg=_COLORS["card_bg"], troughcolor=_COLORS["bg"])
+        canvas.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        inner = tk.Frame(canvas, bg=_COLORS["card_bg"])
+        win_id = canvas.create_window((0, 0), window=inner, anchor=tk.NW)
+
+        # Ajustar ancho del inner al canvas cuando este cambie de tamaño
+        def _on_canvas_resize(event):
+            canvas.itemconfig(win_id, width=event.width)
+        canvas.bind("<Configure>", _on_canvas_resize)
+
+        # Actualizar scrollregion cuando el inner cambie
+        def _on_inner_resize(event):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+        inner.bind("<Configure>", _on_inner_resize)
+
+        # MouseWheel solo cuando el cursor está sobre la card
+        def _bind_wheel(event):
+            canvas.bind_all("<MouseWheel>",
+                lambda e: canvas.yview_scroll(int(-1*(e.delta/120)), "units"))
+        def _unbind_wheel(event):
+            canvas.unbind_all("<MouseWheel>")
+        canvas.bind("<Enter>", _bind_wheel)
+        canvas.bind("<Leave>", _unbind_wheel)
+
+        # ── ANÁLISIS NARRATIVO ──────────────────────────────────────────────
         analysis = match.get("analysis", "")
         if analysis:
             rec_text, _, narrative = analysis.partition("\n\n")
-            rec_badge = tk.Frame(card, bg=_COLORS.get("accent", "#E63946"),
-                                 padx=12, pady=4)
-            rec_badge.pack(fill=tk.X, padx=15, pady=(14, 0))
-            tk.Label(rec_badge, text=rec_text, font=("Corbel", 10, "bold"),
-                     bg=rec_badge["bg"], fg="#ffffff").pack()
-            text_w = tk.Text(card, wrap=tk.WORD, height=9,
-                             bg=_COLORS["card_bg"], fg=_COLORS["fg"],
-                             font=("Corbel", 10), relief=tk.FLAT,
-                             highlightthickness=0, bd=0)
+
+            # Color del badge según tipo de recomendación
+            rt_lower = rec_text.lower()
+            if "seguro" in rt_lower or "favorito" in rt_lower:
+                badge_color = _COLORS["badge_win"]
+            elif "empate" in rt_lower:
+                badge_color = _COLORS["badge_draw"]
+            elif "sorpresa" in rt_lower:
+                badge_color = _COLORS["badge_upset"]
+            else:
+                badge_color = _COLORS["accent2"]
+
+            badge_frame = tk.Frame(inner, bg=badge_color)
+            badge_frame.pack(fill=tk.X, padx=0, pady=(0, 0))
+            tk.Label(
+                badge_frame, text=f"  {rec_text}  ",
+                font=("Corbel", 11, "bold"),
+                bg=badge_color, fg="#ffffff",
+                anchor=tk.W, pady=6
+            ).pack(fill=tk.X, padx=15)
+
+            text_w = tk.Text(
+                inner, wrap=tk.WORD, height=8,
+                bg="#1c2128", fg=_COLORS["fg"],
+                font=("Corbel", 10), relief=tk.FLAT,
+                highlightthickness=0, bd=0,
+                padx=15, pady=8
+            )
             text_w.insert("1.0", narrative)
             text_w.config(state=tk.DISABLED)
-            text_w.pack(fill=tk.X, padx=15, pady=(6, 0))
+            text_w.pack(fill=tk.X, padx=0, pady=0)
 
-        vs_frame = tk.Frame(card, bg=_COLORS["card_bg"])
-        vs_frame.pack(expand=True, pady=(len(analysis) > 0 and 10 or 20, 5))
+        # ── SEPARADOR ────────────────────────────────────────────────────────
+        sep = tk.Frame(inner, bg=_COLORS["accent"], height=2)
+        sep.pack(fill=tk.X, padx=0, pady=(8, 0))
 
-        team_frame_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
-        team_frame_a.pack(side=tk.LEFT, padx=15)
-        flag_a = self._get_flag(team_a, 24, 18)
+        # ── SCORE ROW ────────────────────────────────────────────────────────
+        vs_frame = tk.Frame(inner, bg=_COLORS["card_bg"])
+        vs_frame.pack(fill=tk.X, pady=18)
+
+        # Equipo A
+        tf_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        tf_a.pack(side=tk.LEFT, expand=True)
+        flag_a = self._get_flag(team_a, 32, 24)
         if flag_a:
-            tk.Label(team_frame_a, image=flag_a, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 5))
-        tk.Label(team_frame_a, text=team_a, font=_FONT_TEAM,
-                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
+            tk.Label(tf_a, image=flag_a, bg=_COLORS["card_bg"]).pack()
+        tk.Label(tf_a, text=team_a, font=("Corbel", 18, "bold"),
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
-        score_frame = tk.Frame(vs_frame, bg=_COLORS["score_bg"] if "score_bg" in _COLORS else _COLORS["card_bg"],
-                                highlightbackground=_COLORS["card_border"],
-                                highlightthickness=1, padx=20, pady=5)
-        score_frame.pack(side=tk.LEFT, padx=10)
-        tk.Label(score_frame, text=f"{score_a} - {score_b}",
-                 font=_FONT_SCORE, bg=score_frame["bg"],
-                 fg=_COLORS["accent"]).pack()
+        # Score central con fondo verde
+        sf = tk.Frame(vs_frame, bg=_COLORS["score_bg"],
+                      highlightbackground=_COLORS["accent"],
+                      highlightthickness=2, padx=24, pady=10)
+        sf.pack(side=tk.LEFT, padx=10)
+        tk.Label(sf, text=f"{score_a}  –  {score_b}",
+                 font=("Corbel", 36, "bold"),
+                 bg=_COLORS["score_bg"], fg="#ffffff").pack()
 
-        team_frame_b = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
-        team_frame_b.pack(side=tk.LEFT, padx=15)
-        flag_b = self._get_flag(team_b, 24, 18)
+        # Equipo B
+        tf_b = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        tf_b.pack(side=tk.LEFT, expand=True)
+        flag_b = self._get_flag(team_b, 32, 24)
         if flag_b:
-            tk.Label(team_frame_b, image=flag_b, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 5))
-        tk.Label(team_frame_b, text=team_b, font=_FONT_TEAM,
-                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
+            tk.Label(tf_b, image=flag_b, bg=_COLORS["card_bg"]).pack()
+        tk.Label(tf_b, text=team_b, font=("Corbel", 18, "bold"),
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
-        prob_frame = tk.Frame(card, bg=_COLORS["card_bg"])
-        prob_frame.pack(pady=5)
-        pflag_a = self._get_flag(team_a, 16, 12)
-        if pflag_a:
-            tk.Label(prob_frame, image=pflag_a, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
-        tk.Label(prob_frame, text=f" {team_a}: {prob_a:.0f}%  |  ",
-                 font=_FONT_M, bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
-        tk.Label(prob_frame, text=f"Empate: {prob_d:.0f}%  |  ",
-                 font=_FONT_M, bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
-        pflag_b = self._get_flag(team_b, 16, 12)
-        if pflag_b:
-            tk.Label(prob_frame, image=pflag_b, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
-        tk.Label(prob_frame, text=f" {team_b}: {prob_b:.0f}%",
-                 font=_FONT_M, bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+        # ── PROBABILIDADES ───────────────────────────────────────────────────
+        prob_frame = tk.Frame(inner, bg=_COLORS["card_bg"])
+        prob_frame.pack(pady=(0, 6))
 
+        def _prob_pill(parent, team, prob, color):
+            f = tk.Frame(parent, bg=color, padx=10, pady=3)
+            f.pack(side=tk.LEFT, padx=4)
+            pf = self._get_flag(team, 14, 10)
+            if pf:
+                tk.Label(f, image=pf, bg=color).pack(side=tk.LEFT, padx=(0, 4))
+            tk.Label(f, text=f"{team}: {prob:.0f}%",
+                     font=("Corbel", 10, "bold"), bg=color, fg="#ffffff").pack(side=tk.LEFT)
+
+        win_color = _COLORS["accent2"] if prob_a >= prob_b else _COLORS["red"]
+        _prob_pill(prob_frame, team_a, prob_a, win_color if prob_a >= prob_b else "#3a3a3a")
+        draw_f = tk.Frame(prob_frame, bg="#3a3a3a", padx=10, pady=3)
+        draw_f.pack(side=tk.LEFT, padx=4)
+        tk.Label(draw_f, text=f"Empate: {prob_d:.0f}%",
+                 font=("Corbel", 10), bg="#3a3a3a", fg=_COLORS["subtitle"]).pack()
+        _prob_pill(prob_frame, team_b, prob_b, win_color if prob_b > prob_a else "#3a3a3a")
+
+        # ── ESTRELLAS DE CONFIANZA ───────────────────────────────────────────
         stars = stars_html(conf)
-        star_lbl = tk.Label(card, text=stars, font=("Corbel", 20),
+        star_lbl = tk.Label(inner, text=stars, font=("Corbel", 22),
                             bg=_COLORS["card_bg"], fg=_COLORS["star"])
-        star_lbl.pack(pady=2)
+        star_lbl.pack(pady=4)
         ToolTip(star_lbl, f"Confianza: {conf:.0f}%\nBasada en 1500 simulaciones Poisson")
 
+        # ── FOOTER ────────────────────────────────────────────────────────────
         round_label = match.get("round", "")
-        grp_label = f"  {round_label}  |  " if round_label else ""
-        tk.Label(card, text=f"{grp_label}Sede: {venue}   Partido {idx+1}/{total}",
-                 font=_FONT_S, bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack(pady=(0, 10))
+        grp_label = f"{round_label}  |  " if round_label else ""
+        tk.Label(inner,
+                 text=f"  {grp_label}\u2009📍 {venue}   \u00b7   Partido {idx+1}/{total}",
+                 font=("Corbel", 9), bg=_COLORS["card_bg"],
+                 fg=_COLORS["subtitle"]).pack(pady=(0, 12))
 
         return card
 

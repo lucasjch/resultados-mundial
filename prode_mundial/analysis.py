@@ -44,7 +44,7 @@ def _form_description(form_streak):
 def _friendly_description(team_name):
     ff = compute_friendly_form(team_name)
     if ff >= 8:
-        return "arraso en los amistosos de preparacion"
+        return "arrasó en los amistosos de preparacion"
     if ff >= 5:
         return "tuvo una buena preparacion en amistosos"
     if ff >= 2:
@@ -73,7 +73,7 @@ def _build_recommendation(match):
         if a_win >= 55 and rank_diff >= 30:
             return "LOCAL SEGURO - Amplio favorito, resultado confiable"
         if a_win >= 55:
-            return "FAVORITO CON CAUTELA - Ventaja solida pero no definitive"
+            return "FAVORITO CON CAUTELA - Ventaja solida pero no definitiva"
         if b_win >= 55 and rank_diff <= -30:
             return "VISITANTE SEGURO - Favorito solido como visitante"
         if b_win >= 55:
@@ -83,8 +83,8 @@ def _build_recommendation(match):
             return "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima"
         return "LIGERO FAVORITO VISITANTE - Partido parejo"
     if a_win > 35 and b_win > 35 and prob_draw > 25:
-        return "PARTIDO ABAJERTO - Cualquier resultado es posible"
-    return "SORPRESA POSIBLE - El underdog tiene argumentos para ganar"
+        return "PARTIDO ABIERTO - Cualquier resultado es posible"
+        return "SORPRESA POSIBLE - El menos favorecido puede dar el golpe"
 
 def _build_narrative(match):
     team_a = match["team_a"]
@@ -118,7 +118,7 @@ def _build_narrative(match):
     if a_star:
         star_line = f"Su carta bajo la manga es {a_star}"
         if a_penalty and a_penalty != a_star:
-            star_line += f", con {a_penalty} como pateador de penales designado"
+            star_line += f", con {a_penalty} como pateador de penales"
         parts.append(star_line + ".")
     if a_top_goals >= 10 and a_top_scorer:
         parts.append(f" {a_top_scorer} lleva {a_top_goals} goles en la temporada.")
@@ -145,7 +145,7 @@ def _build_narrative(match):
     if b_star:
         star_line = f"Su carta de presentacion es {b_star}"
         if b_penalty and b_penalty != b_star:
-            star_line += f", con {b_penalty} como encargado de los penales"
+            star_line += f", con {b_penalty} como pateador de penales"
         parts.append(star_line + ".")
     if b_top_goals >= 10 and b_top_scorer:
         parts.append(f" {b_top_scorer} acumula {b_top_goals} goles en el ano.")
@@ -163,7 +163,7 @@ def _build_narrative(match):
     elif xg_total >= 2.5:
         parts.append("Se espera un partido de ritmo moderado")
     else:
-        parts.append("Se preve un partido tactico y de pocos goles")
+        parts.append("Se prevé un partido táctico y de pocos goles")
     parts.append(f" (xG total: {xg_total:.2f}).")
 
     if factors:
@@ -174,18 +174,18 @@ def _build_narrative(match):
             if abs(top_factor_val) > 1.5:
                 factor_labels = {"strength": "calidad de plantilla",
                                  "player_stats": "rendimiento individual",
-                                 "home": "factor localia",
+                                 "home": "factor localía",
                                  "experience": "experiencia internacional",
                                  "friendly_form": "forma en amistosos recientes",
                                  "market_value": "valor de mercado",
                                  "squad_depth": "profundidad del banquillo",
                                  "rest_days": "descanso entre partidos",
-                                 "stakes": "presion del momento",
+                                 "stakes": "presión del momento",
                                  "history": "historial mundialista",
                                  "morale": "moral del equipo",
-                                 "trophy_pedigree": "palmares de sus jugadores",
+                                 "trophy_pedigree": "palmarés de sus jugadores",
                                  "height_advantage": "ventaja aerea",
-                                 "club_chemistry": "quimica entre companeros"}
+                                 "club_chemistry": "química entre compañeros"}
                 label = factor_labels.get(top_factor_name, top_factor_name)
                 if top_factor_val > 0:
                     parts.append(f" El factor {label} favorece claramente a {team_a}.")
