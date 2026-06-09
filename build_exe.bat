@@ -63,7 +63,7 @@ python -m PyInstaller --onefile --windowed --noupx ^
     --add-data "%CD%\prode_mundial\output;prode_mundial\output" ^
     --add-data "%CD%\prode_mundial\output\flags;prode_mundial\output\flags" ^
     --add-data "%CD%\prode_mundial\imput;prode_mundial\imput" ^
-    --icon "%CD%\prode_mundial\imput\wc26_icon.ico" ^
+    --icon "%CD%\prode_mundial\imput\wc26_logo.ico" ^
     --version-file "%CD%\prode_mundial\version_info.txt" ^
     --hidden-import json ^
     --hidden-import math ^
