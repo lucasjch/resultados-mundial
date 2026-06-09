@@ -20,37 +20,41 @@ _COLORS = {
 }
 
 
-class _GreenProgressBar(tk.Canvas):
-    """Barra de progreso verde con efecto 3D hecho en Canvas."""
+class _GreenProgressBar:
+    """Barra de progreso verde con efecto 3D hecho en Canvas (composicion)."""
 
     def __init__(self, parent, width=400, height=26):
-        super().__init__(parent, width=width, height=height,
-                         bg=_COLORS["bg"], highlightthickness=0)
+        self._canvas = tk.Canvas(parent, width=width, height=height,
+                                 bg=_COLORS["bg"], highlightthickness=0)
         self._w = width
         self._h = height
         self._pct = 0
+
+    def place(self, **kwargs):
+        self._canvas.place(**kwargs)
 
     def set(self, pct):
         self._pct = max(0, min(100, pct))
         self._draw(self._pct)
 
     def _draw(self, pct):
-        self.delete("all")
+        c = self._canvas
+        c.delete("all")
         w, h = self._w, self._h
-        self.create_rectangle(1, 1, w - 1, h - 1,
-                              outline=_COLORS["card_border"], width=2)
-        self.create_rectangle(3, 3, w - 3, h - 3,
-                              fill=_COLORS["card_bg"], outline="")
+        c.create_rectangle(1, 1, w - 1, h - 1,
+                           outline=_COLORS["card_border"], width=2)
+        c.create_rectangle(3, 3, w - 3, h - 3,
+                           fill=_COLORS["card_bg"], outline="")
         if pct > 0:
             fw = max(4, int((w - 8) * pct / 100))
-            self.create_rectangle(4, 4, 4 + fw, h - 4,
-                                  fill=_COLORS["green"], outline="")
-            self.create_rectangle(4, 4, 4 + fw, 8,
-                                  fill=_COLORS["green_light"], outline="")
-            self.create_rectangle(4, h - 8, 4 + fw, h - 4,
-                                  fill=_COLORS["green_dark"], outline="")
-        self.create_text(w // 2, h // 2, text=f"{pct:.0f}%",
-                         fill=_COLORS["fg"], font=("Corbel", 10, "bold"))
+            c.create_rectangle(4, 4, 4 + fw, h - 4,
+                               fill=_COLORS["green"], outline="")
+            c.create_rectangle(4, 4, 4 + fw, 8,
+                               fill=_COLORS["green_light"], outline="")
+            c.create_rectangle(4, h - 8, 4 + fw, h - 4,
+                               fill=_COLORS["green_dark"], outline="")
+        c.create_text(w // 2, h // 2, text=f"{pct:.0f}%",
+                      fill=_COLORS["fg"], font=("Corbel", 10, "bold"))
 
 
 class SplashScreen:
