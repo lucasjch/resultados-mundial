@@ -94,10 +94,8 @@ class SplashScreen:
 
         # Progress bar (centered, bottom area)
         self._bar_width = 400
-        bar_container = tk.Frame(root, bg=_COLORS["bg"])
-        bar_container.place(relx=0.5, rely=0.80, anchor=tk.CENTER)
-        self._progress = _GreenProgressBar(bar_container, width=self._bar_width)
-        self._progress.pack()
+        self._progress = _GreenProgressBar(root, width=self._bar_width)
+        self._progress.place(relx=0.5, rely=0.80, anchor=tk.CENTER)
 
         # Footer
         self._footer_id = self._canvas.create_text(
