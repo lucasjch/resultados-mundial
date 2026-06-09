@@ -1095,13 +1095,26 @@ def main():
     t = threading.Thread(target=_run_simulation, daemon=True)
     t.start()
 
+    _FAKE_MSGS = [
+        (10, "Iniciando simulacion..."),
+        (20, "Leyendo Mundiales..."),
+        (35, "Cargando jugadores..."),
+        (50, "Analizando fase de grupos..."),
+        (65, "Simulando mundial 1500 veces..."),
+        (75, "Leyendo historia de Mundiales..."),
+        (85, "Generando predicciones..."),
+        (95, "Preparando interfaz grafica..."),
+        (100, "Listo!"),
+    ]
+
     _fake_pct = 0
 
     def _tick():
         nonlocal _fake_pct
         if _fake_pct < 100:
             _fake_pct += 1
-            splash.set_progress(_fake_pct, "Preparando simulacion...")
+            msg = next(m for m in _FAKE_MSGS if _fake_pct <= m[0])[1]
+            splash.set_progress(_fake_pct, msg)
             root.after(100, _tick)
         elif sim_data.get("done"):
             _finish()
