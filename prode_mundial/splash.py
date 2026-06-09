@@ -29,7 +29,6 @@ class _GreenProgressBar(tk.Canvas):
         self._w = width
         self._h = height
         self._pct = 0
-        self._draw(0)
 
     def set(self, pct):
         self._pct = max(0, min(100, pct))
