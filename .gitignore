@@ -5,3 +5,5 @@ prode_mundial/output/
 *.log
 .DS_Store
 Thumbs.db
+dist/
+prode_mundial/imput/
