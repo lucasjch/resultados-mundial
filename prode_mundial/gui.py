@@ -1105,7 +1105,7 @@ class ProdeGUI:
         text.insert(tk.END, ". En total se recolectaron datos de 1205 jugadores con estadísticas de temporada completas, lo que da una cobertura del 97% del torneo.\n\n", "normal")
         text.insert(tk.END, "Después se cargó la ", "normal")
         text.insert(tk.END, "historia de cada selección en los Mundiales", "bold")
-        text.insert(tk.END, ": qué equipo fue campeón, cuál llegó a final, a semifinales, a cuartos. Brasil con cinco títulos, Alemania con cuatro, Argentina con tres, Francia e Inglaterra. También se registraron las ", "normal")
+        text.insert(tk.END, ": qué equipo fue campeón, cuál llegó a final, a semifinales, a cuartos. Brasil con cinco títulos, Alemania con cuatro, Argentina con tres, Francia con dos, Uruguay con dos, Inglaterra con uno y España con uno. También se registraron las ", "normal")
         text.insert(tk.END, "16 sedes del torneo", "bold")
         text.insert(tk.END, ": estadios repartidos entre Estados Unidos, México y Canadá, desde el Azteca a 2240 metros de altura hasta el BC Place de Vancouver con techo cerrado. Se anotaron las ", "normal")
         text.insert(tk.END, "bases operativas", "bold")
