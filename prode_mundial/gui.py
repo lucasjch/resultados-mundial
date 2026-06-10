@@ -12,7 +12,7 @@ from tkinter import ttk, messagebox
 import sv_ttk
 
 if getattr(sys, 'frozen', False):
-    BASE_DIR = sys._MEIPASS
+    BASE_DIR = getattr(sys, '_MEIPASS')
     sys.path.insert(0, os.path.join(BASE_DIR, "prode_mundial"))
     OUTPUT_DIR = os.path.join(BASE_DIR, "prode_mundial", "output")
 else:
@@ -103,7 +103,7 @@ def flag_name(name):
 
 def stars_html(pct):
     filled = int(pct / 20)
-    return "\u2605" * filled + "\u2606" * (5 - filled)
+    return "★" * filled + "☆" * (5 - filled)
 
 
 def _poisson_pmf(k, lam):
@@ -214,7 +214,7 @@ class ProdeGUI:
             return None
         try:
             from PIL import Image, ImageTk
-            img = Image.open(flag_path).resize((width, height), Image.LANCZOS)
+            img = Image.open(flag_path).resize((width, height), Image.Resampling.LANCZOS)
             photo = ImageTk.PhotoImage(img)
             self._flag_cache[key] = photo
             return photo
@@ -260,14 +260,14 @@ class ProdeGUI:
                 target_h = 64
                 ratio = target_h / img.height
                 display_w = int(img.width * ratio)
-                img = img.resize((display_w, target_h), Image.LANCZOS)
+                img = img.resize((display_w, target_h), Image.Resampling.LANCZOS)
                 self._banner_img = ImageTk.PhotoImage(img)
                 lbl_banner = tk.Label(header, image=self._banner_img, bg=_COLORS["bg"])
                 lbl_banner.pack(side=tk.LEFT, padx=5)
             except Exception:
                 pass
         else:
-            tk.Label(header, text="\u26BD Mundial 2026",
+            tk.Label(header, text="⚽ Mundial 2026",
                      font=("Corbel", 26, "bold"), bg=_COLORS["bg"],
                      fg=_COLORS["accent"]).pack(side=tk.LEFT, padx=15)
             tk.Label(header, text="Predicciones PRODE",
@@ -301,7 +301,7 @@ class ProdeGUI:
         self._tab_goleadores = ttk.Frame(nb)
         self._tab_bonus = ttk.Frame(nb)
 
-        nb.add(self._tab_info, text=" ¿Como funciona? ")
+        nb.add(self._tab_info, text=" ¿Cómo funciona? ")
         nb.add(self._tab_groups, text=" Fase de Grupos ")
         nb.add(self._tab_ko, text=" Eliminatorias ")
         nb.add(self._tab_stats, text=" Estadisticas ")
@@ -323,13 +323,13 @@ class ProdeGUI:
     def _nav_frame(self, parent, tab_name):
         f = tk.Frame(parent, bg=_COLORS["bg"])
         f.pack(fill=tk.X, pady=5)
-        btn_prev = self._styled_btn(f, " \u25C0 ", lambda: self._nav(tab_name, -1))
+        btn_prev = self._styled_btn(f, " ◀ ", lambda: self._nav(tab_name, -1))
         btn_prev.pack(side=tk.LEFT, padx=5)
         lbl = tk.Label(f, text="", font=_FONT_M, bg=_COLORS["bg"],
                        fg=_COLORS["fg"])
         lbl.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=15)
         setattr(self, f"_lbl_{tab_name}", lbl)
-        btn_next = self._styled_btn(f, " \u25B6 ", lambda: self._nav(tab_name, 1))
+        btn_next = self._styled_btn(f, " ▶ ", lambda: self._nav(tab_name, 1))
         btn_next.pack(side=tk.RIGHT, padx=5)
         return f
 
@@ -367,36 +367,6 @@ class ProdeGUI:
         card = tk.Frame(outer, bg=_COLORS["card_bg"])
         card.pack(fill=tk.BOTH, expand=True)
 
-        # Canvas con scroll para todo el contenido
-        canvas = tk.Canvas(card, bg=_COLORS["card_bg"], highlightthickness=0, bd=0)
-        scrollbar = tk.Scrollbar(card, orient=tk.VERTICAL, command=canvas.yview,
-                                 bg=_COLORS["card_bg"], troughcolor=_COLORS["bg"])
-        canvas.configure(yscrollcommand=scrollbar.set)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-        inner = tk.Frame(canvas, bg=_COLORS["card_bg"])
-        win_id = canvas.create_window((0, 0), window=inner, anchor=tk.NW)
-
-        # Ajustar ancho del inner al canvas cuando este cambie de tamaño
-        def _on_canvas_resize(event):
-            canvas.itemconfig(win_id, width=event.width)
-        canvas.bind("<Configure>", _on_canvas_resize)
-
-        # Actualizar scrollregion cuando el inner cambie
-        def _on_inner_resize(event):
-            canvas.configure(scrollregion=canvas.bbox("all"))
-        inner.bind("<Configure>", _on_inner_resize)
-
-        # MouseWheel solo cuando el cursor está sobre la card
-        def _bind_wheel(event):
-            canvas.bind_all("<MouseWheel>",
-                lambda e: canvas.yview_scroll(int(-1*(e.delta/120)), "units"))
-        def _unbind_wheel(event):
-            canvas.unbind_all("<MouseWheel>")
-        canvas.bind("<Enter>", _bind_wheel)
-        canvas.bind("<Leave>", _unbind_wheel)
-
         # ── ANÁLISIS NARRATIVO ──────────────────────────────────────────────
         analysis = match.get("analysis", "")
         if analysis:
@@ -413,7 +383,7 @@ class ProdeGUI:
             else:
                 badge_color = _COLORS["accent2"]
 
-            badge_frame = tk.Frame(inner, bg=badge_color)
+            badge_frame = tk.Frame(card, bg=badge_color)
             badge_frame.pack(fill=tk.X, padx=0, pady=(0, 0))
             tk.Label(
                 badge_frame, text=f"  {rec_text}  ",
@@ -422,54 +392,31 @@ class ProdeGUI:
                 anchor=tk.W, pady=6
             ).pack(fill=tk.X, padx=15)
 
+            text_frame = tk.Frame(card, bg="#1c2128")
+            text_frame.pack(fill=tk.X, padx=0, pady=0)
+
             text_w = tk.Text(
-                inner, wrap=tk.WORD, height=8,
+                text_frame, wrap=tk.WORD, height=12,
                 bg="#1c2128", fg=_COLORS["fg"],
                 font=("Corbel", 10), relief=tk.FLAT,
                 highlightthickness=0, bd=0,
                 padx=15, pady=8
             )
+            text_w.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+            text_scroll = tk.Scrollbar(text_frame, orient=tk.VERTICAL, command=text_w.yview)
+            text_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+            text_w.config(yscrollcommand=text_scroll.set)
+
             text_w.insert("1.0", narrative)
             text_w.config(state=tk.DISABLED)
-            text_w.pack(fill=tk.X, padx=0, pady=0)
 
         # ── SEPARADOR ────────────────────────────────────────────────────────
-        sep = tk.Frame(inner, bg=_COLORS["accent"], height=2)
+        sep = tk.Frame(card, bg=_COLORS["accent"], height=2)
         sep.pack(fill=tk.X, padx=0, pady=(8, 0))
 
-        # ── SCORE ROW ────────────────────────────────────────────────────────
-        vs_frame = tk.Frame(inner, bg=_COLORS["card_bg"])
-        vs_frame.pack(fill=tk.X, pady=18)
-
-        # Equipo A
-        tf_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
-        tf_a.pack(side=tk.LEFT, expand=True)
-        flag_a = self._get_flag(team_a, 32, 24)
-        if flag_a:
-            tk.Label(tf_a, image=flag_a, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_a, text=team_a, font=("Corbel", 18, "bold"),
-                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
-
-        # Score central con fondo verde
-        sf = tk.Frame(vs_frame, bg=_COLORS["score_bg"],
-                      highlightbackground=_COLORS["accent"],
-                      highlightthickness=2, padx=24, pady=10)
-        sf.pack(side=tk.LEFT, padx=10)
-        tk.Label(sf, text=f"{score_a}  –  {score_b}",
-                 font=("Corbel", 36, "bold"),
-                 bg=_COLORS["score_bg"], fg="#ffffff").pack()
-
-        # Equipo B
-        tf_b = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
-        tf_b.pack(side=tk.LEFT, expand=True)
-        flag_b = self._get_flag(team_b, 32, 24)
-        if flag_b:
-            tk.Label(tf_b, image=flag_b, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_b, text=team_b, font=("Corbel", 18, "bold"),
-                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
-
         # ── PROBABILIDADES ───────────────────────────────────────────────────
-        prob_frame = tk.Frame(inner, bg=_COLORS["card_bg"])
+        prob_frame = tk.Frame(card, bg=_COLORS["card_bg"])
         prob_frame.pack(pady=(0, 6))
 
         def _prob_pill(parent, team, prob, color):
@@ -491,16 +438,48 @@ class ProdeGUI:
 
         # ── ESTRELLAS DE CONFIANZA ───────────────────────────────────────────
         stars = stars_html(conf)
-        star_lbl = tk.Label(inner, text=stars, font=("Corbel", 22),
+        star_lbl = tk.Label(card, text=stars, font=("Corbel", 22),
                             bg=_COLORS["card_bg"], fg=_COLORS["star"])
         star_lbl.pack(pady=4)
         ToolTip(star_lbl, f"Confianza: {conf:.0f}%\nBasada en 1500 simulaciones Poisson")
 
+        # ── SCORE ROW ────────────────────────────────────────────────────────
+        vs_frame = tk.Frame(card, bg=_COLORS["card_bg"], height=130)
+        vs_frame.pack(fill=tk.X, pady=18)
+        vs_frame.pack_propagate(False)
+
+        # Equipo A
+        tf_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        tf_a.pack(side=tk.LEFT, padx=(12, 0))
+        flag_a = self._get_flag(team_a, 32, 24)
+        if flag_a:
+            tk.Label(tf_a, image=flag_a, bg=_COLORS["card_bg"]).pack()
+        tk.Label(tf_a, text=team_a, font=("Corbel", 18, "bold"),
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
+
+        # Score central con fondo verde — centrado absoluto
+        sf = tk.Frame(vs_frame, bg=_COLORS["score_bg"],
+                      highlightbackground=_COLORS["accent"],
+                      highlightthickness=2, padx=24, pady=10)
+        sf.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        tk.Label(sf, text=f"{score_a}  –  {score_b}",
+                 font=("Corbel", 36, "bold"),
+                 bg=_COLORS["score_bg"], fg="#ffffff").pack()
+
+        # Equipo B
+        tf_b = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        tf_b.pack(side=tk.RIGHT, padx=(0, 12))
+        flag_b = self._get_flag(team_b, 32, 24)
+        if flag_b:
+            tk.Label(tf_b, image=flag_b, bg=_COLORS["card_bg"]).pack()
+        tk.Label(tf_b, text=team_b, font=("Corbel", 18, "bold"),
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
+
         # ── FOOTER ────────────────────────────────────────────────────────────
         round_label = match.get("round", "")
         grp_label = f"{round_label}  |  " if round_label else ""
-        tk.Label(inner,
-                 text=f"  {grp_label}\u2009📍 {venue}   \u00b7   Partido {idx+1}/{total}",
+        tk.Label(card,
+                 text=f"  {grp_label} 📍 {venue}   ·   Partido {idx+1}/{total}",
                  font=("Corbel", 9), bg=_COLORS["card_bg"],
                  fg=_COLORS["subtitle"]).pack(pady=(0, 12))
 
@@ -633,10 +612,20 @@ class ProdeGUI:
                      font=("Corbel", 12, "bold"), bg=_COLORS["card_bg"],
                      fg=_COLORS["accent"]).pack(anchor=tk.W)
 
-            hdr_line = f"{'':4s} {'Pts':4s} {'GD':4s} {'GF':4s} {'GA':4s}"
-            tk.Label(grp_frame, text=hdr_line, font=_FONT_TAB_H,
-                     bg=_COLORS["card_bg"],
-                     fg=_COLORS["subtitle"]).pack(anchor=tk.W)
+            hdr_row = tk.Frame(grp_frame, bg=_COLORS["card_bg"])
+            hdr_row.pack(fill=tk.X)
+            tk.Label(hdr_row, text="", font=_FONT_TAB_H,
+                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                     width=2).pack(side=tk.LEFT)
+            tk.Label(hdr_row, text="", font=_FONT_TAB_H,
+                     bg=_COLORS["card_bg"], width=3).pack(side=tk.LEFT)
+            tk.Label(hdr_row, text="Equipo", font=_FONT_TAB_H,
+                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                     width=20, anchor=tk.W).pack(side=tk.LEFT)
+            for col, w in [("Pts", 3), ("GD", 3), ("GF", 3), ("GA", 4)]:
+                tk.Label(hdr_row, text=col, font=_FONT_TAB_H,
+                         bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                         width=w, anchor=tk.CENTER).pack(side=tk.RIGHT)
 
             teams = tables[g]
             for rank, entry in enumerate(teams, 1):
@@ -659,15 +648,18 @@ class ProdeGUI:
                 row_f = tk.Frame(grp_frame, bg=_COLORS["card_bg"])
                 row_f.pack(fill=tk.X)
                 rflag = self._get_flag(team_name, 16, 12)
-                tk.Label(row_f, text="\u2605" if rank <= 2 else " ",
-                         font=_FONT_TAB, bg=_COLORS["card_bg"], fg=clr).pack(side=tk.LEFT)
+                tk.Label(row_f, text="★" if rank <= 2 else " ",
+                         font=_FONT_TAB, bg=_COLORS["card_bg"], fg=clr,
+                         width=2).pack(side=tk.LEFT)
                 if rflag:
                     tk.Label(row_f, image=rflag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(2, 3))
-                tk.Label(row_f, text=f"{team_name:20s}", font=_FONT_TAB,
+                tk.Label(row_f, text=team_name, font=_FONT_TAB,
                          bg=_COLORS["card_bg"], fg=clr,
-                         anchor=tk.W).pack(side=tk.LEFT)
-                tk.Label(row_f, text=f"{pts:3d} {gd:+3d} {gf:3d} {ga:3d}",
-                         font=_FONT_TAB, bg=_COLORS["card_bg"], fg=clr).pack(side=tk.RIGHT)
+                         width=20, anchor=tk.W).pack(side=tk.LEFT)
+                for val, w in [(str(pts), 3), (f"{gd:+d}", 3), (str(gf), 3), (str(ga), 4)]:
+                    tk.Label(row_f, text=val, font=_FONT_TAB,
+                             bg=_COLORS["card_bg"], fg=clr,
+                             width=w, anchor=tk.CENTER).pack(side=tk.RIGHT)
 
         third = self._compute_third_placed(tables)
         if third:
@@ -689,7 +681,7 @@ class ProdeGUI:
                 row_bg = _COLORS["card_bg"] if rank3 % 2 == 0 else _COLORS["bg"]
                 row3 = tk.Frame(scroll_frame, bg=row_bg)
                 row3.pack(fill=tk.X, padx=20)
-                icon = "\u2605" if qualifies else " "
+                icon = "★" if qualifies else " "
                 clr3 = _COLORS["green"] if qualifies else _COLORS["fg"]
                 tk.Label(row3, text=icon, font=_FONT_TAB, bg=row_bg,
                          fg=clr3, width=3).pack(side=tk.LEFT)
@@ -801,13 +793,13 @@ class ProdeGUI:
 
         if ko:
             final = ko[-1]
-            bonus["champion"] = final.get("winner", "?")
+            bonus["champion"] = final.get("wcard", "?")
             bonus["champion_conf"] = final.get("confidence", 0)
             bonus["runner_up"] = final.get("loser", "?")
             bonus["final_score"] = f"{final.get('score_a', 0)}-{final.get('score_b', 0)}"
             if len(ko) >= 2:
                 third = ko[-2]
-                bonus["third_place"] = third.get("winner", "?")
+                bonus["third_place"] = third.get("wcard", "?")
                 bonus["third_score"] = f"{third.get('score_a', 0)}-{third.get('score_b', 0)}"
             if len(ko) >= 30:
                 sf1 = ko[28]
@@ -859,10 +851,10 @@ class ProdeGUI:
                 best_match = {"teams": f"{a} vs {b}", "score": f"{sa}-{sb}", "goals": total}
 
         if gs:
-            bonus["most_goals_team"] = max(gs, key=gs.get)
+            bonus["most_goals_team"] = max(gs, key=lambda k: gs[k])
             bonus["most_goals_total"] = gs[bonus["most_goals_team"]]
         if gc:
-            bonus["best_defense"] = min(gc, key=gc.get)
+            bonus["best_defense"] = min(gc, key=lambda k: gc[k])
             bonus["best_defense_ga"] = gc[bonus["best_defense"]]
         if best_match:
             bonus["best_match"] = best_match
@@ -921,14 +913,14 @@ class ProdeGUI:
                  fg=_COLORS["star"]).pack(anchor=tk.W, padx=15, pady=(8, 2))
         rules_text = (
             "Por partido:\n"
-            "  \u25cf  3 pts  - Resultado exacto\n"
-            "  \u25cf  1 pt   - Resultado acertado (ganador o empate)\n"
-            "  \u25cf  0 pts  - No acertaste\n\n"
+            "  ●  3 pts  - Resultado exacto\n"
+            "  ●  1 pt   - Resultado acertado (ganador o empate)\n"
+            "  ●  0 pts  - No acertaste\n\n"
             "Predicciones Bonus:\n"
-            "  \u25cf  Campeon: ? pts\n"
-            "  \u25cf  Goleador: ? pts\n"
-            "  \u25cf  Cada clasificado de grupo: 1 pt\n"
-            "  \u25cf  Cada semifinalista correcto: 1 pt"
+            "  ●  Campeon: ? pts\n"
+            "  ●  Goleador: ? pts\n"
+            "  ●  Cada clasificado de grupo: 1 pt\n"
+            "  ●  Cada semifinalista correcto: 1 pt"
         )
         tk.Label(rules_card, text=rules_text, font=_FONT_M,
                  bg=_COLORS["card_bg"],
@@ -954,7 +946,7 @@ class ProdeGUI:
         if ts:
             ts_team = bonus.get("top_scorer_team", "")
             ts_goals = bonus.get("top_scorer_goals", 0)
-            self._bonus_card(scroll_frame, "\u26BD  Goleador",
+            self._bonus_card(scroll_frame, "⚽  Goleador",
                              f"{ts} ({ts_team})",
                              f"Goles: {ts_goals}",
                              _COLORS["yellow"], flag_team=ts_team)
@@ -986,16 +978,16 @@ class ProdeGUI:
         # Classified per group
         classified = bonus.get("classified", {})
         if classified:
-            inner = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+            card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
                              highlightbackground=_COLORS["card_border"],
                              highlightthickness=1, relief=tk.FLAT)
-            inner.pack(fill=tk.X, padx=20, pady=6)
-            tk.Label(inner, text="Clasificados por Grupo",
+            card.pack(fill=tk.X, padx=20, pady=6)
+            tk.Label(card, text="Clasificados por Grupo",
                      font=("Corbel", 13, "bold"), bg=_COLORS["card_bg"],
                      fg=_COLORS["green"]).pack(anchor=tk.W, padx=15, pady=(8, 2))
             for g in sorted(classified.keys()):
                 t1, t2 = classified[g]
-                c_line = tk.Frame(inner, bg=_COLORS["card_bg"])
+                c_line = tk.Frame(card, bg=_COLORS["card_bg"])
                 c_line.pack(anchor=tk.W, padx=15, pady=1)
                 tk.Label(c_line, text=f"  {g}:  ", font=_FONT_M,
                          bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
@@ -1011,19 +1003,19 @@ class ProdeGUI:
             from prode_mundial.optimizer import analyze_x2
             x2_data = analyze_x2(group_predictions=self.data["groups"])
             if x2_data:
-                x2_inner = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+                x2_card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
                                     highlightbackground=_COLORS["card_border"],
                                     highlightthickness=1, relief=tk.FLAT)
-                x2_inner.pack(fill=tk.X, padx=20, pady=6)
-                tk.Label(x2_inner, text="Multiplicador x2 - Top 3 Recomendados",
+                x2_card.pack(fill=tk.X, padx=20, pady=6)
+                tk.Label(x2_card, text="Multiplicador x2 - Top 3 Recomendados",
                          font=("Corbel", 13, "bold"), bg=_COLORS["card_bg"],
                          fg=_COLORS["accent"]).pack(anchor=tk.W, padx=15, pady=(8, 2))
-                tk.Label(x2_inner,
-                         text="Poner x2 hasta en 3 partidos. Si acertas, duplica los puntos (3\u21926, 1\u21924).",
+                tk.Label(x2_card,
+                         text="Poner x2 hasta en 3 partidos. Si acertas, duplica los puntos (3→6, 1→4).",
                          font=_FONT_S, bg=_COLORS["card_bg"],
                          fg=_COLORS["subtitle"]).pack(anchor=tk.W, padx=15, pady=(0, 2))
                 for i, r in enumerate(x2_data[:3], 1):
-                    x2_line = tk.Frame(x2_inner, bg=_COLORS["card_bg"])
+                    x2_line = tk.Frame(x2_card, bg=_COLORS["card_bg"])
                     x2_line.pack(fill=tk.X, padx=15, pady=2)
                     tk.Label(x2_line, text=f"  {i}.  ", font=_FONT_M,
                              bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
@@ -1094,118 +1086,118 @@ class ProdeGUI:
                            foreground=_COLORS["subtitle"], spacing1=4, spacing3=4)
         text.tag_configure("footer", font=("Corbel", 10), foreground=_COLORS["subtitle"],
                            spacing1=15, spacing3=5)
-        text.insert(tk.END, "¿Como funciona este sistema de predicciones?\n", "title")
+        text.insert(tk.END, "¿Cómo funciona este sistema de predicciones?\n", "title")
         text.insert(tk.END, "\n")
         text.insert(tk.END, "Este sistema analiza los 135 partidos del Mundial 2026 y te ayuda a completar tu PRODE. No es magia: es ", "normal")
-        text.insert(tk.END, "matematica aplicada al futbol", "bold")
+        text.insert(tk.END, "matemática aplicada al fútbol", "bold")
         text.insert(tk.END, ", alimentada con datos reales de los ", "normal")
         text.insert(tk.END, "1248 jugadores", "bold")
         text.insert(tk.END, " que disputan el torneo.\n\n", "normal")
-        text.insert(tk.END, "La recoleccion de datos\n", "subtitle")
-        text.insert(tk.END, "Primero se armo una base de datos con los 1248 jugadores de las 48 selecciones. Para eso se usaron tres fuentes: ", "normal")
+        text.insert(tk.END, "La recolección de datos\n", "subtitle")
+        text.insert(tk.END, "Primero se armó una base de datos con los 1248 jugadores de las 48 selecciones. Para eso se usaron tres fuentes: ", "normal")
         text.insert(tk.END, "Promiedos", "bold")
         text.insert(tk.END, ", ", "normal")
         text.insert(tk.END, "Transfermarkt", "bold")
         text.insert(tk.END, " y ", "normal")
         text.insert(tk.END, "Wikipedia", "bold")
-        text.insert(tk.END, ". De cada jugador se obtuvo su nombre, edad, altura, posicion, club actual y valor de mercado. Pero no quedo ahi: de Wikipedia se extrajeron los partidos y goles internacionales de cada uno, su club actual, sus titulos profesionales y su altura exacta. De Transfermarkt se consiguieron las estadisticas de la temporada 2025/26: ", "normal")
+        text.insert(tk.END, ". De cada jugador se obtuvo su nombre, edad, altura, posición, club actual y valor de mercado. Pero no quedó ahí: de Wikipedia se extrajeron los partidos y goles internacionales de cada uno, su club actual, sus títulos profesionales y su altura exacta. De Transfermarkt se consiguieron las estadísticas de la temporada 2025/26: ", "normal")
         text.insert(tk.END, "goles, asistencias y minutos jugados", "bold")
-        text.insert(tk.END, ". En total se recolectaron datos de 1205 jugadores con estadisticas de temporada completas, lo que da una cobertura del 97% del torneo.\n\n", "normal")
-        text.insert(tk.END, "Despues se cargó la ", "normal")
-        text.insert(tk.END, "historia de cada seleccion en los Mundiales", "bold")
-        text.insert(tk.END, ": que equipo fue campeon, cual llego a final, a semifinales, a cuartos. Brasil con cinco titulos, Alemania con cuatro, Argentina con tres, Francia e Inglaterra. Tambien se registraron las ", "normal")
+        text.insert(tk.END, ". En total se recolectaron datos de 1205 jugadores con estadísticas de temporada completas, lo que da una cobertura del 97% del torneo.\n\n", "normal")
+        text.insert(tk.END, "Después se cargó la ", "normal")
+        text.insert(tk.END, "historia de cada selección en los Mundiales", "bold")
+        text.insert(tk.END, ": qué equipo fue campeón, cuál llegó a final, a semifinales, a cuartos. Brasil con cinco títulos, Alemania con cuatro, Argentina con tres, Francia e Inglaterra. También se registraron las ", "normal")
         text.insert(tk.END, "16 sedes del torneo", "bold")
-        text.insert(tk.END, ": estadios repartidos entre Estados Unidos, Mexico y Canada, desde el Azteca a 2240 metros de altura hasta el BC Place de Vancouver con techo cerrado. Se anotaron las ", "normal")
+        text.insert(tk.END, ": estadios repartidos entre Estados Unidos, México y Canadá, desde el Azteca a 2240 metros de altura hasta el BC Place de Vancouver con techo cerrado. Se anotaron las ", "normal")
         text.insert(tk.END, "bases operativas", "bold")
-        text.insert(tk.END, " de cada seleccion, porque no es lo mismo dormir en Kansas City que en Cancun. Y se cargaron ", "normal")
+        text.insert(tk.END, " de cada selección, porque no es lo mismo dormir en Kansas City que en Cancún. Y se cargaron ", "normal")
         text.insert(tk.END, "57 partidos amistosos", "bold")
-        text.insert(tk.END, " que se jugaron entre mayo y junio de 2026 para medir la preparacion de cada equipo.\n\n", "normal")
+        text.insert(tk.END, " que se jugaron entre mayo y junio de 2026 para medir la preparación de cada equipo.\n\n", "normal")
         text.insert(tk.END, "Los dieciocho factores\n", "subtitle")
         text.insert(tk.END, "Cada partido se analiza con ", "normal")
         text.insert(tk.END, "dieciocho factores distintos", "bold")
-        text.insert(tk.END, ". Cada factor tiene un peso que indica que tanto influye en el resultado final. Te los cuento:\n\n", "normal")
-        text.insert(tk.END, "El factor mas importante es la ", "normal")
+        text.insert(tk.END, ". Cada factor tiene un peso que indica qué tanto influye en el resultado final. Te los cuento:\n\n", "normal")
+        text.insert(tk.END, "El factor más importante es la ", "normal")
         text.insert(tk.END, "fuerza del equipo", "bold")
-        text.insert(tk.END, ", que mira el ranking FIFA y el tier en el que esta clasificada cada seleccion. Pesa un 15%. Le siguen las ", "normal")
-        text.insert(tk.END, "estadisticas individuales", "bold")
-        text.insert(tk.END, " de los jugadores: goles y asistencias de la temporada, con un 11%. Despues viene el ", "normal")
+        text.insert(tk.END, ", que mira el ranking FIFA y el tier en el que está clasificada cada selección. Pesa un 15%. Le siguen las ", "normal")
+        text.insert(tk.END, "estadísticas individuales", "bold")
+        text.insert(tk.END, " de los jugadores: goles y asistencias de la temporada, con un 11%. Después viene el ", "normal")
         text.insert(tk.END, "valor de mercado", "bold")
         text.insert(tk.END, " de la plantilla, porque un equipo lleno de jugadores de Manchester City, Real Madrid y Bayern suele ser mejor que uno con jugadores de ligas chicas. Eso pesa un 10%.\n\n", "normal")
         text.insert(tk.END, "La ", "normal")
         text.insert(tk.END, "experiencia internacional", "bold")
-        text.insert(tk.END, " de los jugadores (los partidos que jugaron con su seleccion) pesa un 6%. La ", "normal")
-        text.insert(tk.END, "localia", "bold")
-        text.insert(tk.END, " tambien pesa 6%, pero solo cuando el equipo juega cerca de su pais o tiene mucha diaspora en Estados Unidos. Los ", "normal")
-        text.insert(tk.END, "dias de descanso", "bold")
-        text.insert(tk.END, " entre partidos pesan otro 6%: jugar cada tres dias desgasta. La ", "normal")
+        text.insert(tk.END, " de los jugadores (los partidos que jugaron con su selección) pesa un 6%. La ", "normal")
+        text.insert(tk.END, "localía", "bold")
+        text.insert(tk.END, " también pesa 6%, pero solo cuando el equipo juega cerca de su país o tiene mucha diáspora en Estados Unidos. Los ", "normal")
+        text.insert(tk.END, "días de descanso", "bold")
+        text.insert(tk.END, " entre partidos pesan otro 6%: jugar cada tres días desgasta. La ", "normal")
         text.insert(tk.END, "profundidad del banco", "bold")
-        text.insert(tk.END, " de suplentes pesa 6% tambien, porque en un Mundial se hacen cinco cambios por partido.\n\n", "normal")
+        text.insert(tk.END, " de suplentes pesa 6% también, porque en un Mundial se hacen cinco cambios por partido.\n\n", "normal")
         text.insert(tk.END, "El ", "normal")
         text.insert(tk.END, "clima", "bold")
         text.insert(tk.END, " pesa 5%: no es lo mismo jugar en el calor de Monterrey a 37 grados que en el techo cerrado de Dallas. El ", "normal")
         text.insert(tk.END, "porcentaje de jugadores en el extranjero", "bold")
         text.insert(tk.END, " pesa 3%. Los ", "normal")
-        text.insert(tk.END, "kilometros acumulados", "bold")
+        text.insert(tk.END, "kilómetros acumulados", "bold")
         text.insert(tk.END, " viajando entre sedes pesan 4%. La ", "normal")
         text.insert(tk.END, "historia mundialista", "bold")
-        text.insert(tk.END, " de cada seleccion pesa 4%. La ", "normal")
+        text.insert(tk.END, " de cada selección pesa 4%. La ", "normal")
         text.insert(tk.END, "moral del equipo", "bold")
         text.insert(tk.END, " (si viene ganando o perdiendo) pesa 2%. La ", "normal")
-        text.insert(tk.END, "preparacion en amistosos", "bold")
+        text.insert(tk.END, "preparación en amistosos", "bold")
         text.insert(tk.END, " previos pesa otro 2%.\n\n", "normal")
         text.insert(tk.END, "La cantidad de ", "normal")
-        text.insert(tk.END, "titulos", "bold")
+        text.insert(tk.END, "títulos", "bold")
         text.insert(tk.END, " que tienen los jugadores en sus carreras pesa 4%. Las ", "normal")
         text.insert(tk.END, "cuotas de las casas de apuestas", "bold")
         text.insert(tk.END, " antes del torneo pesan 3%. La ", "normal")
         text.insert(tk.END, "altura promedio", "bold")
         text.insert(tk.END, " del equipo (ventaja en pelotas paradas) pesa 3%. La ", "normal")
-        text.insert(tk.END, "quimica entre jugadores", "bold")
+        text.insert(tk.END, "química entre jugadores", "bold")
         text.insert(tk.END, " que comparten club pesa 3%. La ", "normal")
         text.insert(tk.END, "distancia al estadio", "bold")
-        text.insert(tk.END, " desde la base operativa pesa 3%. Y por ultimo, la ", "normal")
-        text.insert(tk.END, "presion del partido", "bold")
-        text.insert(tk.END, ": si un equipo ya esta clasificado, si necesita ganar o si ya esta eliminado. Eso pesa 4% y solo aplica en la tercera fecha de la fase de grupos.\n\n", "normal")
-        text.insert(tk.END, "Como se calcula el resultado\n", "subtitle")
-        text.insert(tk.END, "Con esos dieciocho factores se calcula una diferencia total entre los dos equipos. Esa diferencia se aplica sobre los goles que cada equipo suele hacer y recibir. Si el equipo A anota en promedio 2 goles por partido y el equipo B recibe 1, el promedio base es 1.5. Despues se ajusta para arriba o para abajo segun los factores.\n\n", "normal")
+        text.insert(tk.END, " desde la base operativa pesa 3%. Y por último, la ", "normal")
+        text.insert(tk.END, "presión del partido", "bold")
+        text.insert(tk.END, ": si un equipo ya está clasificado, si necesita ganar o si ya está eliminado. Eso pesa 4% y solo aplica en la tercera fecha de la fase de grupos.\n\n", "normal")
+        text.insert(tk.END, "Cómo se calcula el resultado\n", "subtitle")
+        text.insert(tk.END, "Con esos dieciocho factores se calcula una diferencia total entre los dos equipos. Esa diferencia se aplica sobre los goles que cada equipo suele hacer y recibir. Si el equipo A anota en promedio 2 goles por partido y el equipo B recibe 1, el promedio base es 1.5. Después se ajusta para arriba o para abajo según los factores.\n\n", "normal")
         text.insert(tk.END, "Con ese promedio de goles esperados se usa la ", "normal")
-        text.insert(tk.END, "distribucion de Poisson", "bold")
-        text.insert(tk.END, ", que es una formula matematica que calcula la probabilidad de cada resultado posible: 0-0, 1-0, 1-1, 2-0, y asi hasta 15-15. Ademas se aplica una correccion llamada ", "normal")
+        text.insert(tk.END, "distribución de Poisson", "bold")
+        text.insert(tk.END, ", que es una fórmula matemática que calcula la probabilidad de cada resultado posible: 0-0, 1-0, 1-1, 2-0, y así hasta 15-15. Además se aplica una corrección llamada ", "normal")
         text.insert(tk.END, "Dixon-Coles", "bold")
-        text.insert(tk.END, ", que ajusta las probabilidades de los resultados mas comunes: aumenta la chance de 0-0 y 1-1, y reduce la de 1-0 y 0-1, porque en el futbol real los empates son mas frecuentes de lo que dice la Poisson sola.\n\n", "normal")
+        text.insert(tk.END, ", que ajusta las probabilidades de los resultados más comunes: aumenta la chance de 0-0 y 1-1, y reduce la de 1-0 y 0-1, porque en el fútbol real los empates son más frecuentes de lo que dice la Poisson sola.\n\n", "normal")
         text.insert(tk.END, "Cada partido se ", "normal")
         text.insert(tk.END, "simula 1500 veces", "bold")
-        text.insert(tk.END, ". De esas 1500 simulaciones se saca el promedio de goles de cada equipo, y ese es el resultado final. Las probabilidades de que gane cada equipo son el porcentaje de simulaciones que gano cada uno.\n\n", "normal")
+        text.insert(tk.END, ". De esas 1500 simulaciones se saca el promedio de goles de cada equipo, y ese es el resultado final. Las probabilidades de que gane cada equipo son el porcentaje de simulaciones que ganó cada uno.\n\n", "normal")
         text.insert(tk.END, "El torneo completo\n", "subtitle")
-        text.insert(tk.END, "Se simulan los 72 partidos de la fase de grupos. Despues se arma la tabla de cada grupo con los puntos, y si hay empate se aplican los criterios de desempate de la FIFA: primero el que gano el partido entre ellos, despues la diferencia de gol entre ellos, despues los goles entre ellos, despues la diferencia de gol general, despues los goles generales, despues el ", "normal")
+        text.insert(tk.END, "Se simulan los 72 partidos de la fase de grupos. Después se arma la tabla de cada grupo con los puntos, y si hay empate se aplican los criterios de desempate de la FIFA: primero el que ganó el partido entre ellos, después la diferencia de gol entre ellos, después los goles entre ellos, después la diferencia de gol general, después los goles generales, después el ", "normal")
         text.insert(tk.END, "Fair Play", "bold")
-        text.insert(tk.END, " (tarjetas amarillas y rojas), y por ultimo el ranking FIFA.\n\n", "normal")
-        text.insert(tk.END, "Se clasifican los dos primeros de cada grupo y los ocho mejores terceros. Con esos 32 equipos se arma el bracket de octavos de final, despues cuartos, semifinales, el partido por el tercer puesto y la final. En las eliminatorias no hay empate: si el modelo da empate despues de 1500 simulaciones, se define por ranking FIFA.\n\n", "normal")
+        text.insert(tk.END, " (tarjetas amarillas y rojas), y por último el ranking FIFA.\n\n", "normal")
+        text.insert(tk.END, "Se clasifican los dos primeros de cada grupo y los ocho mejores terceros. Con esos 32 equipos se arma el bracket de octavos de final, después cuartos, semifinales, el partido por el tercer puesto y la final. En las eliminatorias no hay empate: si el modelo da empate después de 1500 simulaciones, se define por ranking FIFA.\n\n", "normal")
         text.insert(tk.END, "Los goleadores\n", "subtitle")
-        text.insert(tk.END, "Los goles de cada equipo se distribuyen entre sus jugadores usando una formula que premia a las estrellas. El que mete mas goles en su equipo tiene mas chances de llevarse la Bota de Oro. Ademas reciben un plus los ", "normal")
+        text.insert(tk.END, "Los goles de cada equipo se distribuyen entre sus jugadores usando una fórmula que premia a las estrellas. El que mete más goles en su equipo tiene más chances de llevarse la Bota de Oro. Además reciben un plus los ", "normal")
         text.insert(tk.END, "pateadores de penales", "bold")
         text.insert(tk.END, " (porque los penales son goles casi seguros), los que juegan en clubes de las ", "normal")
         text.insert(tk.END, "cinco grandes ligas", "bold")
         text.insert(tk.END, " (Premier League, La Liga, Serie A, Bundesliga, Ligue 1), y los que hicieron ", "normal")
         text.insert(tk.END, "goles en amistosos", "bold")
         text.insert(tk.END, " previos al Mundial. Todo esto sin castigar a los que juegan en ligas menores como la MLS o la liga saudí.\n\n", "normal")
-        text.insert(tk.END, "El analisis narrativo\n", "subtitle")
+        text.insert(tk.END, "El análisis narrativo\n", "subtitle")
         text.insert(tk.END, "Cada partido incluye un texto pensado para ayudarte a llenar tu PRODE. Tiene tres partes: una ", "normal")
-        text.insert(tk.END, "recomendacion", "bold")
-        text.insert(tk.END, " en una linea (Local seguro, Favorito con cautela, Sorpresa posible, etc.), un ", "normal")
-        text.insert(tk.END, "analisis", "bold")
+        text.insert(tk.END, "recomendación", "bold")
+        text.insert(tk.END, " en una línea (Local seguro, Favorito con cautela, Sorpresa posible, etc.), un ", "normal")
+        text.insert(tk.END, "análisis", "bold")
         text.insert(tk.END, " del partido con las cartas bajo la manga de cada equipo, y un ", "normal")
         text.insert(tk.END, "veredicto", "bold")
         text.insert(tk.END, " con el ganador esperado, el riesgo de empate y la confianza del modelo.\n\n", "normal")
-        text.insert(tk.END, "Una ultima cosa\n", "subtitle")
+        text.insert(tk.END, "Una última cosa\n", "subtitle")
         text.insert(tk.END, "Todo esto corre ", "normal")
         text.insert(tk.END, "completamente offline", "bold")
         text.insert(tk.END, ". No depende de internet, no usa APIs externas. Y el modelo es ", "normal")
         text.insert(tk.END, "determinista", "bold")
         text.insert(tk.END, ": con los mismos datos, siempre da el mismo resultado. No hay suerte, no hay random: la pelota no entra por casualidad.\n\n", "normal")
         text.insert(tk.END, "ADVERTENCIA\n", "disclaimer_title")
-        text.insert(tk.END, "Este proyecto es meramente informativo y fue realizado por hobby, con amor al futbol y a los datos. Los resultados son simulaciones basadas en estadisticas, no profecias. En el futbol puede pasar cualquier cosa, por eso es el deporte mas lindo del mundo.\n\n", "disclaimer")
-        text.insert(tk.END, "Usalo bajo tu propio riesgo. No nos hacemos responsables si Argentina no sale campeon, si tu cunado te gana el prode o si Messi te clava un 0-0 en la final.\n\n", "disclaimer")
+        text.insert(tk.END, "Este proyecto es meramente informativo y fue realizado por hobby, con amor al fútbol y a los datos. Los resultados son simulaciones basadas en estadísticas, no profecías. En el fútbol puede pasar cualquier cosa, por eso es el deporte más lindo del mundo.\n\n", "disclaimer")
+        text.insert(tk.END, "Úsalo bajo tu propio riesgo. No nos hacemos responsables si Argentina no sale campeón, si tu cuñado te gana el prode o si Messi te clava un 0-0 en la final.\n\n", "disclaimer")
         text.insert(tk.END, "Disfruta el Mundial 2026.\n\n", "disclaimer")
         text.insert(tk.END, "Desarrollado por Lucas Congil Hadla.\n", "footer")
         text.config(state=tk.DISABLED)

@@ -114,7 +114,7 @@ class SplashScreen:
 
     def _load_image(self):
         if getattr(sys, 'frozen', False):
-            base = sys._MEIPASS
+            base = getattr(sys, '_MEIPASS')
             path = os.path.join(base, "prode_mundial", "imput",
                                 "wp15655996-fifa-world-cup-2026-hd-wallpapers.jpg")
         else:
@@ -153,7 +153,7 @@ class SplashScreen:
             scale = max(ww / iw, wh / ih)
             nw = int(iw * scale)
             nh = int(ih * scale)
-            resized = self._img_orig.resize((nw, nh), Image.LANCZOS)
+            resized = self._img_orig.resize((nw, nh), Image.Resampling.LANCZOS)
             left = (nw - ww) // 2
             top = (nh - wh) // 2
             cropped = resized.crop((left, top, left + ww, top + wh))

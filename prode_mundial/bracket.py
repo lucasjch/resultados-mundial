@@ -426,11 +426,21 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None):
     for gi, g in enumerate(groups_list):
         group_matches = [f for f in FIXTURES if f[5] == g]
 
-        # MD1 + MD2 (first 4 matches per group)
+        # MD1 (first 2 matches per group)
         md1_md2 = []
-        for f in group_matches[:4]:
+        for f in group_matches[:2]:
             team_a, team_b, venue, date, time, group = f
-            result = predict_match(team_a, team_b, venue, round_name=f"Group {group}")
+            result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
+                                   matchday=1)
+            result["date"] = date
+            result["time"] = time
+            md1_md2.append(result)
+
+        # MD2 (next 2 matches per group)
+        for f in group_matches[2:4]:
+            team_a, team_b, venue, date, time, group = f
+            result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
+                                   matchday=2)
             result["date"] = date
             result["time"] = time
             md1_md2.append(result)
@@ -460,7 +470,7 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None):
             result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
                                    stakes_a=stakes.get(team_a),
                                    stakes_b=stakes.get(team_b),
-                                   md3_variance_boost=True)
+                                   md3_variance_boost=True, matchday=3)
             result["date"] = date
             result["time"] = time
             md1_md2.append(result)

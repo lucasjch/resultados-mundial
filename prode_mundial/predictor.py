@@ -479,7 +479,7 @@ def _build_joint_dist(lam_h, lam_a, rho=DIXON_COLES_RHO, max_g=MAX_GOALS_DC):
 
 def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None, round_name="Group Stage",
                   rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0,
-                  stakes_a=None, stakes_b=None, md3_variance_boost=False):
+                  stakes_a=None, stakes_b=None, md3_variance_boost=False, matchday=None):
     """Predice resultado completo de un partido: scores, probabilidades, factores, tarjetas."""
     venue = get_venue(venue_name)
     venue_country = venue["country"]
@@ -646,6 +646,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         "venue": venue_name,
         "venue_country": venue_country,
         "round": round_name,
+        "matchday": matchday,
         "winner": winner,
         "loser": loser,
         "result_type": result_type,

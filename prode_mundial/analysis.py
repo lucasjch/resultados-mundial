@@ -10,11 +10,304 @@ _CONF_LABEL = {
     "CAF": "africano", "AFC": "asiatico", "OFC": "oceanico",
 }
 
+_DEF_POS = {
+    "Defensa Central", "Defensa Lateral Derecho", "Defensa Lateral Izquierdo",
+    "Lateral Derecho", "Lateral Izquierdo",
+}
+_MID_POS = {
+    "Centrocampista defensivo", "Interior Derecho",
+    "Mediocampista Central", "Mediocampista Ofensivo",
+    "Mediocentro", "Mediocentro Ofensivo", "Pivote",
+    "Volante Derecho", "Volante Izquierdo",
+}
+_FWD_POS = {
+    "Delantero", "Delantero Centro", "Delantero Derecho", "Delantero Izquierdo",
+    "Extremo Derecho", "Extremo Izquierdo",
+}
+
+_INTRO_POOL = [
+    "conjunto {confed} (ranking {rank}), {form_text}",
+    "escuadra {confed} (ranking {rank}), {form_text}",
+    "planteel {confed} (ranking {rank}), {form_text}",
+]
+
+_FORM_GOOD = [
+    "esta en un estado de forma impecable",
+    "llega en un gran momento",
+    "vive un presente dulce",
+    "atraviesa un excepcional momento deportivo",
+]
+
+_FORM_OK = [
+    "tiene un rendimiento irregular",
+    "arrastra resultados mixtos",
+    "alterna buenas y malas actuaciones",
+]
+
+_FORM_BAD = [
+    "esta en un momento preocupante",
+    "arrastra resultados negativos",
+    "no encuentra regularidad",
+]
+
+_FRIENDLY_GOOD = [
+    "arraso en los amistosos de preparacion",
+    "demostro superioridad en los amistosos",
+    "tuvo una preparacion impecable",
+    "dejo sensaciones muy positivas en los amistosos",
+]
+
+_FRIENDLY_OK = [
+    "tuvo una preparacion irregular",
+    "mezclo altibajos en los amistosos",
+    "cumplio en los amistosos sin brillar",
+]
+
+_FRIENDLY_BAD = [
+    "preocupo en los amistosos",
+    "no logro consolidarse en la preparacion",
+    "dejo dudas en los amistosos previos",
+]
+
+_BADGE_POOL = [
+    "LOCAL INGOBERNABLE", "APUESTA SEGURA", "FAVORITO SIN DISCUSION",
+    "VISITANTE ARROLLADOR", "LIGERO FAVORITO", "MONEDA AL AIRE",
+    "PARTIDO ABIERTO", "CHOQUE DE TITANES", "CLASICO CONTINENTAL",
+    "EMPATE PROBABLE", "PARTIDO TRAMPA", "DUELO DE NECESIDADES",
+    "ULTIMA OPORTUNIDAD", "SORPRESA EN MARCHA", "PARTIDO DISPUTADO",
+    "Favorito con Cautela", "DEFINICION APRETADA", "DUELO DE ESTILOS",
+]
+
+_DEF_GOOD = [
+    "Su defensa es un fortin",
+    "Su retaguardia es solida",
+    "Su linea defensiva es dificil de vulnerar",
+]
+
+_DEF_OK = [
+    "Su defensa es cumplidora",
+    "Su linea de fondo cumple sin sobresaltos",
+    "Ofrece seguridad defensiva moderada",
+]
+
+_DEF_BAD = [
+    "Su defensa es vulnerable",
+    "Ha mostrado fragilidades defensivas",
+    "Su linea de fondo preocupa",
+]
+
+_MID_GOOD = [
+    "Su mediocampo es creativo y dinamico",
+    "Domina la zona de gestacion",
+    "Su mediocampo marca el ritmo del partido",
+    "Tiene una medular de primer nivel",
+]
+
+_MID_OK = [
+    "Su mediocampo es trabajador",
+    "Tiene un mediocampo de ida y vuelta",
+    "Su zona de armado cumple",
+]
+
+_MID_BAD = [
+    "Su mediocampo carece de creatividad",
+    "Le cuesta generar juego desde la medular",
+    "Su mediocampo es superable",
+]
+
+_FWD_GOOD = [
+    "Su ataque es letal",
+    "Tiene un poderio ofensivo arrollador",
+    "Su delantera es de primer nivel mundial",
+    "Posee una maquina de hacer goles",
+]
+
+_FWD_OK = [
+    "Su ataque es peligroso",
+    "Tiene argumentos ofensivos",
+    "Su delantera puede lastimar",
+]
+
+_FWD_BAD = [
+    "Su ataque carece de contundencia",
+    "Le cuesta hacer goles",
+    "Su delantera no inspira temor",
+]
+
+_VERDICT_A = [
+    "Ganador esperado: {team} ({pct:.0f}% de probabilidad)",
+    "El modelo favorece claramente a {team} ({pct:.0f}%)",
+    "Todo indica que {team} se quedara con el triunfo ({pct:.0f}%)",
+]
+
+_VERDICT_B = [
+    "Empate poco probable ({pct:.0f}%)",
+    "Riesgo de empate bajo ({pct:.0f}%)",
+    "La igualdad es un resultado remoto ({pct:.0f}%)",
+]
+
+_VERDICT_C = [
+    "Confianza del modelo: {pct:.0f}%",
+    "El modelo respalda esta prediccion con un {pct:.0f}% de confianza",
+    "Fiabilidad del pronostico: {pct:.0f}%",
+]
+
+_MD1_TEXT = [
+    "Ambos equipos arrancan el grupo con la ilusion intacta",
+    "Primera fecha del grupo. Todos comienzan con cero presion",
+    "Se abre el grupo con dos equipos buscando sumar de a tres",
+    "Arranca la fase de grupos. Partido clave para marcar el rumbo",
+]
+
+_MD2_TEXT = [
+    "Segunda fecha del grupo. Quien gana se acomoda, quien pierde queda contra las cuerdas",
+    "Partido crucial en la segunda jornada. Los puntos empiezan a pesar",
+    "Mitad de la fase de grupos. Cada resultado define el panorama",
+    "Jornada decisiva para acomodarse en la tabla del grupo",
+]
+
+_MD3_CONTENDER_TEXT = [
+    "Necesita ganar si o si para seguir con vida. La presion esta al maximo",
+    "Fecha definitoria. Se juega las ultimas fichas para clasificar",
+    "Partido de vida o muerte. No hay margen de error",
+]
+
+_MD3_QUALIFIED_TEXT = [
+    "Ya esta clasificado, pero buscara asegurar el primer puesto",
+    "Matematicamente clasificado. Busca cerrar primero en el grupo",
+    "Tiene el pasaje asegurado y va por el primer lugar",
+]
+
+_MD3_ELIMINATED_TEXT = [
+    "Ya eliminado, juega por el honor y para cerrar su participacion con dignidad",
+    "Sin chances de clasificar, pero quiere despedirse con una victoria",
+    "Eliminado matematicamente. Juega por el orgullo",
+]
+
+_KO_TEXT = [
+    "Eliminacion directa. Un paso en falso y te vas a casa",
+    "Partido de mata-mata. No hay segunda oportunidad",
+    "Todo o nada. El perdedor queda eliminado del Mundial",
+]
+
+_TACTICAL_HIGH = [
+    "Se espera un partido con llegadas y emocion",
+    "Partido que promete goles y espectaculo",
+    "Duelo ofensivo con alto potencial de gol",
+]
+
+_TACTICAL_MID = [
+    "Se espera un partido de ritmo moderado",
+    "Partido parejo que se definira por detalles",
+    "Duelo tactico donde los pequenos detalles marcaran la diferencia",
+]
+
+_TACTICAL_LOW = [
+    "Se preve un partido tactico y de pocos goles",
+    "Partido cerrado donde un gol puede definir todo",
+    "Duelo de baja intensidad ofensiva, predominara el orden",
+]
+
+
+def _pick(seed, pool):
+    if not pool:
+        return ""
+    h = abs(hash(seed)) if seed is not None else 0
+    return pool[h % len(pool)]
+
+
+def _categorize_players(team_data):
+    defenders = []
+    midfielders = []
+    forwards = []
+    for p in team_data.get("players", []):
+        name = p.get("name", "")
+        pos = p.get("position", "")
+        goals = p.get("goals_2026", 0) or 0
+        minutes = p.get("minutes_2026", 0) or 0
+        if pos in _DEF_POS:
+            defenders.append((name, pos, goals, minutes))
+        elif pos in _MID_POS:
+            midfielders.append((name, pos, goals, minutes))
+        elif pos in _FWD_POS:
+            forwards.append((name, pos, goals, minutes))
+    return defenders, midfielders, forwards
+
+
+def _line_text(players, team_name, avg_gs, avg_gc, side, pool_good, pool_ok, pool_bad):
+    if not players:
+        return ""
+    key_players = [p for p in players if p[3] > 500]
+    if not key_players:
+        return ""
+    goals_line = sum(p[2] for p in key_players)
+    best = max(key_players, key=lambda x: x[2])
+    names = ", ".join(p[0] for p in key_players[:2])
+
+    text = ""
+    if side == "def":
+        if avg_gc < 0.9:
+            text = _pick(team_name + "_def_g", pool_good)
+        elif avg_gc < 1.3:
+            text = _pick(team_name + "_def_ok", pool_ok)
+        else:
+            text = _pick(team_name + "_def_b", pool_bad)
+        text += f". {names} son sus baluartes en esa zona"
+    elif side == "mid":
+        if len(key_players) >= 3:
+            text = _pick(team_name + "_mid_g", pool_good)
+        elif len(key_players) >= 2:
+            text = _pick(team_name + "_mid_ok", pool_ok)
+        else:
+            text = _pick(team_name + "_mid_b", pool_bad)
+        text += f". {names} comandan la sala de maquinas"
+    elif side == "fwd":
+        if avg_gs > 1.8:
+            text = _pick(team_name + "_fwd_g", pool_good)
+        elif avg_gs > 1.2:
+            text = _pick(team_name + "_fwd_ok", pool_ok)
+        else:
+            text = _pick(team_name + "_fwd_b", pool_bad)
+        if goals_line > 5:
+            text += f". {best[0]} es su principal amenaza ofensiva ({best[2]} goles en la temporada)"
+        else:
+            text += f". {best[0]} lidera la ofensiva"
+    if not text:
+        return ""
+    return text + "."
+
+
+def _get_intro(team_data, team_name):
+    confed = _CONF_LABEL.get(team_data.get("confederation", ""), "internacional")
+    rank = team_data.get("rank", 100) or 100
+    form = team_data.get("form_streak", 0.5)
+    if form >= 0.8:
+        form_text = _pick(team_name + "_form_g", _FORM_GOOD)
+    elif form >= 0.5:
+        form_text = _pick(team_name + "_form_ok", _FORM_OK)
+    else:
+        form_text = _pick(team_name + "_form_b", _FORM_BAD)
+    intro = _pick(team_name + "_intro", _INTRO_POOL)
+    return intro.format(confed=confed, rank=rank, form_text=form_text)
+
+
+def _friendly_description(team_name):
+    ff = compute_friendly_form(team_name)
+    if ff >= 8:
+        return _pick(team_name + "_fr_g", _FRIENDLY_GOOD).capitalize()
+    if ff >= 4:
+        return _pick(team_name + "_fr_ok", _FRIENDLY_OK).capitalize()
+    if ff < 0:
+        return _pick(team_name + "_fr_b", _FRIENDLY_BAD).capitalize()
+    return "Disputo amistosos sin resultados destacados"
+
+
 def _get_star_player(team_name):
     weights = get_team_weights(team_name)
     if weights:
         return weights[0][0]
     return None
+
 
 def _top_scorer_info(team_name):
     weights = get_team_weights(team_name)
@@ -23,70 +316,161 @@ def _top_scorer_info(team_name):
     top = weights[0]
     return top[0], top[3]
 
+
 def _penalty_taker(team_name):
     takers = PENALTY_TAKERS.get(team_name, [])
     return takers[0] if takers else None
 
+
 def _injured_info(team_name):
     return INJURED_OUT.get(team_name, [])
 
-def _form_description(form_streak):
-    if form_streak >= 0.9:
-        return "llega en un estado de forma impecable"
-    if form_streak >= 0.7:
-        return "llega con solidez y buenos resultados"
-    if form_streak >= 0.5:
-        return "llega con resultados irregulares pero aceptables"
-    if form_streak >= 0.3:
-        return "llega con dudas y resultados pobres"
-    return "llega en su peor momento"
 
-def _friendly_description(team_name):
-    ff = compute_friendly_form(team_name)
-    if ff >= 8:
-        return "arrasó en los amistosos de preparacion"
-    if ff >= 5:
-        return "tuvo una buena preparacion en amistosos"
-    if ff >= 2:
-        return "cumplio en los amistosos sin brillar"
-    if ff < 0:
-        return "tuvo una preparacion preocupante en amistosos"
-    return "disputo amistosos sin resultados destacados"
+def _format_wc_history(wc_str):
+    if not wc_str:
+        return "Primera participacion en un Mundial"
+    if wc_str.replace("_", " ").lower() in ("none", "", "primera participacion"):
+        return "Primera participacion en un Mundial"
+    return wc_str.replace("_", " ")
+
+
+def _match_context(match):
+    round_name = match.get("round", "")
+    matchday = match.get("matchday")
+    factors = match.get("factors", {})
+    stakes_a = factors.get("stakes_a") if factors else None
+    stakes_b = factors.get("stakes_b") if factors else None
+    team_a = match["team_a"]
+    team_b = match["team_b"]
+
+    if not round_name.startswith("Group "):
+        return _pick(team_a + "_ko", _KO_TEXT)
+
+    if matchday == 3:
+        parts_a = []
+        parts_b = []
+        if stakes_a == "contender":
+            parts_a.append(_pick(team_a + "_md3_c", _MD3_CONTENDER_TEXT))
+        elif stakes_a == "qualified":
+            parts_a.append(_pick(team_a + "_md3_q", _MD3_QUALIFIED_TEXT))
+        elif stakes_a == "eliminated":
+            parts_a.append(_pick(team_a + "_md3_e", _MD3_ELIMINATED_TEXT))
+
+        if stakes_b == "contender":
+            parts_b.append(_pick(team_b + "_md3_c", _MD3_CONTENDER_TEXT))
+        elif stakes_b == "qualified":
+            parts_b.append(_pick(team_b + "_md3_q", _MD3_QUALIFIED_TEXT))
+        elif stakes_b == "eliminated":
+            parts_b.append(_pick(team_b + "_md3_e", _MD3_ELIMINATED_TEXT))
+
+        result = "Tercera fecha del grupo. "
+        if parts_a:
+            result += team_a + ": " + parts_a[0] + ". "
+        if parts_b:
+            result += team_b + ": " + parts_b[0] + "."
+        return result
+
+    if matchday == 1:
+        return _pick(team_a + "_md1", _MD1_TEXT) + "."
+    if matchday == 2:
+        return _pick(team_a + "_md2", _MD2_TEXT) + "."
+
+    return "Partido correspondiente a la fase de grupos del Mundial 2026."
+
 
 def _build_recommendation(match):
     conf = match.get("confidence", 0)
-    prob_draw = match.get("probabilities", {}).get("draw", 0)
     team_a = match["team_a"]
     team_b = match["team_b"]
     probs = match.get("probabilities", {})
     a_win = probs.get("a_win", 0)
     b_win = probs.get("b_win", 0)
+    prob_draw = probs.get("draw", 0)
+    matchday = match.get("matchday")
+    factors = match.get("factors", {})
+    stakes_a = factors.get("stakes_a") if factors else None
+    stakes_b = factors.get("stakes_b") if factors else None
     a_data = get_team(team_a)
     b_data = get_team(team_b)
     rank_a = a_data.get("rank", 100) or 100
     rank_b = b_data.get("rank", 100) or 100
-    rank_diff = rank_b - rank_a
 
-    if prob_draw >= 32:
-        return "EMPATE PROBABLE - Partido muy parejo, el empate paga bien"
-    if conf >= 55:
-        if a_win >= 55 and rank_diff >= 30:
-            return "LOCAL SEGURO - Amplio favorito, resultado confiable"
+    is_contender_vs_contender = (
+        matchday == 3 and stakes_a == "contender" and stakes_b == "contender"
+    )
+    is_contender_vs_eliminated = (
+        matchday == 3 and (
+            (stakes_a == "contender" and stakes_b == "eliminated") or
+            (stakes_a == "eliminated" and stakes_b == "contender")
+        )
+    )
+    same_confed = (
+        a_data.get("confederation") == b_data.get("confederation")
+        and a_data.get("confederation")
+    )
+    both_top10 = rank_a <= 10 and rank_b <= 10
+
+    if both_top10 and abs(conf - 50) < 10:
+        return "CHOQUE DE TITANES - Dos potencias mundiales frente a frente"
+    if same_confed and conf < 55:
+        return "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional"
+    if is_contender_vs_contender:
+        return "DUELO DE NECESIDADES - El que pierde se despide del Mundial"
+    if is_contender_vs_eliminated:
+        return "ULTIMA OPORTUNIDAD - Un equipo se juega la clasificacion"
+    if conf >= 70 and a_win >= 55:
+        return "LOCAL INGOBERNABLE - Favorito absoluto, resultado casi asegurado"
+    if conf >= 70 and b_win >= 55:
+        return "VISITANTE ARROLLADOR - Favorito solido como visitante"
+    if conf >= 65:
+        return "APUESTA SEGURA - Alta confianza en el resultado"
+    if conf >= 60:
         if a_win >= 55:
-            return "FAVORITO CON CAUTELA - Ventaja solida pero no definitiva"
-        if b_win >= 55 and rank_diff <= -30:
-            return "VISITANTE SEGURO - Favorito solido como visitante"
-        if b_win >= 55:
-            return "FAVORITO CON CAUTELA"
-    if conf >= 45:
+            return "FAVORITO SIN DISCUSION - Ventaja solida pero no definitiva"
+        return "FAVORITO SIN DISCUSION"
+    if prob_draw >= 32:
+        return "EMPATE PROBABLE - Partido muy parejo, la igualdad paga bien"
+    if prob_draw >= 25:
+        return "PARTIDO TRAMPA - Cuidado con la igualdad"
+    if conf >= 52:
         if a_win > b_win:
-            return "LIGERO FAVORITO LOCAL - Partido parejo, ventaja minima"
-        return "LIGERO FAVORITO VISITANTE - Partido parejo"
-    if a_win > 35 and b_win > 35 and prob_draw > 25:
-        return "PARTIDO ABIERTO - Cualquier resultado es posible"
-    if a_win >= b_win:
-        return "PARTIDO DISPUTADO - Ligera ventaja de local, sin suficiente confianza"
-    return "PARTIDO DISPUTADO - Ligera ventaja de visitante, sin suficiente confianza"
+            return "LIGERO FAVORITO - Ligera ventaja del que juega en casa"
+        return "LIGERO FAVORITO - Ventaja minima del visitante"
+    if 45 <= conf < 52:
+        return "MONEDA AL AIRE - Partido parejo, cualquier resultado es posible"
+    if conf < 45 and abs(rank_a - rank_b) <= 10:
+        return "PARTIDO ABIERTO - Partido de pronostico reservado"
+    if conf < 40:
+        return "SORPRESA EN MARCHA - El modelo anticipa un resultado inesperado"
+    return "PARTIDO DISPUTADO - Partido sin un favorito claro"
+
+
+def _team_block(team_name, team_data, intro, friendly, star, top_scorer, top_goals, penalty, injured, wc, defs, mids, fwds, gs, gc):
+    lines = []
+    lines.append(f"{team_name}, {intro}.")
+    if friendly:
+        lines.append(friendly + ".")
+    def_text = _line_text(defs, team_name, gs, gc, "def", _DEF_GOOD, _DEF_OK, _DEF_BAD)
+    if def_text:
+        lines.append(def_text)
+    mid_text = _line_text(mids, team_name, gs, gc, "mid", _MID_GOOD, _MID_OK, _MID_BAD)
+    if mid_text:
+        lines.append(mid_text)
+    fwd_text = _line_text(fwds, team_name, gs, gc, "fwd", _FWD_GOOD, _FWD_OK, _FWD_BAD)
+    if fwd_text:
+        lines.append(fwd_text)
+    extras = []
+    if penalty:
+        extras.append(f"{penalty} es el pateador de penales designado")
+    if injured:
+        extras.append(f"Bajas: {', '.join(injured)}")
+    if extras:
+        lines.append(". ".join(extras) + ".")
+    if top_goals >= 10 and top_scorer:
+        lines.append(f"{top_scorer} lleva {top_goals} goles en la temporada.")
+    lines.append(wc + ".")
+    return " ".join(lines)
+
 
 def _build_narrative(match):
     team_a = match["team_a"]
@@ -102,71 +486,58 @@ def _build_narrative(match):
     xg_a = match.get("expected_goals_a", 0)
     xg_b = match.get("expected_goals_b", 0)
 
+    results = []
+
+    # --- Team A ---
+    a_def, a_mid, a_fwd = _categorize_players(a_data)
+    a_gs = a_data.get("goals_scored_avg", 1.5) or 1.5
+    a_gc = a_data.get("goals_conceded_avg", 1.2) or 1.2
+    results.append(
+        _team_block(
+            team_a, a_data,
+            _get_intro(a_data, team_a),
+            _friendly_description(team_a),
+            _get_star_player(team_a),
+            *_top_scorer_info(team_a),
+            _penalty_taker(team_a),
+            _injured_info(team_a),
+            _format_wc_history(a_data.get("wc_history", "")),
+            a_def, a_mid, a_fwd, a_gs, a_gc,
+        )
+    )
+
+    # --- Team B ---
+    b_def, b_mid, b_fwd = _categorize_players(b_data)
+    b_gs = b_data.get("goals_scored_avg", 1.5) or 1.5
+    b_gc = b_data.get("goals_conceded_avg", 1.2) or 1.2
+    results.append(
+        _team_block(
+            team_b, b_data,
+            _get_intro(b_data, team_b),
+            _friendly_description(team_b),
+            _get_star_player(team_b),
+            *_top_scorer_info(team_b),
+            _penalty_taker(team_b),
+            _injured_info(team_b),
+            _format_wc_history(b_data.get("wc_history", "")),
+            b_def, b_mid, b_fwd, b_gs, b_gc,
+        )
+    )
+
+    # --- Context ---
+    results.append(_match_context(match))
+
+    # --- Tactical ---
     parts = []
-
-    # Team A section
-    a_confed = _CONF_LABEL.get(a_data.get("confederation", ""), "internacional")
-    a_form = a_data.get("form_streak", 0.5)
-    a_rank = a_data.get("rank", 100) or 100
-    a_form_text = _form_description(a_form)
-    a_friendly = _friendly_description(team_a)
-    a_star = _get_star_player(team_a)
-    a_top_scorer, a_top_goals = _top_scorer_info(team_a)
-    a_penalty = _penalty_taker(team_a)
-    a_injured = _injured_info(team_a)
-    a_wc = a_data.get("wc_history", "")
-
-    parts.append(f"{team_a}, conjunto {a_confed} (ranking {a_rank}), {a_form_text}. {a_friendly.capitalize()}.")
-    if a_star:
-        star_line = f"Su carta bajo la manga es {a_star}"
-        if a_penalty and a_penalty != a_star:
-            star_line += f", con {a_penalty} como pateador de penales"
-        parts.append(star_line + ".")
-    if a_top_goals >= 10 and a_top_scorer:
-        parts.append(f" {a_top_scorer} lleva {a_top_goals} goles en la temporada.")
-    if a_injured:
-        parts.append(f" Bajas importantes: {', '.join(a_injured)}.")
-    if a_wc and a_wc.replace("_", " ").lower() not in ("none", "", "primera participacion"):
-        parts.append(f" Su historial mundialista: {a_wc.replace('_', ' ')}.")
-
-    parts.append("\n")
-
-    # Team B section
-    b_confed = _CONF_LABEL.get(b_data.get("confederation", ""), "internacional")
-    b_form = b_data.get("form_streak", 0.5)
-    b_rank = b_data.get("rank", 100) or 100
-    b_form_text = _form_description(b_form)
-    b_friendly = _friendly_description(team_b)
-    b_star = _get_star_player(team_b)
-    b_top_scorer, b_top_goals = _top_scorer_info(team_b)
-    b_penalty = _penalty_taker(team_b)
-    b_injured = _injured_info(team_b)
-    b_wc = b_data.get("wc_history", "")
-
-    parts.append(f"{team_b}, escuadra {b_confed} (ranking {b_rank}), {b_form_text}. {b_friendly.capitalize()}.")
-    if b_star:
-        star_line = f"Su carta de presentacion es {b_star}"
-        if b_penalty and b_penalty != b_star:
-            star_line += f", con {b_penalty} como pateador de penales"
-        parts.append(star_line + ".")
-    if b_top_goals >= 10 and b_top_scorer:
-        parts.append(f" {b_top_scorer} acumula {b_top_goals} goles en el ano.")
-    if b_injured:
-        parts.append(f" Ausencias sensibles: {', '.join(b_injured)}.")
-    if b_wc and b_wc.replace("_", " ").lower() not in ("none", "", "primera participacion"):
-        parts.append(f" Su mejor actuacion historica: {b_wc.replace('_', ' ')}.")
-
-    parts.append("\n")
-
-    # Tactical analysis
     xg_total = xg_a + xg_b
     if xg_total >= 4:
-        parts.append("Se espera un partido con varios goles")
+        tact = _pick(team_a + "_tact_h", _TACTICAL_HIGH)
     elif xg_total >= 2.5:
-        parts.append("Se espera un partido de ritmo moderado")
+        tact = _pick(team_a + "_tact_m", _TACTICAL_MID)
     else:
-        parts.append("Se prevé un partido táctico y de pocos goles")
-    parts.append(f" (xG total: {xg_total:.2f}).")
+        tact = _pick(team_a + "_tact_l", _TACTICAL_LOW)
+    tact += f" (xG total: {xg_total:.2f})."
+    parts.append(tact)
 
     if factors:
         valid_factors = {k: v for k, v in factors.items() if v is not None and k not in ("stakes_a", "stakes_b")}
@@ -174,74 +545,65 @@ def _build_narrative(match):
             sorted_factors = sorted(valid_factors.items(), key=lambda x: abs(x[1]), reverse=True)
             top_factor_name, top_factor_val = sorted_factors[0]
             if abs(top_factor_val) > 1.5:
-                factor_labels = {"strength": "calidad de plantilla",
-                                 "player_stats": "rendimiento individual",
-                                 "home": "factor localía",
-                                 "experience": "experiencia internacional",
-                                 "friendly_form": "forma en amistosos recientes",
-                                 "market_value": "valor de mercado",
-                                 "squad_depth": "profundidad del banquillo",
-                                 "rest_days": "descanso entre partidos",
-                                 "stakes": "presión del momento",
-                                 "history": "historial mundialista",
-                                 "morale": "moral del equipo",
-                                 "trophy_pedigree": "palmarés de sus jugadores",
-                                 "height_advantage": "ventaja aerea",
-                                 "club_chemistry": "química entre compañeros"}
+                factor_labels = {
+                    "strength": "calidad de plantilla",
+                    "player_stats": "rendimiento individual",
+                    "home": "factor localia",
+                    "experience": "experiencia internacional",
+                    "friendly_form": "forma en amistosos recientes",
+                    "market_value": "valor de mercado",
+                    "squad_depth": "profundidad del banquillo",
+                    "rest_days": "descanso entre partidos",
+                    "stakes": "presion del momento",
+                    "history": "historial mundialista",
+                    "travel_fatigue": "desgaste por viajes",
+                    "morale": "moral del equipo",
+                    "trophy_pedigree": "palmares de sus jugadores",
+                    "height_advantage": "ventaja aerea",
+                    "club_chemistry": "quimica entre companeros",
+                    "climate": "adaptacion climatica",
+                    "odds": "cuotas de mercado",
+                    "foreign_pct": "experiencia en ligas extranjeras",
+                }
                 label = factor_labels.get(top_factor_name, top_factor_name)
                 if top_factor_val > 0:
-                    parts.append(f" El factor {label} favorece claramente a {team_a}.")
+                    parts.append(f"El factor {label} favorece claramente a {team_a}.")
                 else:
-                    parts.append(f" El factor {label} favorece claramente a {team_b}.")
+                    parts.append(f"El factor {label} favorece claramente a {team_b}.")
 
-    avg_gs_a = a_data.get("goals_scored_avg", 1.5) or 1.5
-    avg_gc_a = a_data.get("goals_conceded_avg", 1.2) or 1.2
-    avg_gs_b = b_data.get("goals_scored_avg", 1.5) or 1.5
-    avg_gc_b = b_data.get("goals_conceded_avg", 1.2) or 1.2
+    if a_gs > b_gc and a_gs > 1.2:
+        parts.append(f"{team_a} tiene poderio ofensivo ({a_gs:.1f} goles/partido) y buscara imponer su juego.")
+    if b_gs > a_gc and b_gs > 1.2:
+        parts.append(f"{team_b} cuenta con un ataque peligroso ({b_gs:.1f} goles/partido).")
+    if a_gc < 0.8:
+        parts.append(f"{team_a} se destaca por su solidez defensiva ({a_gc:.1f} goles recibidos/partido).")
+    if b_gc < 0.8:
+        parts.append(f"{team_b} cuenta con una defensa solida ({b_gc:.1f} goles recibidos/partido).")
 
-    if avg_gs_a > avg_gc_b:
-        parts.append(f" {team_a} tiene poderio ofensivo ({avg_gs_a:.1f} goles/partido)")
-        parts.append(" y buscara imponer su juego ofensivo.")
+    results.append(" ".join(parts))
 
-    if avg_gs_b > avg_gs_a:
-        parts.append(f" Por su parte, {team_b} cuenta con un ataque peligroso ({avg_gs_b:.1f} goles/partido).")
-    elif avg_gs_b > avg_gc_a:
-        parts.append(f" {team_b} tiene argumentos para lastimar ({avg_gs_b:.1f} goles/partido).")
-
-    if avg_gc_a < 0.8:
-        parts.append(f" {team_a} se destaca por su solidez defensiva ({avg_gc_a:.1f} goles recibidos/partido).")
-    if avg_gc_b < 0.8:
-        parts.append(f" {team_b} cuenta con una defensa solida ({avg_gc_b:.1f} goles recibidos/partido).")
-
-    parts.append("\n")
-    parts.append("--- VEREDICTO PRODE ---")
+    # --- Veredict ---
     if a_win >= 50:
-        parts.append(f" Ganador esperado: {team_a} ({a_win:.0f}% de probabilidad)")
+        ver_winner = _pick(team_a + "_v_a", _VERDICT_A).format(team=team_a, pct=a_win)
     elif b_win >= 50:
-        parts.append(f" Ganador esperado: {team_b} ({b_win:.0f}% de probabilidad)")
+        ver_winner = _pick(team_b + "_v_a", _VERDICT_A).format(team=team_b, pct=b_win)
     else:
-        parts.append(f" Partido muy parejo: empate ({prob_draw:.0f}%) o definicion por detalles.")
+        ver_winner = f"Partido muy parejo: empate ({prob_draw:.0f}%) o definicion por detalles."
 
     if prob_draw >= 28:
-        parts.append(f" Riesgo de empate alto ({prob_draw:.0f}%). Cuidado al pronosticar.")
+        ver_draw = _pick(team_a + "_v_b_h", _VERDICT_B).format(pct=prob_draw)
+        ver_draw += " Cuidado al pronosticar."
     elif prob_draw <= 20:
-        parts.append(f" Empate poco probable ({prob_draw:.0f}%).")
+        ver_draw = _pick(team_a + "_v_b_l", _VERDICT_B).format(pct=prob_draw)
     else:
-        parts.append(f" Empate posible ({prob_draw:.0f}%).")
-    parts.append(f" Confianza del modelo: {conf:.0f}%.")
+        ver_draw = f"Empate posible ({prob_draw:.0f}%)."
 
-    paragraphs = []
-    buf = []
-    for p in parts:
-        if p == "\n":
-            if buf:
-                paragraphs.append(" ".join(s.strip() for s in buf if s.strip()))
-                buf = []
-        else:
-            buf.append(p.strip())
-    if buf:
-        paragraphs.append(" ".join(s for s in buf if s))
-    return "\n\n".join(paragraphs)
+    ver_conf = _pick(team_a + "_v_c", _VERDICT_C).format(pct=conf)
+
+    results.append(f"--- VEREDICTO PRODE ---\n{ver_winner}\n{ver_draw}\n{ver_conf}")
+
+    return "\n\n".join(results)
+
 
 def generate_match_analysis(match):
     try:

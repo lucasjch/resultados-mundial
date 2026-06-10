@@ -13,7 +13,7 @@ def _load_players():
     if _PLAYERS is not None:
         return _PLAYERS
     if getattr(sys, 'frozen', False):
-        base = os.path.join(sys._MEIPASS, "prode_mundial")
+        base = os.path.join(getattr(sys, '_MEIPASS'), "prode_mundial")
     else:
         base = os.path.dirname(__file__)
     path = os.path.join(base, "output", "players.json")

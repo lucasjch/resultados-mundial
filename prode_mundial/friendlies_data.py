@@ -549,6 +549,67 @@ FRIENDLIES = [
         "away_scorers": [{"player": "Patrick Kelly", "minute": 64}],
         "cards": {"home_yellow": 0, "home_red": 0, "away_yellow": 0, "away_red": 0},
     },
+    {
+        "date": "2026-06-09",
+        "home": "Peru", "away": "Spain",
+        "home_score": 1, "away_score": 3,
+        "home_scorers": [{"player": "Jairo Velez", "minute": 66}],
+        "away_scorers": [
+            {"player": "Mikel Oyarzabal", "minute": 2},
+            {"player": "Pedri", "minute": 32},
+        ],
+        "cards": {"home_yellow": 1, "home_red": 0, "away_yellow": 0, "away_red": 0},
+    },
+    {
+        "date": "2026-06-09",
+        "home": "DR Congo", "away": "Chile",
+        "home_score": 1, "away_score": 2,
+        "home_scorers": [{"player": "Joris Kayembe", "minute": 88}],
+        "away_scorers": [
+            {"player": "Dario Osorio", "minute": 51},
+            {"player": "Matias Sepulveda", "minute": 86},
+        ],
+        "cards": {"home_yellow": 1, "home_red": 0, "away_yellow": 3, "away_red": 0},
+    },
+    {
+        "date": "2026-06-09",
+        "home": "Argentina", "away": "Iceland",
+        "home_score": 3, "away_score": 0,
+        "home_scorers": [
+            {"player": "Valentin Barco", "minute": 8},
+            {"player": "Lionel Messi", "minute": 72},
+            {"player": "Thiago Almada", "minute": 86},
+        ],
+        "away_scorers": [],
+        "cards": {"home_yellow": 2, "home_red": 0, "away_yellow": 5, "away_red": 0},
+    },
+    {
+        "date": "2026-06-09",
+        "home": "Saudi Arabia", "away": "Senegal",
+        "home_score": 0, "away_score": 0,
+        "home_scorers": [],
+        "away_scorers": [],
+        "cards": {"home_yellow": 3, "home_red": 0, "away_yellow": 2, "away_red": 1},
+    },
+    {
+        "date": "2026-06-09",
+        "home": "Iraq", "away": "Venezuela",
+        "home_score": 0, "away_score": 2,
+        "home_scorers": [],
+        "away_scorers": [
+            {"player": "Cristian Casseres", "minute": 17},
+            {"player": "Jesus Ramirez", "minute": 46},
+        ],
+        "cards": {"home_yellow": 0, "home_red": 1, "away_yellow": 0, "away_red": 0},
+    },
+    {
+        "date": "2026-06-09",
+        "home": "England", "away": "Costa Rica",
+        "home_score": 0, "away_score": 0,
+        "home_scorers": [],
+        "away_scorers": [],
+        "cards": {"home_yellow": 0, "home_red": 0, "away_yellow": 0, "away_red": 0},
+    },
 ]
 
 
