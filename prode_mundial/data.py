@@ -1207,15 +1207,23 @@ HOME_TIMEZONES = {
 }
 
 INJURED_OUT = {
-    "Germany": ["Deniz Undav"],
-    "Brazil": ["Rodrygo", "Estevão"],
-    "England": ["Cole Palmer", "Phil Foden", "Trent Alexander-Arnold", "Harry Maguire"],
+    "Argentina": ["Leonardo Balerdi", "Juan Foyth", "Joaquin Panichelli"],
+    "Austria": ["Christoph Baumgartner"],
+    "Brazil": ["Rodrygo", "Estevao", "Eder Militao", "Wesley"],
+    "Canada": ["Marcelo Flores"],
+    "England": ["Cole Palmer", "Phil Foden", "Trent Alexander-Arnold", "Harry Maguire", "Jack Grealish", "Ben White"],
     "France": ["Hugo Ekitike"],
-    "Japan": ["Kaoru Mitoma"],
-    "Netherlands": ["Xavi Simons"],
-    "Sweden": ["Dejan Kulusevski"],
+    "Germany": ["Deniz Undav", "Marc-Andre Ter Stegen", "Serge Gnabry", "Lennart Karl"],
+    "Ghana": ["Mohammed Kudus", "Mohamed Salisu"],
+    "Iraq": ["Ahmed Yahya"],
     "Iran": ["Sardar Azmoun"],
-    "Ghana": ["Mohammed Kudus"],
+    "Japan": ["Kaoru Mitoma", "Takumi Minamino"],
+    "Mexico": ["Luis Angel Malagon"],
+    "Morocco": ["Nayef Aguerd", "Abde Ezzalzouli"],
+    "Netherlands": ["Xavi Simons", "Matthijs de Ligt", "Jurrien Timber", "Jerdy Schouten"],
+    "Spain": ["Fermin Lopez", "Samu Omorodion"],
+    "Sweden": ["Dejan Kulusevski"],
+    "USA": ["Patrick Agyemang"],
 }
 
 PENALTY_TAKERS = {

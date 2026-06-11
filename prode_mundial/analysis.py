@@ -222,12 +222,15 @@ def _pick(seed, pool):
     return pool[h % len(pool)]
 
 
-def _categorize_players(team_data):
+def _categorize_players(team_data, team_name):
     defenders = []
     midfielders = []
     forwards = []
+    injured = INJURED_OUT.get(team_name, [])
     for p in team_data.get("players", []):
         name = p.get("name", "")
+        if name in injured:
+            continue
         pos = p.get("position", "")
         goals = p.get("goals_2026", 0) or 0
         minutes = p.get("minutes_2026", 0) or 0
@@ -495,7 +498,7 @@ def _build_narrative(match):
     results = []
 
     # --- Team A ---
-    a_def, a_mid, a_fwd = _categorize_players(a_data)
+    a_def, a_mid, a_fwd = _categorize_players(a_data, team_a)
     a_gs = a_data.get("goals_scored_avg", 1.5) or 1.5
     a_gc = a_data.get("goals_conceded_avg", 1.2) or 1.2
     results.append(
@@ -513,7 +516,7 @@ def _build_narrative(match):
     )
 
     # --- Team B ---
-    b_def, b_mid, b_fwd = _categorize_players(b_data)
+    b_def, b_mid, b_fwd = _categorize_players(b_data, team_b)
     b_gs = b_data.get("goals_scored_avg", 1.5) or 1.5
     b_gc = b_data.get("goals_conceded_avg", 1.2) or 1.2
     results.append(

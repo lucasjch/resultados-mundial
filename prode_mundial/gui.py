@@ -1105,7 +1105,7 @@ class ProdeGUI:
         text.insert(tk.END, "Wikipedia", "bold")
         text.insert(tk.END, ". De cada jugador se obtuvo su nombre, edad, altura, posición, club actual y valor de mercado. Pero no quedó ahí: de Wikipedia se extrajeron los partidos y goles internacionales de cada uno, su club actual, sus títulos profesionales y su altura exacta. De Transfermarkt se consiguieron las estadísticas de la temporada 2025/26: ", "normal")
         text.insert(tk.END, "goles, asistencias y minutos jugados", "bold")
-        text.insert(tk.END, ". En total se recolectaron datos de 1205 jugadores con estadísticas de temporada completas, lo que da una cobertura del 97% del torneo.\n\n", "normal")
+        text.insert(tk.END, ". En total se recolectaron datos de los 1248 jugadores con estadísticas de temporada completas, lo que da una cobertura del 100% del torneo.\n\n", "normal")
         text.insert(tk.END, "Después se cargó la ", "normal")
         text.insert(tk.END, "historia de cada selección en los Mundiales", "bold")
         text.insert(tk.END, ": qué equipo fue campeón, cuál llegó a final, a semifinales, a cuartos. Brasil con cinco títulos, Alemania con cuatro, Argentina con tres, Francia con dos, Uruguay con dos, Inglaterra con uno y España con uno. También se registraron las ", "normal")

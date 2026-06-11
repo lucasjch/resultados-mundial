@@ -14,7 +14,7 @@ para completar un prode. Exporta a CSV y JSON.
 
 ```bash
 cd prode_mundial
-python wikiscraper.py          # ~40 min: scrapea 1245 jugadores (checkpoint cada 50)
+python wikiscraper.py          # ~40 min: scrapea 1248 jugadores (checkpoint cada 50)
 python main.py                 # ejecuta predicción completa
 ```
 
@@ -51,7 +51,7 @@ prode_mundial/
 │   ├── test_top_scorer.py
 │   └── test_output.py
 └── output/           # Resultados generados
-    ├── players.json          # 1245 jugadores (enriquecido vía wikiscraper)
+    ├── players.json          # 1248 jugadores (48 equipos × 26, enriquecido vía wikiscraper)
     ├── wiki_cache.json       # Caché de Wikipedia scraping
     ├── tm_stats_cache.json   # Caché de Transfermarkt stats
     ├── friendlies.json       # Dataset de 57 amistosos
@@ -68,7 +68,7 @@ prode_mundial/
 - **Promiedos** (28 equipos): parsea HTML `<tr>`/`<td>` - nombre, dorsal, edad, altura
 - **Transfermarkt** (20 equipos): `html.unescape()` + regex - nombre, posición, DOB, valor de mercado
 - **Retry**: `_fetch_with_retry()` con 4 reintentos (delay 2s/4s/8s/16s) para `urllib.error.URLError`/`socket.timeout`
-- Total: **1245 jugadores** de 48 equipos
+- Total: **1248 jugadores** de 48 equipos
 - Output: `output/players.json`
 
 ### 1b. Wikipedia Stats (`wikiscraper.py`)
@@ -83,7 +83,7 @@ prode_mundial/
 - **Fix `_extract_num()`**: maneja valores con wikilinks tipo `[[List of...|56]]` o templates `{{efn|...}}`
 - **Incremental save**: checkpoint cada 50 jugadores para reanudar en caso de timeout
 - Caché en `output/wiki_cache.json` - evita re-scrapear en ejecuciones posteriores
-- Input: 1245 jugadores · Output: ~40 min (delay 1s entre requests) · Resultado: 1112/1245 encontrados (89%)
+- Input: 1248 jugadores · Output: ~40 min (delay 1s entre requests) · Resultado: 1116/1248 encontrados (89%)
 
 ### 1c. Transfermarkt Stats (`stats_scraper.py`)
 
@@ -95,7 +95,7 @@ prode_mundial/
 - **Retry**: `_get()` reintenta 3 veces con connect timeout separado (10s/read 30s) para Timeout/ConnectionError
 - Caché en `output/tm_stats_cache.json` - evita re-scrapear
 - Output: enriquece `players.json` con campos `goals_2026`, `assists_2026`, `minutes_2026`
-- Resultado: 1205/1245 jugadores con stats (96.8%)
+- Resultado: 1248/1248 jugadores con stats (100%)
 
 ### 2. Datos (`data.py`)
 
@@ -214,7 +214,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - Boost de experiencia internacional (+30% por gol/partido en selección si hay datos)
 - Friendly boost: +30% por gol marcado en amistosos recientes
 - Seed determinista `random.seed(0)` para reproducción
-- Resultado actual: Kai Havertz 9, Lionel Messi 9, Harry Kane 8, Kylian Mbappé 8, Cristiano Ronaldo 6
+- Resultado actual: Kylian Mbappé 13, Kai Havertz 10, Cristiano Ronaldo 9, Harry Kane 9, Lionel Messi 7
 
 ## Bases Operativas Reales
 
@@ -273,7 +273,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 
 |#|Fase|Estado|
 |----|------|--------|
-|1|Ejecutar wikiscraper.py (1112/1245 jugadores)|✅ Completado|
+|1|Ejecutar wikiscraper.py (1116/1248 jugadores)|✅ Completado|
 |2|Decidir fuente de asistencias|✅ Completado|
 |3|Integrar stats individuales como factores|✅ Completado|
 |4|Arreglar modelo (pesos, redundancias, fórmula)|✅ Completado|
@@ -315,7 +315,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 8. **FIFA 2026 tiebreaker cascade (Artículo 13)**: H2H pts → H2H GD → H2H GF → GD global → GF global → Fair Play → Ranking FIFA. Aplicado en `_sort_group()` para grupos y en `determine_qualified()` para mejores terceros.
 9. **Safety net KO doble capa**: `predict_match` resuelve empates en KO via morale + squad_depth + gauss noise; `simulate_knockout_round` tiene fallback por ranking FIFA si aún hay "Empate".
 10. **Haversine centralizada**: Única implementación en `data.py`; predictor y bracket importan desde ahí - DRY.
-11. **`_PLAYERS_CACHE`**: Carga lazy de `players.json` (1245 jugadores) para evitar 135 lecturas de disco durante predict_match.
+11. **`_PLAYERS_CACHE`**: Carga lazy de `players.json` (1248 jugadores) para evitar 135 lecturas de disco durante predict_match.
 12. **Pre-carga de team data**: `get_team()` llamado 1 vez al inicio de `predict_match`; los 8 factores que lo usaban internamente ahora reciben dicts pre-cargados.
 13. **Dead code eliminado**: `SequenceMatcher` import, `_load_team_players()`, `_haversine` local en predictor y bracket, import de `calculate_team_strength` en bracket.
 14. **1000 sims sin ruido extra**: Las probabilidades se calculan directamente de Poisson(λ determinista). El `random.gauss(0, 0.7)*10` fue eliminado.
@@ -451,7 +451,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - `TOP_SCORER_CANDIDATES`: 27 estrellas con boosts fijos (Messi 1.8, Kane 1.6, Mbappé 1.6, etc.).
 - Boost experiencia internacional (+30%) + friendly boost (+30%).
 - `data.py`: agregados `PENALTY_TAKERS` (144), `TOP_SCORER_CANDIDATES` (27), `_TOP_LEAGUE_CLUBS` (~120).
-- Resultado: Messi 9, Havertz 9, Kane 8, Mbappé 8, CR7 6, Haaland 6.
+- Resultado actual: Mbappé 13, Havertz 10, Ronaldo 9, Kane 9, Messi 7.
 
 ### Bloque O - Análisis Narrativo PRODE
 
@@ -548,3 +548,4 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-11|**Friendlies 10 Jun: Portugal 2-1 Nigeria + Bolivia 0-4 Algeria**|Agregados 2 amistosos del 10/6 a `friendlies_data.py`: Portugal 2-1 Nigeria (Neto 23', Conceição 75'; Adams 37') y Bolivia 0-4 Algeria (Mandi 45', Gouiri 57' 59', Hadj Moussa 61'). Outputs regenerados, .exe recompilado.|
 |2026-06-11|**Spanish team names + bonus tab bugfix**|`TEAM_ES` dict (48 equipos) + `team_name_es()` en `data.py`. Aplicado en: score labels, prob labels, tabla posiciones, terceros, goleadores tab, bonus tab (campeón/subcampeón/tercero/semifinalistas/clasificados/x2/extra stats). Bug `wcard→winner` en `_compute_bonus_data()`. Exe recompilado. Commit `973a727`, push a master.|
 |2026-06-11|**Factor arquero penales + fix veredicto + fix draw text**|`data.py`: `_PENALTY_SAVERS` dict (27 equipos con rating manual, 21 por fórmula), `_compute_gk_penalty_save()`, `gk_name`/`gk_penalty_save` en `_enrich_teams()`. `predictor.py`: `gk_factor` en tiebreaker de penales (`(gk_a - gk_b) * 3`). `analysis.py`: fix veredicto (muestra ganador aun si ambos <50%), fix draw text (nuevo `_VERDICT_B_HIGH` para ≥28%), penalty narrative en KO (menciona arqueros especialistas). Outputs regenerados. Commit push.|
+|2026-06-11|**Fix Wikipedia cache Ederson + Saadane**|Cache entries `"Ederson": {}` y `"Marwane Saadane": {}` → datos reales desde páginas correctas: `Éderson (footballer, born 1999)` (3 caps, Atalanta, 4 trofeos) y `Marwane Saâdane` (6 caps, Al-Fateh, 2 trofeos). Wikiscraper re-ejecutado: 1116/1248 encontrados (+2). Simulación regenerada: **España campeón**, Alemania subcampeón, Francia 3°, Mbappé 13 goles.|

@@ -1473,6 +1473,26 @@
       "assists_2026": 3,
       "minutes_2026": 2263,
       "games_2026": 43
+    },
+    {
+      "name": "Jayden Nelson",
+      "position": "Delantero",
+      "jersey": 7,
+      "age": 23,
+      "dob": "26/09/2002",
+      "height": 1.7,
+      "market_value": 1500000,
+      "intl_caps": 1,
+      "intl_goals": 0,
+      "club_apps": 10,
+      "club_goals": 2,
+      "current_club": "Austin FC",
+      "club_name": "Austin FC",
+      "trophy_count": 4,
+      "games_2026": 18,
+      "minutes_2026": 757,
+      "goals_2026": 3,
+      "assists_2026": 0
     }
   ],
   "Switzerland": [
@@ -2553,19 +2573,6 @@
       "games_2026": 0
     },
     {
-      "name": "Wesley",
-      "position": "Defensa Lateral Derecho",
-      "jersey": 2,
-      "age": 22,
-      "dob": "06/09/2003",
-      "height": 1.75,
-      "market_value": null,
-      "goals_2026": 5,
-      "assists_2026": 2,
-      "minutes_2026": 3276,
-      "games_2026": 43
-    },
-    {
       "name": "Gabriel Magalhaes",
       "position": "Defensa Central",
       "jersey": 3,
@@ -2927,6 +2934,26 @@
       "assists_2026": 2,
       "minutes_2026": 1264,
       "games_2026": 18
+    },
+    {
+      "name": "Ederson",
+      "position": "Mediocampista",
+      "jersey": 13,
+      "age": 26,
+      "dob": "07/07/1999",
+      "height": 1.83,
+      "market_value": 35000000,
+      "games_2026": 39,
+      "minutes_2026": 3467,
+      "goals_2026": 0,
+      "assists_2026": 0,
+      "intl_caps": 3,
+      "intl_goals": 0,
+      "club_apps": 138,
+      "club_goals": 13,
+      "current_club": "Atalanta",
+      "club_name": "Atalanta",
+      "trophy_count": 4
     }
   ],
   "Scotland": [
@@ -5795,26 +5822,6 @@
       "games_2026": 43
     },
     {
-      "name": "Lennart Karl",
-      "position": "Mediocampista Ofensivo",
-      "jersey": 25,
-      "age": 18,
-      "dob": "22/02/2008",
-      "height": 1.68,
-      "market_value": null,
-      "intl_caps": 3,
-      "intl_goals": 0,
-      "club_apps": 3,
-      "club_goals": 0,
-      "current_club": "Bayern Munich",
-      "club_name": "",
-      "trophy_count": 6,
-      "goals_2026": 0,
-      "assists_2026": 0,
-      "minutes_2026": 0,
-      "games_2026": 0
-    },
-    {
       "name": "Kai Havertz",
       "position": "Delantero",
       "jersey": 7,
@@ -5933,6 +5940,26 @@
       "assists_2026": 15,
       "minutes_2026": 3751,
       "games_2026": 48
+    },
+    {
+      "name": "Assan Ouedraogo",
+      "position": "Mediocampista",
+      "jersey": 20,
+      "age": 20,
+      "dob": "09/05/2006",
+      "height": 1.91,
+      "market_value": 8000000,
+      "intl_caps": 1,
+      "intl_goals": 1,
+      "club_apps": 1,
+      "club_goals": 1,
+      "current_club": "RB Leipzig",
+      "club_name": "",
+      "trophy_count": 4,
+      "games_2026": 24,
+      "minutes_2026": 1204,
+      "goals_2026": 6,
+      "assists_2026": 4
     }
   ],
   "Ecuador": [
@@ -7013,26 +7040,6 @@
       "games_2026": 35
     },
     {
-      "name": "Jurriën Timber",
-      "position": "Defensa Lateral Derecho",
-      "jersey": 2,
-      "age": 24,
-      "dob": "17/06/2001",
-      "height": 1.79,
-      "market_value": null,
-      "intl_caps": 23,
-      "intl_goals": 0,
-      "club_apps": 23,
-      "club_goals": 0,
-      "current_club": "Arsenal",
-      "club_name": "",
-      "trophy_count": 14,
-      "goals_2026": 4,
-      "assists_2026": 7,
-      "minutes_2026": 3363,
-      "games_2026": 44
-    },
-    {
       "name": "Virgil van Dijk",
       "position": "Defensa Central",
       "jersey": 4,
@@ -7464,6 +7471,26 @@
       "assists_2026": 5,
       "minutes_2026": 2760,
       "games_2026": 35
+    },
+    {
+      "name": "Lutsharel Geertruida",
+      "position": "Defensa Lateral Derecho",
+      "jersey": 6,
+      "age": 25,
+      "dob": "18/07/2000",
+      "height": 1.84,
+      "market_value": 12000000,
+      "intl_caps": 21,
+      "intl_goals": 0,
+      "club_apps": 21,
+      "club_goals": 0,
+      "current_club": "Sunderland<br/>(on loan from RB Leipzig)",
+      "club_name": "",
+      "trophy_count": 8,
+      "games_2026": 33,
+      "minutes_2026": 2004,
+      "goals_2026": 0,
+      "assists_2026": 0
     }
   ],
   "Sweden": [
@@ -11543,6 +11570,26 @@
       "assists_2026": 6,
       "minutes_2026": 1859,
       "games_2026": 29
+    },
+    {
+      "name": "Dejan Ljubicic",
+      "position": "Mediocampista",
+      "jersey": 20,
+      "age": 28,
+      "dob": "08/10/1997",
+      "height": 1.85,
+      "market_value": 3000000,
+      "intl_caps": 9,
+      "intl_goals": 1,
+      "club_apps": 15,
+      "club_goals": 4,
+      "current_club": "Schalke 04",
+      "club_name": "Schalke 04",
+      "trophy_count": 4,
+      "games_2026": 37,
+      "minutes_2026": 2693,
+      "goals_2026": 6,
+      "assists_2026": 6
     }
   ],
   "Portugal": [
@@ -12024,6 +12071,26 @@
       "assists_2026": 5,
       "minutes_2026": 2784,
       "games_2026": 44
+    },
+    {
+      "name": "Joao Neves",
+      "position": "Mediocampista",
+      "jersey": 13,
+      "age": 20,
+      "dob": "27/09/2004",
+      "height": 1.8,
+      "market_value": 55000000,
+      "intl_caps": 21,
+      "intl_goals": 3,
+      "club_apps": 21,
+      "club_goals": 3,
+      "current_club": "Paris Saint-Germain",
+      "club_name": "",
+      "trophy_count": 20,
+      "games_2026": 40,
+      "minutes_2026": 2791,
+      "goals_2026": 7,
+      "assists_2026": 4
     }
   ],
   "Colombia": [
@@ -15546,26 +15613,6 @@
       "games_2026": 13
     },
     {
-      "name": "Nayef Aguerd",
-      "position": "Defensa Central",
-      "jersey": 5,
-      "age": 30,
-      "dob": "30/03/1996",
-      "height": 1.9,
-      "market_value": 15.0,
-      "intl_caps": 64,
-      "intl_goals": 2,
-      "club_apps": 16,
-      "club_goals": 1,
-      "current_club": "Marseille",
-      "club_name": "Marseille",
-      "trophy_count": 9,
-      "goals_2026": 1,
-      "assists_2026": 0,
-      "minutes_2026": 2189,
-      "games_2026": 25
-    },
-    {
       "name": "Chadi Riad",
       "position": "Defensa Central",
       "jersey": 18,
@@ -15859,26 +15906,6 @@
       "games_2026": 50
     },
     {
-      "name": "Abde Ezzalzouli",
-      "position": "Extremo Izquierdo",
-      "jersey": 17,
-      "age": 24,
-      "dob": "17/12/2001",
-      "height": 1.77,
-      "market_value": 40.0,
-      "intl_caps": 35,
-      "intl_goals": 2,
-      "club_apps": 0,
-      "club_goals": 0,
-      "current_club": "Betis",
-      "club_name": "Hércules",
-      "trophy_count": 10,
-      "goals_2026": 15,
-      "assists_2026": 13,
-      "minutes_2026": 3437,
-      "games_2026": 48
-    },
-    {
       "name": "Soufiane Rahimi",
       "position": "Extremo Izquierdo",
       "jersey": 9,
@@ -15997,6 +16024,46 @@
       "assists_2026": 2,
       "minutes_2026": 3117,
       "games_2026": 45
+    },
+    {
+      "name": "Amine Sbai",
+      "position": "Delantero",
+      "jersey": 7,
+      "age": 25,
+      "dob": "05/11/2000",
+      "height": 1.75,
+      "market_value": 2000000,
+      "intl_caps": 1,
+      "intl_goals": 0,
+      "club_apps": 25,
+      "club_goals": 3,
+      "current_club": "Angers",
+      "club_name": "Angers",
+      "trophy_count": 0,
+      "games_2026": 30,
+      "minutes_2026": 2060,
+      "goals_2026": 4,
+      "assists_2026": 3
+    },
+    {
+      "name": "Marwane Saadane",
+      "position": "Defensa Central",
+      "jersey": 17,
+      "age": 34,
+      "dob": "17/01/1992",
+      "height": 1.87,
+      "market_value": 500000,
+      "games_2026": 35,
+      "minutes_2026": 2906,
+      "goals_2026": 0,
+      "assists_2026": 1,
+      "intl_caps": 6,
+      "intl_goals": 0,
+      "club_apps": 172,
+      "club_goals": 15,
+      "current_club": "Al-Fateh",
+      "club_name": "Al-Fateh",
+      "trophy_count": 2
     }
   ],
   "Australia": [
@@ -23738,26 +23805,6 @@
       "games_2026": 46
     },
     {
-      "name": "Ahmed Yahya",
-      "position": "Lateral Izquierdo",
-      "jersey": 15,
-      "age": 30,
-      "dob": "01/07/1995",
-      "height": 1.87,
-      "market_value": 0.45,
-      "intl_caps": 13,
-      "intl_goals": 0,
-      "club_apps": 100,
-      "club_goals": 5,
-      "current_club": "Al-Shorta",
-      "club_name": "Al-Shorta",
-      "trophy_count": 3,
-      "goals_2026": 2,
-      "assists_2026": 3,
-      "minutes_2026": 2724,
-      "games_2026": 34
-    },
-    {
       "name": "Hussein Ali",
       "position": "Lateral Derecho",
       "jersey": 3,
@@ -24062,6 +24109,26 @@
       "assists_2026": 1,
       "minutes_2026": 825,
       "games_2026": 21
+    },
+    {
+      "name": "Ahmed Maknzi",
+      "position": "Defensa Lateral Izquierdo",
+      "jersey": 3,
+      "age": 24,
+      "dob": "15/03/2002",
+      "height": 1.78,
+      "market_value": 50000,
+      "intl_caps": 6,
+      "intl_goals": 0,
+      "club_apps": 22,
+      "club_goals": 5,
+      "current_club": "Al-Karma",
+      "club_name": "Al-Karma",
+      "trophy_count": 2,
+      "games_2026": 25,
+      "minutes_2026": 1776,
+      "goals_2026": 5,
+      "assists_2026": 5
     }
   ]
 }
