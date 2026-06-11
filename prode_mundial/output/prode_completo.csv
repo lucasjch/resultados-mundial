@@ -56,24 +56,24 @@ I,2026-06-22,18:00,Philadelphia,France,Iraq,2-1,2.18,0.72,France,70.7,20.5,8.9,7
 I,2026-06-22,21:00,New York,Norway,Senegal,2-1,1.48,1.27,Norway,42.5,28.1,29.5,42%
 I,2026-06-26,16:00,Boston,Norway,France,1-2,1.24,1.78,France,26.0,22.8,51.2,51%
 I,2026-06-26,16:00,Toronto,Senegal,Iraq,2-1,1.63,0.91,Senegal,53.5,26.9,19.5,54%
-J,2026-06-16,22:00,Kansas City,Argentina,Algeria,2-1,1.73,0.96,Argentina,54.1,27.5,18.5,54%
+J,2026-06-16,22:00,Kansas City,Argentina,Algeria,2-1,1.73,0.97,Argentina,54.2,27.5,18.3,54%
 J,2026-06-16,23:00,San Francisco,Austria,Jordan,2-1,1.64,0.99,Austria,50.2,28.9,20.9,50%
 J,2026-06-22,14:00,Dallas,Argentina,Austria,2-1,1.75,1.0,Argentina,55.2,25.7,19.1,55%
 J,2026-06-23,00:00,San Francisco,Jordan,Algeria,1-2,0.98,1.6,Algeria,20.5,30.3,49.2,49%
-J,2026-06-27,23:00,Kansas City,Algeria,Austria,1-1,1.32,1.33,Empate,36.4,27.3,36.3,27%
-J,2026-06-27,23:00,Dallas,Jordan,Argentina,1-2,0.69,2.06,Argentina,9.6,19.4,71.0,71%
-K,2026-06-17,14:00,Houston,Portugal,DR Congo,2-1,2.0,0.81,Portugal,64.1,22.3,13.6,64%
-K,2026-06-17,21:00,Mexico City,Uzbekistan,Colombia,1-2,0.95,1.76,Colombia,18.5,26.8,54.7,55%
-K,2026-06-23,14:00,Houston,Portugal,Uzbekistan,2-1,2.03,0.84,Portugal,61.3,23.3,15.4,61%
-K,2026-06-23,21:00,Guadalajara,Colombia,DR Congo,2-1,1.73,0.92,Colombia,54.7,26.3,19.0,55%
-K,2026-06-27,20:30,Miami,Colombia,Portugal,1-2,1.23,1.59,Portugal,31.1,25.9,42.9,43%
-K,2026-06-27,20:30,Atlanta,DR Congo,Uzbekistan,1-1,1.27,1.28,Empate,36.7,28.7,34.7,29%
-L,2026-06-17,17:00,Dallas,England,Croatia,2-1,1.73,1.06,England,51.9,26.8,21.3,52%
-L,2026-06-17,20:00,Toronto,Ghana,Panama,1-1,1.37,1.28,Empate,38.7,27.8,33.5,28%
-L,2026-06-23,17:00,Boston,England,Ghana,2-1,2.03,0.87,England,60.2,23.5,16.3,60%
-L,2026-06-23,20:00,Toronto,Panama,Croatia,1-2,1.01,1.6,Croatia,21.2,32.2,46.6,47%
-L,2026-06-27,18:00,New York,Panama,England,1-2,0.81,2.03,England,14.1,18.8,67.1,67%
-L,2026-06-27,18:00,Philadelphia,Croatia,Ghana,2-1,1.58,1.09,Croatia,48.4,24.5,27.1,48%
+J,2026-06-27,23:00,Kansas City,Algeria,Austria,1-1,1.32,1.32,Empate,36.3,27.1,36.5,27%
+J,2026-06-27,23:00,Dallas,Jordan,Argentina,1-2,0.69,2.06,Argentina,9.7,19.3,71.0,71%
+K,2026-06-17,14:00,Houston,Portugal,DR Congo,2-1,2.0,0.81,Portugal,64.1,22.2,13.7,64%
+K,2026-06-17,21:00,Mexico City,Uzbekistan,Colombia,1-2,0.95,1.76,Colombia,18.3,26.9,54.8,55%
+K,2026-06-23,14:00,Houston,Portugal,Uzbekistan,2-1,2.03,0.84,Portugal,61.3,23.3,15.3,61%
+K,2026-06-23,21:00,Guadalajara,Colombia,DR Congo,2-1,1.73,0.92,Colombia,54.3,26.6,19.1,54%
+K,2026-06-27,20:30,Miami,Colombia,Portugal,1-2,1.23,1.59,Portugal,31.4,25.9,42.7,43%
+K,2026-06-27,20:30,Atlanta,DR Congo,Uzbekistan,1-1,1.27,1.28,Empate,36.3,29.0,34.7,29%
+L,2026-06-17,17:00,Dallas,England,Croatia,2-1,1.73,1.06,England,52.1,26.7,21.3,52%
+L,2026-06-17,20:00,Toronto,Ghana,Panama,1-1,1.37,1.28,Empate,38.7,27.9,33.4,28%
+L,2026-06-23,17:00,Boston,England,Ghana,2-1,2.03,0.87,England,60.1,23.7,16.3,60%
+L,2026-06-23,20:00,Toronto,Panama,Croatia,1-2,1.01,1.6,Croatia,21.1,32.2,46.7,47%
+L,2026-06-27,18:00,New York,Panama,England,1-2,0.81,2.03,England,14.0,18.9,67.1,67%
+L,2026-06-27,18:00,Philadelphia,Croatia,Ghana,2-1,1.58,1.09,Croatia,48.4,24.4,27.2,48%
 
 TABLA DE POSICIONES
 Grupo,Pos,Equipo,Pts,PG,PE,PP,GF,GC,DG
@@ -114,8 +114,8 @@ I,2,Norway,6,2,0,1,5,4,1
 I,3,Senegal,3,1,0,2,4,5,-1
 I,4,Iraq,0,0,0,3,3,6,-3
 J,1,Argentina,9,3,0,0,6,3,3
-J,2,Algeria,4,1,1,1,4,4,0
-J,3,Austria,4,1,1,1,4,4,0
+J,2,Austria,4,1,1,1,4,4,0
+J,3,Algeria,4,1,1,1,4,4,0
 J,4,Jordan,0,0,0,3,3,6,-3
 K,1,Portugal,9,3,0,0,6,3,3
 K,2,Colombia,6,2,0,1,5,4,1
@@ -128,40 +128,40 @@ L,4,Panama,1,0,1,2,3,5,-2
 
 ELIMINATORIAS
 Ronda,Fecha,Sede,Partido,Resultado,Goles Esp. A,Goles Esp. B,Ganador,Prob A(%),Prob Emp(%),Prob B(%),Confianza
-R32,,Boston,Germany vs Czechia,2-1,1.92,0.98,Germany,58.0,25.9,16.1,58%
-R32,,New York,France vs Scotland,2-1,1.94,0.94,France,59.7,24.4,15.9,60%
-R32,,Los Angeles,South Korea vs Canada,1-1,1.36,1.34,Canada,36.4,30.9,32.7,36%
-R32,,Monterrey,Netherlands vs Morocco,1-1,1.44,1.21,Morocco,40.4,31.1,28.5,40%
-R32,,Toronto,Colombia vs Croatia,1-1,1.42,1.23,Croatia,38.7,29.4,31.9,39%
-R32,,Los Angeles,Spain vs Algeria,2-1,1.83,0.93,Spain,58.0,25.9,16.1,58%
-R32,,San Francisco,USA vs Bosnia & Herzegovina,2-1,1.85,1.05,USA,57.1,23.5,19.5,57%
-R32,,Seattle,Belgium vs Ecuador,1-1,1.5,1.21,Ecuador,41.4,28.3,30.3,41%
-R32,,Houston,Brazil vs Japan,2-1,1.58,1.18,Brazil,45.3,27.9,26.7,45%
-R32,,Dallas,Ivory Coast vs Norway,1-2,1.25,1.54,Norway,30.7,27.6,41.7,42%
-R32,,Mexico City,Mexico vs Sweden,2-1,1.54,1.27,Mexico,43.3,28.1,28.6,43%
-R32,,Atlanta,England vs Senegal,2-1,1.72,1.02,England,53.5,26.7,19.8,54%
-R32,,Miami,Argentina vs Uruguay,2-1,1.59,1.13,Argentina,47.6,26.3,26.1,48%
-R32,,Dallas,Turkey vs Iran,2-1,1.58,1.18,Turkey,45.5,27.3,27.2,46%
-R32,,Vancouver,Switzerland vs Egypt,1-1,1.4,1.25,Egypt,38.9,30.7,30.4,39%
-R32,,Kansas City,Portugal vs Austria,2-1,1.77,1.07,Portugal,51.9,28.1,20.1,52%
-R16,,Philadelphia,Canada vs Brazil,1-2,1.14,1.74,Brazil,22.0,28.5,49.5,50%
-R16,,Houston,Germany vs Morocco,2-1,1.68,1.08,Germany,52.6,24.9,22.5,53%
-R16,,New York,France vs Norway,2-1,1.78,1.24,France,46.1,25.4,28.5,46%
-R16,,Mexico City,Mexico vs England,1-2,1.19,1.63,England,23.3,29.3,47.4,47%
-R16,,Dallas,USA vs Ecuador,2-1,1.51,1.2,USA,43.2,27.4,29.4,43%
-R16,,Seattle,Croatia vs Spain,1-2,1.0,1.75,Spain,20.2,27.8,52.0,52%
-R16,,Atlanta,Egypt vs Argentina,1-2,0.97,1.74,Argentina,19.5,27.7,52.9,53%
-R16,,Vancouver,Portugal vs Turkey,2-1,1.71,1.21,Portugal,48.6,28.2,23.2,49%
-QF,,Philadelphia,Brazil vs Germany,1-2,1.36,1.59,Germany,29.3,27.4,43.3,43%
-QF,,Atlanta,France vs England,2-1,1.5,1.45,France,37.6,28.2,34.2,38%
-QF,,Miami,USA vs Spain,1-2,1.16,1.66,Spain,24.1,29.0,46.9,47%
-QF,,New York,Argentina vs Portugal,1-1,1.44,1.36,Portugal,40.3,27.3,32.5,40%
-SF,,Dallas,Germany vs France,2-1,1.51,1.49,Germany,37.5,28.9,33.6,38%
-SF,,Atlanta,Spain vs Portugal,2-1,1.56,1.3,Spain,41.0,29.8,29.2,41%
-3°,,Miami,France vs Portugal,1-1,1.54,1.4,Portugal,38.1,28.6,33.3,38%
-Final,,New York,Germany vs Spain,1-1,1.44,1.46,Germany,33.2,31.4,35.4,35%
+R32,,Boston,Germany vs Czechia,2-1,1.92,0.98,Germany,58.1,25.9,16.0,58%
+R32,,New York,France vs Scotland,2-1,1.94,0.94,France,59.7,24.3,16.1,60%
+R32,,Los Angeles,South Korea vs Canada,1-1,1.36,1.34,South Korea,36.6,30.7,32.7,37%
+R32,,Monterrey,Netherlands vs Morocco,1-1,1.44,1.21,Netherlands,40.2,31.3,28.5,40%
+R32,,Toronto,Colombia vs Croatia,1-1,1.42,1.23,Colombia,38.7,29.4,31.9,39%
+R32,,Los Angeles,Spain vs Austria,2-1,1.84,0.97,Spain,56.7,25.9,17.3,57%
+R32,,San Francisco,USA vs Bosnia & Herzegovina,2-1,1.85,1.05,USA,56.9,23.6,19.5,57%
+R32,,Seattle,Belgium vs Ecuador,1-1,1.5,1.21,Belgium,41.4,27.9,30.7,41%
+R32,,Houston,Brazil vs Japan,2-1,1.58,1.18,Brazil,45.3,28.1,26.7,45%
+R32,,Dallas,Ivory Coast vs Norway,1-2,1.25,1.54,Norway,30.6,27.5,41.9,42%
+R32,,Mexico City,Mexico vs Sweden,2-1,1.54,1.27,Mexico,43.5,27.9,28.5,44%
+R32,,Atlanta,England vs Senegal,2-1,1.72,1.02,England,53.5,26.7,19.9,54%
+R32,,Miami,Argentina vs Uruguay,2-1,1.59,1.13,Argentina,47.5,26.3,26.2,48%
+R32,,Dallas,Turkey vs Iran,2-1,1.58,1.18,Turkey,45.2,27.6,27.2,45%
+R32,,Vancouver,Switzerland vs Egypt,1-1,1.4,1.25,Egypt,39.3,30.3,30.4,39%
+R32,,Kansas City,Portugal vs Algeria,2-1,1.74,1.05,Portugal,52.7,27.5,19.7,53%
+R16,,Philadelphia,South Korea vs Brazil,1-2,1.11,1.67,Brazil,22.7,29.3,47.9,48%
+R16,,Houston,Germany vs Netherlands,2-1,1.64,1.27,Germany,47.1,24.7,28.2,47%
+R16,,New York,France vs Norway,2-1,1.78,1.24,France,46.1,25.5,28.4,46%
+R16,,Mexico City,Mexico vs England,1-2,1.19,1.63,England,23.6,29.1,47.3,47%
+R16,,Dallas,USA vs Belgium,1-1,1.39,1.41,USA,34.5,27.7,37.9,38%
+R16,,Seattle,Colombia vs Spain,1-2,1.12,1.66,Spain,25.1,28.7,46.1,46%
+R16,,Atlanta,Egypt vs Argentina,1-2,0.97,1.74,Argentina,19.6,27.7,52.7,53%
+R16,,Vancouver,Portugal vs Turkey,2-1,1.71,1.21,Portugal,48.5,28.4,23.1,48%
+QF,,Philadelphia,Brazil vs Germany,1-2,1.36,1.59,Germany,29.3,27.3,43.3,43%
+QF,,Atlanta,France vs England,2-1,1.5,1.45,France,37.4,28.3,34.3,37%
+QF,,Miami,USA vs Spain,1-2,1.16,1.66,Spain,24.1,28.7,47.3,47%
+QF,,New York,Argentina vs Portugal,1-1,1.44,1.36,Portugal,40.8,27.5,31.7,41%
+SF,,Dallas,Germany vs France,2-1,1.51,1.49,Germany,37.0,28.6,34.4,37%
+SF,,Atlanta,Spain vs Portugal,2-1,1.56,1.3,Spain,40.9,29.7,29.4,41%
+3°,,Miami,France vs Portugal,2-1,1.54,1.4,France,38.5,28.6,32.9,38%
+Final,,New York,Germany vs Spain,0-1,1.44,1.46,Spain,33.5,31.6,34.9,35%
 
 RESULTADOS FINALES
-Campeon:,Germany
-Subcampeon:,Spain
-3er Puesto:,Portugal
+Campeon:,Spain
+Subcampeon:,Germany
+3er Puesto:,France

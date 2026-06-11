@@ -610,6 +610,32 @@ FRIENDLIES = [
         "away_scorers": [],
         "cards": {"home_yellow": 0, "home_red": 0, "away_yellow": 0, "away_red": 0},
     },
+    {
+        "date": "2026-06-10",
+        "home": "Portugal", "away": "Nigeria",
+        "home_score": 2, "away_score": 1,
+        "home_scorers": [
+            {"player": "Pedro Neto", "minute": 23},
+            {"player": "Francisco Conceicao", "minute": 75},
+        ],
+        "away_scorers": [
+            {"player": "Akor Adams", "minute": 37},
+        ],
+        "cards": {"home_yellow": 2, "home_red": 0, "away_yellow": 2, "away_red": 0},
+    },
+    {
+        "date": "2026-06-10",
+        "home": "Bolivia", "away": "Algeria",
+        "home_score": 0, "away_score": 4,
+        "home_scorers": [],
+        "away_scorers": [
+            {"player": "Aissa Mandi", "minute": 45},
+            {"player": "Amine Gouiri", "minute": 57},
+            {"player": "Amine Gouiri", "minute": 59},
+            {"player": "Anis Hadj Moussa", "minute": 61},
+        ],
+        "cards": {"home_yellow": 2, "home_red": 0, "away_yellow": 2, "away_red": 0},
+    },
 ]
 
 
