@@ -373,7 +373,6 @@ class ProdeGUI:
         if analysis:
             rec_text, _, narrative = analysis.partition("\n\n")
 
-            # Color del badge según tipo de recomendación
             rt_lower = rec_text.lower()
             if "seguro" in rt_lower or "favorito" in rt_lower:
                 badge_color = _COLORS["badge_win"]
@@ -394,20 +393,16 @@ class ProdeGUI:
             ).pack(fill=tk.X, padx=15)
 
             text_frame = tk.Frame(card, bg="#1c2128")
-            text_frame.pack(fill=tk.X, padx=0, pady=0)
+            text_frame.pack(fill=tk.BOTH, expand=True)
 
             text_w = tk.Text(
-                text_frame, wrap=tk.WORD, height=12,
+                text_frame, wrap=tk.WORD,
                 bg="#1c2128", fg=_COLORS["fg"],
                 font=("Corbel", 10), relief=tk.FLAT,
                 highlightthickness=0, bd=0,
                 padx=15, pady=8
             )
-            text_w.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-            text_scroll = tk.Scrollbar(text_frame, orient=tk.VERTICAL, command=text_w.yview)
-            text_scroll.pack(side=tk.RIGHT, fill=tk.Y)
-            text_w.config(yscrollcommand=text_scroll.set)
+            text_w.pack(fill=tk.BOTH, expand=True)
 
             for eng, esp in sorted(TEAM_ES.items(), key=lambda x: -len(x[0])):
                 narrative = narrative.replace(eng, esp)
@@ -446,36 +441,32 @@ class ProdeGUI:
         star_lbl.pack(pady=4)
         ToolTip(star_lbl, f"Confianza: {conf:.0f}%\nBasada en 1500 simulaciones Poisson")
 
-        # ── SCORE ROW ────────────────────────────────────────────────────────
-        vs_frame = tk.Frame(card, bg=_COLORS["card_bg"], height=130)
-        vs_frame.pack(fill=tk.X, pady=18)
-        vs_frame.pack_propagate(False)
+        # ── SCORE ROW (anclado al fondo) ────────────────────────────────────
+        vs_frame = tk.Frame(card, bg=_COLORS["card_bg"])
+        vs_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=(8, 4))
 
-        # Equipo A
         tf_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
-        tf_a.pack(side=tk.LEFT, padx=(12, 0))
+        tf_a.pack(side=tk.LEFT, padx=(6, 0))
         flag_a = self._get_flag(team_a, 32, 24)
         if flag_a:
             tk.Label(tf_a, image=flag_a, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_a, text=team_name_es(team_a), font=("Corbel", 18, "bold"),
+        tk.Label(tf_a, text=team_name_es(team_a), font=("Corbel", 14, "bold"),
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
-        # Score central con fondo verde — centrado absoluto
         sf = tk.Frame(vs_frame, bg=_COLORS["score_bg"],
                       highlightbackground=_COLORS["accent"],
-                      highlightthickness=2, padx=24, pady=10)
+                      highlightthickness=2, padx=12, pady=6)
         sf.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         tk.Label(sf, text=f"{score_a}  –  {score_b}",
-                 font=("Corbel", 36, "bold"),
+                 font=("Corbel", 32, "bold"),
                  bg=_COLORS["score_bg"], fg="#ffffff").pack()
 
-        # Equipo B
         tf_b = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
-        tf_b.pack(side=tk.RIGHT, padx=(0, 12))
+        tf_b.pack(side=tk.RIGHT, padx=(0, 6))
         flag_b = self._get_flag(team_b, 32, 24)
         if flag_b:
             tk.Label(tf_b, image=flag_b, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_b, text=team_name_es(team_b), font=("Corbel", 18, "bold"),
+        tk.Label(tf_b, text=team_name_es(team_b), font=("Corbel", 14, "bold"),
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
         # ── FOOTER ────────────────────────────────────────────────────────────
@@ -484,7 +475,7 @@ class ProdeGUI:
         tk.Label(card,
                  text=f"  {grp_label} 📍 {venue}   ·   Partido {idx+1}/{total}",
                  font=("Corbel", 9), bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack(pady=(0, 12))
+                 fg=_COLORS["subtitle"]).pack(side=tk.BOTTOM, pady=(0, 8))
 
         return card
 
