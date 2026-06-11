@@ -1337,6 +1337,33 @@ _CONF_CARD_RATES = {
     "OFC":      {"yellow_rate": 1.8, "red_rate": 0.04},
 }
 
+TEAM_ES = {
+    "Algeria": "Argelia", "Argentina": "Argentina", "Australia": "Australia",
+    "Austria": "Austria", "Belgium": "Bélgica",
+    "Bosnia & Herzegovina": "Bosnia y Herzegovina",
+    "Brazil": "Brasil", "Canada": "Canadá", "Cape Verde": "Cabo Verde",
+    "Colombia": "Colombia", "Croatia": "Croacia", "Czechia": "República Checa",
+    "Curacao": "Curazao", "DR Congo": "RD Congo", "Ecuador": "Ecuador",
+    "Egypt": "Egipto", "England": "Inglaterra", "France": "Francia",
+    "Germany": "Alemania", "Ghana": "Ghana", "Haiti": "Haití",
+    "Iran": "Irán", "Iraq": "Irak", "Ivory Coast": "Costa de Marfil",
+    "Japan": "Japón", "Jordan": "Jordania", "Mexico": "México",
+    "Morocco": "Marruecos", "Netherlands": "Países Bajos",
+    "New Zealand": "Nueva Zelanda", "Norway": "Noruega", "Panama": "Panamá",
+    "Paraguay": "Paraguay", "Portugal": "Portugal", "Qatar": "Catar",
+    "Saudi Arabia": "Arabia Saudita", "Scotland": "Escocia",
+    "Senegal": "Senegal", "South Africa": "Sudáfrica",
+    "South Korea": "Corea del Sur", "Spain": "España", "Sweden": "Suecia",
+    "Switzerland": "Suiza", "Tunisia": "Túnez", "Turkey": "Turquía",
+    "USA": "Estados Unidos", "Uruguay": "Uruguay", "Uzbekistan": "Uzbekistán",
+}
+
+
+def team_name_es(name):
+    """Traduce nombre de seleccion al espanol."""
+    return TEAM_ES.get(name, name)
+
+
 def haversine(lat1, lon1, lat2, lon2):
     """Distancia en km entre dos puntos geograficos."""
     R = 6371

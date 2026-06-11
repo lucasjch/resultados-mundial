@@ -10,6 +10,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 import sv_ttk
+from prode_mundial.data import team_name_es, TEAM_ES
 
 if getattr(sys, 'frozen', False):
     BASE_DIR = getattr(sys, '_MEIPASS')
@@ -408,6 +409,8 @@ class ProdeGUI:
             text_scroll.pack(side=tk.RIGHT, fill=tk.Y)
             text_w.config(yscrollcommand=text_scroll.set)
 
+            for eng, esp in sorted(TEAM_ES.items(), key=lambda x: -len(x[0])):
+                narrative = narrative.replace(eng, esp)
             text_w.insert("1.0", narrative)
             text_w.config(state=tk.DISABLED)
 
@@ -425,7 +428,7 @@ class ProdeGUI:
             pf = self._get_flag(team, 14, 10)
             if pf:
                 tk.Label(f, image=pf, bg=color).pack(side=tk.LEFT, padx=(0, 4))
-            tk.Label(f, text=f"{team}: {prob:.0f}%",
+            tk.Label(f, text=f"{team_name_es(team)}: {prob:.0f}%",
                      font=("Corbel", 10, "bold"), bg=color, fg="#ffffff").pack(side=tk.LEFT)
 
         win_color = _COLORS["accent2"] if prob_a >= prob_b else _COLORS["red"]
@@ -454,7 +457,7 @@ class ProdeGUI:
         flag_a = self._get_flag(team_a, 32, 24)
         if flag_a:
             tk.Label(tf_a, image=flag_a, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_a, text=team_a, font=("Corbel", 18, "bold"),
+        tk.Label(tf_a, text=team_name_es(team_a), font=("Corbel", 18, "bold"),
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
         # Score central con fondo verde — centrado absoluto
@@ -472,7 +475,7 @@ class ProdeGUI:
         flag_b = self._get_flag(team_b, 32, 24)
         if flag_b:
             tk.Label(tf_b, image=flag_b, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_b, text=team_b, font=("Corbel", 18, "bold"),
+        tk.Label(tf_b, text=team_name_es(team_b), font=("Corbel", 18, "bold"),
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
         # ── FOOTER ────────────────────────────────────────────────────────────
@@ -653,7 +656,7 @@ class ProdeGUI:
                          width=2).pack(side=tk.LEFT)
                 if rflag:
                     tk.Label(row_f, image=rflag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(2, 3))
-                tk.Label(row_f, text=team_name, font=_FONT_TAB,
+                tk.Label(row_f, text=team_name_es(team_name), font=_FONT_TAB,
                          bg=_COLORS["card_bg"], fg=clr,
                          width=20, anchor=tk.W).pack(side=tk.LEFT)
                 for val, w in [(str(pts), 3), (f"{gd:+d}", 3), (str(gf), 3), (str(ga), 4)]:
@@ -688,7 +691,7 @@ class ProdeGUI:
                 tflag = self._get_flag(tm, 16, 12)
                 if tflag:
                     tk.Label(row3, image=tflag, bg=row_bg).pack(side=tk.LEFT, padx=(0, 3))
-                tk.Label(row3, text=tm, font=_FONT_TAB, bg=row_bg,
+                tk.Label(row3, text=team_name_es(tm), font=_FONT_TAB, bg=row_bg,
                          fg=clr3, width=24, anchor=tk.W).pack(side=tk.LEFT)
                 tk.Label(row3, text=grp, font=_FONT_TAB, bg=row_bg,
                          fg=_COLORS["subtitle"], width=4).pack(side=tk.LEFT)
@@ -777,7 +780,7 @@ class ProdeGUI:
             tflag = self._get_flag(team, 16, 12)
             if tflag:
                 tk.Label(row, image=tflag, bg=row["bg"]).pack(side=tk.LEFT, padx=(0, 3))
-            tk.Label(row, text=team, font=_FONT_TAB,
+            tk.Label(row, text=team_name_es(team), font=_FONT_TAB,
                      bg=row["bg"], fg=_COLORS["fg"],
                      width=22, anchor=tk.W).pack(side=tk.LEFT)
             tk.Label(row, text=str(goles), font=_FONT_TAB_H,
@@ -793,13 +796,13 @@ class ProdeGUI:
 
         if ko:
             final = ko[-1]
-            bonus["champion"] = final.get("wcard", "?")
+            bonus["champion"] = final.get("winner", "?")
             bonus["champion_conf"] = final.get("confidence", 0)
             bonus["runner_up"] = final.get("loser", "?")
             bonus["final_score"] = f"{final.get('score_a', 0)}-{final.get('score_b', 0)}"
             if len(ko) >= 2:
                 third = ko[-2]
-                bonus["third_place"] = third.get("wcard", "?")
+                bonus["third_place"] = third.get("winner", "?")
                 bonus["third_score"] = f"{third.get('score_a', 0)}-{third.get('score_b', 0)}"
             if len(ko) >= 30:
                 sf1 = ko[28]
@@ -928,13 +931,13 @@ class ProdeGUI:
 
         # Champion, runner-up, third place
         items = [
-            ("\U0001F3C6  Campeon", bonus.get("champion", "?"),
+            ("\U0001F3C6  Campeon", team_name_es(bonus.get("champion", "?")),
              f"Confianza: {bonus.get('champion_conf', 0):.0f}%",
              _COLORS["star"]),
-            ("\U0001F948  Subcampeon", bonus.get("runner_up", "?"),
+            ("\U0001F948  Subcampeon", team_name_es(bonus.get("runner_up", "?")),
              f"Final: {bonus.get('final_score', '')}",
              _COLORS["subtitle"]),
-            ("\U0001F949  Tercer Puesto", bonus.get("third_place", "?"),
+            ("\U0001F949  Tercer Puesto", team_name_es(bonus.get("third_place", "?")),
              f"3er puesto: {bonus.get('third_score', '')}",
              _COLORS["subtitle"]),
         ]
@@ -970,7 +973,7 @@ class ProdeGUI:
                 sf_flag = self._get_flag(sf_t, 24, 18)
                 if sf_flag:
                     tk.Label(sf_vf, image=sf_flag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 4))
-                tk.Label(sf_vf, text=sf_t, font=("Corbel", 17, "bold"),
+                tk.Label(sf_vf, text=team_name_es(sf_t), font=("Corbel", 17, "bold"),
                          bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
             tk.Label(sf_card, text="1 pt por cada acierto", font=_FONT_M,
                      bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(anchor=tk.W, padx=15, pady=(0, 8))
@@ -995,7 +998,7 @@ class ProdeGUI:
                     cf = self._get_flag(ct, 16, 12)
                     if cf:
                         tk.Label(c_line, image=cf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(2, 3))
-                    tk.Label(c_line, text=ct, font=_FONT_M,
+                    tk.Label(c_line, text=team_name_es(ct), font=_FONT_M,
                              bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 8))
 
         # x2 recommendations
@@ -1023,7 +1026,7 @@ class ProdeGUI:
                         xf = self._get_flag(x2t, 16, 12)
                         if xf:
                             tk.Label(x2_line, image=xf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 3))
-                    tk.Label(x2_line, text=f"{r['team_a']} vs {r['team_b']}  |  "
+                    tk.Label(x2_line, text=f"{team_name_es(r['team_a'])} vs {team_name_es(r['team_b'])}  |  "
                              f"Pronostico: {r['predicted']}  |  "
                              f"P(acierto): {r['p_result_pct']:.0f}%  |  "
                              f"EV gain: +{r['ev_gain']:.3f}",
@@ -1036,13 +1039,13 @@ class ProdeGUI:
         mt = bonus.get("most_goals_team", "")
         if mt:
             self._bonus_card(scroll_frame, "\U0001F525  Equipo con mas goles",
-                             mt,
+                             team_name_es(mt),
                              f"Total: {bonus.get('most_goals_total', 0)} goles",
                              _COLORS["green"], flag_team=mt)
         bd = bonus.get("best_defense", "")
         if bd:
             self._bonus_card(scroll_frame, "\U0001F6E1  Mejor defensa",
-                             bd,
+                             team_name_es(bd),
                              f"Solo {bonus.get('best_defense_ga', 0)} goles recibidos",
                              _COLORS["green"], flag_team=bd)
         bm = bonus.get("best_match", {})
