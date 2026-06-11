@@ -1269,6 +1269,39 @@ PENALTY_TAKERS = {
     "Switzerland": ["Breel Embolo", "Ruben Vargas", "Granit Xhaka"],
 }
 
+_PENALTY_SAVERS = {
+    # ELITE (9.0-9.5)
+    "Argentina": ("Emiliano Martinez", 9.5),
+    "Portugal": ("Diogo Costa", 9.0),
+    "Croatia": ("Dominik Livakovic", 9.0),
+    "Morocco": ("Yassine Bounou", 9.0),
+    # VERY GOOD (8.0-8.5)
+    "England": ("Jordan Pickford", 8.5),
+    "Belgium": ("Thibaut Courtois", 8.5),
+    "Brazil": ("Alisson", 8.5),
+    "France": ("Mike Maignan", 8.5),
+    "Germany": ("Manuel Neuer", 8.5),
+    "Spain": ("David Raya", 8.5),
+    "South Africa": ("Ronwen Williams", 8.5),
+    "Mexico": ("Guillermo Ochoa", 8.0),
+    # NOTABLE (7.0-7.9)
+    "Switzerland": ("Gregor Kobel", 7.5),
+    "Australia": ("Mathew Ryan", 7.5),
+    "USA": ("Matt Freese", 7.5),
+    "South Korea": ("Jo Hyeon-woo", 7.5),
+    "Czechia": ("Matej Kovar", 7.5),
+    "Uruguay": ("Sergio Rochet", 7.0),
+    "Colombia": ("Camilo Vargas", 7.0),
+    "Ecuador": ("Hernan Galindez", 7.0),
+    "Japan": ("Zion Suzuki", 7.0),
+    "Scotland": ("Craig Gordon", 7.0),
+    "Canada": ("Maxime Crepeau", 7.0),
+    "Iran": ("Alireza Beiranvand", 7.0),
+    "Austria": ("Patrick Pentz", 7.0),
+    "Senegal": ("Edouard Mendy", 7.0),
+    "Netherlands": ("Bart Verbruggen", 7.0),
+}
+
 TOP_SCORER_CANDIDATES = {
     "Lionel Messi": 1.8,
     "Cristiano Ronaldo": 1.6,
@@ -1375,6 +1408,28 @@ def haversine(lat1, lon1, lat2, lon2):
     return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
+def _compute_gk_penalty_save(team_name, squad):
+    if team_name in _PENALTY_SAVERS:
+        return _PENALTY_SAVERS[team_name]
+    gks = [p for p in squad if p.get("position") in ("Arquero", "Portero")]
+    if not gks:
+        return ("", 5.0)
+    starter = max(gks, key=lambda p: p.get("minutes_2026", 0) or 0)
+    name = starter.get("name", "")
+    club = starter.get("club_name", "") or starter.get("current_club", "")
+    caps = starter.get("intl_caps", 0) or 0
+    mins = starter.get("minutes_2026", 0) or 0
+    rating = 5.0
+    if club and club in _TOP_LEAGUE_CLUBS:
+        rating += 2.0
+    if caps > 50:
+        rating += 1.0
+    if mins > 4000:
+        rating += 0.5
+    rating = min(10.0, max(0.0, rating))
+    return (name, round(rating, 1))
+
+
 def _enrich_teams():
     import json, os
     players_path = os.path.join(os.path.dirname(__file__), "output", "players.json")
@@ -1421,12 +1476,18 @@ def _enrich_teams():
                     club_counts[club] = club_counts.get(club, 0) + 1
             pairs = sum(c * (c - 1) // 2 for c in club_counts.values())
             team["club_pairs"] = min(10.0, pairs / 3.0)
+
+            gk_name, gk_rating = _compute_gk_penalty_save(name, squad)
+            team["gk_name"] = gk_name
+            team["gk_penalty_save"] = gk_rating
         else:
             team["squad_size"] = 26
             team["avg_age"] = 27.0
             est = _MARKET_VALUE_ESTIMATES.get(name, 50)
             team["market_value_total"] = est
             team["market_value_avg"] = est / 26
+            team["gk_name"] = ""
+            team["gk_penalty_save"] = 5.0
 
         conf = team.get("confederation", "")
         team.setdefault("foreign_pct", _FOREIGN_PCT_ESTIMATES.get(conf, 0.8))

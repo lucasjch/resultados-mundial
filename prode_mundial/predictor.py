@@ -599,7 +599,10 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         result_type = "visitante"
         confidence = prob_b_win * 100
     elif not allows_draw:
-        tiebreaker = (morale_diff + depth_diff + random.gauss(0, 1))
+        gk_a_save = team_a_data.get("gk_penalty_save", 5.0) / 10
+        gk_b_save = team_b_data.get("gk_penalty_save", 5.0) / 10
+        gk_factor = (gk_a_save - gk_b_save) * 3
+        tiebreaker = (morale_diff + depth_diff + gk_factor + random.gauss(0, 1))
         if tiebreaker >= 0:
             winner = team_a
             loser = team_b

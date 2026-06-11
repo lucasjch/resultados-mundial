@@ -146,6 +146,12 @@ _VERDICT_B = [
     "La igualdad es un resultado remoto ({pct:.0f}%)",
 ]
 
+_VERDICT_B_HIGH = [
+    "Cuidado con la igualdad ({pct:.0f}%)",
+    "El empate es un resultado probable ({pct:.0f}%)",
+    "Hay riesgo de empate ({pct:.0f}%)",
+]
+
 _VERDICT_C = [
     "Confianza del modelo: {pct:.0f}%",
     "El modelo respalda esta prediccion con un {pct:.0f}% de confianza",
@@ -582,19 +588,67 @@ def _build_narrative(match):
 
     results.append(" ".join(parts))
 
+    # --- Penalty context (solo KO) ---
+    round_name = match.get("round", "")
+    if not round_name.startswith("Group "):
+        gk_a_name = a_data.get("gk_name", "")
+        gk_b_name = b_data.get("gk_name", "")
+        gk_a_rat = a_data.get("gk_penalty_save", 5.0)
+        gk_b_rat = b_data.get("gk_penalty_save", 5.0)
+        pen_lines = []
+
+        if prob_draw >= 25:
+            pen_lines.append(
+                "El porcentaje de empate es alto, "
+                "lo que podria llevar el partido a tiempo extra y posiblemente a penales."
+            )
+
+        if gk_a_rat >= 8.0 and gk_b_rat >= 8.0:
+            pen_lines.append(
+                f"Ambos arqueros son especialistas: "
+                f"{gk_a_name} ({gk_a_rat:.1f}/10) y {gk_b_name} ({gk_b_rat:.1f}/10). "
+                "Si la definicion es desde los 12 pasos, seria un duelo de alto nivel."
+            )
+        elif gk_a_rat >= 8.0:
+            pen_lines.append(
+                f"{team_a} cuenta con {gk_a_name}, "
+                f"especialista en atajar penales ({gk_a_rat:.1f}/10). "
+                f"Si el partido llega a los penales, la ventaja es para {team_a}."
+            )
+        elif gk_b_rat >= 8.0:
+            pen_lines.append(
+                f"{team_b} cuenta con {gk_b_name}, "
+                f"especialista en atajar penales ({gk_b_rat:.1f}/10). "
+                f"Si el partido llega a los penales, la ventaja es para {team_b}."
+            )
+        elif gk_a_rat >= 7.0 or gk_b_rat >= 7.0:
+            best = team_a if gk_a_rat >= gk_b_rat else team_b
+            best_name = gk_a_name if gk_a_rat >= gk_b_rat else gk_b_name
+            pen_lines.append(
+                f"En los penales, {best} cuenta con {best_name}, "
+                "un arquero con experiencia en situaciones de presion."
+            )
+
+        if pen_lines:
+            results.append(" ".join(pen_lines))
+
     # --- Veredict ---
     if a_win >= 50:
         ver_winner = _pick(team_a + "_v_a", _VERDICT_A).format(team=team_a, pct=a_win)
     elif b_win >= 50:
         ver_winner = _pick(team_b + "_v_a", _VERDICT_A).format(team=team_b, pct=b_win)
     else:
-        ver_winner = f"Partido muy parejo: empate ({prob_draw:.0f}%) o definicion por detalles."
+        winner = match.get("winner")
+        if winner and winner != "Empate":
+            wp = a_win if winner == team_a else b_win
+            ver_winner = f"Partido muy parejo, pero el modelo se inclina por {winner} ({wp:.0f}% de probabilidad)."
+        else:
+            ver_winner = f"Partido muy parejo: empate ({prob_draw:.0f}%) o definicion por detalles."
 
     if prob_draw >= 28:
-        ver_draw = _pick(team_a + "_v_b_h", _VERDICT_B).format(pct=prob_draw)
-        ver_draw += " Cuidado al pronosticar."
+        ver_draw = _pick(team_a + "_v_b_high", _VERDICT_B_HIGH).format(pct=prob_draw)
     elif prob_draw <= 20:
-        ver_draw = _pick(team_a + "_v_b_l", _VERDICT_B).format(pct=prob_draw)
+        ver_draw = _pick(team_a + "_v_b_low", _VERDICT_B).format(pct=prob_draw)
     else:
         ver_draw = f"Empate posible ({prob_draw:.0f}%)."
 
