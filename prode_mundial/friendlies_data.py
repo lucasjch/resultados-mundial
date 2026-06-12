@@ -7,6 +7,22 @@ import os
 
 FRIENDLIES = [
     {
+        "date": "2026-03-27",
+        "home": "England", "away": "Uruguay",
+        "home_score": 1, "away_score": 1,
+        "home_scorers": [{"player": "Ben White", "minute": 81}],
+        "away_scorers": [{"player": "Federico Valverde", "minute": 90}],
+        "cards": {"home_yellow": 0, "home_red": 0, "away_yellow": 0, "away_red": 0},
+    },
+    {
+        "date": "2026-03-31",
+        "home": "Algeria", "away": "Uruguay",
+        "home_score": 0, "away_score": 0,
+        "home_scorers": [],
+        "away_scorers": [],
+        "cards": {"home_yellow": 0, "home_red": 0, "away_yellow": 0, "away_red": 0},
+    },
+    {
         "date": "2026-05-22",
         "home": "Mexico", "away": "Ghana",
         "home_score": 2, "away_score": 0,
@@ -645,18 +661,29 @@ def _is_wc_team(team_name):
     return team_name in TEAMS
 
 
+def _get_opponent_tier(team_name):
+    """Obtiene el tier del rival (1-8). Equipos no-WC son tier 8."""
+    from prode_mundial.data import TEAMS
+    if team_name in TEAMS:
+        return TEAMS[team_name]["tier"]
+    return 8
+
+
 def _team_friendly_stats(team_name):
-    """Retorna estadisticas de amistosos para un equipo."""
+    """Retorna estadisticas de amistosos para un equipo, con GD ponderado por tier rival."""
     if not _is_wc_team(team_name):
         return {"gp": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0}
     gp = 0
     wins = draws = losses = 0
     gf = ga = 0
+    weighted_gd = 0
     for m in FRIENDLIES:
         if m["home"] == team_name:
             gp += 1
             gf += m["home_score"]
             ga += m["away_score"]
+            raw_gd = m["home_score"] - m["away_score"]
+            opponent = m["away"]
             if m["home_score"] > m["away_score"]:
                 wins += 1
             elif m["home_score"] == m["away_score"]:
@@ -667,35 +694,34 @@ def _team_friendly_stats(team_name):
             gp += 1
             gf += m["away_score"]
             ga += m["home_score"]
+            raw_gd = m["away_score"] - m["home_score"]
+            opponent = m["home"]
             if m["away_score"] > m["home_score"]:
                 wins += 1
             elif m["away_score"] == m["home_score"]:
                 draws += 1
             else:
                 losses += 1
+        else:
+            continue
+        # Tier weight: 1.875 (T1) to 1.0 (T8), 0.5 for non-WC
+        opp_tier = _get_opponent_tier(opponent)
+        weight = 1 + (8 - opp_tier) / 8
+        weighted_gd += raw_gd * weight
     gd = gf - ga
     pts = wins * 3 + draws
-    return {"gp": gp, "w": wins, "d": draws, "l": losses, "gf": gf, "ga": ga, "gd": gd, "pts": pts}
+    return {"gp": gp, "w": wins, "d": draws, "l": losses, "gf": gf, "ga": ga, "gd": gd, "pts": pts, "weighted_gd": weighted_gd}
 
 
 def compute_friendly_form(team_name):
     """Calcula factor friendly_form (-10 a 10) basado en rendimiento en amistosos.
 
-    Escala:
-      - Diferencia de goles por partido * 3 (max +/- 10)
-      - Bonus por pts/partido: > 2 = +2, > 1.5 = +1, < 0.5 = -2
+    Usa GD ponderado por tier rival + Bayesian shrinkage hacia 0.
     """
-    # Override for teams with sparse friendly data
-    _FRIENDLY_OVERRIDES = {
-        "France": 7.0,
-    }
-    if team_name in _FRIENDLY_OVERRIDES:
-        return _FRIENDLY_OVERRIDES[team_name]
-
     stats = _team_friendly_stats(team_name)
     if stats["gp"] == 0:
         return 0
-    gd_per_game = stats["gd"] / max(stats["gp"], 1)
+    gd_per_game = stats["weighted_gd"] / max(stats["gp"], 1)
     base = gd_per_game * 3
     ppg = stats["pts"] / stats["gp"]
     if ppg > 2.3:
@@ -708,6 +734,8 @@ def compute_friendly_form(team_name):
         base -= 2
     elif ppg < 0.8:
         base -= 1
+    # Bayesian shrinkage: 2 virtual games with 0 GD
+    base = base * stats["gp"] / (stats["gp"] + 2)
     return max(-10, min(10, base))
 
 

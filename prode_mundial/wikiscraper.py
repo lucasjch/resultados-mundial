@@ -98,16 +98,16 @@ def parse_infobox(wikitext):
     # Caps/goals by entry number
     caps = {}
     goals = {}
-    for k, v in re.findall(r'\|?\s*caps(\d+)\s*=\s*([^\n]*)', ib):
+    for k, v in re.findall(r'\|\s*caps(\d+)\s*=\s*([^|\n]*)', ib):
         caps[int(k)] = _extract_num(v)
-    for k, v in re.findall(r'\|?\s*goals(\d+)\s*=\s*([^\n]*)', ib):
+    for k, v in re.findall(r'\|\s*goals(\d+)\s*=\s*([^|\n]*)', ib):
         goals[int(k)] = _extract_num(v)
 
     nat_caps = {}
     nat_goals = {}
-    for k, v in re.findall(r'\|?\s*nationalcaps(\d+)\s*=\s*([^\n]*)', ib):
+    for k, v in re.findall(r'\|?\s*nationalcaps(\d+)\s*=\s*([^|\n]*)', ib):
         nat_caps[int(k)] = _extract_num(v)
-    for k, v in re.findall(r'\|?\s*nationalgoals(\d+)\s*=\s*([^\n]*)', ib):
+    for k, v in re.findall(r'\|?\s*nationalgoals(\d+)\s*=\s*([^|\n]*)', ib):
         nat_goals[int(k)] = _extract_num(v)
 
     # Club stats: highest numbered years entry = current club
@@ -257,6 +257,14 @@ def scrape_all_players(force=False):
                     player["height"] = wiki_data["height"]
 
             enriched[team].append(player)
+
+            # Sanity check caps and goals
+            if player.get("intl_caps", 0) > 300:
+                sys.stdout.write(f"\n  [CAPS WARN] {pname:40s} intl_caps={player['intl_caps']}\n")
+                sys.stdout.flush()
+            if player.get("intl_goals", 0) > 200:
+                sys.stdout.write(f"\n  [GOALS WARN] {pname:40s} intl_goals={player['intl_goals']}\n")
+                sys.stdout.flush()
 
             # Save incrementally every SAVE_INTERVAL players
             if done % SAVE_INTERVAL == 0:
