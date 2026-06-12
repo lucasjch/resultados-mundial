@@ -6,7 +6,7 @@
 > Package installable via `pip install -e .` (pyproject.toml + __init__.py).
 > FIXTURES corregidos desde ESPN (Jun 8) — commit `80609ea`.
 > Bloque R: caps data quality fix — wikiscraper regex fix + sanity check, 24 corrupt players repaired (16 regex-poisoned, 3 wrong caps, 3 club stats, 2 club names).
-> Bloque T: real results auto-detection (sin flag `--results`). Bloque U: GUI layout fixes (grid _match_card + 4 fixes). Commits `1a6d672`, `dd87058`, `984ab3e`.
+> Bloque T: real results auto-detection (sin flag `--results`). Bloque U: GUI layout fixes (grid _match_card + 4 fixes). Commits `1a6d672`, `dd87058`, `984ab3e`, `00514c4`.
 
 ---
 

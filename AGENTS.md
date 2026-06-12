@@ -530,6 +530,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - **Subcampeón fix**: `output.py` exporta campo `loser` en KO JSON para que la GUI muestre el subcampeón
 - **Goles reales visibles**: `bracket.py:_apply_real_result()` guarda `goals_scorers`, `output.py` lo exporta, `gui.py:_match_card()` lo muestra abajo del score
 - **Grid layout _match_card**: reemplazado pack por grid con contador `row` dinámico; `text_frame` es única fila con weight=1; score siempre visible. Commit `984ab3e`.
+- **Fix score row 3-column grid**: `inner.place()` reemplazado por grid de 3 columnas en `vs_frame` para flanqueo simétrico de nombres. Goals reales migrado de pack a grid. Commit `00514c4`.
 
 ## Comandos Útiles
 
@@ -587,7 +588,7 @@ git add -A; git commit -m "mensaje"; git push origin master
 ✅ **Bloque R** - Caps data quality: wikiscraper regex fix + sanity check + 24 corrupt players reparados.
 ✅ **Bloque S** - Friendly form improvements: removido France override, Uruguay friendlies, Bayesian shrinkage, tier weighting.
 ✅ **Bloque T** - Real results auto-detection: removido flag `--results`, auto-detect MD1/MD2/MD3.
-✅ **Bloque U** - GUI layout fixes: grid _match_card, info tab actualizado, X2 filter, subcampeón fix, goles reales visibles. Commit `984ab3e`.
+✅ **Bloque U** - GUI layout fixes: grid _match_card, info tab actualizado, X2 filter, subcampeón fix, goles reales visibles. Commits `984ab3e`, `00514c4`.
 
 ## Sesiones
 
@@ -624,3 +625,4 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-12|**Bloque T: Real results auto-detection**|Removido flag `--results` de `main.py`. Auto-detecta `output/real_results.json`. Real result checking extendido a MD2 y MD3 (antes solo MD1). .exe recompilado. Commit `1a6d672`.|
 |2026-06-12|**Fix 4 GUI issues**|Info tab outdated (19 factores, pesos correctos, real_match_form), X2 excluye resultados reales, subcampeón muestra nombre en vez de "?", goles reales se muestran con goleadores. Commit `dd87058`.|
 |2026-06-12|**Grid layout _match_card**|Reemplazado pack por grid con contador `row` dinámico; `text_frame` es única fila con weight=1 y se expande; score siempre visible abajo. Commit `984ab3e`.|
+|2026-06-12|**Fix score row 3-column grid**|Score row reemplazado: `inner.place()` → grid de 3 columnas en `vs_frame` (col 0 weight=1 equipo A sticky=e, col 1 weight=0 score centrado, col 2 weight=1 equipo B sticky=w). Goals reales migrado de pack a grid. Commit `00514c4`.|
