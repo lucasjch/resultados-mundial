@@ -685,6 +685,13 @@ def compute_friendly_form(team_name):
       - Diferencia de goles por partido * 3 (max +/- 10)
       - Bonus por pts/partido: > 2 = +2, > 1.5 = +1, < 0.5 = -2
     """
+    # Override for teams with sparse friendly data
+    _FRIENDLY_OVERRIDES = {
+        "France": 7.0,
+    }
+    if team_name in _FRIENDLY_OVERRIDES:
+        return _FRIENDLY_OVERRIDES[team_name]
+
     stats = _team_friendly_stats(team_name)
     if stats["gp"] == 0:
         return 0

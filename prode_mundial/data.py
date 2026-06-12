@@ -318,7 +318,7 @@ TEAMS = {
             ("Leroy Sane", 30, "Bayern Munich", "RW", 6, 5, "starter"),
             ("Marc ter Stegen", 34, "Barcelona", "GK", 0, 0, "starter"),
         ],
-        "group_odds": -250, "goals_scored_avg": 2.4, "goals_conceded_avg": 0.6,
+        "group_odds": -250, "goals_scored_avg": 1.9, "goals_conceded_avg": 0.9,
         "diaspora_in_usa": 1600000,
     },
     "Ecuador": {

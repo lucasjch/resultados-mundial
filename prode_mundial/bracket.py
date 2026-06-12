@@ -329,7 +329,7 @@ def _ranking_winner(team_a, team_b, data_a, data_b):
 def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", round_name="KO"):
     """Simula una ronda KO completa."""
     from prode_mundial.data import get_team
-    UPSET_CONFIDENCE_THRESHOLD = 35
+    UPSET_CONFIDENCE_THRESHOLD = 40
     results = []
     for item in matches:
         if len(item) == 3:
@@ -667,6 +667,9 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
                         h["total_travel"] += _venue_dist(h["last_venue"], venue)
                     h["last_date"] = round_date
                     h["last_venue"] = venue
+
+    # ── Re-seed for KO rounds (avoid deterministic path) ─────────────
+    random.seed(seed + 99)
 
     # ── Round of 32 ──────────────────────────────────────────────────
     if progress_callback:
