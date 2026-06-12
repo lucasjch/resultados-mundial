@@ -3,6 +3,7 @@
 
 import sys
 import os
+import json
 import argparse
 import re
 from contextlib import redirect_stdout
@@ -20,6 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from prode_mundial.bracket import run_full_simulation
 from prode_mundial.output import export_all
 from prode_mundial.top_scorer import compute_top_scorers
+from prode_mundial.real_results import load_real_results
 
 def run_top_scorers(group_predictions, ko_predictions):
     """Imprime tabla de goleadores en consola."""
@@ -36,19 +38,27 @@ def run_top_scorers(group_predictions, ko_predictions):
     return top_scorers
 
 def main():
-    """Punto de entrada: flags --goleadores."""
+    """Punto de entrada: flags --goleadores, --results."""
     parser = argparse.ArgumentParser(description="Prode Mundial 2026")
     parser.add_argument("--goleadores", "--top", action="store_true", help="Solo tabla de goleadores")
+    parser.add_argument("--results", type=str, help="Ruta a JSON con resultados reales de MD1")
     args = parser.parse_args()
 
     top_scorer_only = args.goleadores
+    real_results = None
+    if args.results:
+        real_results = load_real_results(args.results)
+        if real_results:
+            print(f"  Cargados {len(real_results)} resultados reales desde {args.results}")
+            for rr in real_results:
+                print(f"    {rr['team_a']} {rr['score_a']}-{rr['score_b']} {rr['team_b']}")
 
     if not top_scorer_only:
         print("Simulación completa (1500 simulaciones por partido)...")
         print()
 
     with redirect_stdout(StringIO()) if top_scorer_only else nullcontext():
-        group_predictions, group_results, ko_predictions = run_full_simulation()
+        group_predictions, group_results, ko_predictions = run_full_simulation(real_results=real_results)
 
     if not top_scorer_only:
         print()

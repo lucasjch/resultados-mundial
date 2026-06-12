@@ -31,17 +31,18 @@ WEIGHTS = {
     "rest_days": 0.06,
     "squad_depth": 0.06,
     "climate": 0.05,
-    "foreign_pct": 0.03,
+    "foreign_pct": 0.02,
     "travel_fatigue": 0.04,
-    "history": 0.04,
-    "morale": 0.02,
+    "history": 0.03,
+    "morale": 0.01,
     "friendly_form": 0.02,
     "trophy_pedigree": 0.04,
-    "odds": 0.03,
+    "odds": 0.02,
     "height_advantage": 0.03,
     "club_chemistry": 0.03,
-    "travel": 0.03,
+    "travel": 0.02,
     "stakes": 0.04,
+    "real_match_form": 0.05,
 }
 
 _NORM_MAX = {
@@ -96,7 +97,7 @@ def calculate_team_strength_from_data(team_data):
 
 
 
-def calculate_player_stats_factor(team_a, team_b):
+def calculate_player_stats_factor(team_a, team_b, extra_goals_a=None, extra_goals_b=None):
     """Diferencia de rendimiento individual (goles+asistencias) entre plantillas."""
     from prode_mundial.data import INJURED_OUT
     players = _load_players()
@@ -108,7 +109,7 @@ def calculate_player_stats_factor(team_a, team_b):
         injured = INJURED_OUT.get(team_name, [])
         return [p for p in squad if p.get("name", "") not in injured]
 
-    def team_weighted_avg(team_name):
+    def team_weighted_avg(team_name, extra):
         squad = _filtered_squad(team_name)
         if not squad:
             return 0
@@ -118,13 +119,19 @@ def calculate_player_stats_factor(team_a, team_b):
             mins = p.get("minutes_2026", 0) or 0
             w = min(mins, 3000) / 3000
             w = max(w, 0.2)
-            val = (p.get("goals_2026", 0) or 0) + (p.get("assists_2026", 0) or 0) * 0.5
+            pname = p.get("name", "")
+            base_goals = p.get("goals_2026", 0) or 0
+            base_assists = p.get("assists_2026", 0) or 0
+            if extra and pname in extra:
+                base_goals += extra[pname].get("goals", 0)
+                base_assists += extra[pname].get("assists", 0)
+            val = base_goals + base_assists * 0.5
             total_val += val * w
             total_weight += w
         return total_val / total_weight if total_weight else 0
 
-    ga = team_weighted_avg(team_a)
-    gb = team_weighted_avg(team_b)
+    ga = team_weighted_avg(team_a, extra_goals_a)
+    gb = team_weighted_avg(team_b, extra_goals_b)
     diff = ga - gb
     return max(-10, min(10, diff))
 
@@ -363,14 +370,16 @@ def calculate_trophy_factor(team_a, team_b, team_a_data=None, team_b_data=None):
     return max(-10, min(10, diff))
 
 def calculate_height_advantage(team_a, team_b, team_a_data=None, team_b_data=None):
-    """Diferencia de altura promedio (ventaja aerea)."""
+    """Diferencia de altura promedio (ventaja aerea). Modulado por _aerial_modifier si existe."""
     if team_a_data is None:
         team_a_data = get_team(team_a)
     if team_b_data is None:
         team_b_data = get_team(team_b)
     a = team_a_data.get("avg_height", 1.80)
     b = team_b_data.get("avg_height", 1.80)
-    diff = (a - b) / 0.05
+    mod_a = team_a_data.get("_aerial_modifier", 1.0)
+    mod_b = team_b_data.get("_aerial_modifier", 1.0)
+    diff = (a * mod_a - b * mod_b) / 0.05
     return max(-10, min(10, diff))
 
 def calculate_club_chemistry(team_a, team_b, team_a_data=None, team_b_data=None):
@@ -397,22 +406,27 @@ def calculate_travel_fatigue(team_a, team_b, travel_km_a=0, travel_km_b=0):
     fb = min(travel_km_b, 30000) / 3000
     return max(-10, min(10, fb - fa))
 
-def calculate_squad_depth_factor(team_a, team_b):
+def calculate_squad_depth_factor(team_a, team_b, suspended_a=None, suspended_b=None):
     """Ventaja para equipos con mas suplentes de impacto (>500 min)."""
+    from prode_mundial.data import INJURED_OUT
     players = _load_players()
     if not players:
         return 0
-    def _depth(team_name):
+    def _depth(team_name, suspended):
         squad = players.get(team_name, [])
         if not squad:
             return 3
-        non_starters = [p for p in squad if p.get("role", "squad") != "starter"]
+        unavailable = set(INJURED_OUT.get(team_name, []))
+        if suspended:
+            unavailable.update(suspended)
+        active = [p for p in squad if p.get("name", "") not in unavailable]
+        non_starters = [p for p in active if p.get("role", "squad") != "starter"]
         if not non_starters:
             return 0
         useful = sum(1 for p in non_starters if (p.get("minutes_2026", 0) or 0) > 500)
         return useful / max(len(non_starters), 1) * 10
-    a = _depth(team_a)
-    b = _depth(team_b)
+    a = _depth(team_a, suspended_a)
+    b = _depth(team_b, suspended_b)
     return max(-10, min(10, (a - b) * 2))
 
 def calculate_stakes_factor(stakes_a, stakes_b):
@@ -479,7 +493,10 @@ def _build_joint_dist(lam_h, lam_a, rho=DIXON_COLES_RHO, max_g=MAX_GOALS_DC):
 
 def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None, round_name="Group Stage",
                   rest_days_a=None, rest_days_b=None, travel_km_a=0, travel_km_b=0,
-                  stakes_a=None, stakes_b=None, md3_variance_boost=False, matchday=None):
+                  stakes_a=None, stakes_b=None, md3_variance_boost=False, matchday=None,
+                  real_form_a=None, real_form_b=None,
+                  extra_goals_a=None, extra_goals_b=None,
+                  suspended_a=None, suspended_b=None):
     """Predice resultado completo de un partido: scores, probabilidades, factores, tarjetas."""
     venue = get_venue(venue_name)
     venue_country = venue["country"]
@@ -497,7 +514,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     ) * WEIGHTS["team_strength"]
 
     mv_diff = calculate_market_value_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["market_value"]
-    ps_diff = calculate_player_stats_factor(team_a, team_b) * WEIGHTS["player_stats"]
+    ps_diff = calculate_player_stats_factor(team_a, team_b, extra_goals_a, extra_goals_b) * WEIGHTS["player_stats"]
     odds_diff = _norm(
         calculate_odds_factor(team_a, team_b, team_a_data, team_b_data),
         _NORM_MAX["odds"]
@@ -521,7 +538,7 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     ) * WEIGHTS["morale"]
     foreign_diff = calculate_foreign_pct_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["foreign_pct"]
     rest_diff = calculate_rest_days(team_a, team_b, rest_days_a, rest_days_b) * WEIGHTS["rest_days"]
-    depth_diff = calculate_squad_depth_factor(team_a, team_b) * WEIGHTS["squad_depth"]
+    depth_diff = calculate_squad_depth_factor(team_a, team_b, suspended_a, suspended_b) * WEIGHTS["squad_depth"]
     fatigue_diff = calculate_travel_fatigue(team_a, team_b, travel_km_a, travel_km_b) * WEIGHTS["travel_fatigue"]
     exp_diff = calculate_experience_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["experience"]
     trophy_diff = calculate_trophy_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["trophy_pedigree"]
@@ -530,10 +547,13 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     stakes_diff = calculate_stakes_factor(stakes_a, stakes_b) * WEIGHTS["stakes"]
     friendly_diff = calculate_friendly_form_factor(team_a, team_b) * WEIGHTS["friendly_form"]
 
+    real_form_diff = ((real_form_a or 0) - (real_form_b or 0)) * WEIGHTS["real_match_form"]
+
     total_diff = (strength_diff + mv_diff + ps_diff + odds_diff + home_diff + climate_diff +
                   travel_diff + history_diff + morale_diff + foreign_diff +
                   rest_diff + depth_diff + fatigue_diff +
-                  exp_diff + trophy_diff + height_diff + chem_diff + stakes_diff + friendly_diff)
+                  exp_diff + trophy_diff + height_diff + chem_diff + stakes_diff + friendly_diff +
+                  real_form_diff)
 
     deterministic_scaled = total_diff / 25
 
@@ -637,6 +657,9 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
         "club_chemistry": round(chem_diff, 1),
         "stakes": round(stakes_diff, 1),
         "friendly_form": round(friendly_diff, 1),
+        "real_match_form": round(real_form_diff, 1),
+        "real_form_a": real_form_a,
+        "real_form_b": real_form_b,
         "stakes_a": stakes_a,
         "stakes_b": stakes_b,
     }

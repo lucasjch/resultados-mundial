@@ -34,7 +34,7 @@ python main.py                 # ejecuta predicción completa
 prode_mundial/
 ├── scraper.py        # Scraper de plantillas (Promiedos + Transfermarkt)
 ├── data.py           # Datos de equipos, sedes, fixture, base camps, card rates, PENALTY_TAKERS
-├── predictor.py      # Motor de 18 factores ponderados + Poisson + Dixon-Coles τ
+├── predictor.py      # Motor de 19 factores ponderados + Poisson + Dixon-Coles τ
 ├── stats_scraper.py  # Scraper de estadísticas individuales (Transfermarkt API)
 ├── bracket.py        # Bracket oficial 2026 (R32, R16, QF, SF, 3°, Final)
 ├── output.py         # Exportación CSV/JSON + inyección de análisis narrativo
@@ -42,9 +42,10 @@ prode_mundial/
 ├── top_scorer.py     # Distribución de goles a jugadores (top goleador)
 ├── analysis.py       # Motor de narración PRODE (recomendación + análisis + veredicto)
 ├── friendlies_data.py# Dataset de 57 amistosos (may-jun 2026) + compute_friendly_form()
+├── real_results.py   # Sistema de resultados reales (carga, forma, suspensiones, stats)
 ├── wikiscraper.py    # Scraper individual de Wikipedia vía API
 ├── __init__.py       # Package init (v0.1.0)
-├── tests/            # 5 test files, 137 tests
+├── tests/            # 5 test files, 138 tests
 │   ├── test_predictor.py
 │   ├── test_bracket.py
 │   ├── test_data.py
@@ -55,6 +56,7 @@ prode_mundial/
     ├── wiki_cache.json       # Caché de Wikipedia scraping
     ├── tm_stats_cache.json   # Caché de Transfermarkt stats
     ├── friendlies.json       # Dataset de 57 amistosos
+    ├── real_results.json     # Resultados reales de MD1 (México 2-0 Sudáfrica, Corea 2-1 Chequia)
     ├── fase_grupos.csv/json  # Partidos de grupos (con analysis narrativo)
     ├── tabla_posiciones.csv  # Posiciones finales
     ├── eliminatorias.csv     # Llaves KO
@@ -121,29 +123,30 @@ prode_mundial/
 
 ### 3. Predicción (`predictor.py`)
 
-18 factores ponderados + Dixon-Coles τ + 1500 sims Poisson deterministas.
+19 factores ponderados + Dixon-Coles τ + 1500 sims Poisson deterministas.
 
 |Factor|Peso|Descripción|
 |--------|:----:|-------------|
 |`team_strength`|15%|Solo rank + tier (sin form/goals)|
-|`player_stats`|11%|Goals + 0.5×Assists ponderado por minutes_2026|
+|`player_stats`|11%|Goals + 0.5×Assists ponderado por minutes_2026; inyecta goles/asistencias reales si hay `--results`|
 |`market_value`|10%|Diferencia de valor de plantilla (escala log)|
 |`experience`|6%|intl_caps promedio (Wikipedia)|
 |`home_advantage`|6%|Localía CONCACAF + fanbase/diaspora; `is_neutral` reduce bonos en KO|
 |`rest_days`|6%|Penalidad si <4 días entre partidos|
-|`squad_depth`|6%|Ratio suplentes con >500 min (dinámico desde players.json)|
+|`squad_depth`|6%|Ratio suplentes con >500 min (dinámico desde players.json); excluye suspendidos si hay `--results`|
 |`climate`|5%|Diferencia térmica, altitud, techo cerrado|
-|`foreign_pct`|3%|% de jugadores en ligas extranjeras|
+|`foreign_pct`|2%|% de jugadores en ligas extranjeras|
 |`travel_fatigue`|4%|Km totales acumulados viajando entre sedes|
-|`history`|4%|Mejor actuación histórica en Mundiales|
-|`morale`|2%|`form_streak` del equipo|
+|`history`|3%|Mejor actuación histórica en Mundiales|
+|`morale`|1%|`form_streak` del equipo|
 |`friendly_form`|2%|Puntaje compuesto de 57 amistosos (may-jun 2026)|
 |`trophy_pedigree`|4%|trophy_count promedio (Wikipedia)|
-|`odds`|3%|Cuotas DraftKings pre-torneo|
-|`height_advantage`|3%|Altura promedio - ventaja aérea|
+|`odds`|2%|Cuotas DraftKings pre-torneo|
+|`height_advantage`|3%|Altura promedio - ventaja aérea; modulado por `_aerial_modifier` de resultados reales|
 |`club_chemistry`|3%|Pares del mismo club - coordinación|
-|`travel`|3%|Distancia base → sede (haversine)|
+|`travel`|2%|Distancia base → sede (haversine)|
 |`stakes`|4%|Presión de 3ª fecha: qualified−1 / contender+1 / eliminated−2|
+|`real_match_form`|5%|Forma real de MD1: resultado 25%, xG 20%, tiros 15%, posesión 10%, pases 10%, corners/aéreos/errores/atajadas 5% c/u|
 
 **Fórmula de goles esperados** (cruza ataque vs defensa):
 
@@ -184,6 +187,17 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - `compute_friendly_form(team_name)`: puntaje compuesto (resultados + goles + solidez defensiva) escalado -10 a +10
 - `get_friendly_scorers(team_name)`: lista de goleadores en amistosos para boost en top_scorer.py
 - Export a `output/friendlies.json`
+
+### 1e. Real Results System (`real_results.py`)
+
+- 6 funciones stateless: `load_real_results()`, `save_real_results()`, `compute_real_form()` (9-componente), `track_suspensions()` (2A/1R), `apply_player_stats()` (goles/asis extra), `update_goals_conceded_avg()`, `update_aerial_factor()`
+- `compute_real_form()`: pesa resultado (25%), xG (20%), tiros (15%), posesión (10%), pases (10%), corners (5%), duelos aéreos (5%), errores (5%), atajadas (5%). Escala -10..+10
+- `track_suspensions()`: 2 amarillas en distinto partido o 1 roja directa = baja automática
+- `apply_player_stats()`: suma goles/asistencias reales para inyectar en `player_stats`
+- `update_goals_conceded_avg()`: ajusta promedio de goles recibidos por errores defensivos (+0.1 c/u)
+- `update_aerial_factor()`: modula `height_advantage` según % de duelos aéreos ganados
+- Input: `output/real_results.json` (flag `--results` en main.py)
+- Output: muta `get_team()` in-memory para `goals_conceded_avg`/`_aerial_modifier`; suspensiones/goles extra/forma real se pasan como kwargs a `predict_match()` en MD2/MD3
 
 ### 5. Exportación (`output.py`)
 
@@ -302,6 +316,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 |-|**Bloque Ñ**: Top scorer model (exponential, league boost, penalty boost, candidates)|✅ Completado|
 |-|**Bloque O**: Análisis narrativo PRODE (analysis.py + GUI display)|✅ Completado|
 |-|**Bloque P**: Icono + version_info.txt + --noupx (anti-falso-positivo)|✅ Completado|
+|-|**Bloque Q**: Real Results System (carga MD1, factor real_match_form 5%, suspensiones)|✅ Completado|
 
 ## Decisiones Tomadas
 
@@ -337,6 +352,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 30. **build_exe.bat hidden imports**: Requiere `prode_mundial.analysis` y `prode_mundial.friendlies_data` como hidden imports para PyInstaller.
 31. **Icono del Mundial**: Se usó `2026-FIFA-Logo.png` (1080×1080) convertido a `.ico` multi-size (16×16 a 256×256) vía PIL. `build_exe.bat` incluye `--icon`, `--version-file version_info.txt`, `--noupx` para reducir falsos positivos antivirus.
 32. **version_info.txt**: Metadatos VSVersionInfo con CompanyName "Lucas Congil Hadla", FileDescription, FileVersion 1.0.0, Copyright. Incrustado en .exe via `--version-file`.
+33. **Real Results System (Bloque Q)**: `real_results.py` con 6 funciones stateless que cargan resultados reales de MD1, computan forma real (9-componente, -10..+10), trackean suspensiones (2 amarillas o 1 roja = baja), inyectan goles/asistencias extra en `player_stats`, ajustan `goals_conceded_avg` por errores, y modulan `height_advantage` vía `_aerial_modifier` basado en duelos aéreos. `predictor.py` acepta `real_form_a/b`, `extra_goals_a/b`, `suspended_a/b`. `bracket.py` detecta partidos reales con `_find_real_result()` y propaga estado a MD2/MD3. `main.py` flag `--results path/to/file.json`. Pesos rebalanceados: `real_match_form` 5% financiado de `morale` 2→1%, `history` 4→3%, `foreign_pct` 3→2%, `odds` 3→2%, `travel` 3→2%.
 
 ## Historial de Cambios
 
@@ -468,6 +484,19 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - Icono `.ico` multi-size generado desde `2026-FIFA-Logo.png` (1080×1080) vía PIL.
 - .exe recompilado con icono del Mundial 2026, commit `6453c64`.
 
+### Bloque Q - Real Results System
+
+- `real_results.py`: 6 funciones (carga, forma 9-componente, suspensiones 2A/1R, goles/asis extra, ajuste goles concedidos, modulador aéreo).
+- `output/real_results.json`: MD1 Grupo A completo (México 2-0 Sudáfrica, Corea 2-1 Chequia) con todas las stats (xG, posesión, tiros, pases, corners, duelos aéreos, tarjetas, errores, atajadas).
+- `predictor.py`: factor `real_match_form` 5%, pesos rebalanceados (morale 2→1%, history 4→3%, foreign_pct 3→2%, odds 3→2%, travel 3→2%).
+- `predict_match()` acepta `real_form_a/b`, `extra_goals_a/b`, `suspended_a/b`.
+- `calculate_player_stats_factor()` inyecta goles/asistencias reales.
+- `calculate_squad_depth_factor()` excluye suspendidos.
+- `calculate_height_advantage()` modulado por `_aerial_modifier`.
+- `bracket.py`: `run_full_simulation(real_results=...)`, `_find_real_result()`, MD1 real salta predicción, estado propagado a MD2/MD3.
+- `main.py`: flag `--results path/to/file.json`.
+- 137/138 tests pass (1 pre-existing `test_smoke_run`).
+
 ## Comandos Útiles
 
 ```powershell
@@ -482,6 +511,9 @@ $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py --force
 
 # Ejecutar simulación completa (1500 sims por partido, con goleadores)
 python prode_mundial/main.py
+
+# Con resultados reales de MD1
+python prode_mundial/main.py --results prode_mundial/output/real_results.json
 
 # Solo tabla de goleadores (modo silencioso)
 python prode_mundial/main.py --goleadores
@@ -516,10 +548,11 @@ git add -A; git commit -m "mensaje"; git push origin master
 
 ## Próximos Pasos
 
-✅ **Proyecto completo** - Los 135 partidos del Mundial 2026 analizados con 18 factores + Dixon-Coles τ + Poisson (1500 sims promedio). Resultados exportados a CSV/JSON en `output/`.
+✅ **Proyecto completo** - Los 135 partidos del Mundial 2026 analizados con 19 factores + Dixon-Coles τ + Poisson (1500 sims promedio). Resultados exportados a CSV/JSON en `output/`.
 ✅ **FIXTURES corregidos** - 72 partidos de grupos con horarios ART oficiales desde ESPN (commit `80609ea`).
 ✅ **build_exe.bat** - Compilación release (`--windowed`, `ProdeMundial2026`, sin debug).
 ✅ **Bloque P** - Icono del Mundial 2026, version_info.txt, --noupx anti-falso-positivo.
+✅ **Bloque Q** - Real Results System (factor real_match_form 5%, suspensiones, goles extra, flag --results).
 
 ## Sesiones
 
@@ -550,3 +583,4 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-11|**Factor arquero penales + fix veredicto + fix draw text**|`data.py`: `_PENALTY_SAVERS` dict (27 equipos con rating manual, 21 por fórmula), `_compute_gk_penalty_save()`, `gk_name`/`gk_penalty_save` en `_enrich_teams()`. `predictor.py`: `gk_factor` en tiebreaker de penales (`(gk_a - gk_b) * 3`). `analysis.py`: fix veredicto (muestra ganador aun si ambos <50%), fix draw text (nuevo `_VERDICT_B_HIGH` para ≥28%), penalty narrative en KO (menciona arqueros especialistas). Outputs regenerados. Commit push.|
 |2026-06-11|**Fix Wikipedia cache Ederson + Saadane**|Cache entries `"Ederson": {}` y `"Marwane Saadane": {}` → datos reales desde páginas correctas: `Éderson (footballer, born 1999)` (3 caps, Atalanta, 4 trofeos) y `Marwane Saâdane` (6 caps, Al-Fateh, 2 trofeos). Wikiscraper re-ejecutado: 1116/1248 encontrados (+2). Simulación regenerada: **España campeón**, Alemania subcampeón, Francia 3°, Mbappé 13 goles.|
 |2026-06-11|**Refactor _match_card layout**|Score row + footer movidos a `side=tk.BOTTOM`, text widget expandido (sin scrollbar, sin height fijo), pads de equipos reducidos (12→6), font score 36→32, nombres 18→14. .exe recompilado.|
+|2026-06-12|**Real Results System (Bloque Q)**|`real_results.py`: 6 funciones (carga, forma 9-componente, suspensiones 2A/1R, goles/asis extra, ajuste goles concedidos, modulador aéreo). `output/real_results.json`: MD1 Grupo A (México 2-0 Sudáfrica, Corea 2-1 Chequia). `predictor.py`: factor `real_match_form` 5%, pesos rebalanceados (morale/history/foreign_pct/odds/travel reducidos). `bracket.py`: `run_full_simulation(real_results=...)`, saltos de predicción MD1, trackeo de estado (suspensiones/goles extra/forma/moduladores) propagado a MD2/MD3. `main.py`: flag `--results`. Outputs regenerados. .exe recompilado. 137/138 tests pass (1 pre-existing). Commit push.|

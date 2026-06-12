@@ -24,7 +24,7 @@ def test_weights_sum_to_100():
     assert abs(total - 1.0) < 0.001, f"Weights sum to {total:.3f}, expected 1.0"
 
 def test_weights_count():
-    assert len(WEIGHTS) == 19, f"Expected 19 factors, got {len(WEIGHTS)}"
+    assert len(WEIGHTS) == 20, f"Expected 20 factors, got {len(WEIGHTS)}"
 
 @pytest.mark.parametrize("lam,expected_range", [
     (0.5, (0, 5)),
