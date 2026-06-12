@@ -456,29 +456,32 @@ class ProdeGUI:
         # ── SCORE ROW ────────────────────────────────────────────────────────
         vs_frame = tk.Frame(card, bg=_COLORS["card_bg"])
         vs_frame.grid(row=row, column=0, sticky="ew", pady=(8, 4))
+        vs_frame.columnconfigure(0, weight=1)
+        vs_frame.columnconfigure(1, weight=0)
+        vs_frame.columnconfigure(2, weight=1)
         row += 1
 
-        inner = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
-        inner.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-
-        tf_a = tk.Frame(inner, bg=_COLORS["card_bg"])
-        tf_a.pack(side=tk.LEFT, padx=(0, 2))
+        # Columna 0: equipo A (sticky="e" → derecha, pegado al score)
+        tf_a = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        tf_a.grid(row=0, column=0, sticky="e", padx=(0, 10))
         flag_a = self._get_flag(team_a, 32, 24)
         if flag_a:
             tk.Label(tf_a, image=flag_a, bg=_COLORS["card_bg"]).pack()
         tk.Label(tf_a, text=team_name_es(team_a), font=("Corbel", 14, "bold"),
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
-        sf = tk.Frame(inner, bg=_COLORS["score_bg"],
+        # Columna 1: score (centrado, no expande)
+        sf = tk.Frame(vs_frame, bg=_COLORS["score_bg"],
                       highlightbackground=_COLORS["accent"],
                       highlightthickness=2, padx=8, pady=6)
-        sf.pack(side=tk.LEFT, padx=4)
+        sf.grid(row=0, column=1)
         tk.Label(sf, text=f"{score_a} – {score_b}",
                  font=("Corbel", 32, "bold"),
                  bg=_COLORS["score_bg"], fg="#ffffff").pack()
 
-        tf_b = tk.Frame(inner, bg=_COLORS["card_bg"])
-        tf_b.pack(side=tk.LEFT, padx=(2, 0))
+        # Columna 2: equipo B (sticky="w" → izquierda, pegado al score)
+        tf_b = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
+        tf_b.grid(row=0, column=2, sticky="w", padx=(10, 0))
         flag_b = self._get_flag(team_b, 32, 24)
         if flag_b:
             tk.Label(tf_b, image=flag_b, bg=_COLORS["card_bg"]).pack()
@@ -505,7 +508,7 @@ class ProdeGUI:
                 font=("Corbel", 10), bg=_COLORS["card_bg"],
                 fg=_COLORS["subtitle"]
             )
-            goals_lbl.pack(pady=(2, 0))
+            goals_lbl.grid(row=1, column=0, columnspan=3, sticky="ew", pady=(2, 0))
 
         # ── FOOTER ────────────────────────────────────────────────────────────
         round_label = match.get("round", "")
