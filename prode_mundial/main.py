@@ -38,18 +38,19 @@ def run_top_scorers(group_predictions, ko_predictions):
     return top_scorers
 
 def main():
-    """Punto de entrada: flags --goleadores, --results."""
+    """Punto de entrada: flag --goleadores."""
     parser = argparse.ArgumentParser(description="Prode Mundial 2026")
     parser.add_argument("--goleadores", "--top", action="store_true", help="Solo tabla de goleadores")
-    parser.add_argument("--results", type=str, help="Ruta a JSON con resultados reales de MD1")
     args = parser.parse_args()
 
     top_scorer_only = args.goleadores
     real_results = None
-    if args.results:
-        real_results = load_real_results(args.results)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    results_path = os.path.join(base_dir, "output", "real_results.json")
+    if os.path.exists(results_path):
+        real_results = load_real_results(results_path)
         if real_results:
-            print(f"  Cargados {len(real_results)} resultados reales desde {args.results}")
+            print(f"  Cargados {len(real_results)} resultados reales desde output/real_results.json")
             for rr in real_results:
                 print(f"    {rr['team_a']} {rr['score_a']}-{rr['score_b']} {rr['team_b']}")
 

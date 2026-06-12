@@ -393,6 +393,102 @@ def _find_real_result(team_a, team_b, real_results):
     return None
 
 
+def _apply_real_result(rr, team_a, team_b, venue, date, time, group,
+                       team_suspensions, team_extra_goals,
+                       team_goals_conceded_delta, team_aerial_modifiers,
+                       team_real_forms):
+    """Procesa un resultado real: construye el dict result y actualiza estado."""
+    from prode_mundial.data import VENUES
+    rr_venue = rr.get("venue", venue)
+    rr_venue_country = VENUES.get(rr_venue, {}).get("country", "USA")
+    result = {
+        "team_a": rr["team_a"],
+        "team_b": rr["team_b"],
+        "score_a": rr["score_a"],
+        "score_b": rr["score_b"],
+        "winner": rr["team_a"] if rr["score_a"] > rr["score_b"] else (rr["team_b"] if rr["score_b"] > rr["score_a"] else "Empate"),
+        "loser": rr["team_b"] if rr["score_a"] > rr["score_b"] else (rr["team_a"] if rr["score_b"] > rr["score_a"] else "Empate"),
+        "venue": rr_venue,
+        "venue_country": rr_venue_country,
+        "date": rr.get("date", date),
+        "time": rr.get("time", time),
+        "round": f"Group {group}",
+        "result_type": "real",
+        "confidence": 100.0,
+        "expected_goals_a": rr.get("stats_a", {}).get("xG"),
+        "expected_goals_b": rr.get("stats_b", {}).get("xG"),
+        "prob_a_win": 100.0 if rr["score_a"] > rr["score_b"] else 0,
+        "prob_b_win": 100.0 if rr["score_b"] > rr["score_a"] else 0,
+        "prob_draw": 100.0 if rr["score_a"] == rr["score_b"] else 0,
+        "factors": {},
+    }
+
+    # Init state tracking
+    team_suspensions.setdefault(rr["team_a"], set())
+    team_suspensions.setdefault(rr["team_b"], set())
+    team_extra_goals.setdefault(rr["team_a"], {})
+    team_extra_goals.setdefault(rr["team_b"], {})
+    team_goals_conceded_delta.setdefault(rr["team_a"], 0)
+    team_goals_conceded_delta.setdefault(rr["team_b"], 0)
+    team_aerial_modifiers.setdefault(rr["team_a"], 1.0)
+    team_aerial_modifiers.setdefault(rr["team_b"], 1.0)
+
+    # Suspensions from this match
+    sus = track_suspensions([rr])
+    for t, pl in sus.items():
+        team_suspensions[t].update(pl)
+
+    # Extra goals/assists per team from stats
+    for stats_side, tname in [(rr.get("stats_a", {}), rr["team_a"]), (rr.get("stats_b", {}), rr["team_b"])]:
+        egs = {}
+        for gd in stats_side.get("goals", []):
+            pn = gd["player"]
+            egs.setdefault(pn, {"goals": 0, "assists": 0})
+            egs[pn]["goals"] += 1
+            gd_assist = gd.get("assist")
+            if gd_assist and gd_assist in egs:
+                egs[gd_assist]["assists"] += 1
+            elif gd_assist:
+                egs.setdefault(gd_assist, {"goals": 0, "assists": 1})
+                egs[gd_assist]["assists"] += 1
+        for pn, eg in egs.items():
+            if pn in team_extra_goals[tname]:
+                team_extra_goals[tname][pn]["goals"] += eg["goals"]
+                team_extra_goals[tname][pn]["assists"] += eg["assists"]
+            else:
+                team_extra_goals[tname][pn] = eg
+
+        errs = stats_side.get("errors_leading_to_goal", 0)
+        if errs:
+            team_goals_conceded_delta[tname] -= errs * 0.1
+
+        aer_w = stats_side.get("aerial_duels_won", 0)
+        aer_t = stats_side.get("aerial_duels_total", 0)
+        if aer_t > 0:
+            team_aerial_modifiers[tname] = (aer_w / aer_t) * 2
+
+    # Compute real form after processing both sides
+    form_a = compute_real_form(rr, "stats_a")
+    form_b = compute_real_form(rr, "stats_b")
+    team_real_forms[rr["team_a"]] = form_a
+    team_real_forms[rr["team_b"]] = form_b
+
+    # Apply goals conceded override
+    for tname, delta in team_goals_conceded_delta.items():
+        if delta != 0:
+            td = get_team(tname)
+            current_avg = td.get("goals_conceded_avg", 1.2)
+            td["goals_conceded_avg"] = max(0.3, current_avg + delta)
+
+    # Apply aerial modifier override
+    for tname, mod in team_aerial_modifiers.items():
+        if mod != 1.0:
+            td = get_team(tname)
+            td["_aerial_modifier"] = mod
+
+    return result
+
+
 def classify_stakes(standings):
     """After MD2, classify each team's stakes for MD3 matches.
 
@@ -459,94 +555,10 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
             team_a, team_b, venue, date, time, group = f
             rr = _find_real_result(team_a, team_b, real_results) if real_results else None
             if rr:
-                from prode_mundial.data import VENUES
-                rr_venue = rr.get("venue", venue)
-                rr_venue_country = VENUES.get(rr_venue, {}).get("country", "USA")
-                result = {
-                    "team_a": rr["team_a"],
-                    "team_b": rr["team_b"],
-                    "score_a": rr["score_a"],
-                    "score_b": rr["score_b"],
-                    "winner": rr["team_a"] if rr["score_a"] > rr["score_b"] else (rr["team_b"] if rr["score_b"] > rr["score_a"] else "Empate"),
-                    "loser": rr["team_b"] if rr["score_a"] > rr["score_b"] else (rr["team_a"] if rr["score_b"] > rr["score_a"] else "Empate"),
-                    "venue": rr_venue,
-                    "venue_country": rr_venue_country,
-                    "date": rr.get("date", date),
-                    "time": rr.get("time", time),
-                    "round": f"Group {group}",
-                    "result_type": "real",
-                    "confidence": 100.0,
-                    "expected_goals_a": rr["stats_a"].get("xG"),
-                    "expected_goals_b": rr["stats_b"].get("xG"),
-                    "prob_a_win": 100.0 if rr["score_a"] > rr["score_b"] else 0,
-                    "prob_b_win": 100.0 if rr["score_b"] > rr["score_a"] else 0,
-                    "prob_draw": 100.0 if rr["score_a"] == rr["score_b"] else 0,
-                    "factors": {},
-                }
-                # Process real stats for state tracking
-                team_suspensions.setdefault(rr["team_a"], set())
-                team_suspensions.setdefault(rr["team_b"], set())
-                team_extra_goals.setdefault(rr["team_a"], {})
-                team_extra_goals.setdefault(rr["team_b"], {})
-                team_goals_conceded_delta.setdefault(rr["team_a"], 0)
-                team_goals_conceded_delta.setdefault(rr["team_b"], 0)
-                team_aerial_modifiers.setdefault(rr["team_a"], 1.0)
-                team_aerial_modifiers.setdefault(rr["team_b"], 1.0)
-
-                # Suspensions from this match
-                sus = track_suspensions([rr])
-                for t, pl in sus.items():
-                    team_suspensions[t].update(pl)
-
-                # Extra goals/assists per team from stats
-                for stats_side, tname in [(rr["stats_a"], rr["team_a"]), (rr["stats_b"], rr["team_b"])]:
-                    egs = {}
-                    for gd in stats_side.get("goals", []):
-                        pn = gd["player"]
-                        egs.setdefault(pn, {"goals": 0, "assists": 0})
-                        egs[pn]["goals"] += 1
-                        gd_assist = gd.get("assist")
-                        if gd_assist and gd_assist in egs:
-                            egs[gd_assist]["assists"] += 1
-                        elif gd_assist:
-                            egs.setdefault(gd_assist, {"goals": 0, "assists": 1})
-                            egs[gd_assist]["assists"] += 1
-                    for pn, eg in egs.items():
-                        if pn in team_extra_goals[tname]:
-                            team_extra_goals[tname][pn]["goals"] += eg["goals"]
-                            team_extra_goals[tname][pn]["assists"] += eg["assists"]
-                        else:
-                            team_extra_goals[tname][pn] = eg
-
-                    # Goals conceded delta (errors)
-                    errs = stats_side.get("errors_leading_to_goal", 0)
-                    if errs:
-                        team_goals_conceded_delta[tname] -= errs * 0.1
-
-                    # Aerial modifier
-                    aer_w = stats_side.get("aerial_duels_won", 0)
-                    aer_t = stats_side.get("aerial_duels_total", 0)
-                    if aer_t > 0:
-                        team_aerial_modifiers[tname] = (aer_w / aer_t) * 2
-
-                # Compute real form after processing both sides
-                form_a = compute_real_form(rr, "stats_a")
-                form_b = compute_real_form(rr, "stats_b")
-                team_real_forms[rr["team_a"]] = form_a
-                team_real_forms[rr["team_b"]] = form_b
-
-                # Apply goals conceded override
-                for tname, delta in team_goals_conceded_delta.items():
-                    if delta != 0:
-                        td = get_team(tname)
-                        current_avg = td.get("goals_conceded_avg", 1.2)
-                        td["goals_conceded_avg"] = max(0.3, current_avg + delta)
-
-                # Apply aerial modifier override
-                for tname, mod in team_aerial_modifiers.items():
-                    if mod != 1.0:
-                        td = get_team(tname)
-                        td["_aerial_modifier"] = mod
+                result = _apply_real_result(rr, team_a, team_b, venue, date, time, group,
+                                            team_suspensions, team_extra_goals,
+                                            team_goals_conceded_delta, team_aerial_modifiers,
+                                            team_real_forms)
             else:
                 result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
                                        matchday=1)
@@ -557,16 +569,23 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
         # ── MD2 ──────────────────────────────────────────────────────
         for f in group_matches[2:4]:
             team_a, team_b, venue, date, time, group = f
-            result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
-                                   matchday=2,
-                                   real_form_a=team_real_forms.get(team_a),
-                                   real_form_b=team_real_forms.get(team_b),
-                                   extra_goals_a=team_extra_goals.get(team_a),
-                                   extra_goals_b=team_extra_goals.get(team_b),
-                                   suspended_a=list(team_suspensions.get(team_a, set())),
-                                   suspended_b=list(team_suspensions.get(team_b, set())))
-            result["date"] = date
-            result["time"] = time
+            rr = _find_real_result(team_a, team_b, real_results) if real_results else None
+            if rr:
+                result = _apply_real_result(rr, team_a, team_b, venue, date, time, group,
+                                            team_suspensions, team_extra_goals,
+                                            team_goals_conceded_delta, team_aerial_modifiers,
+                                            team_real_forms)
+            else:
+                result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
+                                       matchday=2,
+                                       real_form_a=team_real_forms.get(team_a),
+                                       real_form_b=team_real_forms.get(team_b),
+                                       extra_goals_a=team_extra_goals.get(team_a),
+                                       extra_goals_b=team_extra_goals.get(team_b),
+                                       suspended_a=list(team_suspensions.get(team_a, set())),
+                                       suspended_b=list(team_suspensions.get(team_b, set())))
+                result["date"] = date
+                result["time"] = time
             md1_md2.append(result)
 
         # Compute partial standings after 2 matchdays
@@ -591,18 +610,25 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
         # ── MD3 ──────────────────────────────────────────────────────
         for f in group_matches[4:]:
             team_a, team_b, venue, date, time, group = f
-            result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
-                                   stakes_a=stakes.get(team_a),
-                                   stakes_b=stakes.get(team_b),
-                                   md3_variance_boost=True, matchday=3,
-                                   real_form_a=team_real_forms.get(team_a),
-                                   real_form_b=team_real_forms.get(team_b),
-                                   extra_goals_a=team_extra_goals.get(team_a),
-                                   extra_goals_b=team_extra_goals.get(team_b),
-                                   suspended_a=list(team_suspensions.get(team_a, set())),
-                                   suspended_b=list(team_suspensions.get(team_b, set())))
-            result["date"] = date
-            result["time"] = time
+            rr = _find_real_result(team_a, team_b, real_results) if real_results else None
+            if rr:
+                result = _apply_real_result(rr, team_a, team_b, venue, date, time, group,
+                                            team_suspensions, team_extra_goals,
+                                            team_goals_conceded_delta, team_aerial_modifiers,
+                                            team_real_forms)
+            else:
+                result = predict_match(team_a, team_b, venue, round_name=f"Group {group}",
+                                       stakes_a=stakes.get(team_a),
+                                       stakes_b=stakes.get(team_b),
+                                       md3_variance_boost=True, matchday=3,
+                                       real_form_a=team_real_forms.get(team_a),
+                                       real_form_b=team_real_forms.get(team_b),
+                                       extra_goals_a=team_extra_goals.get(team_a),
+                                       extra_goals_b=team_extra_goals.get(team_b),
+                                       suspended_a=list(team_suspensions.get(team_a, set())),
+                                       suspended_b=list(team_suspensions.get(team_b, set())))
+                result["date"] = date
+                result["time"] = time
             md1_md2.append(result)
 
         group_predictions.extend(md1_md2)
