@@ -494,8 +494,34 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - `calculate_squad_depth_factor()` excluye suspendidos.
 - `calculate_height_advantage()` modulado por `_aerial_modifier`.
 - `bracket.py`: `run_full_simulation(real_results=...)`, `_find_real_result()`, MD1 real salta predicción, estado propagado a MD2/MD3.
-- `main.py`: flag `--results path/to/file.json`.
+- `main.py`: auto-detecta `output/real_results.json` (sin flag `--results`), también chequea MD2 y MD3 si hay resultados reales disponibles.
 - 137/138 tests pass (1 pre-existing `test_smoke_run`).
+
+### Bloque R - Caps Data Quality
+
+- **Wikiscraper regex fix**: `\bcap`→`\bcaps`, `[^\n]*`→`[^|\n]*` para evitar regex poisoning en nombres con caracteres Unicode o puntuación
+- **Sanity check**: caps >100 → `None` (rechaza valores imposibles)
+- **24 players corruptos reparados** en `players.json`:
+  - 16 con regex poisoning (nombres con patrones hex como `\u043c\u043e\u0436\u043d\u043e`)
+  - 3 con caps incorrectas (Mahrez 100→96, Zouma 16→15, Pau Víctor 7→6)
+  - 3 con club_apps/club_goals corruptos
+  - 2 con club_name corrupto (wikilinks malformados)
+
+### Bloque S - Friendly Form Improvements
+
+- **Removido France override**: Francia ya no fuerza `friendly_form=0.5`, ahora usa el cálculo normal como todos los equipos
+- **Uruguay friendlies**: Agregados 3 amistosos faltantes (vs Ecuador 1-1, Czechia 2-0, Saudi Arabia 2-1) - antes Uruguay tenía 0 partidos
+- **Bayesian shrinkage**: `friendly_form` ahora requiere mínimo 5 partidos como base; equipos con menos se shrinkage hacia 0 con peso reducido
+- **Tier weighting**: Equipos Tier 1 tienen ×1.2 de peso en `friendly_form` (sus amistosos son más indicativos)
+- **Factor `friendly_form`**: Peso 2%, sin cambios. `morale` reducido de 4% a 2% (ya hecho en Bloque Ñ).
+- **Simulación regenerada**: Argentina campeón, Francia subcampeón, España 3°. Mbappé 11, Messi 11, Kane 8.
+
+### Bloque T - Real Results Auto-Detection
+
+- **Flag `--results` eliminado** de `main.py`: ahora auto-detecta `output/real_results.json` si existe
+- **MD2/MD3 checking**: extendido el chequeo de resultados reales a matchdays 2 y 3 (antes solo MD1)
+- **Backward compatible**: si no hay `output/real_results.json`, corre normal sin resultados reales
+- **.exe recompilado**: con auto-detección de resultados reales
 
 ## Comandos Útiles
 
@@ -511,9 +537,6 @@ $env:PYTHONIOENCODING='utf-8'; python prode_mundial/stats_scraper.py --force
 
 # Ejecutar simulación completa (1500 sims por partido, con goleadores)
 python prode_mundial/main.py
-
-# Con resultados reales de MD1
-python prode_mundial/main.py --results prode_mundial/output/real_results.json
 
 # Solo tabla de goleadores (modo silencioso)
 python prode_mundial/main.py --goleadores
@@ -552,7 +575,10 @@ git add -A; git commit -m "mensaje"; git push origin master
 ✅ **FIXTURES corregidos** - 72 partidos de grupos con horarios ART oficiales desde ESPN (commit `80609ea`).
 ✅ **build_exe.bat** - Compilación release (`--windowed`, `ProdeMundial2026`, sin debug).
 ✅ **Bloque P** - Icono del Mundial 2026, version_info.txt, --noupx anti-falso-positivo.
-✅ **Bloque Q** - Real Results System (factor real_match_form 5%, suspensiones, goles extra, flag --results).
+✅ **Bloque Q** - Real Results System (factor real_match_form 5%, suspensiones, goles extra, auto-detection).
+✅ **Bloque R** - Caps data quality: wikiscraper regex fix + sanity check + 24 corrupt players reparados.
+✅ **Bloque S** - Friendly form improvements: removido France override, Uruguay friendlies, Bayesian shrinkage, tier weighting.
+✅ **Bloque T** - Real results auto-detection: removido flag `--results`, auto-detect MD1/MD2/MD3.
 
 ## Sesiones
 
@@ -584,3 +610,6 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-11|**Fix Wikipedia cache Ederson + Saadane**|Cache entries `"Ederson": {}` y `"Marwane Saadane": {}` → datos reales desde páginas correctas: `Éderson (footballer, born 1999)` (3 caps, Atalanta, 4 trofeos) y `Marwane Saâdane` (6 caps, Al-Fateh, 2 trofeos). Wikiscraper re-ejecutado: 1116/1248 encontrados (+2). Simulación regenerada: **España campeón**, Alemania subcampeón, Francia 3°, Mbappé 13 goles.|
 |2026-06-11|**Refactor _match_card layout**|Score row + footer movidos a `side=tk.BOTTOM`, text widget expandido (sin scrollbar, sin height fijo), pads de equipos reducidos (12→6), font score 36→32, nombres 18→14. .exe recompilado.|
 |2026-06-12|**Real Results System (Bloque Q)**|`real_results.py`: 6 funciones (carga, forma 9-componente, suspensiones 2A/1R, goles/asis extra, ajuste goles concedidos, modulador aéreo). `output/real_results.json`: MD1 Grupo A (México 2-0 Sudáfrica, Corea 2-1 Chequia). `predictor.py`: factor `real_match_form` 5%, pesos rebalanceados (morale/history/foreign_pct/odds/travel reducidos). `bracket.py`: `run_full_simulation(real_results=...)`, saltos de predicción MD1, trackeo de estado (suspensiones/goles extra/forma/moduladores) propagado a MD2/MD3. `main.py`: flag `--results`. Outputs regenerados. .exe recompilado. 137/138 tests pass (1 pre-existing). Commit push.|
+|2026-06-12|**Bloque R: Caps data quality**|Wikiscraper regex fix: `\bcap`→`\bcaps`, `[^\n]*`→`[^|\n]*` para evitar regex poisoning en nombres con caracteres Unicode o puntuación. Sanity check: caps >100 → `None`. 24 players corruptos reparados (16 regex-poisoned, 3 caps, 3 club stats, 2 club names).|
+|2026-06-12|**Bloque S: Friendly form improvements**|Removido France override (siempre 0.5). Agregados 3 amistosos de Uruguay (vs Ecuador, Czechia, Saudi Arabia). Bayesian shrinkage: mínimo 5 partidos de base. Tier weighting: Tier 1 ×1.2. Simulación regenerada: **Argentina campeón**, Francia subcampeón, España 3°. Mbappé 11, Messi 11, Kane 8. 137/137 tests pass. .exe recompilado. Commit `97bec0a`.|
+|2026-06-12|**Bloque T: Real results auto-detection**|Removido flag `--results` de `main.py`. Auto-detecta `output/real_results.json`. Real result checking extendido a MD2 y MD3 (antes solo MD1). .exe recompilado. Commit `1a6d672`.|

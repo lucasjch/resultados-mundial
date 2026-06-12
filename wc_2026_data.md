@@ -1,11 +1,11 @@
 # 2026 FIFA World Cup - Complete Team Data for Prediction Model
 
-> Data compiled June 5, 2026. FIFA Rankings as of June 10, 2026
+> Data compiled June 12, 2026. FIFA Rankings as of June 10, 2026
 > All 48 teams have confirmed their 26-man squads (submitted June 1, published June 2)
 > Odds via DraftKings as of June 4, 2026
-> Prode model uses 18 factors + Dixon-Coles τ (ρ = −0.15) + 1500 sims deterministic average
+> Prode model uses 19 factors + Dixon-Coles τ (ρ = −0.15) + 1500 sims deterministic average
 > FIXTURES corregidos desde ESPN (Jun 8) — 72 partidos con horarios oficiales en ART (UTC-3)
-> Bloque P completado: icono del Mundial 2026 en .exe + version_info.txt + --noupx (commit `6453c64`)
+> Bloque R: caps data quality fix (24 corrupt players repaired). Bloque S: friendly form improvements (Bayesian shrinkage + tier weighting). Bloque T: real results auto-detection (sin flag --results). Commit `1a6d672`.
 
 ---
 
@@ -255,14 +255,14 @@ England recent form (last 10): W W W W W W W L D L
 
 ## PRODE MODEL RESULTS (Deterministic — 1500 sims average with Dixon-Coles τ)
 
-Our 18-factor prediction model runs **1,500 Poisson simulations per match**
+Our 19-factor prediction model runs **1,500 Poisson simulations per match**
 with Dixon-Coles τ correction (ρ = −0.15, joint distribution 16×16)
 and averages the scores. The result is a single deterministic bracket
 (same result every run — no ensemble, no seed selection).
 
 ### Notas sobre el modelo
 
-- El modelo usa 18 factores: team_strength, player_stats, market_value, experience, home_advantage, rest_days, squad_depth, climate, foreign_pct, travel_fatigue, history, morale, trophy_pedigree, odds, height_advantage, club_chemistry, travel, stakes
+- El modelo usa 19 factores: team_strength, player_stats, market_value, experience, home_advantage, rest_days, squad_depth, climate, foreign_pct, travel_fatigue, history, morale, trophy_pedigree, odds, height_advantage, club_chemistry, travel, stakes, real_match_form
 - Los goles esperados λ se calculan con fórmula cruzada ataque-defensa y se clamp entre 0.2 y 7.0
 - Las probabilidades (win/draw/loss) provienen de las frecuencias de 1,500 simulaciones Poisson directas desde λ determinista (sin ruido aditivo)
 - **Dixon-Coles τ**: Corrección de empats (ρ = −0.15) que aumenta 0-0 y 1-1, disminuye 1-0/0-1. Joint distribution 16×16 vía `_build_joint_dist()`, muestreo batch `random.choices(k=1500)`.
@@ -271,6 +271,10 @@ and averages the scores. The result is a single deterministic bracket
 - Bloque M: eliminado ensemble de 100 seeds, el bracket final es determinista y siempre reproducible
 - Bloque N: agregado factor stakes (4%) para 3ª fecha de grupos — clasifica equipos como qualified/contender/eliminated según tabla parcial y ajusta λ con varianza extra en partidos decisivos
 - Bloque P: .exe compilado con icono del Mundial 2026, version_info.txt con metadatos, --noupx anti-falso-positivo. Commit `6453c64`.
+- Bloque Q: agregado factor `real_match_form` (5%) para inyectar resultados reales de MD1/MD2/MD3 con forma de 9 componentes (resultado, xG, tiros, posesión, pases, corners, duelos aéreos, errores, atajadas). Pesos rebalanceados (morale 2→1%, history 4→3%, foreign_pct 3→2%, odds 3→2%, travel 3→2%).
+- Bloque R: wikiscraper regex fix (\bcaps, [^|\n]*) + sanity check caps >100 → None. 24 corrupt players reparados en players.json.
+- Bloque S: removido France override en friendly_form, agregados 3 amistosos de Uruguay, Bayesian shrinkage (min 5 partidos), tier weighting (Tier 1 ×1.2).
+- Bloque T: real results auto-detection — sin flag `--results`, auto-detecta `output/real_results.json` para MD1/MD2/MD3. Commit `1a6d672`.
 
 ---
 

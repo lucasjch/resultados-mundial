@@ -1,11 +1,12 @@
 # 2026 FIFA World Cup - Complete Squad Data
 
-> Compiled: June 6, 2026 (updated June 9, 2026) | Sources: FIFA.com, BBC Sport, official federation announcements
+> Compiled: June 12, 2026 (updated June 12, 2026) | Sources: FIFA.com, BBC Sport, official federation announcements
 > Note: Season stats (goals/assists) reflect 2025-26 club season. Role = estimated starter/squad/bench based on available analysis.
-> Squad data used by the Prode 2026 prediction model (players.json: 1,245 players enriched from Transfermarkt API and Wikipedia). Wikipedia provides caps, trophies, height, and club info; Transfermarkt provides 2025/26 goals, assists, and minutes.
+> Squad data used by the Prode 2026 prediction model (players.json: 1,248 players enriched from Transfermarkt API and Wikipedia). Wikipedia provides caps, trophies, height, and club info; Transfermarkt provides 2025/26 goals, assists, and minutes.
 > Package installable via `pip install -e .` (pyproject.toml + __init__.py).
 > FIXTURES corregidos desde ESPN (Jun 8) — commit `80609ea`.
-> Bloque P: .exe con icono del Mundial 2026, version_info.txt, --noupx anti-falso-positivo (commit `6453c64`).
+> Bloque R: caps data quality fix — wikiscraper regex fix + sanity check, 24 corrupt players repaired (16 regex-poisoned, 3 wrong caps, 3 club stats, 2 club names).
+> Bloque T: real results auto-detection (sin flag `--results`), commit `1a6d672`.
 
 ---
 
