@@ -370,6 +370,9 @@ class ProdeGUI:
 
         card = tk.Frame(outer, bg=_COLORS["card_bg"])
         card.pack(fill=tk.BOTH, expand=True)
+        card.columnconfigure(0, weight=1)
+
+        row = 0
 
         # ── ANÁLISIS NARRATIVO ──────────────────────────────────────────────
         analysis = match.get("analysis", "")
@@ -387,7 +390,8 @@ class ProdeGUI:
                 badge_color = _COLORS["accent2"]
 
             badge_frame = tk.Frame(card, bg=badge_color)
-            badge_frame.pack(fill=tk.X, padx=0, pady=(0, 0))
+            badge_frame.grid(row=row, column=0, sticky="ew")
+            row += 1
             tk.Label(
                 badge_frame, text=f"  {rec_text}  ",
                 font=("Corbel", 11, "bold"),
@@ -396,7 +400,9 @@ class ProdeGUI:
             ).pack(fill=tk.X, padx=15)
 
             text_frame = tk.Frame(card, bg="#1c2128")
-            text_frame.pack(fill=tk.BOTH, expand=True)
+            text_frame.grid(row=row, column=0, sticky="nsew")
+            card.rowconfigure(row, weight=1)
+            row += 1
 
             text_w = tk.Text(
                 text_frame, wrap=tk.WORD,
@@ -414,11 +420,13 @@ class ProdeGUI:
 
         # ── SEPARADOR ────────────────────────────────────────────────────────
         sep = tk.Frame(card, bg=_COLORS["accent"], height=2)
-        sep.pack(fill=tk.X, padx=0, pady=(8, 0))
+        sep.grid(row=row, column=0, sticky="ew", pady=(8, 0))
+        row += 1
 
         # ── PROBABILIDADES ───────────────────────────────────────────────────
         prob_frame = tk.Frame(card, bg=_COLORS["card_bg"])
-        prob_frame.pack(pady=(0, 6))
+        prob_frame.grid(row=row, column=0, sticky="ew", pady=(0, 6))
+        row += 1
 
         def _prob_pill(parent, team, prob, color):
             f = tk.Frame(parent, bg=color, padx=10, pady=3)
@@ -441,12 +449,14 @@ class ProdeGUI:
         stars = stars_html(conf)
         star_lbl = tk.Label(card, text=stars, font=("Corbel", 22),
                             bg=_COLORS["card_bg"], fg=_COLORS["star"])
-        star_lbl.pack(pady=4)
+        star_lbl.grid(row=row, column=0, sticky="ew", pady=4)
         ToolTip(star_lbl, f"Confianza: {conf:.0f}%\nBasada en 1500 simulaciones Poisson")
+        row += 1
 
-        # ── SCORE ROW (anclado al fondo) ────────────────────────────────────
+        # ── SCORE ROW ────────────────────────────────────────────────────────
         vs_frame = tk.Frame(card, bg=_COLORS["card_bg"])
-        vs_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=(8, 4))
+        vs_frame.grid(row=row, column=0, sticky="ew", pady=(8, 4))
+        row += 1
 
         inner = tk.Frame(vs_frame, bg=_COLORS["card_bg"])
         inner.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -503,7 +513,7 @@ class ProdeGUI:
         tk.Label(card,
                  text=f"  {grp_label} 📍 {venue}   ·   Partido {idx+1}/{total}",
                  font=("Corbel", 9), bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack(side=tk.BOTTOM, pady=(0, 8))
+                 fg=_COLORS["subtitle"]).grid(row=row, column=0, sticky="ew", pady=(0, 8))
 
         return card
 
