@@ -5,7 +5,7 @@
 > Odds via DraftKings as of June 4, 2026
 > Prode model uses 19 factors + Dixon-Coles τ (ρ = −0.15) + 1500 sims deterministic average
 > FIXTURES corregidos desde ESPN (Jun 8) — 72 partidos con horarios oficiales en ART (UTC-3)
-> Bloque R: caps data quality fix (24 corrupt players repaired). Bloque S: friendly form improvements (Bayesian shrinkage + tier weighting). Bloque T: real results auto-detection (sin flag --results). Commit `1a6d672`.
+> Bloque R: caps data quality fix (24 corrupt players repaired). Bloque S: friendly form improvements (Bayesian shrinkage + tier weighting). Bloque T: real results auto-detection (sin flag --results). Bloque U: GUI layout fixes (grid _match_card + 4 fixes). Commits `1a6d672`, `dd87058`, `984ab3e`.
 
 ---
 
@@ -275,6 +275,7 @@ and averages the scores. The result is a single deterministic bracket
 - Bloque R: wikiscraper regex fix (\bcaps, [^|\n]*) + sanity check caps >100 → None. 24 corrupt players reparados en players.json.
 - Bloque S: removido France override en friendly_form, agregados 3 amistosos de Uruguay, Bayesian shrinkage (min 5 partidos), tier weighting (Tier 1 ×1.2).
 - Bloque T: real results auto-detection — sin flag `--results`, auto-detecta `output/real_results.json` para MD1/MD2/MD3. Commit `1a6d672`.
+- Bloque U: GUI layout fixes — grid en `_match_card()` (reemplaza pack), info tab actualizado con 19 factores, X2 filtra resultados reales, subcampeón visible, goles reales mostrados. Commits `dd87058`, `984ab3e`.
 
 ---
 

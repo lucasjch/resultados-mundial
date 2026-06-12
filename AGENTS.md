@@ -348,7 +348,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 26. **Top scorer exponential formula**: `w = max(raw ** 1.8, 0.001)` concentra goles en estrellas; `league_boost` solo premia (×1.3), nunca penaliza (×1.0 todas las demás ligas).
 27. **`PENALTY_TAKERS`**: 144 jugadores con nombres exactos del `players.json` y tabla de correcciones manuales para variaciones conocidas.
 28. **Análisis narrativo offline**: Sin APIs externas, ~25 templates condicionales. Se genera en `main.py` y se guarda en JSON, no se calcula en la GUI.
-29. **Display del análisis**: Badge de recomendación (Frame colorido) + Text widget (read-only, height=9) arriba del score en `_match_card()`.
+29. **Display del análisis**: Badge de recomendación (Frame colorido) + Text widget (read-only, expandable via grid weight=1) en `_match_card()`. Layout grid: badge→text→sep→prob→stars→score→footer.
 30. **build_exe.bat hidden imports**: Requiere `prode_mundial.analysis` y `prode_mundial.friendlies_data` como hidden imports para PyInstaller.
 31. **Icono del Mundial**: Se usó `2026-FIFA-Logo.png` (1080×1080) convertido a `.ico` multi-size (16×16 a 256×256) vía PIL. `build_exe.bat` incluye `--icon`, `--version-file version_info.txt`, `--noupx` para reducir falsos positivos antivirus.
 32. **version_info.txt**: Metadatos VSVersionInfo con CompanyName "Lucas Congil Hadla", FileDescription, FileVersion 1.0.0, Copyright. Incrustado en .exe via `--version-file`.
@@ -474,7 +474,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - `analysis.py`: motor de narración offline con 3 secciones (Recomendación, Análisis, Veredicto).
 - Datos usados: `get_team()`, `compute_friendly_form()`, `get_team_weights()`, `PENALTY_TAKERS`, `INJURED_OUT`, factores del match.
 - `output.py`: inyecta campo `"analysis"` en `fase_grupos.json` y `eliminatorias.json`.
-- `gui.py`: muestra badge colorido + Text widget (height=9) arriba del score en `_match_card()`.
+- `gui.py`: muestra badge colorido + Text widget (expandable via grid weight=1) en `_match_card()`. Layout grid: badge→text→sep→prob→stars→score→footer.
 - `build_exe.bat`: agregados `--hidden-import prode_mundial.analysis` y `--hidden-import prode_mundial.friendlies_data`.
 
 ### Bloque P - Icono + version_info.txt + --noupx
@@ -522,6 +522,14 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - **MD2/MD3 checking**: extendido el chequeo de resultados reales a matchdays 2 y 3 (antes solo MD1)
 - **Backward compatible**: si no hay `output/real_results.json`, corre normal sin resultados reales
 - **.exe recompilado**: con auto-detección de resultados reales
+
+### Bloque U - GUI Layout Fixes
+
+- **Info tab actualizado**: 18→19 factores, pesos corregidos (foreign_pct 3→2%, history 4→3%, morale 2→1%, odds 3→2%, travel 3→2%), agregado párrafo real_match_form
+- **X2 fix**: `optimizer.py:analyze_x2()` filtra `result_type: "real"` para no mostrar resultados reales como X2
+- **Subcampeón fix**: `output.py` exporta campo `loser` en KO JSON para que la GUI muestre el subcampeón
+- **Goles reales visibles**: `bracket.py:_apply_real_result()` guarda `goals_scorers`, `output.py` lo exporta, `gui.py:_match_card()` lo muestra abajo del score
+- **Grid layout _match_card**: reemplazado pack por grid con contador `row` dinámico; `text_frame` es única fila con weight=1; score siempre visible. Commit `984ab3e`.
 
 ## Comandos Útiles
 
@@ -579,6 +587,7 @@ git add -A; git commit -m "mensaje"; git push origin master
 ✅ **Bloque R** - Caps data quality: wikiscraper regex fix + sanity check + 24 corrupt players reparados.
 ✅ **Bloque S** - Friendly form improvements: removido France override, Uruguay friendlies, Bayesian shrinkage, tier weighting.
 ✅ **Bloque T** - Real results auto-detection: removido flag `--results`, auto-detect MD1/MD2/MD3.
+✅ **Bloque U** - GUI layout fixes: grid _match_card, info tab actualizado, X2 filter, subcampeón fix, goles reales visibles. Commit `984ab3e`.
 
 ## Sesiones
 
@@ -613,3 +622,5 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-12|**Bloque R: Caps data quality**|Wikiscraper regex fix: `\bcap`→`\bcaps`, `[^\n]*`→`[^|\n]*` para evitar regex poisoning en nombres con caracteres Unicode o puntuación. Sanity check: caps >100 → `None`. 24 players corruptos reparados (16 regex-poisoned, 3 caps, 3 club stats, 2 club names).|
 |2026-06-12|**Bloque S: Friendly form improvements**|Removido France override (siempre 0.5). Agregados 3 amistosos de Uruguay (vs Ecuador, Czechia, Saudi Arabia). Bayesian shrinkage: mínimo 5 partidos de base. Tier weighting: Tier 1 ×1.2. Simulación regenerada: **Argentina campeón**, Francia subcampeón, España 3°. Mbappé 11, Messi 11, Kane 8. 137/137 tests pass. .exe recompilado. Commit `97bec0a`.|
 |2026-06-12|**Bloque T: Real results auto-detection**|Removido flag `--results` de `main.py`. Auto-detecta `output/real_results.json`. Real result checking extendido a MD2 y MD3 (antes solo MD1). .exe recompilado. Commit `1a6d672`.|
+|2026-06-12|**Fix 4 GUI issues**|Info tab outdated (19 factores, pesos correctos, real_match_form), X2 excluye resultados reales, subcampeón muestra nombre en vez de "?", goles reales se muestran con goleadores. Commit `dd87058`.|
+|2026-06-12|**Grid layout _match_card**|Reemplazado pack por grid con contador `row` dinámico; `text_frame` es única fila con weight=1 y se expande; score siempre visible abajo. Commit `984ab3e`.|
