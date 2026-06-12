@@ -421,6 +421,14 @@ def _apply_real_result(rr, team_a, team_b, venue, date, time, group,
         "prob_b_win": 100.0 if rr["score_b"] > rr["score_a"] else 0,
         "prob_draw": 100.0 if rr["score_a"] == rr["score_b"] else 0,
         "factors": {},
+        "goals_scorers": {
+            rr["team_a"]: [{"player": g["player"], "minute": g.get("minute", "?"),
+                            "assist": g.get("assist", "")}
+                           for g in rr.get("stats_a", {}).get("goals", [])],
+            rr["team_b"]: [{"player": g["player"], "minute": g.get("minute", "?"),
+                            "assist": g.get("assist", "")}
+                           for g in rr.get("stats_b", {}).get("goals", [])],
+        },
     }
 
     # Init state tracking

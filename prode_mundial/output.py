@@ -65,6 +65,8 @@ def export_group_stage_json(predictions, filepath=None):
             "expected_goals_a": p.get("expected_goals_a", ""),
             "expected_goals_b": p.get("expected_goals_b", ""),
             "winner": p["winner"],
+            "result_type": p.get("result_type", ""),
+            "goals_scorers": p.get("goals_scorers", {}),
             "probabilities": {
                 "a_win": p["prob_a_win"],
                 "draw": p["prob_draw"],
@@ -149,6 +151,7 @@ def export_knockout_json(predictions, filepath=None):
             "expected_goals_a": p.get("expected_goals_a", ""),
             "expected_goals_b": p.get("expected_goals_b", ""),
             "winner": p["winner"],
+            "loser": p["loser"],
             "probabilities": {
                 "a_win": p["prob_a_win"],
                 "draw": p["prob_draw"],

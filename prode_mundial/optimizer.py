@@ -262,6 +262,8 @@ def analyze_x2(group_predictions=None):
 
     results = []
     for m in matches:
+        if m.get("result_type") == "real":
+            continue
         team_a = m["team_a"]
         team_b = m["team_b"]
         venue = m["venue"]

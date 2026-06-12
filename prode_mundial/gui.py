@@ -475,6 +475,28 @@ class ProdeGUI:
         tk.Label(tf_b, text=team_name_es(team_b), font=("Corbel", 14, "bold"),
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
+        # ── GOLES EN PARTIDOS REALES ─────────────────────────────────────────
+        goals = match.get("goals_scorers", {})
+        if goals:
+            goals_parts = []
+            for t in [team_a, team_b]:
+                tg = goals.get(t, [])
+                if tg:
+                    desc = "; ".join(
+                        f"{g['player']} {g['minute']}'" +
+                        (f" ({g['assist']})" if g.get('assist') else "")
+                        for g in tg
+                    )
+                    goals_parts.append(f"{team_name_es(t)}: {desc}")
+                else:
+                    goals_parts.append(f"{team_name_es(t)}: —")
+            goals_lbl = tk.Label(
+                vs_frame, text="  ⚽  " + "  |  ".join(goals_parts),
+                font=("Corbel", 10), bg=_COLORS["card_bg"],
+                fg=_COLORS["subtitle"]
+            )
+            goals_lbl.pack(pady=(2, 0))
+
         # ── FOOTER ────────────────────────────────────────────────────────────
         round_label = match.get("round", "")
         grp_label = f"{round_label}  |  " if round_label else ""
@@ -1112,9 +1134,9 @@ class ProdeGUI:
         text.insert(tk.END, " de cada selección, porque no es lo mismo dormir en Kansas City que en Cancún. Y se cargaron ", "normal")
         text.insert(tk.END, "57 partidos amistosos", "bold")
         text.insert(tk.END, " que se jugaron entre mayo y junio de 2026 para medir la preparación de cada equipo.\n\n", "normal")
-        text.insert(tk.END, "Los dieciocho factores\n", "subtitle")
+        text.insert(tk.END, "Los diecinueve factores\n", "subtitle")
         text.insert(tk.END, "Cada partido se analiza con ", "normal")
-        text.insert(tk.END, "dieciocho factores distintos", "bold")
+        text.insert(tk.END, "diecinueve factores distintos", "bold")
         text.insert(tk.END, ". Cada factor tiene un peso que indica qué tanto influye en el resultado final. Te los cuento:\n\n", "normal")
         text.insert(tk.END, "El factor más importante es la ", "normal")
         text.insert(tk.END, "fuerza del equipo", "bold")
@@ -1136,30 +1158,33 @@ class ProdeGUI:
         text.insert(tk.END, "clima", "bold")
         text.insert(tk.END, " pesa 5%: no es lo mismo jugar en el calor de Monterrey a 37 grados que en el techo cerrado de Dallas. El ", "normal")
         text.insert(tk.END, "porcentaje de jugadores en el extranjero", "bold")
-        text.insert(tk.END, " pesa 3%. Los ", "normal")
+        text.insert(tk.END, " pesa 2%. Los ", "normal")
         text.insert(tk.END, "kilómetros acumulados", "bold")
         text.insert(tk.END, " viajando entre sedes pesan 4%. La ", "normal")
         text.insert(tk.END, "historia mundialista", "bold")
-        text.insert(tk.END, " de cada selección pesa 4%. La ", "normal")
+        text.insert(tk.END, " de cada selección pesa 3%. La ", "normal")
         text.insert(tk.END, "moral del equipo", "bold")
-        text.insert(tk.END, " (si viene ganando o perdiendo) pesa 2%. La ", "normal")
+        text.insert(tk.END, " (si viene ganando o perdiendo) pesa 1%. La ", "normal")
         text.insert(tk.END, "preparación en amistosos", "bold")
         text.insert(tk.END, " previos pesa otro 2%.\n\n", "normal")
         text.insert(tk.END, "La cantidad de ", "normal")
         text.insert(tk.END, "títulos", "bold")
         text.insert(tk.END, " que tienen los jugadores en sus carreras pesa 4%. Las ", "normal")
         text.insert(tk.END, "cuotas de las casas de apuestas", "bold")
-        text.insert(tk.END, " antes del torneo pesan 3%. La ", "normal")
+        text.insert(tk.END, " antes del torneo pesan 2%. La ", "normal")
         text.insert(tk.END, "altura promedio", "bold")
         text.insert(tk.END, " del equipo (ventaja en pelotas paradas) pesa 3%. La ", "normal")
         text.insert(tk.END, "química entre jugadores", "bold")
         text.insert(tk.END, " que comparten club pesa 3%. La ", "normal")
         text.insert(tk.END, "distancia al estadio", "bold")
-        text.insert(tk.END, " desde la base operativa pesa 3%. Y por último, la ", "normal")
+        text.insert(tk.END, " desde la base operativa pesa 2%. Y por último, la ", "normal")
         text.insert(tk.END, "presión del partido", "bold")
         text.insert(tk.END, ": si un equipo ya está clasificado, si necesita ganar o si ya está eliminado. Eso pesa 4% y solo aplica en la tercera fecha de la fase de grupos.\n\n", "normal")
+        text.insert(tk.END, "Y por último, la ", "normal")
+        text.insert(tk.END, "forma real en el torneo", "bold")
+        text.insert(tk.END, ": si un equipo ya jugó su primer partido, el resultado real (más los goles, la posesión, los tiros, etc.) se incorpora al modelo con un peso del 5%. Esto permite que las predicciones se ajusten a lo que realmente pasó en la cancha.\n\n", "normal")
         text.insert(tk.END, "Cómo se calcula el resultado\n", "subtitle")
-        text.insert(tk.END, "Con esos dieciocho factores se calcula una diferencia total entre los dos equipos. Esa diferencia se aplica sobre los goles que cada equipo suele hacer y recibir. Si el equipo A anota en promedio 2 goles por partido y el equipo B recibe 1, el promedio base es 1.5. Después se ajusta para arriba o para abajo según los factores.\n\n", "normal")
+        text.insert(tk.END, "Con esos diecinueve factores se calcula una diferencia total entre los dos equipos. Esa diferencia se aplica sobre los goles que cada equipo suele hacer y recibir. Si el equipo A anota en promedio 2 goles por partido y el equipo B recibe 1, el promedio base es 1.5. Después se ajusta para arriba o para abajo según los factores.\n\n", "normal")
         text.insert(tk.END, "Con ese promedio de goles esperados se usa la ", "normal")
         text.insert(tk.END, "distribución de Poisson", "bold")
         text.insert(tk.END, ", que es una fórmula matemática que calcula la probabilidad de cada resultado posible: 0-0, 1-0, 1-1, 2-0, y así hasta 15-15. Además se aplica una corrección llamada ", "normal")
