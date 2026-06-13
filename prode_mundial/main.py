@@ -19,9 +19,10 @@ def _safe(text):
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from prode_mundial.bracket import run_full_simulation
-from prode_mundial.output import export_all
+from prode_mundial.output import export_all, export_player_standings
 from prode_mundial.top_scorer import compute_top_scorers
 from prode_mundial.real_results import load_real_results
+from prode_mundial.player_ratings import PlayerRatingsDB
 
 def run_top_scorers(group_predictions, ko_predictions):
     """Imprime tabla de goleadores en consola."""
@@ -75,6 +76,9 @@ def main():
         print("  PREDICCION COMPLETADA CON EXITO!")
         print(f"{'='*70}")
         print(f"\n  Resultados disponibles en: output/")
+    else:
+        # En modo goleadores, exportar solo player standings
+        export_player_standings()
 
     return group_predictions, group_results, ko_predictions
 

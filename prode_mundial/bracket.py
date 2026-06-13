@@ -429,6 +429,10 @@ def _apply_real_result(rr, team_a, team_b, venue, date, time, group,
                             "assist": g.get("assist", "")}
                            for g in rr.get("stats_b", {}).get("goals", [])],
         },
+        "result_stats": {
+            rr["team_a"]: rr.get("stats_a", {}),
+            rr["team_b"]: rr.get("stats_b", {}),
+        },
     }
 
     # Init state tracking

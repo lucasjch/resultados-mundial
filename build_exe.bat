@@ -78,6 +78,7 @@ python -m PyInstaller --onefile --windowed --noupx ^
     --hidden-import prode_mundial.analysis ^
     --hidden-import prode_mundial.friendlies_data ^
     --hidden-import prode_mundial.splash ^
+    --hidden-import prode_mundial.player_ratings ^
     "%CD%\prode_mundial\gui.py"
 
 if %errorlevel% equ 0 (

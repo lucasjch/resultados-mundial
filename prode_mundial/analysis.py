@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Generacion de analisis narrativo PRODE para cada partido."""
 
-from prode_mundial.data import get_team, INJURED_OUT, PENALTY_TAKERS
+from prode_mundial.data import get_team, INJURED_OUT, PENALTY_TAKERS, team_name_es
 from prode_mundial.friendlies_data import compute_friendly_form
 from prode_mundial.top_scorer import get_team_weights
 
@@ -662,8 +662,253 @@ def _build_narrative(match):
     return "\n\n".join(results)
 
 
+_REAL_BADGE_POOL = [
+    "VICTORIA CONTUNDENTE", "TRIUNFO MERECIDO",
+    "VICTORIA SUFRIDA", "PALIZA", "ROBO",
+    "EMPATE JUSTO", "EMPATE INJUSTO", "EMPATE SIN GOLES",
+    "EMPATE EMOCIONANTE", "PARTIDAZO", "PARTIDO CALIENTE",
+    "VICTORIA CON HOMBRE DE MAS",
+]
+
+def _build_real_recommendation(match):
+    sa = match["score_a"]
+    sb = match["score_b"]
+    stats = match.get("result_stats", {})
+    ta = match["team_a"]
+    tb = match["team_b"]
+    total_goals = sa + sb
+
+    total_cards = 0
+    for team_name in (ta, tb):
+        team_st = stats.get(team_name, {})
+        total_cards += len(team_st.get("yellow_cards", []))
+        total_cards += len(team_st.get("red_cards", []))
+
+    if total_goals >= 5:
+        return "PARTIDAZO"
+    if total_cards >= 5:
+        return "PARTIDO CALIENTE"
+
+    red_a = len(stats.get(ta, {}).get("red_cards", []))
+    red_b = len(stats.get(tb, {}).get("red_cards", []))
+
+    def _dom(team):
+        st = stats.get(team, {})
+        return (
+            st.get("xG", 0) or 0,
+            st.get("possession", 0) or 0,
+            st.get("total_shots", 0) or 0,
+        )
+
+    dom_a = _dom(ta)
+    dom_b = _dom(tb)
+    xg_ratio = dom_a[0] / max(dom_b[0], 0.01)
+    poss_diff = dom_a[1] - dom_b[1]
+    shot_diff = dom_a[2] - dom_b[2]
+    strong_dom = xg_ratio >= 1.8 and poss_diff >= 8 and shot_diff >= 5
+    slight_dom = xg_ratio >= 1.3 or poss_diff >= 5 or shot_diff >= 3
+
+    if sa > sb:
+        if red_b > 0:
+            return "VICTORIA CON HOMBRE DE MAS"
+        if sa - sb >= 3:
+            return "PALIZA"
+        if strong_dom:
+            return "VICTORIA CONTUNDENTE"
+        if slight_dom:
+            return "TRIUNFO MERECIDO"
+        return "VICTORIA SUFRIDA"
+    elif sb > sa:
+        if red_a > 0:
+            return "VICTORIA CON HOMBRE DE MAS"
+        if sb - sa >= 3:
+            return "PALIZA"
+        dom_a, dom_b = dom_b, dom_a
+        xg_ratio = dom_a[0] / max(dom_b[0], 0.01)
+        poss_diff = dom_a[1] - dom_b[1]
+        shot_diff = dom_a[2] - dom_b[2]
+        strong_dom = xg_ratio >= 1.8 and poss_diff >= 8 and shot_diff >= 5
+        slight_dom = xg_ratio >= 1.3 or poss_diff >= 5 or shot_diff >= 3
+        if strong_dom:
+            return "VICTORIA CONTUNDENTE"
+        if slight_dom:
+            return "TRIUNFO MERECIDO"
+        return "VICTORIA SUFRIDA"
+    else:
+        if sa == 0 and sb == 0:
+            return "EMPATE SIN GOLES"
+        if total_goals >= 4:
+            return "EMPATE EMOCIONANTE"
+        if strong_dom or slight_dom:
+            return "EMPATE INJUSTO"
+        return "EMPATE JUSTO"
+
+
+def _build_real_narrative(match):
+    ta = match["team_a"]
+    tb = match["team_b"]
+    sa = match["score_a"]
+    sb = match["score_b"]
+    stats = match.get("result_stats", {})
+    xg_a = match.get("expected_goals_a", 0) or 0
+    xg_b = match.get("expected_goals_b", 0) or 0
+    winner = match.get("winner", "Empate")
+
+    fragments = []
+
+    # --- Summary ---
+    if winner == "Empate":
+        fragments.append(
+            f"RESULTADO FINAL: {team_name_es(ta)} {sa}-{sb} {team_name_es(tb)}. "
+            f"Empate en un partido que deja a ambos equipos sumando un punto."
+        )
+    else:
+        loser = match.get("loser", "")
+        fragments.append(
+            f"RESULTADO FINAL: {team_name_es(ta)} {sa}-{sb} {team_name_es(tb)}. "
+            f"{team_name_es(winner)} se queda con la victoria en un "
+            f"{'partidazo' if sa + sb >= 5 else 'partido'} que "
+            f"{'domino de principio a fin' if abs(xg_a - xg_b) > 0.8 else 'se definio por detalles'}."
+        )
+
+    # --- Goals ---
+    for team_name in (ta, tb):
+        team_st = stats.get(team_name, {})
+        goals_list = team_st.get("goals", [])
+        if goals_list:
+            parts = []
+            for g in goals_list:
+                g_player = g.get("player", "?")
+                g_min = g.get("minute", "")
+                g_assist = g.get("assist", "")
+                if g_assist:
+                    parts.append(f"{g_player} {g_min}' (asistencia: {g_assist})")
+                else:
+                    parts.append(f"{g_player} {g_min}'")
+            fragments.append(
+                f"Goles de {team_name_es(team_name)}: {'; '.join(parts)}."
+            )
+
+    # --- Stats comparison ---
+    st_a = stats.get(ta, {})
+    st_b = stats.get(tb, {})
+    poss_a = st_a.get("possession", 0) or 0
+    poss_b = st_b.get("possession", 0) or 0
+    shots_a = st_a.get("total_shots", 0) or 0
+    shots_b = st_b.get("total_shots", 0) or 0
+    sot_a = st_a.get("shots_on_target", 0) or 0
+    sot_b = st_b.get("shots_on_target", 0) or 0
+    pa_a = st_a.get("passes_accurate", 0) or 0
+    pt_a = st_a.get("passes_total", 1) or 1
+    pa_b = st_b.get("passes_accurate", 0) or 0
+    pt_b = st_b.get("passes_total", 1) or 1
+    corn_a = st_a.get("corners", 0) or 0
+    corn_b = st_b.get("corners", 0) or 0
+    saves_a = st_a.get("saves", 0) or 0
+    saves_b = st_b.get("saves", 0) or 0
+    fouls_a = st_a.get("fouls", 0) or 0
+    fouls_b = st_b.get("fouls", 0) or 0
+    aer_a_w = st_a.get("aerial_duels_won", 0) or 0
+    aer_a_t = st_a.get("aerial_duels_total", 1) or 1
+    aer_b_w = st_b.get("aerial_duels_won", 0) or 0
+    aer_b_t = st_b.get("aerial_duels_total", 1) or 1
+
+    pct_a = int(pa_a / pt_a * 100) if pt_a else 0
+    pct_b = int(pa_b / pt_b * 100) if pt_b else 0
+    aer_pct_a = int(aer_a_w / aer_a_t * 100) if aer_a_t else 0
+    aer_pct_b = int(aer_b_w / aer_b_t * 100) if aer_b_t else 0
+
+    stat_lines = []
+    stat_lines.append(
+        f"Posesion: {team_name_es(ta)} {poss_a}% vs {poss_b}% {team_name_es(tb)}"
+    )
+    stat_lines.append(
+        f"xG: {team_name_es(ta)} {xg_a:.2f} vs {xg_b:.2f} {team_name_es(tb)}"
+    )
+    stat_lines.append(
+        f"Tiros: {shots_a} ({sot_a} al arco) vs {shots_b} ({sot_b} al arco)"
+    )
+    stat_lines.append(
+        f"Pases precisos: {pa_a}/{pt_a} ({pct_a}%) vs {pa_b}/{pt_b} ({pct_b}%)"
+    )
+    stat_lines.append(
+        f"Corneres: {corn_a} vs {corn_b}"
+    )
+    stat_lines.append(
+        f"Atajadas: {saves_a} vs {saves_b}"
+    )
+    stat_lines.append(
+        f"Duelos aereos ganados: {aer_a_w}/{aer_a_t} ({aer_pct_a}%) vs "
+        f"{aer_b_w}/{aer_b_t} ({aer_pct_b}%)"
+    )
+    stat_lines.append(
+        f"Faltas cometidas: {fouls_a} vs {fouls_b}"
+    )
+
+    fragments.append("Estadisticas del partido:\n" + "\n".join(stat_lines))
+
+    # --- Cards ---
+    card_parts = []
+    for team_name in (ta, tb):
+        team_st = stats.get(team_name, {})
+        ycs = team_st.get("yellow_cards", [])
+        rcs = team_st.get("red_cards", [])
+        if ycs:
+            names = [c.get("player", "?") for c in ycs]
+            card_parts.append(
+                f"{team_name_es(team_name)}: {', '.join(names)} ({'1 amarilla' if len(names)==1 else f'{len(names)} amarillas'})"
+            )
+        if rcs:
+            names = [c.get("player", "?") for c in rcs]
+            card_parts.append(
+                f"{team_name_es(team_name)}: {', '.join(names)} ({'1 roja' if len(names)==1 else f'{len(names)} rojas'})"
+            )
+    if card_parts:
+        fragments.append("Tarjetas: " + " | ".join(card_parts))
+    else:
+        fragments.append("Tarjetas: el partido se jugo sin amonestaciones.")
+
+    # --- Errors ---
+    err_a = st_a.get("errors_leading_to_shot", 0) or 0
+    err_a_g = st_a.get("errors_leading_to_goal", 0) or 0
+    err_b = st_b.get("errors_leading_to_shot", 0) or 0
+    err_b_g = st_b.get("errors_leading_to_goal", 0) or 0
+    err_parts = []
+    if err_a or err_a_g:
+        err_parts.append(
+            f"{team_name_es(ta)}: {err_a} error(es) que llevaron a tiro, "
+            f"{err_a_g} que llevaron a gol"
+        )
+    if err_b or err_b_g:
+        err_parts.append(
+            f"{team_name_es(tb)}: {err_b} error(es) que llevaron a tiro, "
+            f"{err_b_g} que llevaron a gol"
+        )
+    if err_parts:
+        fragments.append("Errores defensivos: " + " | ".join(err_parts))
+
+    # --- Context ---
+    round_name = match.get("round", "")
+    if winner == "Empate":
+        fragments.append(
+            f"Con este empate, {team_name_es(ta)} y {team_name_es(tb)} suman 1 punto "
+            f"en {round_name or 'el grupo'}."
+        )
+    else:
+        fragments.append(
+            f"{team_name_es(winner)} suma 3 puntos vitales en "
+            f"{round_name or 'el grupo'}."
+        )
+
+    return "\n\n".join(fragments)
+
+
 def generate_match_analysis(match):
     try:
+        if match.get("result_type") == "real":
+            rec = _build_real_recommendation(match)
+            narrative = _build_real_narrative(match)
+            return rec + "\n\n" + narrative
         rec = _build_recommendation(match)
         narrative = _build_narrative(match)
         return rec + "\n\n" + narrative

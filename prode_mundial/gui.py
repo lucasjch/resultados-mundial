@@ -4,7 +4,6 @@
 import json
 import math
 import os
-import re
 import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -72,9 +71,8 @@ _FONT_TEAM = ("Corbel", 20, "bold")
 _FONT_TAB = ("Consolas", 10)
 _FONT_TAB_H = ("Consolas", 10, "bold")
 
-_RE_ASCII = re.compile(r'[^\x20-\x7e]')
 def _safe(text):
-    return _RE_ASCII.sub('?', str(text))
+    return str(text)
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -143,7 +141,7 @@ class ProdeGUI:
         self.root = root
         root.title("Prode Mundial 2026")
         root.configure(bg=_COLORS["bg"])
-        root.geometry("960x720")
+        root.geometry("1100x720")
         root.resizable(True, True)
 
         if pre_data:
@@ -181,6 +179,7 @@ class ProdeGUI:
             "tables": tables,
             "prode": groups + knockout,
             "goleadores": goleadores,
+            "jugadores": load_json("jugadores_destacados.json") or {},
         }
         self._idx = {"groups": 0, "knockout": 0}
         self._flag_cache = {}
@@ -303,21 +302,36 @@ class ProdeGUI:
         self._tab_ko = ttk.Frame(nb)
         self._tab_stats = ttk.Frame(nb)
         self._tab_goleadores = ttk.Frame(nb)
+        self._tab_jugadores = ttk.Frame(nb)
         self._tab_bonus = ttk.Frame(nb)
 
-        nb.add(self._tab_info, text=" ¿Cómo funciona? ")
-        nb.add(self._tab_groups, text=" Fase de Grupos ")
-        nb.add(self._tab_ko, text=" Eliminatorias ")
-        nb.add(self._tab_stats, text=" Estadisticas ")
+        nb.add(self._tab_info, text=" Info ")
+        nb.add(self._tab_groups, text=" Grupos ")
+        nb.add(self._tab_ko, text=" KO ")
+        nb.add(self._tab_stats, text=" Stats ")
         nb.add(self._tab_goleadores, text=" Goleadores ")
+        nb.add(self._tab_jugadores, text=" Jugadores ")
         nb.add(self._tab_bonus, text=" Bonus ")
 
-        self._build_info_tab()
-        self._build_groups_tab()
-        self._build_ko_tab()
-        self._build_stats_tab()
-        self._build_goleadores_tab()
-        self._build_bonus_tab()
+        for _tab_name, _tab_builder in [
+            ("info", self._build_info_tab),
+            ("groups", self._build_groups_tab),
+            ("ko", self._build_ko_tab),
+            ("stats", self._build_stats_tab),
+            ("goleadores", self._build_goleadores_tab),
+            ("jugadores", self._build_jugadores_tab),
+            ("bonus", self._build_bonus_tab),
+        ]:
+            try:
+                _tab_builder()
+            except Exception as _e:
+                import traceback
+                traceback.print_exc()
+                _ef = tk.Frame(getattr(self, f"_tab_{_tab_name}"), bg=_COLORS["bg"])
+                _ef.pack(fill=tk.BOTH, expand=True)
+                tk.Label(_ef, text=f"Error al cargar esta pestana:\n{_e}",
+                         font=_FONT_M, bg=_COLORS["bg"],
+                         fg=_COLORS["red"]).pack(expand=True)
 
         status = tk.Label(self.root, text="Prode Mundial 2026 — Desarrollado por Lucas Congil Hadla",
                           bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
@@ -597,11 +611,12 @@ class ProdeGUI:
         idx = self._idx["knockout"]
         m = matches[idx]
         total = len(matches)
-        card = self._match_card(self._card_frame_ko, m, idx, total)
         ronda = m.get("round", "KO")
-        tk.Label(card, text=f"Ronda: {ronda}",
-                 font=_FONT_M, bg=_COLORS["card_bg"],
-                 fg=_COLORS["yellow"]).pack()
+        ronda_lbl = tk.Label(self._card_frame_ko, text=f"Ronda: {ronda}",
+                             font=_FONT_M, bg=_COLORS["bg"],
+                             fg=_COLORS["yellow"])
+        ronda_lbl.pack(fill=tk.X, padx=20, pady=(10, 0))
+        self._match_card(self._card_frame_ko, m, idx, total)
 
     def _build_stats_tab(self):
         parent = self._tab_stats
@@ -818,6 +833,301 @@ class ProdeGUI:
             tk.Label(row, text=str(goles), font=_FONT_TAB_H,
                      bg=row["bg"], fg=_COLORS["star"],
                      width=8, anchor=tk.W).pack(side=tk.LEFT)
+
+    def _build_jugadores_tab(self):
+        parent = self._tab_jugadores
+        canvas = tk.Canvas(parent, bg=_COLORS["bg"], highlightthickness=0)
+        scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
+        scroll_frame = tk.Frame(canvas, bg=_COLORS["bg"])
+        scroll_frame.bind("<Configure>", lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")))
+        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        def _on_jug_wheel(e):
+            canvas.yview_scroll(int(-1*(e.delta/120)), "units")
+        canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_jug_wheel))
+        canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
+
+        data = self.data.get("jugadores", {})
+
+        header = tk.Frame(scroll_frame, bg=_COLORS["bg"])
+        header.pack(fill=tk.X, padx=15, pady=(15, 5))
+        tk.Label(header, text="Jugadores destacados (datos reales de Sofascore)",
+                 font=("Corbel", 18, "bold"), bg=_COLORS["bg"],
+                 fg=_COLORS["accent"]).pack(side=tk.LEFT)
+
+        # ── GOLDEN BALL ────────────────────────────────────────────
+        gb_list = data.get("golden_ball", [])
+        if gb_list:
+            gb = gb_list[0]
+            card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+                            highlightbackground=_COLORS["star"],
+                            highlightthickness=2, padx=12, pady=8)
+            card.pack(fill=tk.X, padx=15, pady=6)
+            tk.Label(card, text="\U0001F3C6  GOLDEN BALL (mejor promedio de rating)",
+                     font=("Corbel", 16, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["star"]).pack(anchor=tk.W)
+
+            gb_team = gb.get("team", "")
+            gf = self._get_flag(gb_team, 32, 24)
+            gb_vf = tk.Frame(card, bg=_COLORS["card_bg"])
+            gb_vf.pack(anchor=tk.W, pady=4)
+            if gf:
+                tk.Label(gb_vf, image=gf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 6))
+            tk.Label(gb_vf, text=f"{team_name_es(gb_team)}  |  {gb.get('player_name', '')}",
+                     font=("Corbel", 18, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 15))
+            tk.Label(gb_vf, text=f"Rating: {gb.get('avg_rating', 0)}",
+                     font=("Corbel", 22, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["star"]).pack(side=tk.LEFT)
+            tk.Label(card, text=gb.get("highlight", ""),
+                     font=("Corbel", 11), bg=_COLORS["card_bg"],
+                     fg=_COLORS["subtitle"]).pack(anchor=tk.W)
+            tk.Label(card, text=f"{gb.get('matches', 0)} partido(s)  ·  G+A: {gb.get('g_plus_a', 0)}",
+                     font=("Corbel", 10), bg=_COLORS["card_bg"],
+                     fg=_COLORS["subtitle"]).pack(anchor=tk.W)
+        else:
+            self._empty_msg(scroll_frame, "Golden Ball", "")
+
+        # ── TOP BY POSITION (2x2 grid) ─────────────────────────────
+        top_pos = data.get("top_positions", {})
+        if any(top_pos.values()):
+            pos_grid = tk.Frame(scroll_frame, bg=_COLORS["bg"])
+            pos_grid.pack(fill=tk.X, padx=15, pady=6)
+            pos_names = [
+                ("\U0001F9E2  ARQUERO", "Arquero", _COLORS["green"]),
+                ("\U0001F6E1  DEFENSA", "Defensa", _COLORS["yellow"]),
+                ("\u26A1  MEDIOCAMPISTA", "Mediocampista", _COLORS["accent"]),
+                ("\U0001F3AF  DELANTERO", "Delantero", _COLORS["red"]),
+            ]
+            for ci, (title, key, color) in enumerate(pos_names):
+                row_idx = ci // 2
+                col_idx = ci % 2
+                players = top_pos.get(key, [])
+                pos_card = tk.Frame(pos_grid, bg=_COLORS["card_bg"],
+                                    highlightbackground=_COLORS["card_border"],
+                                    highlightthickness=1, padx=8, pady=4)
+                pos_card.grid(row=row_idx, column=col_idx, sticky="nsew",
+                              padx=3, pady=3)
+                pos_grid.columnconfigure(col_idx, weight=1)
+
+                tk.Label(pos_card, text=title, font=("Corbel", 12, "bold"),
+                         bg=_COLORS["card_bg"], fg=color).pack(anchor=tk.W)
+                if players:
+                    for rank, p in enumerate(players, 1):
+                        row_f = tk.Frame(pos_card, bg=_COLORS["card_bg"])
+                        row_f.pack(fill=tk.X, pady=1)
+                        pf = self._get_flag(p.get("team", ""), 14, 10)
+                        tk.Label(row_f, text=f"{rank}.", font=_FONT_TAB,
+                                 bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                                 width=2).pack(side=tk.LEFT)
+                        if pf:
+                            tk.Label(row_f, image=pf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 2))
+                        tk.Label(row_f, text=_safe(p.get("player_name", "?")),
+                                 font=_FONT_TAB, bg=_COLORS["card_bg"],
+                                 fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 4))
+                        tk.Label(row_f, text=f"★{p.get('avg_rating', 0)}",
+                                 font=_FONT_TAB_H, bg=_COLORS["card_bg"],
+                                 fg=_COLORS["star"]).pack(side=tk.RIGHT)
+                else:
+                    tk.Label(pos_card, text="⏳ Sin datos a\u00fan",
+                             font=_FONT_M, bg=_COLORS["card_bg"],
+                             fg=_COLORS["subtitle"]).pack(anchor=tk.W, pady=4)
+        else:
+            self._empty_msg(scroll_frame, "Posiciones", "")
+
+        # ── ONCE IDEAL ─────────────────────────────────────────────
+        xi = data.get("once_ideal", {})
+        if xi.get("gk"):
+            xi_card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+                               highlightbackground=_COLORS["accent"],
+                               highlightthickness=2, padx=12, pady=8)
+            xi_card.pack(fill=tk.X, padx=15, pady=6)
+            tk.Label(xi_card, text="\U0001F451  ONCE IDEAL (mejores ratings por posici\u00f3n)",
+                     font=("Corbel", 14, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["accent"]).pack(anchor=tk.W)
+
+            def _xi_row(label, entry):
+                if not entry:
+                    return
+                rf = tk.Frame(xi_card, bg=_COLORS["card_bg"])
+                rf.pack(fill=tk.X, pady=1)
+                tk.Label(rf, text=f"  {label}  ", font=_FONT_TAB_H,
+                         bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+                xf = self._get_flag(entry.get("team", ""), 14, 10)
+                if xf:
+                    tk.Label(rf, image=xf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 2))
+                hl = entry.get("highlight", "")
+                detail = f"{entry.get('player_name', '')} \u2605{entry.get('avg_rating', 0)}"
+                if hl:
+                    detail += f"  |  {hl}"
+                tk.Label(rf, text=detail, font=_FONT_M,
+                         bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT)
+
+            _xi_row("\U0001F9E2 GK", xi.get("gk"))
+            def_names = [d.get("player_name", "?") for d in xi.get("def", [])]
+            _xi_row("\U0001F6E1 DEF", {"player_name": ", ".join(def_names), "team": "", "avg_rating": "", "highlight": ""})
+            mid_names = [m.get("player_name", "?") for m in xi.get("mid", [])]
+            _xi_row("\u26A1 MID", {"player_name": ", ".join(mid_names), "team": "", "avg_rating": "", "highlight": ""})
+            fw_names = [f.get("player_name", "?") for f in xi.get("fw", [])]
+            _xi_row("\U0001F3AF FW", {"player_name": ", ".join(fw_names), "team": "", "avg_rating": "", "highlight": ""})
+        else:
+            self._empty_msg(scroll_frame, "Once Ideal", "")
+
+        # ── MEJORES POR FASE ───────────────────────────────────────
+        fases = data.get("mejores_por_fase", [])
+        if fases:
+            fs_card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+                               highlightbackground=_COLORS["card_border"],
+                               highlightthickness=1, padx=12, pady=8)
+            fs_card.pack(fill=tk.X, padx=15, pady=6)
+            tk.Label(fs_card, text="\U0001F4C5  Mejores por fase",
+                     font=("Corbel", 14, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["green"]).pack(anchor=tk.W)
+            for f in fases:
+                ff = tk.Frame(fs_card, bg=_COLORS["card_bg"])
+                ff.pack(fill=tk.X, pady=2)
+                mid = f.get("match_id", "?")
+                ta = f.get("team_a", "")
+                tb = f.get("team_b", "")
+                sa = f.get("score_a", 0)
+                sb = f.get("score_b", 0)
+                player = f.get("player_name", "?")
+                pteam = f.get("team", "")
+                rating = f.get("rating", 0)
+                hl = f.get("highlight", "")
+                pf = self._get_flag(pteam, 14, 10)
+                tk.Label(ff, text=f"  {mid}  {team_name_es(ta)} {sa}-{sb} {team_name_es(tb)}",
+                         font=_FONT_TAB, bg=_COLORS["card_bg"],
+                         fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+                if pf:
+                    tk.Label(ff, image=pf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(3, 2))
+                tk.Label(ff, text=f"MVP: {player} \u2605{rating}",
+                         font=_FONT_TAB_H, bg=_COLORS["card_bg"],
+                         fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(4, 0))
+                if hl:
+                    tk.Label(ff, text=f"  |  {hl}", font=_FONT_TAB,
+                             bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+        else:
+            self._empty_msg(scroll_frame, "Mejores por fase", "")
+
+        # ── MVP POR PARTIDO ────────────────────────────────────────
+        mvps = data.get("mvp_por_partido", [])
+        if mvps:
+            mvp_card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+                                highlightbackground=_COLORS["card_border"],
+                                highlightthickness=1, padx=12, pady=8)
+            mvp_card.pack(fill=tk.X, padx=15, pady=6)
+            tk.Label(mvp_card, text="\U0001F3C6  MVP por partido",
+                     font=("Corbel", 14, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["accent"]).pack(anchor=tk.W)
+            for m in mvps:
+                mf = tk.Frame(mvp_card, bg=_COLORS["card_bg"])
+                mf.pack(fill=tk.X, pady=2)
+                mid = m.get("match_id", "?")
+                player = m.get("player_name", "?")
+                pteam = m.get("team", "")
+                rating = m.get("rating", 0)
+                hl = m.get("highlight", "")
+                ta = m.get("team_a", "")
+                tb = m.get("team_b", "")
+                sa = m.get("score_a", 0)
+                sb = m.get("score_b", 0)
+                pf = self._get_flag(pteam, 14, 10)
+                tk.Label(mf, text=f"  {mid}  {team_name_es(ta)} {sa}-{sb} {team_name_es(tb)}",
+                         font=_FONT_TAB, bg=_COLORS["card_bg"],
+                         fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+                if pf:
+                    tk.Label(mf, image=pf, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(3, 2))
+                tk.Label(mf, text=f"{player} \u2605{rating}",
+                         font=_FONT_TAB_H, bg=_COLORS["card_bg"],
+                         fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(4, 0))
+                if hl:
+                    tk.Label(mf, text=f"  |  {hl}", font=_FONT_TAB,
+                             bg=_COLORS["card_bg"], fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+        else:
+            self._empty_msg(scroll_frame, "MVP por partido", "")
+
+        # ── GOLEADORES REALES + ASISTIDORES REALES ──────────────────
+        scorers = data.get("goleadores_reales", [])
+        assisters = data.get("asistidores_reales", [])
+        if scorers or assisters:
+            stats_frame = tk.Frame(scroll_frame, bg=_COLORS["bg"])
+            stats_frame.pack(fill=tk.X, padx=15, pady=6)
+
+            # Goleadores
+            g_frame = tk.Frame(stats_frame, bg=_COLORS["card_bg"],
+                               highlightbackground=_COLORS["card_border"],
+                               highlightthickness=1, padx=10, pady=6)
+            g_frame.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 3))
+            tk.Label(g_frame, text="\u26BD  Goleadores reales",
+                     font=("Corbel", 13, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["star"]).pack(anchor=tk.W)
+            if scorers:
+                for rank, s in enumerate(scorers, 1):
+                    sf = tk.Frame(g_frame, bg=_COLORS["card_bg"])
+                    sf.pack(fill=tk.X, pady=1)
+                    sf_flag = self._get_flag(s.get("team", ""), 14, 10)
+                    tk.Label(sf, text=f"  {rank}.", font=_FONT_TAB,
+                             bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                             width=3).pack(side=tk.LEFT)
+                    if sf_flag:
+                        tk.Label(sf, image=sf_flag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 2))
+                    tk.Label(sf, text=_safe(s.get("player_name", "?")),
+                             font=_FONT_TAB, bg=_COLORS["card_bg"],
+                             fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 4))
+                    tk.Label(sf, text=f"{s.get('total_goals', 0)} goles",
+                             font=_FONT_TAB_H, bg=_COLORS["card_bg"],
+                             fg=_COLORS["star"]).pack(side=tk.RIGHT)
+            else:
+                tk.Label(g_frame, text="⏳ Sin datos a\u00fan",
+                         font=_FONT_M, bg=_COLORS["card_bg"],
+                         fg=_COLORS["subtitle"]).pack(anchor=tk.W, pady=4)
+
+            # Asistidores
+            a_frame = tk.Frame(stats_frame, bg=_COLORS["card_bg"],
+                               highlightbackground=_COLORS["card_border"],
+                               highlightthickness=1, padx=10, pady=6)
+            a_frame.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=(3, 0))
+            tk.Label(a_frame, text="\U0001F9E1  Asistidores reales",
+                     font=("Corbel", 13, "bold"), bg=_COLORS["card_bg"],
+                     fg=_COLORS["accent"]).pack(anchor=tk.W)
+            if assisters:
+                for rank, a in enumerate(assisters, 1):
+                    af = tk.Frame(a_frame, bg=_COLORS["card_bg"])
+                    af.pack(fill=tk.X, pady=1)
+                    af_flag = self._get_flag(a.get("team", ""), 14, 10)
+                    tk.Label(af, text=f"  {rank}.", font=_FONT_TAB,
+                             bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                             width=3).pack(side=tk.LEFT)
+                    if af_flag:
+                        tk.Label(af, image=af_flag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 2))
+                    tk.Label(af, text=_safe(a.get("player_name", "?")),
+                             font=_FONT_TAB, bg=_COLORS["card_bg"],
+                             fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 4))
+                    tk.Label(af, text=f"{a.get('total_assists', 0)} asistencias",
+                             font=_FONT_TAB_H, bg=_COLORS["card_bg"],
+                             fg=_COLORS["accent"]).pack(side=tk.RIGHT)
+            else:
+                tk.Label(a_frame, text="⏳ Sin datos a\u00fan",
+                         font=_FONT_M, bg=_COLORS["card_bg"],
+                         fg=_COLORS["subtitle"]).pack(anchor=tk.W, pady=4)
+        else:
+            self._empty_msg(scroll_frame, "Goleadores/Asistidores", "")
+
+    def _empty_msg(self, parent, title, _unused):
+        card = tk.Frame(parent, bg=_COLORS["card_bg"],
+                        highlightbackground=_COLORS["card_border"],
+                        highlightthickness=1, padx=12, pady=8)
+        card.pack(fill=tk.X, padx=15, pady=6)
+        tk.Label(card, text=f"{title}",
+                 font=("Corbel", 13, "bold"), bg=_COLORS["card_bg"],
+                 fg=_COLORS["subtitle"]).pack(anchor=tk.W)
+        tk.Label(card, text="\u23F3 Sin datos a\u00fan",
+                 font=("Corbel", 11), bg=_COLORS["card_bg"],
+                 fg=_COLORS["subtitle"]).pack(anchor=tk.W, pady=4)
 
     def _compute_bonus_data(self):
         ko = self.data.get("knockout", [])
@@ -1089,26 +1399,14 @@ class ProdeGUI:
 
     def _build_info_tab(self):
         parent = self._tab_info
-        canvas = tk.Canvas(parent, bg=_COLORS["card_bg"], highlightthickness=0)
-        scrollbar = ttk.Scrollbar(parent, orient=tk.VERTICAL, command=canvas.yview)
-        scroll_frame = tk.Frame(canvas, bg=_COLORS["card_bg"])
-        scroll_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-        canvas.create_window((0, 0), window=scroll_frame, anchor=tk.NW)
-        canvas.configure(yscrollcommand=scrollbar.set)
-        canvas.bind("<Configure>", lambda e: canvas.itemconfig(1, width=e.width))
-        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        def _on_enter(e):
-            canvas.bind_all("<MouseWheel>", lambda ev: canvas.yview_scroll(int(-1*(ev.delta/120)), "units"))
-        def _on_leave(e):
-            canvas.unbind_all("<MouseWheel>")
-        canvas.bind("<Enter>", _on_enter)
-        canvas.bind("<Leave>", _on_leave)
-        text = tk.Text(scroll_frame, wrap=tk.WORD, bg=_COLORS["card_bg"],
+        text = tk.Text(parent, wrap=tk.WORD, bg=_COLORS["card_bg"],
                        fg=_COLORS["fg"], font=("Corbel", 12),
                        relief=tk.FLAT, bd=0, highlightthickness=0,
                        padx=25, pady=20, spacing1=6, spacing2=3)
-        text.pack(fill=tk.BOTH, expand=True)
+        scrollbar = ttk.Scrollbar(parent, orient=tk.VERTICAL, command=text.yview)
+        text.configure(yscrollcommand=scrollbar.set)
+        text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         text.tag_configure("title", font=("Corbel", 20, "bold"), foreground=_COLORS["accent"],
                            spacing1=10, spacing3=15)
         text.tag_configure("subtitle", font=("Corbel", 15, "bold"), foreground=_COLORS["accent2"],
@@ -1233,6 +1531,37 @@ class ProdeGUI:
         text.insert(tk.END, ". No depende de internet, no usa APIs externas. Y el modelo es ", "normal")
         text.insert(tk.END, "determinista", "bold")
         text.insert(tk.END, ": con los mismos datos, siempre da el mismo resultado. No hay suerte, no hay random: la pelota no entra por casualidad.\n\n", "normal")
+        text.insert(tk.END, "Datos reales del torneo\n", "subtitle")
+        text.insert(tk.END, "A medida que avanza el Mundial se cargan los ", "normal")
+        text.insert(tk.END, "resultados reales", "bold")
+        text.insert(tk.END, " de los partidos ya jugados. Actualmente hay ", "normal")
+        text.insert(tk.END, "4 partidos cargados", "bold")
+        text.insert(tk.END, " (Mexico vs Sudafrica, Corea del Sur vs Republica Checa, Canada vs Bosnia y Herzegovina, Estados Unidos vs Paraguay) con estadisticas detalladas de Sofascore: goles esperados, posecion, tiros, pases, duelos, tarjetas y mas.\n\n", "normal")
+        text.insert(tk.END, "Estos datos no solo alimentan la ", "normal")
+        text.insert(tk.END, "narrativa post-partido", "bold")
+        text.insert(tk.END, " que ves en la pestana Grupos, sino que tambien alimentan la ", "normal")
+        text.insert(tk.END, "base de datos de jugadores", "bold")
+        text.insert(tk.END, " (SQLite). En la pestana ", "normal")
+        text.insert(tk.END, "Jugadores", "bold")
+        text.insert(tk.END, " podes ver:\n\n", "normal")
+        text.insert(tk.END, "  \u2022  ", "normal")
+        text.insert(tk.END, "Golden Ball", "bold")
+        text.insert(tk.END, ": el jugador con mejor promedio de rating del torneo\n", "normal")
+        text.insert(tk.END, "  \u2022  ", "normal")
+        text.insert(tk.END, "Top por posicion", "bold")
+        text.insert(tk.END, ": los 5 mejores Arquero, Defensa, Mediocampista y Delantero\n", "normal")
+        text.insert(tk.END, "  \u2022  ", "normal")
+        text.insert(tk.END, "Once Ideal", "bold")
+        text.insert(tk.END, ": el mejor equipo con los ratings mas altos por posicion\n", "normal")
+        text.insert(tk.END, "  \u2022  ", "normal")
+        text.insert(tk.END, "MVP por partido", "bold")
+        text.insert(tk.END, ": el jugador destacado de cada encuentro\n", "normal")
+        text.insert(tk.END, "  \u2022  ", "normal")
+        text.insert(tk.END, "Goleadores y Asistidores reales", "bold")
+        text.insert(tk.END, ": los que metieron goles y dieron asistencias\n\n", "normal")
+        text.insert(tk.END, "La base de datos se actualiza automaticamente cada vez que se agrega un nuevo resultado real. Tambien podes editarla manualmente abriendo ", "normal")
+        text.insert(tk.END, "output/db_ratings.db", "bold")
+        text.insert(tk.END, " con DB Browser for SQLite.\n\n", "normal")
         text.insert(tk.END, "ADVERTENCIA\n", "disclaimer_title")
         text.insert(tk.END, "Este proyecto es meramente informativo y fue realizado por hobby, con amor al fútbol y a los datos. Los resultados son simulaciones basadas en estadísticas, no profecías. En el fútbol puede pasar cualquier cosa, por eso es el deporte más lindo del mundo.\n\n", "disclaimer")
         text.insert(tk.END, "Úsalo bajo tu propio riesgo. No nos hacemos responsables si Argentina no sale campeón, si tu cuñado te gana el prode o si Messi te clava un 0-0 en la final.\n\n", "disclaimer")

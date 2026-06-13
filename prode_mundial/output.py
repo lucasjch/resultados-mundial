@@ -243,6 +243,16 @@ def export_group_tables_json(group_results, filepath=None):
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"  -> JSON exportado: {filepath}")
 
+def export_player_standings(db_path=None):
+    """Exporta jugadores_destacados.json desde la DB SQLite."""
+    from prode_mundial.player_ratings import PlayerRatingsDB
+    db = PlayerRatingsDB(db_path)
+    db.seed_if_empty()
+    data = db.export_standings()
+    count = db.count_players()
+    print(f"  -> Jugadores destacados exportado: {len(data.get('golden_ball', []))} golden ball, {count} registros")
+    return data
+
 def export_all(group_predictions, group_results, ko_predictions):
     """Exporta todos los formatos de salida."""
     export_group_stage_csv(group_predictions)
@@ -252,3 +262,4 @@ def export_all(group_predictions, group_results, ko_predictions):
     export_knockout_csv(ko_predictions)
     export_knockout_json(ko_predictions)
     export_full_prode_csv(group_predictions, group_results, ko_predictions)
+    export_player_standings()

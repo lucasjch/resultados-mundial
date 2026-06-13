@@ -523,6 +523,27 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 - **Backward compatible**: si no hay `output/real_results.json`, corre normal sin resultados reales
 - **.exe recompilado**: con auto-detección de resultados reales
 
+### Bloque V - Player Ratings System (SQLite + Jugadores Tab)
+
+- **`player_ratings.py`**: Motor de calificaciones con SQLite. Clase `PlayerRatingsDB` con `create_tables()`, `insert_match_ratings()`, `seed_if_empty()`, y 7 funciones de consulta (`get_golden_ball()`, `get_top_by_position()`, `get_best_xi()`, `get_mvp_by_match()`, `get_top_scorers()`, `get_top_assisters()`, `get_mejores_por_fase()`).
+- **`_SEED_DATA`**: ~93 jugadores de 6 equipos (Mexico, South Africa, South Korea, Czechia, Canada, Bosnia) con stats de 3 partidos MD1.
+- **`_SOFASCORE_NAME_MAP`**: Mapa manual por equipo para traducir nombres de Sofascore a formato `players.json`.
+- **`_compute_highlight()`**: Genera stat destacado según posición (GK → atajadas + % pases, DEF → entradas/duelos + % pases, MID → asistencias + % pases, FW → goles + duelos).
+- **`db_ratings.db`**: Base SQLite en `output/`, editable con DB Browser for SQLite.
+- **`jugadores_destacados.json`**: Export generado por `PlayerRatingsDB.export_standings()` con 7 tablas para la GUI.
+- **GUI**: Tab "Jugadores" entre Goleadores y Bonus con 8 secciones (Golden Ball, Top por Posición, Once Ideal, Mejores por Fase, MVP por Partido, Goleadores Reales, Asistidores Reales). Muestra "⏳ Sin datos aún" cuando no hay data para una fase.
+- **`output.py`**: `export_player_standings()` llama a `PlayerRatingsDB().seed_if_empty()` + `export_standings()`. Integrado en `export_all()`.
+- **`main.py`**: Auto-inicializa DB y exporta jugadores destacados. También exporta en modo `--goleadores`.
+- **SQLite editable**: El usuario puede abrir `output/db_ratings.db` con DB Browser for SQLite y editar/agregar ratings de partidos reales.
+
+### Bloque U Fix 2 - Geometry Manager Conflict (GUI Crash Fix)
+
+- **Error encontrado**: `_show_ko_match()` en `gui.py:604` agregaba un Label a `card` con `.pack()`, pero `_match_card()` ya usaba `.grid()` dentro de `card` → `TclError: cannot use pack inside grid slaves`.
+- **Causa raíz**: Esto causaba la "pantalla negra" — el error en `_build_ko_tab()` propagaba hasta `ProdeGUI.__init__()`, que fallaba después de `root.deiconify()` (ventana ya visible pero vacía).
+- **Fix principal**: Movido el label de ronda KO a `self._card_frame_ko` (padre, no dentro de `card`), usando `.pack()` consistente con el layout existente.
+- **Safety net**: Envueltos todos los `_build_*_tab()` en try/except con traceback impreso y mensaje de error en la tab. Previene que una falla aislada deje toda la ventana en negro.
+- Commit: sesión 2026-06-12.
+
 ### Bloque U - GUI Layout Fixes
 
 - **Info tab actualizado**: 18→19 factores, pesos corregidos (foreign_pct 3→2%, history 4→3%, morale 2→1%, odds 3→2%, travel 3→2%), agregado párrafo real_match_form
@@ -589,6 +610,8 @@ git add -A; git commit -m "mensaje"; git push origin master
 ✅ **Bloque S** - Friendly form improvements: removido France override, Uruguay friendlies, Bayesian shrinkage, tier weighting.
 ✅ **Bloque T** - Real results auto-detection: removido flag `--results`, auto-detect MD1/MD2/MD3.
 ✅ **Bloque U** - GUI layout fixes: grid _match_card, info tab actualizado, X2 filter, subcampeón fix, goles reales visibles. Commits `984ab3e`, `00514c4`.
+✅ **Bloque U Fix 2** - Geometry Manager Conflict en `_show_ko_match()`: label de ronda KO movido fuera del `card` para evitar `TclError: cannot use pack inside grid slaves`. Safety net: todos los `_build_*_tab()` envueltos en try/except con error visible en la tab. Pantalla negra solucionada.
+✅ **Bloque V** - Player Ratings System mejora: `seed_if_empty()` ahora recarga DB desde cero permitiendo agregar nuevos seed blocks sin borrar DB manualmente. `_SOFASCORE_NAME_MAP` ampliado con USA y Paraguay. `_SEED_DATA` agregado 4° bloque USA-Paraguay con 32 jugadores desde Sofascore. `real_results.json` actualizado con stats mejoradas de Sofascore para los 4 partidos MD1. `gui.py`: `_safe()` reemplazado por identidad (preserva acentos/ñ), Info tab layout reemplazado Canvas+scroll_frame por Text+Scrollbar directo, contenido de Info actualizado con 4 partidos reales y sistema de ratings.
 
 ## Sesiones
 
@@ -626,3 +649,4 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-12|**Fix 4 GUI issues**|Info tab outdated (19 factores, pesos correctos, real_match_form), X2 excluye resultados reales, subcampeón muestra nombre en vez de "?", goles reales se muestran con goleadores. Commit `dd87058`.|
 |2026-06-12|**Grid layout _match_card**|Reemplazado pack por grid con contador `row` dinámico; `text_frame` es única fila con weight=1 y se expande; score siempre visible abajo. Commit `984ab3e`.|
 |2026-06-12|**Fix score row 3-column grid**|Score row reemplazado: `inner.place()` → grid de 3 columnas en `vs_frame` (col 0 weight=1 equipo A sticky=e, col 1 weight=0 score centrado, col 2 weight=1 equipo B sticky=w). Goals reales migrado de pack a grid. Commit `00514c4`.|
+|2026-06-13|**Bloque V: Player Ratings + Sofascore + fix GUI**|`player_ratings.py`: `_SOFASCORE_NAME_MAP` ampliado (USA, Paraguay), `_SEED_DATA` con 4° bloque USA-Paraguay (32 jugadores), `seed_if_empty()` ahora recarga DB desde cero. `real_results.json` actualizado con stats mejoradas de Sofascore para 4 partidos MD1 (incluye USA 4-1 Paraguay). `gui.py`: `_safe()` reemplazado por identidad (preserva acentos/ñ), Info tab layout cambiado a Text+Scrollbar directo, contenido actualizado. `AGENTS.md` actualizado. Outputs regenerados.|
