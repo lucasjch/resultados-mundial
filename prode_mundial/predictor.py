@@ -37,11 +37,11 @@ WEIGHTS = {
     "morale": 0.01,
     "friendly_form": 0.02,
     "trophy_pedigree": 0.04,
-    "odds": 0.02,
+    "odds": 0.01,
     "height_advantage": 0.03,
     "club_chemistry": 0.03,
     "travel": 0.02,
-    "stakes": 0.04,
+    "stakes": 0.05,
     "real_match_form": 0.05,
 }
 
@@ -97,19 +97,37 @@ def calculate_team_strength_from_data(team_data):
 
 
 
-def calculate_player_stats_factor(team_a, team_b, extra_goals_a=None, extra_goals_b=None):
-    """Diferencia de rendimiento individual (goles+asistencias) entre plantillas."""
+def calculate_player_stats_factor(team_a, team_b, extra_goals_a=None, extra_goals_b=None,
+                                  avg_player_ratings_a=None, avg_player_ratings_b=None):
+    """Diferencia de rendimiento individual (goles+asistencias) entre plantillas.
+    Si hay avg_player_ratings (desde SQLite), aplica boost/penalidad segun rating historico."""
     from prode_mundial.data import INJURED_OUT
     players = _load_players()
     if not players:
         return 0
+
+    def _rating_boost(pname, rating_dict):
+        if not rating_dict:
+            return 1.0
+        avg = rating_dict.get(pname)
+        if avg is None:
+            return 1.0
+        if avg >= 9.0:
+            return 1.3
+        if avg >= 7.5:
+            return 1.15
+        if avg <= 4.0:
+            return 0.7
+        if avg <= 5.5:
+            return 0.85
+        return 1.0
 
     def _filtered_squad(team_name):
         squad = players.get(team_name, [])
         injured = INJURED_OUT.get(team_name, [])
         return [p for p in squad if p.get("name", "") not in injured]
 
-    def team_weighted_avg(team_name, extra):
+    def team_weighted_avg(team_name, extra, rating_dict):
         squad = _filtered_squad(team_name)
         if not squad:
             return 0
@@ -120,18 +138,19 @@ def calculate_player_stats_factor(team_a, team_b, extra_goals_a=None, extra_goal
             w = min(mins, 3000) / 3000
             w = max(w, 0.2)
             pname = p.get("name", "")
+            rb = _rating_boost(pname, rating_dict)
             base_goals = p.get("goals_2026", 0) or 0
             base_assists = p.get("assists_2026", 0) or 0
             if extra and pname in extra:
                 base_goals += extra[pname].get("goals", 0)
                 base_assists += extra[pname].get("assists", 0)
-            val = base_goals + base_assists * 0.5
+            val = (base_goals + base_assists * 0.5) * rb
             total_val += val * w
             total_weight += w
         return total_val / total_weight if total_weight else 0
 
-    ga = team_weighted_avg(team_a, extra_goals_a)
-    gb = team_weighted_avg(team_b, extra_goals_b)
+    ga = team_weighted_avg(team_a, extra_goals_a, avg_player_ratings_a)
+    gb = team_weighted_avg(team_b, extra_goals_b, avg_player_ratings_b)
     diff = ga - gb
     return max(-10, min(10, diff))
 
@@ -496,7 +515,9 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
                   stakes_a=None, stakes_b=None, md3_variance_boost=False, matchday=None,
                   real_form_a=None, real_form_b=None,
                   extra_goals_a=None, extra_goals_b=None,
-                  suspended_a=None, suspended_b=None):
+                  suspended_a=None, suspended_b=None,
+                  avg_player_ratings_a=None, avg_player_ratings_b=None,
+                  avg_team_rating_a=None, avg_team_rating_b=None):
     """Predice resultado completo de un partido: scores, probabilidades, factores, tarjetas."""
     venue = get_venue(venue_name)
     venue_country = venue["country"]
@@ -514,7 +535,8 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     ) * WEIGHTS["team_strength"]
 
     mv_diff = calculate_market_value_factor(team_a, team_b, team_a_data, team_b_data) * WEIGHTS["market_value"]
-    ps_diff = calculate_player_stats_factor(team_a, team_b, extra_goals_a, extra_goals_b) * WEIGHTS["player_stats"]
+    ps_diff = calculate_player_stats_factor(team_a, team_b, extra_goals_a, extra_goals_b,
+                                            avg_player_ratings_a, avg_player_ratings_b) * WEIGHTS["player_stats"]
     odds_diff = _norm(
         calculate_odds_factor(team_a, team_b, team_a_data, team_b_data),
         _NORM_MAX["odds"]
@@ -547,7 +569,9 @@ def predict_match(team_a, team_b, venue_name, is_neutral=False, allows_draw=None
     stakes_diff = calculate_stakes_factor(stakes_a, stakes_b) * WEIGHTS["stakes"]
     friendly_diff = calculate_friendly_form_factor(team_a, team_b) * WEIGHTS["friendly_form"]
 
-    real_form_diff = ((real_form_a or 0) - (real_form_b or 0)) * WEIGHTS["real_match_form"]
+    blended_form_a = (real_form_a or 0) * 0.7 + (avg_team_rating_a or 0) * 0.3
+    blended_form_b = (real_form_b or 0) * 0.7 + (avg_team_rating_b or 0) * 0.3
+    real_form_diff = (blended_form_a - blended_form_b) * WEIGHTS["real_match_form"]
 
     total_diff = (strength_diff + mv_diff + ps_diff + odds_diff + home_diff + climate_diff +
                   travel_diff + history_diff + morale_diff + foreign_diff +

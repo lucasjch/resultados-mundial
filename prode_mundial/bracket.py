@@ -326,9 +326,14 @@ def _ranking_winner(team_a, team_b, data_a, data_b):
     return team_b, team_a
 
 
-def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", round_name="KO"):
+def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01", round_name="KO",
+                            avg_player_ratings=None, avg_team_ratings=None):
     """Simula una ronda KO completa."""
     from prode_mundial.data import get_team
+    if avg_player_ratings is None:
+        avg_player_ratings = {}
+    if avg_team_ratings is None:
+        avg_team_ratings = {}
     UPSET_CONFIDENCE_THRESHOLD = 40
     results = []
     for item in matches:
@@ -352,6 +357,10 @@ def simulate_knockout_round(matches, team_history=None, match_date="2026-07-01",
         result = predict_match(team_a, team_b, venue, is_neutral=True, allows_draw=False, round_name=round_name,
                                rest_days_a=rest_a, rest_days_b=rest_b,
                                travel_km_a=travel_a, travel_km_b=travel_b,
+                               avg_player_ratings_a=avg_player_ratings.get(team_a),
+                               avg_player_ratings_b=avg_player_ratings.get(team_b),
+                               avg_team_rating_a=avg_team_ratings.get(team_a),
+                               avg_team_rating_b=avg_team_ratings.get(team_b),
                                )
 
         if result["confidence"] < UPSET_CONFIDENCE_THRESHOLD and result["winner"] != "Empate":
@@ -501,42 +510,59 @@ def _apply_real_result(rr, team_a, team_b, venue, date, time, group,
     return result
 
 
-def classify_stakes(standings):
-    """After MD2, classify each team's stakes for MD3 matches.
+def classify_stakes(standings, matchday=2):
+    """Classify each team's stakes based on partial standings.
 
     standings: {team_name: {"pts": int, "gd": int, "gf": int}}
-    Returns: {team_name: "qualified" | "contender" | "eliminated"}
+    matchday: 1 (after MD1), 2 (after MD2 - default)
+    Returns: {team_name: "qualified" | "contender" | "eliminated" | None}
     """
     sorted_teams = sorted(standings.items(), key=lambda x: (-x[1]["pts"], -x[1]["gd"], -x[1]["gf"]))
     second_pts = sorted_teams[1][1]["pts"]
+    leader_pts = sorted_teams[0][1]["pts"]
 
     stakes = {}
     for team, data in standings.items():
         pts = data["pts"]
-        max_possible = pts + 3
 
-        if pts >= 6 and second_pts <= 3:
-            stakes[team] = "qualified"
-        elif max_possible < second_pts:
-            stakes[team] = "eliminated"
-        elif pts == 0 and second_pts >= 4:
-            stakes[team] = "eliminated"
+        if matchday == 1:
+            if pts == 0:
+                stakes[team] = "contender"
+            else:
+                stakes[team] = None
         else:
-            stakes[team] = "contender"
+            max_possible = pts + 3
+            if pts >= 6 and second_pts <= 3:
+                stakes[team] = "qualified"
+            elif max_possible < second_pts:
+                stakes[team] = "eliminated"
+            elif pts == 0 and second_pts >= 4:
+                stakes[team] = "eliminated"
+            else:
+                stakes[team] = "contender"
 
     return stakes
 
 
-def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_results=None):
+def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_results=None,
+                        avg_player_ratings=None, avg_team_ratings=None):
     """Orquesta simulacion completa: grupos + KO.
     
     Si real_results es una lista de dicts con resultados reales de MD1,
     se usan en lugar de predecir esos partidos.
+    
+    avg_player_ratings: {team: {player: avg_rating}} desde SQLite.
+    avg_team_ratings: {team: float} promedio general del equipo escalado -10..+10.
     """
     import random
     from prode_mundial.data import FIXTURES, GROUPS
 
     random.seed(seed)
+
+    if avg_player_ratings is None:
+        avg_player_ratings = {}
+    if avg_team_ratings is None:
+        avg_team_ratings = {}
 
     if progress_callback:
         progress_callback(2, "Iniciando simulacion...")
@@ -578,6 +604,30 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
                 result["time"] = time
             md1_md2.append(result)
 
+        # Compute stakes_early after MD1 (only for groups with real results)
+        stakes_early = None
+        has_real_md1 = any(
+            _find_real_result(p["team_a"], p["team_b"], real_results)
+            for p in md1_md2
+        ) if real_results else False
+        if has_real_md1:
+            partial_md1 = {t: {"pts": 0, "gd": 0, "gf": 0} for t in GROUPS[g]}
+            for p in md1_md2:
+                a, b = p["team_a"], p["team_b"]
+                ga, gb = p["score_a"], p["score_b"]
+                partial_md1[a]["gf"] += ga
+                partial_md1[a]["gd"] += ga - gb
+                partial_md1[b]["gf"] += gb
+                partial_md1[b]["gd"] += gb - ga
+                if ga > gb:
+                    partial_md1[a]["pts"] += 3
+                elif gb > ga:
+                    partial_md1[b]["pts"] += 3
+                else:
+                    partial_md1[a]["pts"] += 1
+                    partial_md1[b]["pts"] += 1
+            stakes_early = classify_stakes(partial_md1, matchday=1)
+
         # ── MD2 ──────────────────────────────────────────────────────
         for f in group_matches[2:4]:
             team_a, team_b, venue, date, time, group = f
@@ -595,7 +645,13 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
                                        extra_goals_a=team_extra_goals.get(team_a),
                                        extra_goals_b=team_extra_goals.get(team_b),
                                        suspended_a=list(team_suspensions.get(team_a, set())),
-                                       suspended_b=list(team_suspensions.get(team_b, set())))
+                                       suspended_b=list(team_suspensions.get(team_b, set())),
+                                       stakes_a=stakes_early.get(team_a) if stakes_early else None,
+                                       stakes_b=stakes_early.get(team_b) if stakes_early else None,
+                                       avg_player_ratings_a=avg_player_ratings.get(team_a),
+                                       avg_player_ratings_b=avg_player_ratings.get(team_b),
+                                       avg_team_rating_a=avg_team_ratings.get(team_a),
+                                       avg_team_rating_b=avg_team_ratings.get(team_b))
                 result["date"] = date
                 result["time"] = time
             md1_md2.append(result)
@@ -638,7 +694,11 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
                                        extra_goals_a=team_extra_goals.get(team_a),
                                        extra_goals_b=team_extra_goals.get(team_b),
                                        suspended_a=list(team_suspensions.get(team_a, set())),
-                                       suspended_b=list(team_suspensions.get(team_b, set())))
+                                       suspended_b=list(team_suspensions.get(team_b, set())),
+                                       avg_player_ratings_a=avg_player_ratings.get(team_a),
+                                       avg_player_ratings_b=avg_player_ratings.get(team_b),
+                                       avg_team_rating_a=avg_team_ratings.get(team_a),
+                                       avg_team_rating_b=avg_team_ratings.get(team_b))
                 result["date"] = date
                 result["time"] = time
             md1_md2.append(result)
@@ -716,7 +776,8 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
     r32_matches = _extend_matches(r32_raw, KO_DATES[0])
     if not quiet:
         print("\n>>> RONDA DE 32AVOS:")
-    r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], round_name="R32")
+    r32_results = simulate_knockout_round(r32_matches, team_history, KO_DATES[0], round_name="R32",
+                                          avg_player_ratings=avg_player_ratings, avg_team_ratings=avg_team_ratings)
     for r in r32_results:
         if not quiet:
             print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
@@ -732,7 +793,8 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
     r16_matches = _extend_matches(r16_raw, KO_DATES[1])
     if not quiet:
         print("\n>>> OCTAVOS DE FINAL:")
-    r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], round_name="R16")
+    r16_results = simulate_knockout_round(r16_matches, team_history, KO_DATES[1], round_name="R16",
+                                          avg_player_ratings=avg_player_ratings, avg_team_ratings=avg_team_ratings)
     for r in r16_results:
         if not quiet:
             print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
@@ -749,7 +811,8 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
     qf_matches = _extend_matches(qf_raw, KO_DATES[2])
     if not quiet:
         print("\n>>> CUARTOS DE FINAL:")
-    qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], round_name="QF")
+    qf_results = simulate_knockout_round(qf_matches, team_history, KO_DATES[2], round_name="QF",
+                                         avg_player_ratings=avg_player_ratings, avg_team_ratings=avg_team_ratings)
     for r in qf_results:
         if not quiet:
             print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
@@ -765,7 +828,8 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
     sf_matches = _extend_matches(sf_raw, KO_DATES[3])
     if not quiet:
         print("\n>>> SEMIFINALES:")
-    sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], round_name="SF")
+    sf_results = simulate_knockout_round(sf_matches, team_history, KO_DATES[3], round_name="SF",
+                                         avg_player_ratings=avg_player_ratings, avg_team_ratings=avg_team_ratings)
     for r in sf_results:
         if not quiet:
             print(f"  {_safe(r['team_a'])} {r['score_a']}-{r['score_b']} {_safe(r['team_b'])} (xG {r.get('expected_goals_a','?')}-{r.get('expected_goals_b','?')}) -> {_safe(r['winner'])} ({r['confidence']:.0f}%)")
@@ -780,13 +844,15 @@ def run_full_simulation(seed=42, quiet=False, progress_callback=None, real_resul
             sf_losers.append(r["team_a"])
     third_raw = [(sf_losers[0], sf_losers[1], THIRD_VENUE)]
     third_matches = _extend_matches(third_raw, KO_DATES[4])
-    third_result = simulate_knockout_round(third_matches, team_history, KO_DATES[4], round_name="3°")[0]
+    third_result = simulate_knockout_round(third_matches, team_history, KO_DATES[4], round_name="3°",
+                                           avg_player_ratings=avg_player_ratings, avg_team_ratings=avg_team_ratings)[0]
 
     # ── Final ────────────────────────────────────────────────────────
     sf_winners = [r["winner"] for r in sf_results]
     final_raw = [(sf_winners[0], sf_winners[1], FINAL_VENUE)]
     final_matches = _extend_matches(final_raw, KO_DATES[5])
-    final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], round_name="Final")[0]
+    final_result = simulate_knockout_round(final_matches, team_history, KO_DATES[5], round_name="Final",
+                                           avg_player_ratings=avg_player_ratings, avg_team_ratings=avg_team_ratings)[0]
 
     if not quiet:
         print(f"  {_safe(third_result['team_a'])} {third_result['score_a']}-{third_result['score_b']} {_safe(third_result['team_b'])} (xG {third_result.get('expected_goals_a','?')}-{third_result.get('expected_goals_b','?')}) -> 3ro: {_safe(third_result['winner'])}")

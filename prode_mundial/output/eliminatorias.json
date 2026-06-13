@@ -13,11 +13,11 @@
     "winner": "Germany",
     "loser": "South Africa",
     "probabilities": {
-      "a_win": 47.1,
-      "draw": 29.7,
-      "b_win": 23.2
+      "a_win": 46.9,
+      "draw": 29.5,
+      "b_win": 23.6
     },
-    "confidence": 47.1,
+    "confidence": 46.9,
     "factors": {
       "strength": 0.7,
       "market_value": 0.9,
@@ -38,13 +38,13 @@
       "club_chemistry": -0.1,
       "stakes": 0.0,
       "friendly_form": 0.1,
-      "real_match_form": 0.0,
+      "real_match_form": -0.0,
       "real_form_a": null,
       "real_form_b": null,
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nGermany, escuadra europeo (ranking 10), alterna buenas y malas actuaciones. Tuvo una preparacion irregular. Ofrece seguridad defensiva moderada. Antonio Rüdiger, Waldemar Anton son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Aleksandar Pavlović, Joshua Kimmich comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Nick Woltemade es su principal amenaza ofensiva (12 goles en la temporada). Joshua Kimmich es el pateador de penales designado. Bajas: Deniz Undav, Marc-Andre Ter Stegen, Serge Gnabry, Lennart Karl. campeon 1954 1974 1990 2014.\n\nSouth Africa, conjunto africano (ranking 60), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Mbekezeli Mbokazi, Ime Okon son sus baluartes en esa zona. Tiene una medular de primer nivel. Teboho Mokoena, Thalente Mbatha comandan la sala de maquinas. Su ataque carece de contundencia. Iqraam Rayners es su principal amenaza ofensiva (16 goles en la temporada). Lyle Foster es el pateador de penales designado. fase grupos 1998 2002 2010.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe preve un partido tactico y de pocos goles (xG total: 2.37). Germany tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. South Africa cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Manuel Neuer (8.5/10) y Ronwen Williams (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Germany (47% de probabilidad).\nHay riesgo de empate (30%)\nFiabilidad del pronostico: 47%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nGermany, escuadra europeo (ranking 10), arrastra resultados mixtos. Tuvo una preparacion irregular. Su linea de fondo cumple sin sobresaltos. Antonio Rüdiger, Waldemar Anton son sus baluartes en esa zona. Domina la zona de gestacion. Aleksandar Pavlović, Joshua Kimmich comandan la sala de maquinas. Posee una maquina de hacer goles. Nick Woltemade es su principal amenaza ofensiva (12 goles en la temporada). Joshua Kimmich es el pateador de penales designado. Bajas: Deniz Undav, Marc-Andre Ter Stegen, Serge Gnabry, Lennart Karl. campeon 1954 1974 1990 2014.\n\nSouth Africa, conjunto africano (ranking 60), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Mbekezeli Mbokazi, Ime Okon son sus baluartes en esa zona. Domina la zona de gestacion. Teboho Mokoena, Thalente Mbatha comandan la sala de maquinas. Le cuesta hacer goles. Iqraam Rayners es su principal amenaza ofensiva (16 goles en la temporada). Lyle Foster es el pateador de penales designado. fase grupos 1998 2002 2010.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nPartido cerrado donde un gol puede definir todo (xG total: 2.37). Germany tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. South Africa cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Manuel Neuer (8.5/10) y Ronwen Williams (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Germany (47% de probabilidad).\nEl empate es un resultado probable (30%)\nEl modelo respalda esta prediccion con un 47% de confianza"
   },
   {
     "round": "R32",
@@ -52,35 +52,35 @@
     "time": "",
     "venue": "New York",
     "team_a": "France",
-    "team_b": "Morocco",
+    "team_b": "Scotland",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.64,
-    "expected_goals_b": 1.12,
+    "expected_goals_a": 1.92,
+    "expected_goals_b": 0.95,
     "winner": "France",
-    "loser": "Morocco",
+    "loser": "Scotland",
     "probabilities": {
-      "a_win": 46.8,
-      "draw": 27.6,
-      "b_win": 25.6
+      "a_win": 59.1,
+      "draw": 23.5,
+      "b_win": 17.5
     },
-    "confidence": 46.8,
+    "confidence": 59.1,
     "factors": {
-      "strength": 0.2,
-      "market_value": 0.0,
-      "player_stats": 0.4,
-      "odds": 0.2,
-      "home": -0.0,
-      "climate": -0.1,
-      "travel": -0.0,
-      "history": 0.1,
+      "strength": 0.7,
+      "market_value": 0.7,
+      "player_stats": 0.5,
+      "odds": 0.1,
+      "home": 0.0,
+      "climate": 0.0,
+      "travel": 0.0,
+      "history": 0.3,
       "morale": 0.0,
       "foreign_pct": 0.0,
       "rest_days": -0.2,
-      "squad_depth": 0.0,
+      "squad_depth": 0.2,
       "travel_fatigue": 0.0,
       "experience": 0.0,
-      "trophy_pedigree": 0.0,
+      "trophy_pedigree": 0.1,
       "height_advantage": 0.0,
       "club_chemistry": 0.1,
       "stakes": 0.0,
@@ -91,7 +91,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CHOQUE DE TITANES - Dos potencias mundiales frente a frente\n\nFrance, conjunto europeo (ranking 2), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nMorocco, conjunto africano (ranking 7), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su linea de fondo cumple sin sobresaltos. Chadi Riad, Issa Diop son sus baluartes en esa zona. Tiene una medular de primer nivel. Sofyan Amrabat, Ayyoub Bouaddi comandan la sala de maquinas. Su delantera puede lastimar. Ayoub El Kaabi es su principal amenaza ofensiva (24 goles en la temporada). Ismael Saibari es el pateador de penales designado. Bajas: Nayef Aguerd, Abde Ezzalzouli. semifinal 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.76). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. Morocco cuenta con un ataque peligroso (1.6 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Mike Maignan (8.5/10) y Yassine Bounou (9.0/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por France (47% de probabilidad).\nEmpate posible (28%).\nEl modelo respalda esta prediccion con un 47% de confianza"
+    "analysis": "LIGERO FAVORITO - Ligera ventaja del que juega en casa\n\nFrance, escuadra europeo (ranking 2), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su retaguardia es solida. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nScotland, planteel europeo (ranking 43), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Su linea de fondo cumple sin sobresaltos. Aaron Hickey, Andrew Robertson son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Scott McTominay, John McGinn comandan la sala de maquinas. Tiene argumentos ofensivos. Lawrence Shankland es su principal amenaza ofensiva (22 goles en la temporada). Lyndon Dykes es el pateador de penales designado. fase grupos 1954 1958 1974 1978 1982 1986 1990 1998.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.87). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. Scotland cuenta con un ataque peligroso (1.4 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\nFrance cuenta con Mike Maignan, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para France.\n\n--- VEREDICTO PRODE ---\nGanador esperado: France (59% de probabilidad)\nEmpate posible (24%).\nConfianza del modelo: 59%"
   },
   {
     "round": "R32",
@@ -102,16 +102,16 @@
     "team_b": "Canada",
     "score_a": 1,
     "score_b": 0,
-    "expected_goals_a": 1.34,
-    "expected_goals_b": 1.36,
+    "expected_goals_a": 1.35,
+    "expected_goals_b": 1.35,
     "winner": "South Korea",
     "loser": "Canada",
     "probabilities": {
-      "a_win": 36.7,
-      "draw": 28.4,
-      "b_win": 34.9
+      "a_win": 36.8,
+      "draw": 28.5,
+      "b_win": 34.7
     },
-    "confidence": 36.7,
+    "confidence": 36.8,
     "factors": {
       "strength": 0.1,
       "market_value": -0.7,
@@ -138,7 +138,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSouth Korea, escuadra asiatico (ranking 25), arrastra resultados mixtos. Tuvo una preparacion irregular. Ofrece seguridad defensiva moderada. Min-jae Kim, Han-beom Lee son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. In-beom Hwang, Jin-seob Park comandan la sala de maquinas. Su ataque es peligroso. Hyeon-gyu Oh es su principal amenaza ofensiva (20 goles en la temporada). Heung-min Son es el pateador de penales designado. semifinal 2002.\n\nCanada, conjunto norteamericano (ranking 30), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es cumplidora. Alistair Johnston, Luc De Fougerolles son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Mathieu Choiniere, Stephen Eustáquio comandan la sala de maquinas. Tiene argumentos ofensivos. Promise David es su principal amenaza ofensiva (16 goles en la temporada). Alphonso Davies es el pateador de penales designado. Bajas: Marcelo Flores. fase grupos 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.70). South Korea tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego. Canada cuenta con un ataque peligroso (1.7 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. En los penales, South Korea cuenta con Jo Hyeon-woo, un arquero con experiencia en situaciones de presion.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por South Korea (37% de probabilidad).\nEl empate es un resultado probable (28%)\nEl modelo respalda esta prediccion con un 37% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSouth Korea, planteel asiatico (ranking 25), alterna buenas y malas actuaciones. Mezclo altibajos en los amistosos. Su linea de fondo cumple sin sobresaltos. Min-jae Kim, Han-beom Lee son sus baluartes en esa zona. Domina la zona de gestacion. In-beom Hwang, Jin-seob Park comandan la sala de maquinas. Su delantera puede lastimar. Hyeon-gyu Oh es su principal amenaza ofensiva (20 goles en la temporada). Heung-min Son es el pateador de penales designado. semifinal 2002.\n\nCanada, conjunto norteamericano (ranking 30), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es cumplidora. Alistair Johnston, Luc De Fougerolles son sus baluartes en esa zona. Tiene una medular de primer nivel. Mathieu Choiniere, Stephen Eustáquio comandan la sala de maquinas. Tiene argumentos ofensivos. Promise David es su principal amenaza ofensiva (16 goles en la temporada). Alphonso Davies es el pateador de penales designado. Bajas: Marcelo Flores. fase grupos 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nPartido parejo que se definira por detalles (xG total: 2.70). South Korea tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego. Canada cuenta con un ataque peligroso (1.7 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. En los penales, South Korea cuenta con Jo Hyeon-woo, un arquero con experiencia en situaciones de presion.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por South Korea (37% de probabilidad).\nEl empate es un resultado probable (28%)\nConfianza del modelo: 37%"
   },
   {
     "round": "R32",
@@ -146,37 +146,37 @@
     "time": "",
     "venue": "Monterrey",
     "team_a": "Netherlands",
-    "team_b": "Scotland",
-    "score_a": 2,
+    "team_b": "Morocco",
+    "score_a": 1,
     "score_b": 1,
-    "expected_goals_a": 1.71,
-    "expected_goals_b": 1.02,
-    "winner": "Netherlands",
-    "loser": "Scotland",
+    "expected_goals_a": 1.45,
+    "expected_goals_b": 1.2,
+    "winner": "Morocco",
+    "loser": "Netherlands",
     "probabilities": {
-      "a_win": 52.4,
-      "draw": 28.0,
-      "b_win": 19.6
+      "a_win": 41.2,
+      "draw": 29.5,
+      "b_win": 29.3
     },
-    "confidence": 52.4,
+    "confidence": 41.2,
     "factors": {
-      "strength": 0.5,
-      "market_value": 0.7,
-      "player_stats": 0.0,
-      "odds": 0.1,
+      "strength": -0.0,
+      "market_value": 0.0,
+      "player_stats": -0.1,
+      "odds": 0.0,
       "home": 0.0,
-      "climate": 0.0,
+      "climate": -0.1,
       "travel": 0.0,
-      "history": 0.2,
-      "morale": 0.0,
+      "history": 0.0,
+      "morale": -0.0,
       "foreign_pct": 0.0,
       "rest_days": 0.0,
-      "squad_depth": 0.2,
+      "squad_depth": 0.0,
       "travel_fatigue": 0.0,
-      "experience": -0.0,
-      "trophy_pedigree": 0.0,
+      "experience": 0.0,
+      "trophy_pedigree": -0.0,
       "height_advantage": 0.0,
-      "club_chemistry": 0.0,
+      "club_chemistry": 0.1,
       "stakes": 0.0,
       "friendly_form": -0.1,
       "real_match_form": 0.0,
@@ -185,7 +185,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nNetherlands, escuadra europeo (ranking 8), alterna buenas y malas actuaciones. Dejo dudas en los amistosos previos. Su linea defensiva es dificil de vulnerar. Virgil van Dijk, Nathan Aké son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Marten De Roon, Justin Kluivert comandan la sala de maquinas. Su delantera es de primer nivel mundial. Donyell Malen es su principal amenaza ofensiva (22 goles en la temporada). Cody Gakpo es el pateador de penales designado. Bajas: Xavi Simons, Matthijs de Ligt, Jurrien Timber, Jerdy Schouten. final 1974 1978 2010.\n\nScotland, planteel europeo (ranking 43), tiene un rendimiento irregular. Tuvo una preparacion irregular. Su defensa es cumplidora. Aaron Hickey, Andrew Robertson son sus baluartes en esa zona. Domina la zona de gestacion. Scott McTominay, John McGinn comandan la sala de maquinas. Tiene argumentos ofensivos. Lawrence Shankland es su principal amenaza ofensiva (22 goles en la temporada). Lyndon Dykes es el pateador de penales designado. fase grupos 1954 1958 1974 1978 1982 1986 1990 1998.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.73). Netherlands tiene poderio ofensivo (2.0 goles/partido) y buscara imponer su juego. Scotland cuenta con un ataque peligroso (1.4 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. En los penales, Netherlands cuenta con Bart Verbruggen, un arquero con experiencia en situaciones de presion.\n\n--- VEREDICTO PRODE ---\nGanador esperado: Netherlands (52% de probabilidad)\nHay riesgo de empate (28%)\nEl modelo respalda esta prediccion con un 52% de confianza"
+    "analysis": "CHOQUE DE TITANES - Dos potencias mundiales frente a frente\n\nNetherlands, conjunto europeo (ranking 8), arrastra resultados mixtos. Preocupo en los amistosos. Su retaguardia es solida. Virgil van Dijk, Nathan Aké son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Marten De Roon, Justin Kluivert comandan la sala de maquinas. Su delantera es de primer nivel mundial. Donyell Malen es su principal amenaza ofensiva (22 goles en la temporada). Cody Gakpo es el pateador de penales designado. Bajas: Xavi Simons, Matthijs de Ligt, Jurrien Timber, Jerdy Schouten. final 1974 1978 2010.\n\nMorocco, escuadra africano (ranking 7), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea de fondo cumple sin sobresaltos. Chadi Riad, Issa Diop son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Sofyan Amrabat, Ayyoub Bouaddi comandan la sala de maquinas. Su ataque es peligroso. Ayoub El Kaabi es su principal amenaza ofensiva (24 goles en la temporada). Ismael Saibari es el pateador de penales designado. Bajas: Nayef Aguerd, Abde Ezzalzouli. semifinal 2022.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.65). Netherlands tiene poderio ofensivo (2.0 goles/partido) y buscara imponer su juego. Morocco cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Morocco cuenta con Yassine Bounou, especialista en atajar penales (9.0/10). Si el partido llega a los penales, la ventaja es para Morocco.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Morocco (29% de probabilidad).\nCuidado con la igualdad (30%)\nFiabilidad del pronostico: 41%"
   },
   {
     "round": "R32",
@@ -201,11 +201,11 @@
     "winner": "Croatia",
     "loser": "Colombia",
     "probabilities": {
-      "a_win": 39.7,
-      "draw": 28.9,
-      "b_win": 31.3
+      "a_win": 39.5,
+      "draw": 29.1,
+      "b_win": 31.5
     },
-    "confidence": 31.3,
+    "confidence": 31.5,
     "factors": {
       "strength": -0.0,
       "market_value": 0.2,
@@ -232,7 +232,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nColombia, escuadra sudamericano (ranking 13), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Su linea de fondo cumple sin sobresaltos. Daniel Muñoz, Jhon Lucumí son sus baluartes en esa zona. Tiene una medular de primer nivel. Richard Ríos, Jorge Carrascal comandan la sala de maquinas. Su ataque es peligroso. Luis Suárez es su principal amenaza ofensiva (39 goles en la temporada). Luis Diaz es el pateador de penales designado. cuartos 2014.\n\nCroatia, conjunto europeo (ranking 11), alterna buenas y malas actuaciones. Preocupo en los amistosos. Su linea de fondo cumple sin sobresaltos. Josip Stanišić, Marin Pongracic son sus baluartes en esa zona. Domina la zona de gestacion. Nikola Moro, Andrej Kramaric comandan la sala de maquinas. Su delantera puede lastimar. Ante Budimir es su principal amenaza ofensiva (19 goles en la temporada). Luka Modric es el pateador de penales designado. final 2018, semifinal 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.65). Colombia tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. Croatia cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Croatia cuenta con Dominik Livakovic, especialista en atajar penales (9.0/10). Si el partido llega a los penales, la ventaja es para Croatia.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Croatia (31% de probabilidad).\nCuidado con la igualdad (29%)\nConfianza del modelo: 31%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nColombia, escuadra sudamericano (ranking 13), alterna buenas y malas actuaciones. Tuvo una preparacion irregular. Su linea de fondo cumple sin sobresaltos. Daniel Muñoz, Jhon Lucumí son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Richard Ríos, Jorge Carrascal comandan la sala de maquinas. Tiene argumentos ofensivos. Luis Suárez es su principal amenaza ofensiva (39 goles en la temporada). Luis Diaz es el pateador de penales designado. cuartos 2014.\n\nCroatia, escuadra europeo (ranking 11), alterna buenas y malas actuaciones. Preocupo en los amistosos. Su linea de fondo cumple sin sobresaltos. Josip Stanišić, Marin Pongracic son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Nikola Moro, Andrej Kramaric comandan la sala de maquinas. Su ataque es peligroso. Ante Budimir es su principal amenaza ofensiva (19 goles en la temporada). Luka Modric es el pateador de penales designado. final 2018, semifinal 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.65). Colombia tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. Croatia cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Croatia cuenta con Dominik Livakovic, especialista en atajar penales (9.0/10). Si el partido llega a los penales, la ventaja es para Croatia.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Croatia (32% de probabilidad).\nCuidado con la igualdad (29%)\nFiabilidad del pronostico: 32%"
   },
   {
     "round": "R32",
@@ -243,7 +243,7 @@
     "team_b": "Algeria",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.78,
+    "expected_goals_a": 1.77,
     "expected_goals_b": 0.97,
     "winner": "Spain",
     "loser": "Algeria",
@@ -257,7 +257,7 @@
       "strength": 0.5,
       "market_value": 0.5,
       "player_stats": 0.1,
-      "odds": 0.2,
+      "odds": 0.1,
       "home": 0.0,
       "climate": 0.0,
       "travel": -0.0,
@@ -279,7 +279,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Domina la zona de gestacion. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Su delantera es de primer nivel mundial. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nAlgeria, conjunto africano (ranking 28), arrastra resultados mixtos. Tuvo una preparacion irregular. Su defensa es cumplidora. Ramy Bensebaini, Samir Chergui son sus baluartes en esa zona. Domina la zona de gestacion. Ramiz Zerrouki, Nabil Bentaleb comandan la sala de maquinas. Su ataque es peligroso. Nadhir Benbouali es su principal amenaza ofensiva (20 goles en la temporada). Riyad Mahrez es el pateador de penales designado. octavos 2014.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.75). Spain tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego. Algeria cuenta con un ataque peligroso (1.5 goles/partido). Spain se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Spain cuenta con David Raya, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Spain.\n\n--- VEREDICTO PRODE ---\nGanador esperado: Spain (56% de probabilidad)\nEmpate posible (26%).\nEl modelo respalda esta prediccion con un 56% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nAlgeria, conjunto africano (ranking 28), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Ofrece seguridad defensiva moderada. Ramy Bensebaini, Samir Chergui son sus baluartes en esa zona. Tiene una medular de primer nivel. Ramiz Zerrouki, Nabil Bentaleb comandan la sala de maquinas. Su delantera puede lastimar. Nadhir Benbouali es su principal amenaza ofensiva (20 goles en la temporada). Riyad Mahrez es el pateador de penales designado. octavos 2014.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.74). Spain tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego. Algeria cuenta con un ataque peligroso (1.5 goles/partido). Spain se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Spain cuenta con David Raya, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Spain.\n\n--- VEREDICTO PRODE ---\nTodo indica que Spain se quedara con el triunfo (56%)\nEmpate posible (26%).\nFiabilidad del pronostico: 56%"
   },
   {
     "round": "R32",
@@ -290,16 +290,16 @@
     "team_b": "Bosnia & Herzegovina",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.82,
-    "expected_goals_b": 1.07,
+    "expected_goals_a": 1.83,
+    "expected_goals_b": 1.06,
     "winner": "USA",
     "loser": "Bosnia & Herzegovina",
     "probabilities": {
-      "a_win": 55.8,
-      "draw": 25.6,
+      "a_win": 55.9,
+      "draw": 25.5,
       "b_win": 18.6
     },
-    "confidence": 55.8,
+    "confidence": 55.9,
     "factors": {
       "strength": 0.7,
       "market_value": 0.6,
@@ -326,7 +326,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nUSA, planteel norteamericano (ranking 16), tiene un rendimiento irregular. Dejo dudas en los amistosos previos. Su defensa es cumplidora. Sergino Dest, Chris Richards son sus baluartes en esa zona. Domina la zona de gestacion. Tyler Adams, Giovanni Reyna comandan la sala de maquinas. Su ataque es letal. Folarin Balogun es su principal amenaza ofensiva (23 goles en la temporada). Christian Pulisic es el pateador de penales designado. Bajas: Patrick Agyemang. semifinal 1930.\n\nBosnia & Herzegovina, conjunto europeo (ranking 64), no encuentra regularidad. Disputo amistosos sin resultados destacados. Su defensa es vulnerable. Nihad Mujakić, Dennis Hadzikadunic son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Benjamin Tahirovic, Armin Gigovic comandan la sala de maquinas. Tiene argumentos ofensivos. Jovo Lukic es su principal amenaza ofensiva (20 goles en la temporada). Ermedin Demirovic es el pateador de penales designado. fase grupos 2014.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.89). USA tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Bosnia & Herzegovina cuenta con un ataque peligroso (1.4 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. En los penales, USA cuenta con Matt Freese, un arquero con experiencia en situaciones de presion.\n\n--- VEREDICTO PRODE ---\nGanador esperado: USA (56% de probabilidad)\nEmpate posible (26%).\nEl modelo respalda esta prediccion con un 56% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nUSA, conjunto norteamericano (ranking 16), tiene un rendimiento irregular. No logro consolidarse en la preparacion. Ofrece seguridad defensiva moderada. Sergino Dest, Chris Richards son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Tyler Adams, Giovanni Reyna comandan la sala de maquinas. Posee una maquina de hacer goles. Folarin Balogun es su principal amenaza ofensiva (23 goles en la temporada). Christian Pulisic es el pateador de penales designado. Bajas: Patrick Agyemang. semifinal 1930.\n\nBosnia & Herzegovina, planteel europeo (ranking 64), arrastra resultados negativos. Disputo amistosos sin resultados destacados. Ha mostrado fragilidades defensivas. Nihad Mujakić, Dennis Hadzikadunic son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Benjamin Tahirovic, Armin Gigovic comandan la sala de maquinas. Tiene argumentos ofensivos. Jovo Lukic es su principal amenaza ofensiva (20 goles en la temporada). Ermedin Demirovic es el pateador de penales designado. fase grupos 2014.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.89). USA tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Bosnia & Herzegovina cuenta con un ataque peligroso (1.4 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. En los penales, USA cuenta con Matt Freese, un arquero con experiencia en situaciones de presion.\n\n--- VEREDICTO PRODE ---\nGanador esperado: USA (56% de probabilidad)\nEmpate posible (26%).\nConfianza del modelo: 56%"
   },
   {
     "round": "R32",
@@ -342,11 +342,11 @@
     "winner": "Belgium",
     "loser": "Ecuador",
     "probabilities": {
-      "a_win": 42.5,
-      "draw": 29.4,
+      "a_win": 42.6,
+      "draw": 29.3,
       "b_win": 28.1
     },
-    "confidence": 42.5,
+    "confidence": 42.6,
     "factors": {
       "strength": 0.2,
       "market_value": 0.6,
@@ -373,7 +373,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nBelgium, escuadra europeo (ranking 9), arrastra resultados mixtos. Dejo sensaciones muy positivas en los amistosos. Ofrece seguridad defensiva moderada. Zeno Debast, Arthur Theate son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Axel Witsel, Kevin De Bruyne comandan la sala de maquinas. Posee una maquina de hacer goles. Leandro Trossard es su principal amenaza ofensiva (8 goles en la temporada). Romelu Lukaku es el pateador de penales designado. semifinal 2018.\n\nEcuador, escuadra sudamericano (ranking 24), arrastra resultados mixtos. Cumplio en los amistosos sin brillar. Ofrece seguridad defensiva moderada. Félix Torres, Piero Hincapié son sus baluartes en esa zona. Domina la zona de gestacion. Jordy Alcívar, Kendry Páez comandan la sala de maquinas. Su ataque es peligroso. Kevin Rodríguez es su principal amenaza ofensiva (14 goles en la temporada). Enner Valencia es el pateador de penales designado. octavos 2006 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.71). Belgium tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Ecuador cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Belgium cuenta con Thibaut Courtois, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Belgium.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Belgium (42% de probabilidad).\nCuidado con la igualdad (29%)\nConfianza del modelo: 42%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nBelgium, conjunto europeo (ranking 9), arrastra resultados mixtos. Dejo sensaciones muy positivas en los amistosos. Su linea de fondo cumple sin sobresaltos. Zeno Debast, Arthur Theate son sus baluartes en esa zona. Tiene una medular de primer nivel. Axel Witsel, Kevin De Bruyne comandan la sala de maquinas. Posee una maquina de hacer goles. Leandro Trossard es su principal amenaza ofensiva (8 goles en la temporada). Romelu Lukaku es el pateador de penales designado. semifinal 2018.\n\nEcuador, planteel sudamericano (ranking 24), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su linea de fondo cumple sin sobresaltos. Félix Torres, Piero Hincapié son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Jordy Alcívar, Kendry Páez comandan la sala de maquinas. Su delantera puede lastimar. Kevin Rodríguez es su principal amenaza ofensiva (14 goles en la temporada). Enner Valencia es el pateador de penales designado. octavos 2006 2022.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.71). Belgium tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Ecuador cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Belgium cuenta con Thibaut Courtois, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Belgium.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Belgium (43% de probabilidad).\nHay riesgo de empate (29%)\nConfianza del modelo: 43%"
   },
   {
     "round": "R32",
@@ -381,46 +381,46 @@
     "time": "",
     "venue": "Houston",
     "team_a": "Brazil",
-    "team_b": "Japan",
+    "team_b": "Sweden",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.57,
-    "expected_goals_b": 1.19,
+    "expected_goals_a": 1.71,
+    "expected_goals_b": 1.21,
     "winner": "Brazil",
-    "loser": "Japan",
+    "loser": "Sweden",
     "probabilities": {
-      "a_win": 44.6,
-      "draw": 28.5,
-      "b_win": 26.9
+      "a_win": 48.1,
+      "draw": 28.1,
+      "b_win": 23.9
     },
-    "confidence": 44.6,
+    "confidence": 48.1,
     "factors": {
-      "strength": 0.2,
-      "market_value": 0.5,
-      "player_stats": 0.0,
-      "odds": 0.2,
+      "strength": 0.5,
+      "market_value": 0.6,
+      "player_stats": 0.3,
+      "odds": 0.1,
       "home": 0.1,
       "climate": 0.0,
       "travel": -0.0,
-      "history": 0.2,
+      "history": 0.1,
       "morale": 0.0,
-      "foreign_pct": 0.0,
+      "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": -0.1,
       "travel_fatigue": -0.0,
-      "experience": -0.0,
+      "experience": 0.0,
       "trophy_pedigree": 0.0,
-      "height_advantage": 0.0,
+      "height_advantage": -0.0,
       "club_chemistry": 0.0,
       "stakes": 0.0,
-      "friendly_form": 0.1,
+      "friendly_form": 0.2,
       "real_match_form": 0.0,
       "real_form_a": null,
       "real_form_b": null,
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nBrazil, escuadra sudamericano (ranking 6), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su linea defensiva es dificil de vulnerar. Marquinhos, Alex Sandro son sus baluartes en esa zona. Tiene una medular de primer nivel. Casemiro, Bruno Guimarães comandan la sala de maquinas. Posee una maquina de hacer goles. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nJapan, planteel asiatico (ranking 18), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su linea de fondo cumple sin sobresaltos. Hiroki Ito, Tsuyoshi Watanabe son sus baluartes en esa zona. Tiene una medular de primer nivel. Kaishu Sano, Wataru Endo comandan la sala de maquinas. Su ataque es peligroso. Ayase Ueda es su principal amenaza ofensiva (28 goles en la temporada). Takefusa Kubo es el pateador de penales designado. Bajas: Kaoru Mitoma, Takumi Minamino. octavos 2002 2010 2018 2022.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.76). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Japan cuenta con un ataque peligroso (1.7 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Brazil cuenta con Alisson, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Brazil.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Brazil (45% de probabilidad).\nCuidado con la igualdad (28%)\nFiabilidad del pronostico: 45%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nBrazil, planteel sudamericano (ranking 6), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Su defensa es un fortin. Marquinhos, Alex Sandro son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Casemiro, Bruno Guimarães comandan la sala de maquinas. Su ataque es letal. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nSweden, conjunto europeo (ranking 38), alterna buenas y malas actuaciones. Preocupo en los amistosos. Ofrece seguridad defensiva moderada. Gustaf Lagerbielke, Victor Lindelof son sus baluartes en esa zona. Domina la zona de gestacion. Herman Johansson, Lucas Bergvall comandan la sala de maquinas. Su ataque es peligroso. Viktor Gyökeres es su principal amenaza ofensiva (26 goles en la temporada). Viktor Gyokeres es el pateador de penales designado. Bajas: Dejan Kulusevski. final 1958.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.92). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Sweden cuenta con un ataque peligroso (1.8 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Brazil cuenta con Alisson, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Brazil.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Brazil (48% de probabilidad).\nEl empate es un resultado probable (28%)\nEl modelo respalda esta prediccion con un 48% de confianza"
   },
   {
     "round": "R32",
@@ -467,7 +467,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nIvory Coast, conjunto africano (ranking 33), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. Ousmane Diomande, Evan Ndicka son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Ibrahim Sangaré, Jean Michaël Seri comandan la sala de maquinas. Su delantera puede lastimar. Yan Diomande es su principal amenaza ofensiva (13 goles en la temporada). Elye Wahi es el pateador de penales designado. fase grupos 2006 2010 2014 2022.\n\nNorway, conjunto europeo (ranking 31), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es cumplidora. Kristoffer Ajer, Leo Oestigaard son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Morten Thorsby, Patrick Berg comandan la sala de maquinas. Su delantera es de primer nivel mundial. Erling Haaland es su principal amenaza ofensiva (39 goles en la temporada). Erling Haaland es el pateador de penales designado. octavos 1938 1998.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.79). Ivory Coast tiene poderio ofensivo (1.5 goles/partido) y buscara imponer su juego. Norway cuenta con un ataque peligroso (2.0 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Norway (41% de probabilidad).\nEl empate es un resultado probable (28%)\nEl modelo respalda esta prediccion con un 41% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nIvory Coast, conjunto africano (ranking 33), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea de fondo cumple sin sobresaltos. Ousmane Diomande, Evan Ndicka son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Ibrahim Sangaré, Jean Michaël Seri comandan la sala de maquinas. Tiene argumentos ofensivos. Yan Diomande es su principal amenaza ofensiva (13 goles en la temporada). Elye Wahi es el pateador de penales designado. fase grupos 2006 2010 2014 2022.\n\nNorway, planteel europeo (ranking 31), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su defensa es cumplidora. Kristoffer Ajer, Leo Oestigaard son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Morten Thorsby, Patrick Berg comandan la sala de maquinas. Posee una maquina de hacer goles. Erling Haaland es su principal amenaza ofensiva (39 goles en la temporada). Erling Haaland es el pateador de penales designado. octavos 1938 1998.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.79). Ivory Coast tiene poderio ofensivo (1.5 goles/partido) y buscara imponer su juego. Norway cuenta con un ataque peligroso (2.0 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Norway (41% de probabilidad).\nHay riesgo de empate (28%)\nConfianza del modelo: 41%"
   },
   {
     "round": "R32",
@@ -475,46 +475,46 @@
     "time": "",
     "venue": "Mexico City",
     "team_a": "Mexico",
-    "team_b": "Sweden",
-    "score_a": 2,
-    "score_b": 1,
-    "expected_goals_a": 1.56,
-    "expected_goals_b": 1.25,
+    "team_b": "Japan",
+    "score_a": 1,
+    "score_b": 0,
+    "expected_goals_a": 1.41,
+    "expected_goals_b": 1.24,
     "winner": "Mexico",
-    "loser": "Sweden",
+    "loser": "Japan",
     "probabilities": {
-      "a_win": 43.9,
-      "draw": 26.7,
-      "b_win": 29.5
+      "a_win": 38.6,
+      "draw": 29.9,
+      "b_win": 31.5
     },
-    "confidence": 43.9,
+    "confidence": 38.6,
     "factors": {
-      "strength": 0.2,
-      "market_value": 0.2,
-      "player_stats": 0.2,
-      "odds": 0.0,
+      "strength": -0.0,
+      "market_value": 0.1,
+      "player_stats": -0.1,
+      "odds": -0.0,
       "home": 0.4,
-      "climate": 0.3,
+      "climate": 0.2,
       "travel": 0.0,
-      "history": -0.1,
+      "history": 0.0,
       "morale": 0.0,
-      "foreign_pct": -0.0,
+      "foreign_pct": 0.0,
       "rest_days": 0.0,
       "squad_depth": 0.0,
       "travel_fatigue": 0.0,
       "experience": 0.0,
       "trophy_pedigree": 0.0,
-      "height_advantage": 0.2,
+      "height_advantage": 0.3,
       "club_chemistry": 0.0,
       "stakes": 0.0,
-      "friendly_form": 0.2,
-      "real_match_form": 0.0,
+      "friendly_form": 0.1,
+      "real_match_form": 0.1,
       "real_form_a": null,
       "real_form_b": null,
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nMexico, escuadra norteamericano (ranking 14), arrastra resultados mixtos. Tuvo una preparacion irregular. Ofrece seguridad defensiva moderada. Jorge Sánchez, César Montes son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Edson Álvarez, Érik Lira comandan la sala de maquinas. Su delantera puede lastimar. Julian Quiñones es su principal amenaza ofensiva (37 goles en la temporada). Raul Jimenez es el pateador de penales designado. Bajas: Luis Angel Malagon. cuartos 1986 1970.\n\nSweden, planteel europeo (ranking 38), tiene un rendimiento irregular. Dejo dudas en los amistosos previos. Su defensa es cumplidora. Gustaf Lagerbielke, Victor Lindelof son sus baluartes en esa zona. Tiene una medular de primer nivel. Herman Johansson, Lucas Bergvall comandan la sala de maquinas. Tiene argumentos ofensivos. Viktor Gyökeres es su principal amenaza ofensiva (26 goles en la temporada). Viktor Gyokeres es el pateador de penales designado. Bajas: Dejan Kulusevski. final 1958.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nPartido parejo que se definira por detalles (xG total: 2.81). Mexico tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. Sweden cuenta con un ataque peligroso (1.8 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Mexico cuenta con Guillermo Ochoa, especialista en atajar penales (8.0/10). Si el partido llega a los penales, la ventaja es para Mexico.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Mexico (44% de probabilidad).\nEmpate posible (27%).\nFiabilidad del pronostico: 44%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nMexico, escuadra norteamericano (ranking 14), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su defensa es cumplidora. Jorge Sánchez, César Montes son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Edson Álvarez, Érik Lira comandan la sala de maquinas. Tiene argumentos ofensivos. Julian Quiñones es su principal amenaza ofensiva (37 goles en la temporada). Raul Jimenez es el pateador de penales designado. Bajas: Luis Angel Malagon. cuartos 1986 1970.\n\nJapan, planteel asiatico (ranking 18), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es cumplidora. Hiroki Ito, Tsuyoshi Watanabe son sus baluartes en esa zona. Domina la zona de gestacion. Kaishu Sano, Wataru Endo comandan la sala de maquinas. Su delantera puede lastimar. Ayase Ueda es su principal amenaza ofensiva (28 goles en la temporada). Takefusa Kubo es el pateador de penales designado. Bajas: Kaoru Mitoma, Takumi Minamino. octavos 2002 2010 2018 2022.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.65). Mexico tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. Japan cuenta con un ataque peligroso (1.7 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Mexico cuenta con Guillermo Ochoa, especialista en atajar penales (8.0/10). Si el partido llega a los penales, la ventaja es para Mexico.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Mexico (39% de probabilidad).\nCuidado con la igualdad (30%)\nEl modelo respalda esta prediccion con un 39% de confianza"
   },
   {
     "round": "R32",
@@ -530,16 +530,16 @@
     "winner": "England",
     "loser": "Senegal",
     "probabilities": {
-      "a_win": 51.5,
-      "draw": 28.4,
-      "b_win": 20.1
+      "a_win": 51.4,
+      "draw": 28.2,
+      "b_win": 20.4
     },
-    "confidence": 51.5,
+    "confidence": 51.4,
     "factors": {
       "strength": 0.3,
       "market_value": 0.0,
       "player_stats": 0.7,
-      "odds": 0.2,
+      "odds": 0.1,
       "home": 0.0,
       "climate": 0.0,
       "travel": 0.0,
@@ -561,7 +561,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nEngland, planteel europeo (ranking 4), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Ezri Konsa, Nico O&#x27;Reilly son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Declan Rice, Elliot Anderson comandan la sala de maquinas. Posee una maquina de hacer goles. Harry Kane es su principal amenaza ofensiva (61 goles en la temporada). Harry Kane es el pateador de penales designado. Bajas: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire, Jack Grealish, Ben White. campeon 1966.\n\nSenegal, escuadra africano (ranking 15), alterna buenas y malas actuaciones. Dejo dudas en los amistosos previos. Ofrece seguridad defensiva moderada. Mamadou Sarr, Moussa Niakhaté son sus baluartes en esa zona. Tiene una medular de primer nivel. Idrissa Gueye, Lamine Camara comandan la sala de maquinas. Su ataque es peligroso. Ismaïla Sarr es su principal amenaza ofensiva (22 goles en la temporada). Sadio Mane es el pateador de penales designado. cuartos 2002.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.73). England tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego. Senegal cuenta con un ataque peligroso (1.5 goles/partido). England se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. England cuenta con Jordan Pickford, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para England.\n\n--- VEREDICTO PRODE ---\nEl modelo favorece claramente a England (52%)\nHay riesgo de empate (28%)\nFiabilidad del pronostico: 52%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nEngland, escuadra europeo (ranking 4), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Ezri Konsa, Nico O&#x27;Reilly son sus baluartes en esa zona. Tiene una medular de primer nivel. Declan Rice, Elliot Anderson comandan la sala de maquinas. Su delantera es de primer nivel mundial. Harry Kane es su principal amenaza ofensiva (61 goles en la temporada). Harry Kane es el pateador de penales designado. Bajas: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire, Jack Grealish, Ben White. campeon 1966.\n\nSenegal, conjunto africano (ranking 15), arrastra resultados mixtos. No logro consolidarse en la preparacion. Ofrece seguridad defensiva moderada. Mamadou Sarr, Moussa Niakhaté son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Idrissa Gueye, Lamine Camara comandan la sala de maquinas. Tiene argumentos ofensivos. Ismaïla Sarr es su principal amenaza ofensiva (22 goles en la temporada). Sadio Mane es el pateador de penales designado. cuartos 2002.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.73). England tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego. Senegal cuenta con un ataque peligroso (1.5 goles/partido). England se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. England cuenta con Jordan Pickford, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para England.\n\n--- VEREDICTO PRODE ---\nGanador esperado: England (51% de probabilidad)\nCuidado con la igualdad (28%)\nEl modelo respalda esta prediccion con un 51% de confianza"
   },
   {
     "round": "R32",
@@ -572,21 +572,21 @@
     "team_b": "Uruguay",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.58,
+    "expected_goals_a": 1.57,
     "expected_goals_b": 1.14,
     "winner": "Argentina",
     "loser": "Uruguay",
     "probabilities": {
-      "a_win": 43.9,
+      "a_win": 43.7,
       "draw": 29.9,
-      "b_win": 26.3
+      "b_win": 26.4
     },
-    "confidence": 43.9,
+    "confidence": 43.7,
     "factors": {
       "strength": 0.3,
       "market_value": 0.4,
       "player_stats": 0.3,
-      "odds": 0.2,
+      "odds": 0.1,
       "home": 0.1,
       "climate": -0.1,
       "travel": -0.0,
@@ -608,7 +608,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nArgentina, escuadra sudamericano (ranking 1), vive un presente dulce. Cumplio en los amistosos sin brillar. Su defensa es un fortin. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nUruguay, conjunto sudamericano (ranking 17), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea de fondo cumple sin sobresaltos. José María Giménez, Sebastián Cáceres son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Manuel Ugarte, Rodrigo Bentancur comandan la sala de maquinas. Su delantera puede lastimar. Brian Rodríguez es su principal amenaza ofensiva (13 goles en la temporada). Darwin Nunez es el pateador de penales designado. campeon 1930 1950.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.72). Argentina tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Uruguay cuenta con un ataque peligroso (1.8 goles/partido). Argentina se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Argentina cuenta con Emiliano Martinez, especialista en atajar penales (9.5/10). Si el partido llega a los penales, la ventaja es para Argentina.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (44% de probabilidad).\nEl empate es un resultado probable (30%)\nFiabilidad del pronostico: 44%"
+    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nArgentina, planteel sudamericano (ranking 1), esta en un estado de forma impecable. Tuvo una preparacion irregular. Su linea defensiva es dificil de vulnerar. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nUruguay, planteel sudamericano (ranking 17), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. José María Giménez, Sebastián Cáceres son sus baluartes en esa zona. Tiene una medular de primer nivel. Manuel Ugarte, Rodrigo Bentancur comandan la sala de maquinas. Tiene argumentos ofensivos. Brian Rodríguez es su principal amenaza ofensiva (13 goles en la temporada). Darwin Nunez es el pateador de penales designado. campeon 1930 1950.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.71). Argentina tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Uruguay cuenta con un ataque peligroso (1.8 goles/partido). Argentina se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Argentina cuenta con Emiliano Martinez, especialista en atajar penales (9.5/10). Si el partido llega a los penales, la ventaja es para Argentina.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (44% de probabilidad).\nCuidado con la igualdad (30%)\nEl modelo respalda esta prediccion con un 44% de confianza"
   },
   {
     "round": "R32",
@@ -619,13 +619,13 @@
     "team_b": "Egypt",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.49,
+    "expected_goals_a": 1.48,
     "expected_goals_b": 1.27,
     "winner": "Turkey",
     "loser": "Egypt",
     "probabilities": {
       "a_win": 42.9,
-      "draw": 27.7,
+      "draw": 27.8,
       "b_win": 29.3
     },
     "confidence": 42.9,
@@ -655,7 +655,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nTurkey, conjunto europeo (ranking 22), tiene un rendimiento irregular. Cumplio en los amistosos sin brillar. Su linea de fondo cumple sin sobresaltos. Zeki Celik, Merih Demiral son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Orkun Kökçü, Arda Güler comandan la sala de maquinas. Su ataque es peligroso. Kerem Aktürkoğlu es su principal amenaza ofensiva (17 goles en la temporada). Hakan Calhanoglu es el pateador de penales designado. semifinal 2002.\n\nEgypt, planteel africano (ranking 29), arrastra resultados mixtos. Preocupo en los amistosos. Ofrece seguridad defensiva moderada. Hossam Abdelmaguid, Ramy Rabia son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Marwan Ateya, Mohanad Lasheen comandan la sala de maquinas. Su ataque es peligroso. Trezeguet es su principal amenaza ofensiva (19 goles en la temporada). Mohamed Salah es el pateador de penales designado. octavos 1934.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.76). Turkey tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. Egypt cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Turkey (43% de probabilidad).\nEmpate posible (28%).\nFiabilidad del pronostico: 43%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nTurkey, conjunto europeo (ranking 22), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Ofrece seguridad defensiva moderada. Zeki Celik, Merih Demiral son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Orkun Kökçü, Arda Güler comandan la sala de maquinas. Su ataque es peligroso. Kerem Aktürkoğlu es su principal amenaza ofensiva (17 goles en la temporada). Hakan Calhanoglu es el pateador de penales designado. semifinal 2002.\n\nEgypt, escuadra africano (ranking 29), tiene un rendimiento irregular. No logro consolidarse en la preparacion. Su defensa es cumplidora. Hossam Abdelmaguid, Ramy Rabia son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Marwan Ateya, Mohanad Lasheen comandan la sala de maquinas. Su ataque es peligroso. Trezeguet es su principal amenaza ofensiva (19 goles en la temporada). Mohamed Salah es el pateador de penales designado. octavos 1934.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nPartido parejo que se definira por detalles (xG total: 2.75). Turkey tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. Egypt cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Turkey (43% de probabilidad).\nEmpate posible (28%).\nFiabilidad del pronostico: 43%"
   },
   {
     "round": "R32",
@@ -672,8 +672,8 @@
     "loser": "Iran",
     "probabilities": {
       "a_win": 44.3,
-      "draw": 28.9,
-      "b_win": 26.8
+      "draw": 29.0,
+      "b_win": 26.7
     },
     "confidence": 44.3,
     "factors": {
@@ -702,7 +702,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSwitzerland, escuadra europeo (ranking 19), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. Miro Muheim, Silvan Widmer son sus baluartes en esa zona. Domina la zona de gestacion. Denis Zakaria, Remo Freuler comandan la sala de maquinas. Su ataque es peligroso. Cedric Itten es su principal amenaza ofensiva (16 goles en la temporada). Breel Embolo es el pateador de penales designado. cuartos 1934 1938 1954.\n\nIran, conjunto asiatico (ranking 20), arrastra resultados mixtos. Cumplio en los amistosos sin brillar. Su defensa es cumplidora. Hossein Kanaani, Danial Eiri son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Saeed Ezatolahi, Mohammad Ghorbani comandan la sala de maquinas. Tiene argumentos ofensivos. Mehdi Taremi es su principal amenaza ofensiva (20 goles en la temporada). Mehdi Taremi es el pateador de penales designado. Bajas: Sardar Azmoun. fase grupos 1978 1998 2006 2014 2018 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.65). Switzerland tiene poderio ofensivo (1.7 goles/partido) y buscara imponer su juego. Iran cuenta con un ataque peligroso (1.4 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. En los penales, Switzerland cuenta con Gregor Kobel, un arquero con experiencia en situaciones de presion.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Switzerland (44% de probabilidad).\nHay riesgo de empate (29%)\nEl modelo respalda esta prediccion con un 44% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSwitzerland, escuadra europeo (ranking 19), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. Miro Muheim, Silvan Widmer son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Denis Zakaria, Remo Freuler comandan la sala de maquinas. Su ataque es peligroso. Cedric Itten es su principal amenaza ofensiva (16 goles en la temporada). Breel Embolo es el pateador de penales designado. cuartos 1934 1938 1954.\n\nIran, planteel asiatico (ranking 20), tiene un rendimiento irregular. Tuvo una preparacion irregular. Su linea de fondo cumple sin sobresaltos. Hossein Kanaani, Danial Eiri son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Saeed Ezatolahi, Mohammad Ghorbani comandan la sala de maquinas. Su delantera puede lastimar. Mehdi Taremi es su principal amenaza ofensiva (20 goles en la temporada). Mehdi Taremi es el pateador de penales designado. Bajas: Sardar Azmoun. fase grupos 1978 1998 2006 2014 2018 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.65). Switzerland tiene poderio ofensivo (1.7 goles/partido) y buscara imponer su juego. Iran cuenta con un ataque peligroso (1.4 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. En los penales, Switzerland cuenta con Gregor Kobel, un arquero con experiencia en situaciones de presion.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Switzerland (44% de probabilidad).\nCuidado con la igualdad (29%)\nEl modelo respalda esta prediccion con un 44% de confianza"
   },
   {
     "round": "R32",
@@ -718,16 +718,16 @@
     "winner": "Portugal",
     "loser": "Austria",
     "probabilities": {
-      "a_win": 48.8,
-      "draw": 27.1,
-      "b_win": 24.1
+      "a_win": 48.2,
+      "draw": 27.3,
+      "b_win": 24.5
     },
-    "confidence": 48.8,
+    "confidence": 48.2,
     "factors": {
       "strength": 0.3,
       "market_value": 0.0,
       "player_stats": 0.6,
-      "odds": 0.2,
+      "odds": 0.1,
       "home": 0.0,
       "climate": 0.1,
       "travel": 0.0,
@@ -749,7 +749,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nPortugal, conjunto europeo (ranking 5), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Nelson Semedo, Ruben Dias son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Bruno Fernandes, Bernardo Silva comandan la sala de maquinas. Su ataque es letal. Cristiano Ronaldo es su principal amenaza ofensiva (30 goles en la temporada). Cristiano Ronaldo es el pateador de penales designado. semifinal 1966 2006.\n\nAustria, conjunto europeo (ranking 23), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. David Affengruber, Kevin Danso son sus baluartes en esa zona. Tiene una medular de primer nivel. Xaver Schlager, Nicolas Seiwald comandan la sala de maquinas. Tiene argumentos ofensivos. Marko Arnautovic es su principal amenaza ofensiva (10 goles en la temporada). Marko Arnautovic es el pateador de penales designado. Bajas: Christoph Baumgartner. semifinal 1954.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.82). Portugal tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Austria cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Portugal cuenta con Diogo Costa, especialista en atajar penales (9.0/10). Si el partido llega a los penales, la ventaja es para Portugal.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Portugal (49% de probabilidad).\nEmpate posible (27%).\nEl modelo respalda esta prediccion con un 49% de confianza"
+    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nPortugal, escuadra europeo (ranking 5), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Nelson Semedo, Ruben Dias son sus baluartes en esa zona. Tiene una medular de primer nivel. Bruno Fernandes, Bernardo Silva comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Cristiano Ronaldo es su principal amenaza ofensiva (30 goles en la temporada). Cristiano Ronaldo es el pateador de penales designado. semifinal 1966 2006.\n\nAustria, conjunto europeo (ranking 23), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. David Affengruber, Kevin Danso son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Xaver Schlager, Nicolas Seiwald comandan la sala de maquinas. Su ataque es peligroso. Marko Arnautovic es su principal amenaza ofensiva (10 goles en la temporada). Marko Arnautovic es el pateador de penales designado. Bajas: Christoph Baumgartner. semifinal 1954.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.82). Portugal tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Austria cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Portugal cuenta con Diogo Costa, especialista en atajar penales (9.0/10). Si el partido llega a los penales, la ventaja es para Portugal.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Portugal (48% de probabilidad).\nEmpate posible (27%).\nFiabilidad del pronostico: 48%"
   },
   {
     "round": "R16",
@@ -760,21 +760,21 @@
     "team_b": "Brazil",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.12,
-    "expected_goals_b": 1.65,
+    "expected_goals_a": 1.13,
+    "expected_goals_b": 1.64,
     "winner": "Brazil",
     "loser": "South Korea",
     "probabilities": {
-      "a_win": 23.9,
-      "draw": 27.7,
-      "b_win": 48.5
+      "a_win": 24.3,
+      "draw": 27.8,
+      "b_win": 47.9
     },
-    "confidence": 48.5,
+    "confidence": 47.9,
     "factors": {
       "strength": -0.3,
       "market_value": -0.7,
       "player_stats": -0.2,
-      "odds": -0.2,
+      "odds": -0.1,
       "home": -0.1,
       "climate": -0.1,
       "travel": -0.1,
@@ -790,13 +790,13 @@
       "club_chemistry": 0.1,
       "stakes": 0.0,
       "friendly_form": -0.0,
-      "real_match_form": 0.0,
+      "real_match_form": 0.1,
       "real_form_a": null,
       "real_form_b": null,
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSouth Korea, escuadra asiatico (ranking 25), arrastra resultados mixtos. Tuvo una preparacion irregular. Ofrece seguridad defensiva moderada. Min-jae Kim, Han-beom Lee son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. In-beom Hwang, Jin-seob Park comandan la sala de maquinas. Su ataque es peligroso. Hyeon-gyu Oh es su principal amenaza ofensiva (20 goles en la temporada). Heung-min Son es el pateador de penales designado. semifinal 2002.\n\nBrazil, escuadra sudamericano (ranking 6), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su linea defensiva es dificil de vulnerar. Marquinhos, Alex Sandro son sus baluartes en esa zona. Tiene una medular de primer nivel. Casemiro, Bruno Guimarães comandan la sala de maquinas. Posee una maquina de hacer goles. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.77). South Korea tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego. Brazil cuenta con un ataque peligroso (2.1 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Brazil cuenta con Alisson, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Brazil.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Brazil (48% de probabilidad).\nEmpate posible (28%).\nEl modelo respalda esta prediccion con un 48% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSouth Korea, planteel asiatico (ranking 25), alterna buenas y malas actuaciones. Mezclo altibajos en los amistosos. Su linea de fondo cumple sin sobresaltos. Min-jae Kim, Han-beom Lee son sus baluartes en esa zona. Domina la zona de gestacion. In-beom Hwang, Jin-seob Park comandan la sala de maquinas. Su delantera puede lastimar. Hyeon-gyu Oh es su principal amenaza ofensiva (20 goles en la temporada). Heung-min Son es el pateador de penales designado. semifinal 2002.\n\nBrazil, planteel sudamericano (ranking 6), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Su defensa es un fortin. Marquinhos, Alex Sandro son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Casemiro, Bruno Guimarães comandan la sala de maquinas. Su ataque es letal. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nPartido parejo que se definira por detalles (xG total: 2.77). South Korea tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego. Brazil cuenta con un ataque peligroso (2.1 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Brazil cuenta con Alisson, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Brazil.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Brazil (48% de probabilidad).\nEmpate posible (28%).\nConfianza del modelo: 48%"
   },
   {
     "round": "R16",
@@ -804,27 +804,27 @@
     "time": "",
     "venue": "Houston",
     "team_a": "Germany",
-    "team_b": "Netherlands",
+    "team_b": "Morocco",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.38,
-    "expected_goals_b": 1.42,
-    "winner": "Netherlands",
+    "expected_goals_a": 1.43,
+    "expected_goals_b": 1.23,
+    "winner": "Morocco",
     "loser": "Germany",
     "probabilities": {
-      "a_win": 35.3,
-      "draw": 29.9,
-      "b_win": 34.9
+      "a_win": 39.8,
+      "draw": 31.0,
+      "b_win": 29.2
     },
-    "confidence": 34.9,
+    "confidence": 29.2,
     "factors": {
       "strength": 0.0,
       "market_value": 0.0,
-      "player_stats": 0.1,
+      "player_stats": 0.0,
       "odds": 0.0,
-      "home": 0.1,
+      "home": 0.0,
       "climate": 0.0,
-      "travel": -0.0,
+      "travel": 0.0,
       "history": 0.1,
       "morale": 0.0,
       "foreign_pct": 0.0,
@@ -832,18 +832,18 @@
       "squad_depth": 0.0,
       "travel_fatigue": -0.0,
       "experience": 0.0,
-      "trophy_pedigree": 0.0,
+      "trophy_pedigree": -0.0,
       "height_advantage": 0.0,
-      "club_chemistry": 0.1,
+      "club_chemistry": 0.2,
       "stakes": 0.0,
-      "friendly_form": 0.1,
+      "friendly_form": 0.0,
       "real_match_form": 0.0,
       "real_form_a": null,
       "real_form_b": null,
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nGermany, escuadra europeo (ranking 10), alterna buenas y malas actuaciones. Tuvo una preparacion irregular. Ofrece seguridad defensiva moderada. Antonio Rüdiger, Waldemar Anton son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Aleksandar Pavlović, Joshua Kimmich comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Nick Woltemade es su principal amenaza ofensiva (12 goles en la temporada). Joshua Kimmich es el pateador de penales designado. Bajas: Deniz Undav, Marc-Andre Ter Stegen, Serge Gnabry, Lennart Karl. campeon 1954 1974 1990 2014.\n\nNetherlands, escuadra europeo (ranking 8), alterna buenas y malas actuaciones. Dejo dudas en los amistosos previos. Su linea defensiva es dificil de vulnerar. Virgil van Dijk, Nathan Aké son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Marten De Roon, Justin Kluivert comandan la sala de maquinas. Su delantera es de primer nivel mundial. Donyell Malen es su principal amenaza ofensiva (22 goles en la temporada). Cody Gakpo es el pateador de penales designado. Bajas: Xavi Simons, Matthijs de Ligt, Jurrien Timber, Jerdy Schouten. final 1974 1978 2010.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.80). Germany tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Netherlands cuenta con un ataque peligroso (2.0 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Germany cuenta con Manuel Neuer, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Germany.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Netherlands (35% de probabilidad).\nHay riesgo de empate (30%)\nFiabilidad del pronostico: 35%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nGermany, escuadra europeo (ranking 10), arrastra resultados mixtos. Tuvo una preparacion irregular. Su linea de fondo cumple sin sobresaltos. Antonio Rüdiger, Waldemar Anton son sus baluartes en esa zona. Domina la zona de gestacion. Aleksandar Pavlović, Joshua Kimmich comandan la sala de maquinas. Posee una maquina de hacer goles. Nick Woltemade es su principal amenaza ofensiva (12 goles en la temporada). Joshua Kimmich es el pateador de penales designado. Bajas: Deniz Undav, Marc-Andre Ter Stegen, Serge Gnabry, Lennart Karl. campeon 1954 1974 1990 2014.\n\nMorocco, escuadra africano (ranking 7), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea de fondo cumple sin sobresaltos. Chadi Riad, Issa Diop son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Sofyan Amrabat, Ayyoub Bouaddi comandan la sala de maquinas. Su ataque es peligroso. Ayoub El Kaabi es su principal amenaza ofensiva (24 goles en la temporada). Ismael Saibari es el pateador de penales designado. Bajas: Nayef Aguerd, Abde Ezzalzouli. semifinal 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.66). Germany tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Morocco cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Manuel Neuer (8.5/10) y Yassine Bounou (9.0/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Morocco (29% de probabilidad).\nEl empate es un resultado probable (31%)\nEl modelo respalda esta prediccion con un 29% de confianza"
   },
   {
     "round": "R16",
@@ -854,21 +854,21 @@
     "team_b": "Norway",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.77,
-    "expected_goals_b": 1.25,
+    "expected_goals_a": 1.76,
+    "expected_goals_b": 1.26,
     "winner": "France",
     "loser": "Norway",
     "probabilities": {
-      "a_win": 47.5,
-      "draw": 25.9,
-      "b_win": 26.6
+      "a_win": 47.4,
+      "draw": 26.1,
+      "b_win": 26.5
     },
-    "confidence": 47.5,
+    "confidence": 47.4,
     "factors": {
       "strength": 0.5,
       "market_value": 0.4,
       "player_stats": 0.3,
-      "odds": 0.2,
+      "odds": 0.1,
       "home": 0.0,
       "climate": 0.0,
       "travel": 0.0,
@@ -890,7 +890,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nFrance, conjunto europeo (ranking 2), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nNorway, conjunto europeo (ranking 31), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es cumplidora. Kristoffer Ajer, Leo Oestigaard son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Morten Thorsby, Patrick Berg comandan la sala de maquinas. Su delantera es de primer nivel mundial. Erling Haaland es su principal amenaza ofensiva (39 goles en la temporada). Erling Haaland es el pateador de penales designado. octavos 1938 1998.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 3.02). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. Norway cuenta con un ataque peligroso (2.0 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. France cuenta con Mike Maignan, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para France.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por France (48% de probabilidad).\nEmpate posible (26%).\nEl modelo respalda esta prediccion con un 48% de confianza"
+    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nFrance, escuadra europeo (ranking 2), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su retaguardia es solida. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nNorway, planteel europeo (ranking 31), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su defensa es cumplidora. Kristoffer Ajer, Leo Oestigaard son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Morten Thorsby, Patrick Berg comandan la sala de maquinas. Posee una maquina de hacer goles. Erling Haaland es su principal amenaza ofensiva (39 goles en la temporada). Erling Haaland es el pateador de penales designado. octavos 1938 1998.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 3.02). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. Norway cuenta con un ataque peligroso (2.0 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. France cuenta con Mike Maignan, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para France.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por France (47% de probabilidad).\nEmpate posible (26%).\nConfianza del modelo: 47%"
   },
   {
     "round": "R16",
@@ -901,21 +901,21 @@
     "team_b": "England",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.21,
-    "expected_goals_b": 1.6,
+    "expected_goals_a": 1.22,
+    "expected_goals_b": 1.59,
     "winner": "England",
     "loser": "Mexico",
     "probabilities": {
-      "a_win": 26.7,
-      "draw": 30.3,
-      "b_win": 43.1
+      "a_win": 27.1,
+      "draw": 30.1,
+      "b_win": 42.9
     },
-    "confidence": 43.1,
+    "confidence": 42.9,
     "factors": {
       "strength": -0.3,
       "market_value": -0.4,
       "player_stats": -0.6,
-      "odds": -0.2,
+      "odds": -0.1,
       "home": 0.4,
       "climate": 0.3,
       "travel": 0.0,
@@ -931,13 +931,13 @@
       "club_chemistry": -0.1,
       "stakes": 0.0,
       "friendly_form": 0.1,
-      "real_match_form": 0.0,
+      "real_match_form": 0.1,
       "real_form_a": null,
       "real_form_b": null,
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nMexico, escuadra norteamericano (ranking 14), arrastra resultados mixtos. Tuvo una preparacion irregular. Ofrece seguridad defensiva moderada. Jorge Sánchez, César Montes son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Edson Álvarez, Érik Lira comandan la sala de maquinas. Su delantera puede lastimar. Julian Quiñones es su principal amenaza ofensiva (37 goles en la temporada). Raul Jimenez es el pateador de penales designado. Bajas: Luis Angel Malagon. cuartos 1986 1970.\n\nEngland, planteel europeo (ranking 4), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Ezri Konsa, Nico O&#x27;Reilly son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Declan Rice, Elliot Anderson comandan la sala de maquinas. Posee una maquina de hacer goles. Harry Kane es su principal amenaza ofensiva (61 goles en la temporada). Harry Kane es el pateador de penales designado. Bajas: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire, Jack Grealish, Ben White. campeon 1966.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nPartido parejo que se definira por detalles (xG total: 2.81). Mexico tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. England cuenta con un ataque peligroso (2.2 goles/partido). England cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Guillermo Ochoa (8.0/10) y Jordan Pickford (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por England (43% de probabilidad).\nCuidado con la igualdad (30%)\nFiabilidad del pronostico: 43%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nMexico, escuadra norteamericano (ranking 14), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su defensa es cumplidora. Jorge Sánchez, César Montes son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Edson Álvarez, Érik Lira comandan la sala de maquinas. Tiene argumentos ofensivos. Julian Quiñones es su principal amenaza ofensiva (37 goles en la temporada). Raul Jimenez es el pateador de penales designado. Bajas: Luis Angel Malagon. cuartos 1986 1970.\n\nEngland, escuadra europeo (ranking 4), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Ezri Konsa, Nico O&#x27;Reilly son sus baluartes en esa zona. Tiene una medular de primer nivel. Declan Rice, Elliot Anderson comandan la sala de maquinas. Su delantera es de primer nivel mundial. Harry Kane es su principal amenaza ofensiva (61 goles en la temporada). Harry Kane es el pateador de penales designado. Bajas: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire, Jack Grealish, Ben White. campeon 1966.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.81). Mexico tiene poderio ofensivo (1.8 goles/partido) y buscara imponer su juego. England cuenta con un ataque peligroso (2.2 goles/partido). England cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Guillermo Ochoa (8.0/10) y Jordan Pickford (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por England (43% de probabilidad).\nCuidado con la igualdad (30%)\nEl modelo respalda esta prediccion con un 43% de confianza"
   },
   {
     "round": "R16",
@@ -953,11 +953,11 @@
     "winner": "Belgium",
     "loser": "USA",
     "probabilities": {
-      "a_win": 34.7,
-      "draw": 28.5,
-      "b_win": 36.7
+      "a_win": 35.5,
+      "draw": 28.3,
+      "b_win": 36.2
     },
-    "confidence": 36.7,
+    "confidence": 36.2,
     "factors": {
       "strength": -0.1,
       "market_value": -0.3,
@@ -978,13 +978,13 @@
       "club_chemistry": -0.1,
       "stakes": 0.0,
       "friendly_form": -0.2,
-      "real_match_form": 0.0,
+      "real_match_form": 0.1,
       "real_form_a": null,
       "real_form_b": null,
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nUSA, planteel norteamericano (ranking 16), tiene un rendimiento irregular. Dejo dudas en los amistosos previos. Su defensa es cumplidora. Sergino Dest, Chris Richards son sus baluartes en esa zona. Domina la zona de gestacion. Tyler Adams, Giovanni Reyna comandan la sala de maquinas. Su ataque es letal. Folarin Balogun es su principal amenaza ofensiva (23 goles en la temporada). Christian Pulisic es el pateador de penales designado. Bajas: Patrick Agyemang. semifinal 1930.\n\nBelgium, escuadra europeo (ranking 9), arrastra resultados mixtos. Dejo sensaciones muy positivas en los amistosos. Ofrece seguridad defensiva moderada. Zeno Debast, Arthur Theate son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Axel Witsel, Kevin De Bruyne comandan la sala de maquinas. Posee una maquina de hacer goles. Leandro Trossard es su principal amenaza ofensiva (8 goles en la temporada). Romelu Lukaku es el pateador de penales designado. semifinal 2018.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.80). USA tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Belgium cuenta con un ataque peligroso (1.9 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Belgium cuenta con Thibaut Courtois, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Belgium.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Belgium (37% de probabilidad).\nCuidado con la igualdad (28%)\nEl modelo respalda esta prediccion con un 37% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nUSA, conjunto norteamericano (ranking 16), tiene un rendimiento irregular. No logro consolidarse en la preparacion. Ofrece seguridad defensiva moderada. Sergino Dest, Chris Richards son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Tyler Adams, Giovanni Reyna comandan la sala de maquinas. Posee una maquina de hacer goles. Folarin Balogun es su principal amenaza ofensiva (23 goles en la temporada). Christian Pulisic es el pateador de penales designado. Bajas: Patrick Agyemang. semifinal 1930.\n\nBelgium, conjunto europeo (ranking 9), arrastra resultados mixtos. Dejo sensaciones muy positivas en los amistosos. Su linea de fondo cumple sin sobresaltos. Zeno Debast, Arthur Theate son sus baluartes en esa zona. Tiene una medular de primer nivel. Axel Witsel, Kevin De Bruyne comandan la sala de maquinas. Posee una maquina de hacer goles. Leandro Trossard es su principal amenaza ofensiva (8 goles en la temporada). Romelu Lukaku es el pateador de penales designado. semifinal 2018.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.80). USA tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Belgium cuenta con un ataque peligroso (1.9 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Belgium cuenta con Thibaut Courtois, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Belgium.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Belgium (36% de probabilidad).\nHay riesgo de empate (28%)\nConfianza del modelo: 36%"
   },
   {
     "round": "R16",
@@ -995,21 +995,21 @@
     "team_b": "Spain",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.03,
-    "expected_goals_b": 1.7,
+    "expected_goals_a": 1.04,
+    "expected_goals_b": 1.69,
     "winner": "Spain",
     "loser": "Croatia",
     "probabilities": {
-      "a_win": 21.8,
-      "draw": 28.3,
-      "b_win": 49.9
+      "a_win": 21.9,
+      "draw": 28.4,
+      "b_win": 49.7
     },
-    "confidence": 49.9,
+    "confidence": 49.7,
     "factors": {
       "strength": -0.2,
       "market_value": -0.4,
       "player_stats": -0.1,
-      "odds": -0.2,
+      "odds": -0.1,
       "home": -0.0,
       "climate": -0.1,
       "travel": -0.0,
@@ -1031,7 +1031,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nCroatia, conjunto europeo (ranking 11), alterna buenas y malas actuaciones. Preocupo en los amistosos. Su linea de fondo cumple sin sobresaltos. Josip Stanišić, Marin Pongracic son sus baluartes en esa zona. Domina la zona de gestacion. Nikola Moro, Andrej Kramaric comandan la sala de maquinas. Su delantera puede lastimar. Ante Budimir es su principal amenaza ofensiva (19 goles en la temporada). Luka Modric es el pateador de penales designado. final 2018, semifinal 2022.\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Domina la zona de gestacion. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Su delantera es de primer nivel mundial. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nPartido parejo que se definira por detalles (xG total: 2.73). Croatia tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego. Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Dominik Livakovic (9.0/10) y David Raya (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Spain (50% de probabilidad).\nEl empate es un resultado probable (28%)\nConfianza del modelo: 50%"
+    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nCroatia, escuadra europeo (ranking 11), alterna buenas y malas actuaciones. Preocupo en los amistosos. Su linea de fondo cumple sin sobresaltos. Josip Stanišić, Marin Pongracic son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Nikola Moro, Andrej Kramaric comandan la sala de maquinas. Su ataque es peligroso. Ante Budimir es su principal amenaza ofensiva (19 goles en la temporada). Luka Modric es el pateador de penales designado. final 2018, semifinal 2022.\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nPartido parejo que se definira por detalles (xG total: 2.73). Croatia tiene poderio ofensivo (1.6 goles/partido) y buscara imponer su juego. Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Dominik Livakovic (9.0/10) y David Raya (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Spain (50% de probabilidad).\nCuidado con la igualdad (28%)\nFiabilidad del pronostico: 50%"
   },
   {
     "round": "R16",
@@ -1042,21 +1042,21 @@
     "team_b": "Argentina",
     "score_a": 1,
     "score_b": 2,
-    "expected_goals_a": 1.05,
+    "expected_goals_a": 1.06,
     "expected_goals_b": 1.68,
     "winner": "Argentina",
     "loser": "Switzerland",
     "probabilities": {
-      "a_win": 22.3,
-      "draw": 28.5,
-      "b_win": 49.2
+      "a_win": 22.5,
+      "draw": 28.3,
+      "b_win": 49.1
     },
-    "confidence": 49.2,
+    "confidence": 49.1,
     "factors": {
       "strength": -0.4,
       "market_value": -0.5,
       "player_stats": -0.5,
-      "odds": -0.2,
+      "odds": -0.1,
       "home": -0.1,
       "climate": 0.0,
       "travel": -0.0,
@@ -1078,7 +1078,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSwitzerland, escuadra europeo (ranking 19), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. Miro Muheim, Silvan Widmer son sus baluartes en esa zona. Domina la zona de gestacion. Denis Zakaria, Remo Freuler comandan la sala de maquinas. Su ataque es peligroso. Cedric Itten es su principal amenaza ofensiva (16 goles en la temporada). Breel Embolo es el pateador de penales designado. cuartos 1934 1938 1954.\n\nArgentina, escuadra sudamericano (ranking 1), vive un presente dulce. Cumplio en los amistosos sin brillar. Su defensa es un fortin. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.73). Switzerland tiene poderio ofensivo (1.7 goles/partido) y buscara imponer su juego. Argentina cuenta con un ataque peligroso (2.1 goles/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Argentina cuenta con Emiliano Martinez, especialista en atajar penales (9.5/10). Si el partido llega a los penales, la ventaja es para Argentina.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (49% de probabilidad).\nHay riesgo de empate (28%)\nEl modelo respalda esta prediccion con un 49% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSwitzerland, escuadra europeo (ranking 19), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Ofrece seguridad defensiva moderada. Miro Muheim, Silvan Widmer son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Denis Zakaria, Remo Freuler comandan la sala de maquinas. Su ataque es peligroso. Cedric Itten es su principal amenaza ofensiva (16 goles en la temporada). Breel Embolo es el pateador de penales designado. cuartos 1934 1938 1954.\n\nArgentina, planteel sudamericano (ranking 1), esta en un estado de forma impecable. Tuvo una preparacion irregular. Su linea defensiva es dificil de vulnerar. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.74). Switzerland tiene poderio ofensivo (1.7 goles/partido) y buscara imponer su juego. Argentina cuenta con un ataque peligroso (2.1 goles/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Argentina cuenta con Emiliano Martinez, especialista en atajar penales (9.5/10). Si el partido llega a los penales, la ventaja es para Argentina.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (49% de probabilidad).\nCuidado con la igualdad (28%)\nEl modelo respalda esta prediccion con un 49% de confianza"
   },
   {
     "round": "R16",
@@ -1089,21 +1089,21 @@
     "team_b": "Turkey",
     "score_a": 2,
     "score_b": 1,
-    "expected_goals_a": 1.68,
+    "expected_goals_a": 1.67,
     "expected_goals_b": 1.24,
     "winner": "Portugal",
     "loser": "Turkey",
     "probabilities": {
-      "a_win": 46.3,
-      "draw": 25.9,
-      "b_win": 27.9
+      "a_win": 45.6,
+      "draw": 26.2,
+      "b_win": 28.2
     },
-    "confidence": 46.3,
+    "confidence": 45.6,
     "factors": {
       "strength": 0.3,
       "market_value": 0.5,
       "player_stats": 0.3,
-      "odds": 0.2,
+      "odds": 0.1,
       "home": 0.0,
       "climate": 0.0,
       "travel": -0.0,
@@ -1125,7 +1125,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nPortugal, conjunto europeo (ranking 5), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Nelson Semedo, Ruben Dias son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Bruno Fernandes, Bernardo Silva comandan la sala de maquinas. Su ataque es letal. Cristiano Ronaldo es su principal amenaza ofensiva (30 goles en la temporada). Cristiano Ronaldo es el pateador de penales designado. semifinal 1966 2006.\n\nTurkey, conjunto europeo (ranking 22), tiene un rendimiento irregular. Cumplio en los amistosos sin brillar. Su linea de fondo cumple sin sobresaltos. Zeki Celik, Merih Demiral son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Orkun Kökçü, Arda Güler comandan la sala de maquinas. Su ataque es peligroso. Kerem Aktürkoğlu es su principal amenaza ofensiva (17 goles en la temporada). Hakan Calhanoglu es el pateador de penales designado. semifinal 2002.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.92). Portugal tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Turkey cuenta con un ataque peligroso (1.8 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Portugal cuenta con Diogo Costa, especialista en atajar penales (9.0/10). Si el partido llega a los penales, la ventaja es para Portugal.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Portugal (46% de probabilidad).\nEmpate posible (26%).\nEl modelo respalda esta prediccion con un 46% de confianza"
+    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nPortugal, escuadra europeo (ranking 5), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Nelson Semedo, Ruben Dias son sus baluartes en esa zona. Tiene una medular de primer nivel. Bruno Fernandes, Bernardo Silva comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Cristiano Ronaldo es su principal amenaza ofensiva (30 goles en la temporada). Cristiano Ronaldo es el pateador de penales designado. semifinal 1966 2006.\n\nTurkey, conjunto europeo (ranking 22), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Ofrece seguridad defensiva moderada. Zeki Celik, Merih Demiral son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Orkun Kökçü, Arda Güler comandan la sala de maquinas. Su ataque es peligroso. Kerem Aktürkoğlu es su principal amenaza ofensiva (17 goles en la temporada). Hakan Calhanoglu es el pateador de penales designado. semifinal 2002.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.91). Portugal tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Turkey cuenta con un ataque peligroso (1.8 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Portugal cuenta con Diogo Costa, especialista en atajar penales (9.0/10). Si el partido llega a los penales, la ventaja es para Portugal.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Portugal (46% de probabilidad).\nEmpate posible (26%).\nFiabilidad del pronostico: 46%"
   },
   {
     "round": "QF",
@@ -1133,37 +1133,37 @@
     "time": "",
     "venue": "Philadelphia",
     "team_a": "Brazil",
-    "team_b": "Netherlands",
-    "score_a": 1,
-    "score_b": 0,
-    "expected_goals_a": 1.49,
-    "expected_goals_b": 1.36,
+    "team_b": "Morocco",
+    "score_a": 2,
+    "score_b": 1,
+    "expected_goals_a": 1.52,
+    "expected_goals_b": 1.18,
     "winner": "Brazil",
-    "loser": "Netherlands",
+    "loser": "Morocco",
     "probabilities": {
-      "a_win": 37.3,
-      "draw": 29.0,
-      "b_win": 33.7
+      "a_win": 42.3,
+      "draw": 29.4,
+      "b_win": 28.3
     },
-    "confidence": 37.3,
+    "confidence": 42.3,
     "factors": {
       "strength": 0.1,
       "market_value": 0.0,
       "player_stats": 0.1,
       "odds": 0.1,
       "home": 0.1,
-      "climate": 0.2,
+      "climate": 0.1,
       "travel": 0.0,
       "history": 0.1,
-      "morale": 0.0,
+      "morale": -0.0,
       "foreign_pct": -0.0,
       "rest_days": 0.0,
       "squad_depth": -0.1,
       "travel_fatigue": 0.0,
-      "experience": -0.0,
-      "trophy_pedigree": 0.0,
-      "height_advantage": -0.0,
-      "club_chemistry": -0.1,
+      "experience": 0.0,
+      "trophy_pedigree": -0.0,
+      "height_advantage": 0.0,
+      "club_chemistry": 0.0,
       "stakes": 0.0,
       "friendly_form": 0.1,
       "real_match_form": 0.0,
@@ -1172,7 +1172,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nBrazil, escuadra sudamericano (ranking 6), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su linea defensiva es dificil de vulnerar. Marquinhos, Alex Sandro son sus baluartes en esa zona. Tiene una medular de primer nivel. Casemiro, Bruno Guimarães comandan la sala de maquinas. Posee una maquina de hacer goles. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nNetherlands, escuadra europeo (ranking 8), alterna buenas y malas actuaciones. Dejo dudas en los amistosos previos. Su linea defensiva es dificil de vulnerar. Virgil van Dijk, Nathan Aké son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Marten De Roon, Justin Kluivert comandan la sala de maquinas. Su delantera es de primer nivel mundial. Donyell Malen es su principal amenaza ofensiva (22 goles en la temporada). Cody Gakpo es el pateador de penales designado. Bajas: Xavi Simons, Matthijs de Ligt, Jurrien Timber, Jerdy Schouten. final 1974 1978 2010.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.85). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Netherlands cuenta con un ataque peligroso (2.0 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Brazil cuenta con Alisson, especialista en atajar penales (8.5/10). Si el partido llega a los penales, la ventaja es para Brazil.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Brazil (37% de probabilidad).\nCuidado con la igualdad (29%)\nFiabilidad del pronostico: 37%"
+    "analysis": "CHOQUE DE TITANES - Dos potencias mundiales frente a frente\n\nBrazil, planteel sudamericano (ranking 6), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Su defensa es un fortin. Marquinhos, Alex Sandro son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Casemiro, Bruno Guimarães comandan la sala de maquinas. Su ataque es letal. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nMorocco, escuadra africano (ranking 7), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea de fondo cumple sin sobresaltos. Chadi Riad, Issa Diop son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Sofyan Amrabat, Ayyoub Bouaddi comandan la sala de maquinas. Su ataque es peligroso. Ayoub El Kaabi es su principal amenaza ofensiva (24 goles en la temporada). Ismael Saibari es el pateador de penales designado. Bajas: Nayef Aguerd, Abde Ezzalzouli. semifinal 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.70). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Morocco cuenta con un ataque peligroso (1.6 goles/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Alisson (8.5/10) y Yassine Bounou (9.0/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Brazil (42% de probabilidad).\nEl empate es un resultado probable (29%)\nEl modelo respalda esta prediccion con un 42% de confianza"
   },
   {
     "round": "QF",
@@ -1183,21 +1183,21 @@
     "team_b": "England",
     "score_a": 1,
     "score_b": 0,
-    "expected_goals_a": 1.5,
-    "expected_goals_b": 1.45,
+    "expected_goals_a": 1.49,
+    "expected_goals_b": 1.46,
     "winner": "France",
     "loser": "England",
     "probabilities": {
-      "a_win": 37.3,
-      "draw": 28.0,
-      "b_win": 34.7
+      "a_win": 37.0,
+      "draw": 28.2,
+      "b_win": 34.8
     },
-    "confidence": 37.3,
+    "confidence": 37.0,
     "factors": {
       "strength": 0.0,
       "market_value": 0.0,
       "player_stats": -0.2,
-      "odds": 0.1,
+      "odds": 0.0,
       "home": -0.0,
       "climate": 0.0,
       "travel": -0.0,
@@ -1219,7 +1219,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nFrance, conjunto europeo (ranking 2), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nEngland, planteel europeo (ranking 4), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Ezri Konsa, Nico O&#x27;Reilly son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Declan Rice, Elliot Anderson comandan la sala de maquinas. Posee una maquina de hacer goles. Harry Kane es su principal amenaza ofensiva (61 goles en la temporada). Harry Kane es el pateador de penales designado. Bajas: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire, Jack Grealish, Ben White. campeon 1966.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.95). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. England cuenta con un ataque peligroso (2.2 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido). England cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Mike Maignan (8.5/10) y Jordan Pickford (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por France (37% de probabilidad).\nCuidado con la igualdad (28%)\nEl modelo respalda esta prediccion con un 37% de confianza"
+    "analysis": "CLASICO CONTINENTAL - Duelo de maxima rivalidad regional\n\nFrance, escuadra europeo (ranking 2), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su retaguardia es solida. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nEngland, escuadra europeo (ranking 4), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Ezri Konsa, Nico O&#x27;Reilly son sus baluartes en esa zona. Tiene una medular de primer nivel. Declan Rice, Elliot Anderson comandan la sala de maquinas. Su delantera es de primer nivel mundial. Harry Kane es su principal amenaza ofensiva (61 goles en la temporada). Harry Kane es el pateador de penales designado. Bajas: Cole Palmer, Phil Foden, Trent Alexander-Arnold, Harry Maguire, Jack Grealish, Ben White. campeon 1966.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.95). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. England cuenta con un ataque peligroso (2.2 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido). England cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Mike Maignan (8.5/10) y Jordan Pickford (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por France (37% de probabilidad).\nHay riesgo de empate (28%)\nConfianza del modelo: 37%"
   },
   {
     "round": "QF",
@@ -1231,20 +1231,20 @@
     "score_a": 1,
     "score_b": 2,
     "expected_goals_a": 1.21,
-    "expected_goals_b": 1.61,
+    "expected_goals_b": 1.6,
     "winner": "Spain",
     "loser": "Belgium",
     "probabilities": {
-      "a_win": 26.7,
-      "draw": 28.1,
-      "b_win": 45.3
+      "a_win": 27.1,
+      "draw": 27.9,
+      "b_win": 45.0
     },
-    "confidence": 45.3,
+    "confidence": 45.0,
     "factors": {
       "strength": -0.2,
       "market_value": -0.0,
       "player_stats": -0.2,
-      "odds": -0.2,
+      "odds": -0.1,
       "home": -0.0,
       "climate": -0.1,
       "travel": -0.1,
@@ -1266,7 +1266,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CHOQUE DE TITANES - Dos potencias mundiales frente a frente\n\nBelgium, escuadra europeo (ranking 9), arrastra resultados mixtos. Dejo sensaciones muy positivas en los amistosos. Ofrece seguridad defensiva moderada. Zeno Debast, Arthur Theate son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Axel Witsel, Kevin De Bruyne comandan la sala de maquinas. Posee una maquina de hacer goles. Leandro Trossard es su principal amenaza ofensiva (8 goles en la temporada). Romelu Lukaku es el pateador de penales designado. semifinal 2018.\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Domina la zona de gestacion. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Su delantera es de primer nivel mundial. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.82). Belgium tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Thibaut Courtois (8.5/10) y David Raya (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Spain (45% de probabilidad).\nCuidado con la igualdad (28%)\nConfianza del modelo: 45%"
+    "analysis": "CHOQUE DE TITANES - Dos potencias mundiales frente a frente\n\nBelgium, conjunto europeo (ranking 9), arrastra resultados mixtos. Dejo sensaciones muy positivas en los amistosos. Su linea de fondo cumple sin sobresaltos. Zeno Debast, Arthur Theate son sus baluartes en esa zona. Tiene una medular de primer nivel. Axel Witsel, Kevin De Bruyne comandan la sala de maquinas. Posee una maquina de hacer goles. Leandro Trossard es su principal amenaza ofensiva (8 goles en la temporada). Romelu Lukaku es el pateador de penales designado. semifinal 2018.\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.81). Belgium tiene poderio ofensivo (1.9 goles/partido) y buscara imponer su juego. Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Thibaut Courtois (8.5/10) y David Raya (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Spain (45% de probabilidad).\nEmpate posible (28%).\nConfianza del modelo: 45%"
   },
   {
     "round": "QF",
@@ -1284,7 +1284,7 @@
     "probabilities": {
       "a_win": 39.1,
       "draw": 27.3,
-      "b_win": 33.5
+      "b_win": 33.6
     },
     "confidence": 39.1,
     "factors": {
@@ -1313,7 +1313,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nArgentina, escuadra sudamericano (ranking 1), vive un presente dulce. Cumplio en los amistosos sin brillar. Su defensa es un fortin. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nPortugal, conjunto europeo (ranking 5), alterna buenas y malas actuaciones. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Nelson Semedo, Ruben Dias son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Bruno Fernandes, Bernardo Silva comandan la sala de maquinas. Su ataque es letal. Cristiano Ronaldo es su principal amenaza ofensiva (30 goles en la temporada). Cristiano Ronaldo es el pateador de penales designado. semifinal 1966 2006.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.80). Argentina tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Portugal cuenta con un ataque peligroso (2.1 goles/partido). Argentina se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Emiliano Martinez (9.5/10) y Diogo Costa (9.0/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (39% de probabilidad).\nEmpate posible (27%).\nFiabilidad del pronostico: 39%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nArgentina, planteel sudamericano (ranking 1), esta en un estado de forma impecable. Tuvo una preparacion irregular. Su linea defensiva es dificil de vulnerar. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nPortugal, escuadra europeo (ranking 5), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Nelson Semedo, Ruben Dias son sus baluartes en esa zona. Tiene una medular de primer nivel. Bruno Fernandes, Bernardo Silva comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Cristiano Ronaldo es su principal amenaza ofensiva (30 goles en la temporada). Cristiano Ronaldo es el pateador de penales designado. semifinal 1966 2006.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.80). Argentina tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Portugal cuenta con un ataque peligroso (2.1 goles/partido). Argentina se destaca por su solidez defensiva (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Emiliano Martinez (9.5/10) y Diogo Costa (9.0/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (39% de probabilidad).\nEmpate posible (27%).\nEl modelo respalda esta prediccion con un 39% de confianza"
   },
   {
     "round": "SF",
@@ -1329,8 +1329,8 @@
     "winner": "France",
     "loser": "Brazil",
     "probabilities": {
-      "a_win": 31.0,
-      "draw": 28.7,
+      "a_win": 31.3,
+      "draw": 28.3,
       "b_win": 40.3
     },
     "confidence": 40.3,
@@ -1360,7 +1360,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "CHOQUE DE TITANES - Dos potencias mundiales frente a frente\n\nBrazil, escuadra sudamericano (ranking 6), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su linea defensiva es dificil de vulnerar. Marquinhos, Alex Sandro son sus baluartes en esa zona. Tiene una medular de primer nivel. Casemiro, Bruno Guimarães comandan la sala de maquinas. Posee una maquina de hacer goles. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nFrance, conjunto europeo (ranking 2), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.95). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. France cuenta con un ataque peligroso (2.3 goles/partido). France cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Alisson (8.5/10) y Mike Maignan (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por France (40% de probabilidad).\nCuidado con la igualdad (29%)\nFiabilidad del pronostico: 40%"
+    "analysis": "CHOQUE DE TITANES - Dos potencias mundiales frente a frente\n\nBrazil, planteel sudamericano (ranking 6), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Su defensa es un fortin. Marquinhos, Alex Sandro son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Casemiro, Bruno Guimarães comandan la sala de maquinas. Su ataque es letal. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nFrance, escuadra europeo (ranking 2), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su retaguardia es solida. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.95). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. France cuenta con un ataque peligroso (2.3 goles/partido). France cuenta con una defensa solida (0.7 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Alisson (8.5/10) y Mike Maignan (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por France (40% de probabilidad).\nEl empate es un resultado probable (28%)\nEl modelo respalda esta prediccion con un 40% de confianza"
   },
   {
     "round": "SF",
@@ -1371,21 +1371,21 @@
     "team_b": "Argentina",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.4,
-    "expected_goals_b": 1.35,
+    "expected_goals_a": 1.39,
+    "expected_goals_b": 1.36,
     "winner": "Argentina",
     "loser": "Spain",
     "probabilities": {
-      "a_win": 36.7,
-      "draw": 29.7,
-      "b_win": 33.6
+      "a_win": 36.5,
+      "draw": 29.6,
+      "b_win": 33.9
     },
-    "confidence": 33.6,
+    "confidence": 33.9,
     "factors": {
       "strength": -0.0,
       "market_value": 0.0,
       "player_stats": -0.1,
-      "odds": 0.2,
+      "odds": 0.1,
       "home": -0.1,
       "climate": 0.0,
       "travel": 0.0,
@@ -1407,7 +1407,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Domina la zona de gestacion. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Su delantera es de primer nivel mundial. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nArgentina, escuadra sudamericano (ranking 1), vive un presente dulce. Cumplio en los amistosos sin brillar. Su defensa es un fortin. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.75). Spain tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego. Argentina cuenta con un ataque peligroso (2.1 goles/partido). Spain se destaca por su solidez defensiva (0.6 goles recibidos/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: David Raya (8.5/10) y Emiliano Martinez (9.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (34% de probabilidad).\nCuidado con la igualdad (30%)\nEl modelo respalda esta prediccion con un 34% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nArgentina, planteel sudamericano (ranking 1), esta en un estado de forma impecable. Tuvo una preparacion irregular. Su linea defensiva es dificil de vulnerar. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.75). Spain tiene poderio ofensivo (2.2 goles/partido) y buscara imponer su juego. Argentina cuenta con un ataque peligroso (2.1 goles/partido). Spain se destaca por su solidez defensiva (0.6 goles recibidos/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: David Raya (8.5/10) y Emiliano Martinez (9.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (34% de probabilidad).\nHay riesgo de empate (30%)\nFiabilidad del pronostico: 34%"
   },
   {
     "round": "3°",
@@ -1419,20 +1419,20 @@
     "score_a": 0,
     "score_b": 1,
     "expected_goals_a": 1.33,
-    "expected_goals_b": 1.53,
+    "expected_goals_b": 1.52,
     "winner": "Spain",
     "loser": "Brazil",
     "probabilities": {
-      "a_win": 31.3,
+      "a_win": 31.6,
       "draw": 29.5,
-      "b_win": 39.1
+      "b_win": 38.9
     },
-    "confidence": 39.1,
+    "confidence": 38.9,
     "factors": {
       "strength": -0.1,
       "market_value": 0.0,
       "player_stats": -0.1,
-      "odds": -0.2,
+      "odds": -0.1,
       "home": 0.1,
       "climate": 0.1,
       "travel": -0.0,
@@ -1454,7 +1454,7 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nBrazil, escuadra sudamericano (ranking 6), alterna buenas y malas actuaciones. Cumplio en los amistosos sin brillar. Su linea defensiva es dificil de vulnerar. Marquinhos, Alex Sandro son sus baluartes en esa zona. Tiene una medular de primer nivel. Casemiro, Bruno Guimarães comandan la sala de maquinas. Posee una maquina de hacer goles. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Domina la zona de gestacion. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Su delantera es de primer nivel mundial. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nPartido de mata-mata. No hay segunda oportunidad\n\nPartido parejo que se definira por detalles (xG total: 2.86). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Alisson (8.5/10) y David Raya (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Spain (39% de probabilidad).\nCuidado con la igualdad (30%)\nFiabilidad del pronostico: 39%"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nBrazil, planteel sudamericano (ranking 6), tiene un rendimiento irregular. Mezclo altibajos en los amistosos. Su defensa es un fortin. Marquinhos, Alex Sandro son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Casemiro, Bruno Guimarães comandan la sala de maquinas. Su ataque es letal. Igor Thiago es su principal amenaza ofensiva (27 goles en la temporada). Neymar es el pateador de penales designado. Bajas: Rodrygo, Estevao, Eder Militao, Wesley. campeon 1958 1962 1970 1994 2002.\n\nSpain, conjunto europeo (ranking 3), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su defensa es un fortin. Marc Pubill, Alex Grimaldo son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Mikel Merino, Fabián Ruiz comandan la sala de maquinas. Tiene un poderio ofensivo arrollador. Lamine Yamal es su principal amenaza ofensiva (24 goles en la temporada). Mikel Oyarzabal es el pateador de penales designado. Bajas: Fermin Lopez, Samu Omorodion. campeon 2010.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nDuelo tactico donde los pequenos detalles marcaran la diferencia (xG total: 2.85). Brazil tiene poderio ofensivo (2.1 goles/partido) y buscara imponer su juego. Spain cuenta con un ataque peligroso (2.2 goles/partido). Spain cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Alisson (8.5/10) y David Raya (8.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Spain (39% de probabilidad).\nEl empate es un resultado probable (30%)\nEl modelo respalda esta prediccion con un 39% de confianza"
   },
   {
     "round": "Final",
@@ -1465,16 +1465,16 @@
     "team_b": "Argentina",
     "score_a": 0,
     "score_b": 1,
-    "expected_goals_a": 1.46,
-    "expected_goals_b": 1.39,
+    "expected_goals_a": 1.45,
+    "expected_goals_b": 1.4,
     "winner": "Argentina",
     "loser": "France",
     "probabilities": {
-      "a_win": 36.7,
-      "draw": 28.9,
-      "b_win": 34.3
+      "a_win": 36.9,
+      "draw": 29.1,
+      "b_win": 34.1
     },
-    "confidence": 34.3,
+    "confidence": 34.1,
     "factors": {
       "strength": -0.0,
       "market_value": 0.0,
@@ -1501,6 +1501,6 @@
       "stakes_a": null,
       "stakes_b": null
     },
-    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nFrance, conjunto europeo (ranking 2), arrastra resultados mixtos. Disputo amistosos sin resultados destacados. Su linea defensiva es dificil de vulnerar. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nArgentina, escuadra sudamericano (ranking 1), vive un presente dulce. Cumplio en los amistosos sin brillar. Su defensa es un fortin. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nEliminacion directa. Un paso en falso y te vas a casa\n\nSe espera un partido de ritmo moderado (xG total: 2.85). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. Argentina cuenta con un ataque peligroso (2.1 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Mike Maignan (8.5/10) y Emiliano Martinez (9.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (34% de probabilidad).\nCuidado con la igualdad (29%)\nEl modelo respalda esta prediccion con un 34% de confianza"
+    "analysis": "PARTIDO TRAMPA - Cuidado con la igualdad\n\nFrance, escuadra europeo (ranking 2), tiene un rendimiento irregular. Disputo amistosos sin resultados destacados. Su retaguardia es solida. Malo Gusto, Lucas Digne son sus baluartes en esa zona. Su mediocampo marca el ritmo del partido. Manu Kone, Aurélien Tchouaméni comandan la sala de maquinas. Su ataque es letal. Kylian Mbappe es su principal amenaza ofensiva (43 goles en la temporada). Kylian Mbappe es el pateador de penales designado. Bajas: Hugo Ekitike. campeon 1998 2018.\n\nArgentina, planteel sudamericano (ranking 1), esta en un estado de forma impecable. Tuvo una preparacion irregular. Su linea defensiva es dificil de vulnerar. Nicolás Tagliafico, Gonzalo Montiel son sus baluartes en esa zona. Su mediocampo es creativo y dinamico. Leandro Paredes, Rodrigo De Paul comandan la sala de maquinas. Su ataque es letal. Lautaro Martínez es su principal amenaza ofensiva (25 goles en la temporada). Lionel Messi es el pateador de penales designado. Bajas: Leonardo Balerdi, Juan Foyth, Joaquin Panichelli. campeon 1978 1986 2022.\n\nTodo o nada. El perdedor queda eliminado del Mundial\n\nSe espera un partido de ritmo moderado (xG total: 2.85). France tiene poderio ofensivo (2.3 goles/partido) y buscara imponer su juego. Argentina cuenta con un ataque peligroso (2.1 goles/partido). France se destaca por su solidez defensiva (0.7 goles recibidos/partido). Argentina cuenta con una defensa solida (0.6 goles recibidos/partido).\n\nEl porcentaje de empate es alto, lo que podria llevar el partido a tiempo extra y posiblemente a penales. Ambos arqueros son especialistas: Mike Maignan (8.5/10) y Emiliano Martinez (9.5/10). Si la definicion es desde los 12 pasos, seria un duelo de alto nivel.\n\n--- VEREDICTO PRODE ---\nPartido muy parejo, pero el modelo se inclina por Argentina (34% de probabilidad).\nHay riesgo de empate (29%)\nConfianza del modelo: 34%"
   }
 ]

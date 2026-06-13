@@ -18,11 +18,12 @@ def _safe(text):
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from prode_mundial import data
 from prode_mundial.bracket import run_full_simulation
 from prode_mundial.output import export_all, export_player_standings
 from prode_mundial.top_scorer import compute_top_scorers
 from prode_mundial.real_results import load_real_results
-from prode_mundial.player_ratings import PlayerRatingsDB
+from prode_mundial.player_ratings import PlayerRatingsDB, PLAYER_RATINGS_DB
 
 def run_top_scorers(group_predictions, ko_predictions):
     """Imprime tabla de goleadores en consola."""
@@ -59,8 +60,26 @@ def main():
         print("Simulación completa (1500 simulaciones por partido)...")
         print()
 
+    avg_player_ratings = {}
+    avg_team_ratings = {}
+    try:
+        PLAYER_RATINGS_DB.seed_if_empty()
+        for team in data.TEAMS:
+            apr = PLAYER_RATINGS_DB.get_team_avg_ratings(team)
+            if apr:
+                avg_player_ratings[team] = apr
+            atr = PLAYER_RATINGS_DB.get_team_avg_team_rating(team)
+            if atr != 0.0:
+                avg_team_ratings[team] = atr
+    except ImportError:
+        pass
+
     with redirect_stdout(StringIO()) if top_scorer_only else nullcontext():
-        group_predictions, group_results, ko_predictions = run_full_simulation(real_results=real_results)
+        group_predictions, group_results, ko_predictions = run_full_simulation(
+            real_results=real_results,
+            avg_player_ratings=avg_player_ratings,
+            avg_team_ratings=avg_team_ratings,
+        )
 
     if not top_scorer_only:
         print()

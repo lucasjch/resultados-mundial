@@ -156,9 +156,25 @@ class ProdeGUI:
                 import prode_mundial.top_scorer as _pmt
                 import prode_mundial.output as _pmo
                 import prode_mundial.real_results as _pmr
+                import prode_mundial.data as _pmd
+                import prode_mundial.player_ratings as _pmpr
                 _rr_path = os.path.join(OUTPUT_DIR, "real_results.json")
                 _real_results = _pmr.load_real_results(_rr_path) if os.path.exists(_rr_path) else None
-                gp, gr, kp = _pmb.run_full_simulation(quiet=True, real_results=_real_results)
+                _apr = {}
+                _atr = {}
+                try:
+                    _pmpr.PLAYER_RATINGS_DB.seed_if_empty()
+                    for _t in _pmd.TEAMS:
+                        _a = _pmpr.PLAYER_RATINGS_DB.get_team_avg_ratings(_t)
+                        if _a:
+                            _apr[_t] = _a
+                        _r = _pmpr.PLAYER_RATINGS_DB.get_team_avg_team_rating(_t)
+                        if _r != 0.0:
+                            _atr[_t] = _r
+                except ImportError:
+                    pass
+                gp, gr, kp = _pmb.run_full_simulation(quiet=True, real_results=_real_results,
+                                                       avg_player_ratings=_apr, avg_team_ratings=_atr)
                 scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
                 goleadores = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
                 tables = gr
@@ -1587,9 +1603,25 @@ def main():
             import prode_mundial.top_scorer as _pmt
             import prode_mundial.output as _pmo
             import prode_mundial.real_results as _pmr
+            import prode_mundial.data as _pmd
+            import prode_mundial.player_ratings as _pmpr
             _rr_path = os.path.join(OUTPUT_DIR, "real_results.json")
             _real_results = _pmr.load_real_results(_rr_path) if os.path.exists(_rr_path) else None
-            gp, gr, kp = _pmb.run_full_simulation(quiet=True, real_results=_real_results)
+            _apr = {}
+            _atr = {}
+            try:
+                _pmpr.PLAYER_RATINGS_DB.seed_if_empty()
+                for _t in _pmd.TEAMS:
+                    _a = _pmpr.PLAYER_RATINGS_DB.get_team_avg_ratings(_t)
+                    if _a:
+                        _apr[_t] = _a
+                    _r = _pmpr.PLAYER_RATINGS_DB.get_team_avg_team_rating(_t)
+                    if _r != 0.0:
+                        _atr[_t] = _r
+            except ImportError:
+                pass
+            gp, gr, kp = _pmb.run_full_simulation(quiet=True, real_results=_real_results,
+                                                   avg_player_ratings=_apr, avg_team_ratings=_atr)
             scorers, _ = _pmt.compute_top_scorers(gp, kp, top_n=20)
             goleadores_list = [{"player": p, "team": t, "goals": g} for p, t, g in scorers]
             _pmo.export_all(gp, gr, kp)

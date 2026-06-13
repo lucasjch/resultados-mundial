@@ -358,7 +358,7 @@ _SEED_DATA = [
         "players": {
             "USA": [
                 {"name": "Christian Pulišić", "pos": "F", "min": 90, "rating": 8.5, "goals": 0, "assists": 1, "tackles": 0, "duels_w": 5, "duels_t": 8, "aerial_w": 0, "aerial_t": 0, "pass_a": 63, "pass_t": 70, "saves": 0},
-                {"name": "Folarin Balogun", "pos": "F", "min": 75, "rating": 8.5, "goals": 2, "assists": 0, "tackles": 0, "duels_w": 4, "duels_t": 8, "aerial_w": 1, "aerial_t": 2, "pass_a": 20, "pass_t": 25, "saves": 0},
+                {"name": "Folarin Balogun", "pos": "F", "min": 75, "rating": 9.1, "goals": 2, "assists": 0, "tackles": 0, "duels_w": 4, "duels_t": 8, "aerial_w": 1, "aerial_t": 2, "pass_a": 20, "pass_t": 25, "saves": 0},
                 {"name": "Malik Tillman", "pos": "M", "min": 82, "rating": 8.1, "goals": 0, "assists": 1, "tackles": 2, "duels_w": 6, "duels_t": 10, "aerial_w": 1, "aerial_t": 2, "pass_a": 48, "pass_t": 55, "saves": 0},
                 {"name": "Giovanni Reyna", "pos": "F", "min": 90, "rating": 7.5, "goals": 1, "assists": 0, "tackles": 0, "duels_w": 3, "duels_t": 6, "aerial_w": 0, "aerial_t": 1, "pass_a": 42, "pass_t": 48, "saves": 0},
                 {"name": "Sergiño Dest", "pos": "D", "min": 82, "rating": 7.3, "goals": 0, "assists": 0, "tackles": 3, "duels_w": 7, "duels_t": 11, "aerial_w": 1, "aerial_t": 2, "pass_a": 54, "pass_t": 62, "saves": 0},
@@ -756,6 +756,32 @@ class PlayerRatingsDB:
         c.execute("SELECT COUNT(*) FROM player_ratings")
         return c.fetchone()[0]
 
+    def get_team_avg_ratings(self, team):
+        conn = self._connect()
+        c = conn.cursor()
+        rows = c.execute("""
+            SELECT player_name, ROUND(AVG(rating), 2) as avg_rating
+            FROM player_ratings
+            WHERE team = ? AND rating IS NOT NULL
+            GROUP BY player_name
+        """, (team,)).fetchall()
+        conn.close()
+        return {r["player_name"]: r["avg_rating"] for r in rows}
+
+    def get_team_avg_team_rating(self, team):
+        conn = self._connect()
+        c = conn.cursor()
+        row = c.execute("""
+            SELECT ROUND(AVG(rating), 2) as avg_rating
+            FROM player_ratings
+            WHERE team = ? AND rating IS NOT NULL
+        """, (team,)).fetchone()
+        conn.close()
+        if not row or row["avg_rating"] is None:
+            return 0.0
+        avg = row["avg_rating"]
+        return (avg - 5.0) * 2.0
+
     def export_standings(self, output_path=None):
         if output_path is None:
             output_path = os.path.join(OUTPUT_DIR, "jugadores_destacados.json")
@@ -798,3 +824,6 @@ class PlayerRatingsDB:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
         return data
+
+
+PLAYER_RATINGS_DB = PlayerRatingsDB()
