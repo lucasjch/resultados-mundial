@@ -317,6 +317,7 @@ FP loss según Artículo 13: amarilla −1, roja directa −4.
 |-|**Bloque O**: Análisis narrativo PRODE (analysis.py + GUI display)|✅ Completado|
 |-|**Bloque P**: Icono + version_info.txt + --noupx (anti-falso-positivo)|✅ Completado|
 |-|**Bloque Q**: Real Results System (carga MD1, factor real_match_form 5%, suspensiones)|✅ Completado|
+|-|**Bloque W**: _SOFASCORE_NAME_MAP + _SEED_DATA expandido (Qatar, Switzerland, Brazil, Morocco) - 192 nuevos ratings de Sofascore, 6 seed blocks total|✅ Completado|
 
 ## Decisiones Tomadas
 
@@ -612,6 +613,7 @@ git add -A; git commit -m "mensaje"; git push origin master
 ✅ **Bloque U** - GUI layout fixes: grid _match_card, info tab actualizado, X2 filter, subcampeón fix, goles reales visibles. Commits `984ab3e`, `00514c4`.
 ✅ **Bloque U Fix 2** - Geometry Manager Conflict en `_show_ko_match()`: label de ronda KO movido fuera del `card` para evitar `TclError: cannot use pack inside grid slaves`. Safety net: todos los `_build_*_tab()` envueltos en try/except con error visible en la tab. Pantalla negra solucionada.
 ✅ **Bloque V** - Player Ratings System mejora: `seed_if_empty()` ahora recarga DB desde cero permitiendo agregar nuevos seed blocks sin borrar DB manualmente. `_SOFASCORE_NAME_MAP` ampliado con USA y Paraguay. `_SEED_DATA` agregado 4° bloque USA-Paraguay con 32 jugadores desde Sofascore. `real_results.json` actualizado con stats mejoradas de Sofascore para los 4 partidos MD1. `gui.py`: `_safe()` reemplazado por identidad (preserva acentos/ñ), Info tab layout reemplazado Canvas+scroll_frame por Text+Scrollbar directo, contenido de Info actualizado con 4 partidos reales y sistema de ratings.
+✅ **Bloque W** - _SOFASCORE_NAME_MAP expandido con Qatar, Switzerland, Brazil, Morocco (14 entries). _SEED_DATA expandido con 2 nuevos bloques: Qatar-Switzerland (32 players) y Brazil-Morocco (32 players). 6 seed blocks total, ~192 player ratings.
 
 ## Sesiones
 
@@ -650,3 +652,4 @@ git add -A; git commit -m "mensaje"; git push origin master
 |2026-06-12|**Grid layout _match_card**|Reemplazado pack por grid con contador `row` dinámico; `text_frame` es única fila con weight=1 y se expande; score siempre visible abajo. Commit `984ab3e`.|
 |2026-06-12|**Fix score row 3-column grid**|Score row reemplazado: `inner.place()` → grid de 3 columnas en `vs_frame` (col 0 weight=1 equipo A sticky=e, col 1 weight=0 score centrado, col 2 weight=1 equipo B sticky=w). Goals reales migrado de pack a grid. Commit `00514c4`.|
 |2026-06-13|**Bloque V: Player Ratings + Sofascore + fix GUI**|`player_ratings.py`: `_SOFASCORE_NAME_MAP` ampliado (USA, Paraguay), `_SEED_DATA` con 4° bloque USA-Paraguay (32 jugadores), `seed_if_empty()` ahora recarga DB desde cero. `real_results.json` actualizado con stats mejoradas de Sofascore para 4 partidos MD1 (incluye USA 4-1 Paraguay). `gui.py`: `_safe()` reemplazado por identidad (preserva acentos/ñ), Info tab layout cambiado a Text+Scrollbar directo, contenido actualizado. `AGENTS.md` actualizado. Outputs regenerados.|
+|2026-06-13|**Bloque W: Expand _SEED_DATA + _SOFASCORE_NAME_MAP**|`player_ratings.py`: `_SOFASCORE_NAME_MAP` expandido con Qatar (6), Switzerland (2), Brazil (9), Morocco (16) — 33 entries total. `_SEED_DATA` agregados bloques Qatar-Switzerland y Brazil-Morocco (32+32 players, ~192 total). Fix script bugs (closing brace dedup). Simulación regenerada: **Argentina campeón**, Francia subcampeón, España 3°. Mbappé 9, Messi 10, Kane 8. Outputs regenerados, .exe recompilado. Push a master.|
