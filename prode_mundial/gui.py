@@ -147,6 +147,15 @@ def load_json(filename):
         return json.load(f)
 
 
+def _get_real_results_path():
+    if getattr(sys, 'frozen', False):
+        exe_dir = os.path.dirname(sys.executable)
+        disk_path = os.path.join(exe_dir, "output", "real_results.json")
+        if os.path.exists(disk_path):
+            return disk_path
+    return os.path.join(OUTPUT_DIR, "real_results.json")
+
+
 def flag(name):
     code = _TEAM_FLAGS.get(name, "")
     if code and len(code) == 2:
@@ -226,7 +235,7 @@ class ProdeGUI:
                 import prode_mundial.real_results as _pmr
                 import prode_mundial.data as _pmd
                 import prode_mundial.player_ratings as _pmpr
-                _rr_path = os.path.join(OUTPUT_DIR, "real_results.json")
+                _rr_path = _get_real_results_path()
                 _real_results = _pmr.load_real_results(_rr_path) if os.path.exists(_rr_path) else None
                 _apr = {}
                 _atr = {}
@@ -344,7 +353,7 @@ class ProdeGUI:
             try:
                 from PIL import Image, ImageTk
                 img = Image.open(imput_path)
-                target_h = 64
+                target_h = 120
                 ratio = target_h / img.height
                 display_w = int(img.width * ratio)
                 img = img.resize((display_w, target_h), Image.Resampling.LANCZOS)
@@ -372,11 +381,12 @@ class ProdeGUI:
         style.configure("Vertical.TScrollbar", background="#1a1a4a", troughcolor=_COLORS["bg"],
                          arrowcolor=_COLORS["fg"], gripcount=0)
         style.configure("TNotebook", background=_COLORS["bg"], borderwidth=0)
+        tab_font = ("Bebas Neue", 14) if _FONTS_OK else ("Corbel", 12, "bold")
         style.configure("TNotebook.Tab",
                         background=_COLORS["card_bg"],
                         foreground=_COLORS["fg"],
                         padding=[20, 8],
-                        font=("Corbel", 12, "bold"))
+                        font=tab_font)
         style.map("TNotebook.Tab",
                   background=[("selected", _COLORS["tab_active"])],
                   foreground=[("selected", "#000000")])
@@ -389,13 +399,13 @@ class ProdeGUI:
         self._tab_jugadores = ttk.Frame(nb)
         self._tab_bonus = ttk.Frame(nb)
 
-        nb.add(self._tab_info, text=" Info ")
-        nb.add(self._tab_groups, text=" Grupos ")
-        nb.add(self._tab_ko, text=" KO ")
-        nb.add(self._tab_stats, text=" Stats ")
-        nb.add(self._tab_goleadores, text=" Goleadores ")
-        nb.add(self._tab_jugadores, text=" Jugadores ")
-        nb.add(self._tab_bonus, text=" Bonus ")
+        nb.add(self._tab_info, text="  INFO  ")
+        nb.add(self._tab_groups, text="  GRUPOS  ")
+        nb.add(self._tab_ko, text="  KO  ")
+        nb.add(self._tab_stats, text="  STATS  ")
+        nb.add(self._tab_goleadores, text="  GOLEADORES  ")
+        nb.add(self._tab_jugadores, text="  JUGADORES  ")
+        nb.add(self._tab_bonus, text="  BONUS  ")
 
         for _tab_name, _tab_builder in [
             ("info", self._build_info_tab),
@@ -716,7 +726,7 @@ class ProdeGUI:
         round_label = match.get("round", "")
         grp_label = f"{round_label}  |  " if round_label else ""
         footer_frame = tk.Frame(card, bg=_COLORS["card_bg"])
-        footer_frame.pack(fill=tk.X, padx=10, pady=(0, 4))
+        footer_frame.pack(fill=tk.X, padx=10, pady=(0, 4), side=tk.BOTTOM)
         tk.Label(footer_frame, text=f"  {grp_label}📍 {venue}",
                  font=("Corbel", 8), bg=_COLORS["card_bg"],
                  fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
@@ -745,10 +755,17 @@ class ProdeGUI:
         score_b = match.get("score_b", 0)
         popup = tk.Toplevel(self.root)
         popup.title(f"Sinopsis - {team_a} {score_a}-{score_b} {team_b}")
-        popup.geometry("480x400")
         popup.configure(bg=_COLORS["bg"])
         popup.transient(self.root)
         popup.grab_set()
+        pw, ph = 700, 650
+        popup.update_idletasks()
+        sw = popup.winfo_screenwidth()
+        sh = popup.winfo_screenheight()
+        x = (sw - pw) // 2
+        y = (sh - ph) // 2
+        popup.geometry(f"{pw}x{ph}+{x}+{y}")
+        popup.minsize(600, 500)
         rec_text = analysis.split("\n\n")[0]
         narrative = analysis.split("\n\n", 1)[1] if "\n\n" in analysis else ""
         rt_lower = rec_text.lower()
@@ -763,25 +780,48 @@ class ProdeGUI:
         badge_frame = tk.Frame(popup, bg=badge_color)
         badge_frame.pack(fill=tk.X)
         tk.Label(badge_frame, text=f"  {rec_text}  ",
-                 font=("Corbel", 11, "bold"),
+                 font=("Corbel", 13, "bold"),
                  bg=badge_color, fg="#ffffff",
-                 anchor=tk.W, pady=5).pack(fill=tk.X, padx=10)
+                 anchor=tk.W, pady=6).pack(fill=tk.X, padx=12)
         text_frame = tk.Frame(popup, bg=_COLORS["bg"])
-        text_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(8, 4))
+        text_frame.pack(fill=tk.BOTH, expand=True, padx=12, pady=(10, 6))
         text_w = tk.Text(text_frame, wrap=tk.WORD,
-                         font=("Corbel", 10),
+                         font=("Corbel", 11),
                          bg=_COLORS["card_bg"], fg=_COLORS["fg"],
-                         relief=tk.FLAT, bd=6,
-                         padx=10, pady=10)
+                         relief=tk.FLAT, bd=8,
+                         padx=14, pady=12, spacing1=4, spacing3=3)
         text_w.pack(fill=tk.BOTH, expand=True)
-        text_w.insert("1.0", narrative)
+        text_w.tag_configure("veredicto",
+                             font=("Corbel", 13, "bold"),
+                             foreground=_COLORS["accent_green"],
+                             spacing1=10, spacing3=6)
+        text_w.tag_configure("num",
+                             font=("Corbel", 11, "bold"),
+                             foreground=_COLORS["star"])
+        text_w.tag_configure("goal",
+                             font=("Corbel", 11, "bold"),
+                             foreground=_COLORS["star"])
+        text_w.tag_configure("bold",
+                             font=("Corbel", 11, "bold"),
+                             foreground=_COLORS["fg"])
+        lines = narrative.split("\n")
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith("---"):
+                text_w.insert(tk.END, stripped + "\n", "veredicto")
+            elif stripped.startswith("Goles de") or stripped.startswith("RESULTADO"):
+                text_w.insert(tk.END, line + "\n", "goal")
+            elif any(c.isdigit() for c in stripped[:10]) and ("%" in stripped or "gol" in stripped):
+                text_w.insert(tk.END, line + "\n", "num")
+            else:
+                text_w.insert(tk.END, line + "\n")
         text_w.config(state=tk.DISABLED)
         btn_frame = tk.Frame(popup, bg=_COLORS["bg"])
-        btn_frame.pack(fill=tk.X, pady=(0, 8))
+        btn_frame.pack(fill=tk.X, pady=(0, 12))
         tk.Button(btn_frame, text="CERRAR",
-                  font=("Corbel", 9, "bold"),
+                  font=("Corbel", 11, "bold"),
                   bg=_COLORS["accent_green"], fg=_COLORS["bg"],
-                  bd=0, padx=16, pady=4, cursor="hand2",
+                  bd=0, padx=20, pady=6, cursor="hand2",
                   command=popup.destroy).pack()
 
     def _build_groups_tab(self):
@@ -796,12 +836,21 @@ class ProdeGUI:
         self._group_buttons = {}
         def _make_grp_btn(label):
             active = label == "TODOS"
-            btn = tk.Button(filter_frame, text=label,
-                            font=("Corbel", 9, "bold"),
-                            bg=_COLORS["accent"] if active else _COLORS["accent2"],
-                            fg=_COLORS["bg"],
-                            bd=0, padx=8, pady=2, cursor="hand2",
-                            command=lambda l=label: self._on_group_filter_btn(l))
+            if label == "TODOS":
+                btn = tk.Button(filter_frame, text=label,
+                                font=("Corbel", 9, "bold"),
+                                bg=_COLORS["accent"] if active else _COLORS["accent2"],
+                                fg=_COLORS["bg"],
+                                bd=0, padx=8, pady=2, cursor="hand2",
+                                command=lambda l=label: self._on_group_filter_btn(l))
+            else:
+                grp_color = self._GROUP_COLORS.get(label, _COLORS["accent"])
+                btn = tk.Button(filter_frame, text=label,
+                                font=("Corbel", 9, "bold"),
+                                bg=grp_color if active else _COLORS["accent2"],
+                                fg="#ffffff",
+                                bd=0, padx=8, pady=2, cursor="hand2",
+                                command=lambda l=label: self._on_group_filter_btn(l))
             btn.pack(side=tk.LEFT, padx=2)
             self._group_buttons[label] = btn
         _make_grp_btn("TODOS")
@@ -829,7 +878,11 @@ class ProdeGUI:
 
     def _on_group_filter_btn(self, label):
         for lbl, btn in self._group_buttons.items():
-            btn.config(bg=_COLORS["accent"] if lbl == label else _COLORS["accent2"])
+            if lbl == "TODOS":
+                btn.config(bg=_COLORS["accent"] if lbl == label else _COLORS["accent2"])
+            else:
+                grp_color = self._GROUP_COLORS.get(lbl, _COLORS["accent"])
+                btn.config(bg=grp_color if lbl == label else _COLORS["accent2"])
         if label == "TODOS":
             self._group_filter = None
             self._filtered_group_indices = list(range(len(self.data["groups"])))
@@ -1926,7 +1979,7 @@ def main():
             import prode_mundial.real_results as _pmr
             import prode_mundial.data as _pmd
             import prode_mundial.player_ratings as _pmpr
-            _rr_path = os.path.join(OUTPUT_DIR, "real_results.json")
+            _rr_path = _get_real_results_path()
             _real_results = _pmr.load_real_results(_rr_path) if os.path.exists(_rr_path) else None
             _apr = {}
             _atr = {}
