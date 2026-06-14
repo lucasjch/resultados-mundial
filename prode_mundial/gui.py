@@ -718,9 +718,67 @@ class ProdeGUI:
         # Footer
         round_label = match.get("round", "")
         grp_label = f"{round_label}  |  " if round_label else ""
-        tk.Label(card, text=f"  {grp_label}📍 {venue}",
+        footer_frame = tk.Frame(card, bg=_COLORS["card_bg"])
+        footer_frame.pack(fill=tk.X, padx=10, pady=(0, 4))
+        tk.Label(footer_frame, text=f"  {grp_label}📍 {venue}",
                  font=("Corbel", 8), bg=_COLORS["card_bg"],
-                 fg=_COLORS["subtitle"]).pack(anchor=tk.W, padx=10, pady=(0, 4))
+                 fg=_COLORS["subtitle"]).pack(side=tk.LEFT)
+        if analysis:
+            btn = tk.Button(footer_frame, text="LEER SINOPSIS",
+                            font=("Corbel", 7, "bold"),
+                            bg=_COLORS["accent2"], fg=_COLORS["bg"],
+                            bd=0, padx=4, pady=1, cursor="hand2",
+                            command=lambda m=match: self._show_synopsis_popup(m))
+            btn.pack(side=tk.RIGHT)
+
+    def _show_synopsis_popup(self, match):
+        analysis = match.get("analysis", "")
+        if not analysis:
+            return
+        team_a = team_name_es(match.get("team_a", "?"))
+        team_b = team_name_es(match.get("team_b", "?"))
+        score_a = match.get("score_a", 0)
+        score_b = match.get("score_b", 0)
+        popup = tk.Toplevel(self.root)
+        popup.title(f"Sinopsis - {team_a} {score_a}-{score_b} {team_b}")
+        popup.geometry("480x400")
+        popup.configure(bg=_COLORS["bg"])
+        popup.transient(self.root)
+        popup.grab_set()
+        rec_text = analysis.split("\n\n")[0]
+        narrative = analysis.split("\n\n", 1)[1] if "\n\n" in analysis else ""
+        rt_lower = rec_text.lower()
+        if "seguro" in rt_lower or "favorito" in rt_lower:
+            badge_color = _COLORS["badge_win"]
+        elif "empate" in rt_lower:
+            badge_color = _COLORS["badge_draw"]
+        elif "sorpresa" in rt_lower:
+            badge_color = _COLORS["badge_upset"]
+        else:
+            badge_color = _COLORS["accent2"]
+        badge_frame = tk.Frame(popup, bg=badge_color)
+        badge_frame.pack(fill=tk.X)
+        tk.Label(badge_frame, text=f"  {rec_text}  ",
+                 font=("Corbel", 11, "bold"),
+                 bg=badge_color, fg="#ffffff",
+                 anchor=tk.W, pady=5).pack(fill=tk.X, padx=10)
+        text_frame = tk.Frame(popup, bg=_COLORS["bg"])
+        text_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(8, 4))
+        text_w = tk.Text(text_frame, wrap=tk.WORD,
+                         font=("Corbel", 10),
+                         bg=_COLORS["card_bg"], fg=_COLORS["fg"],
+                         relief=tk.FLAT, bd=6,
+                         padx=10, pady=10)
+        text_w.pack(fill=tk.BOTH, expand=True)
+        text_w.insert("1.0", narrative)
+        text_w.config(state=tk.DISABLED)
+        btn_frame = tk.Frame(popup, bg=_COLORS["bg"])
+        btn_frame.pack(fill=tk.X, pady=(0, 8))
+        tk.Button(btn_frame, text="CERRAR",
+                  font=("Corbel", 9, "bold"),
+                  bg=_COLORS["accent_green"], fg=_COLORS["bg"],
+                  bd=0, padx=16, pady=4, cursor="hand2",
+                  command=popup.destroy).pack()
 
     def _build_groups_tab(self):
         parent = self._tab_groups
