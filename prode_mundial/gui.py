@@ -667,7 +667,8 @@ class ProdeGUI:
         f_b = self._get_flag(team_b, 20, 15)
 
         tk.Label(vs, text=team_name_es(team_a).upper(), font=_FONT_TEAM,
-                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(8, 4))
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"],
+                 wraplength=150).pack(side=tk.LEFT, padx=(8, 4))
         if f_a:
             tk.Label(vs, image=f_a, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
         tk.Label(vs, text=f"  {score_a} – {score_b}  ",
@@ -676,7 +677,8 @@ class ProdeGUI:
         if f_b:
             tk.Label(vs, image=f_b, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
         tk.Label(vs, text=team_name_es(team_b).upper(), font=_FONT_TEAM,
-                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(4, 8))
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"],
+                 wraplength=150).pack(side=tk.LEFT, padx=(4, 8))
 
         # Confidence stars + probabilities pill
         meta = tk.Frame(card, bg=_COLORS["card_bg"])
@@ -692,28 +694,23 @@ class ProdeGUI:
             tk.Label(meta, text=f"{prob_b:.0f}%", font=_FONT_S,
                      bg=_COLORS["card_bg"], fg=_COLORS["accent_green"]).pack(side=tk.LEFT)
 
-        # Goals in real matches
+        # Goals in real matches (vertical list)
         goals = match.get("goals_scorers", {})
         if goals:
-            goals_parts = []
+            gvf = tk.Frame(card, bg=_COLORS["card_bg"])
+            gvf.pack(fill=tk.X, padx=10, pady=(0, 2))
             for t in [team_a, team_b]:
                 tg = goals.get(t, [])
                 if tg:
-                    desc = "; ".join(
-                        f"{g['player']} {g['minute']}'" +
-                        (f" ({g['assist']})" if g.get('assist') else "")
-                        for g in tg
-                    )
-                    goals_parts.append(f"{team_name_es(t)}: {desc}")
-                else:
-                    goals_parts.append(f"{team_name_es(t)}: —")
-            goals_lbl = tk.Label(
-                card,
-                text="  ⚽  " + "  |  ".join(goals_parts),
-                font=("Corbel", 8), bg=_COLORS["card_bg"],
-                fg=_COLORS["subtitle"]
-            )
-            goals_lbl.pack(fill=tk.X, padx=10, pady=(0, 2))
+                    for g in tg:
+                        gl = tk.Label(
+                            gvf,
+                            text=f"  \u26BD {team_name_es(t)}: {g.get('player', '?')} {g.get('minute', '')}'" +
+                                 (f" ({g.get('assist', '')})" if g.get('assist') else ""),
+                            font=("Corbel", 8), bg=_COLORS["card_bg"],
+                            fg=_COLORS["subtitle"], anchor=tk.W
+                        )
+                        gl.pack(fill=tk.X)
 
         # Footer
         round_label = match.get("round", "")
@@ -726,10 +723,17 @@ class ProdeGUI:
         if analysis:
             btn = tk.Button(footer_frame, text="LEER SINOPSIS",
                             font=("Corbel", 7, "bold"),
-                            bg=_COLORS["accent2"], fg=_COLORS["bg"],
+                            bg="#318CE7", fg="#FFFFFF",
+                            activeforeground="#FFFFFF", activebackground="#4AA0FF",
                             bd=0, padx=4, pady=1, cursor="hand2",
                             command=lambda m=match: self._show_synopsis_popup(m))
             btn.pack(side=tk.RIGHT)
+            def _on_enter(e, b=btn):
+                b.config(font=("Corbel", 9, "bold"))
+            def _on_leave(e, b=btn):
+                b.config(font=("Corbel", 7, "bold"))
+            btn.bind("<Enter>", _on_enter)
+            btn.bind("<Leave>", _on_leave)
 
     def _show_synopsis_popup(self, match):
         analysis = match.get("analysis", "")
@@ -789,13 +793,20 @@ class ProdeGUI:
         filter_frame.pack(fill=tk.X, padx=15, pady=(8, 0))
         tk.Label(filter_frame, text="Grupo:", font=_FONT_M, bg=_COLORS["bg"],
                  fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(0, 5))
-        groups_list = ["Todos"] + [chr(65 + i) for i in range(12)]
-        self._group_combo = ttk.Combobox(filter_frame, values=groups_list,
-                                          state="readonly", width=10,
-                                          font=("Corbel", 10))
-        self._group_combo.current(0)
-        self._group_combo.pack(side=tk.LEFT)
-        self._group_combo.bind("<<ComboboxSelected>>", self._on_group_filter)
+        self._group_buttons = {}
+        def _make_grp_btn(label):
+            active = label == "TODOS"
+            btn = tk.Button(filter_frame, text=label,
+                            font=("Corbel", 9, "bold"),
+                            bg=_COLORS["accent"] if active else _COLORS["accent2"],
+                            fg=_COLORS["bg"],
+                            bd=0, padx=8, pady=2, cursor="hand2",
+                            command=lambda l=label: self._on_group_filter_btn(l))
+            btn.pack(side=tk.LEFT, padx=2)
+            self._group_buttons[label] = btn
+        _make_grp_btn("TODOS")
+        for i in range(12):
+            _make_grp_btn(chr(65 + i))
 
         # Canvas + Scrollbar for grid
         self._group_canvas = tk.Canvas(parent, bg=_COLORS["bg"], highlightthickness=0)
@@ -816,16 +827,17 @@ class ProdeGUI:
 
         self._show_group_grid()
 
-    def _on_group_filter(self, event=None):
-        sel = self._group_combo.get()
-        if sel == "Todos":
+    def _on_group_filter_btn(self, label):
+        for lbl, btn in self._group_buttons.items():
+            btn.config(bg=_COLORS["accent"] if lbl == label else _COLORS["accent2"])
+        if label == "TODOS":
             self._group_filter = None
             self._filtered_group_indices = list(range(len(self.data["groups"])))
         else:
-            self._group_filter = sel
+            self._group_filter = label
             self._filtered_group_indices = [
                 i for i, m in enumerate(self.data["groups"])
-                if m.get("round", "").endswith(sel)
+                if m.get("round", "").endswith(label)
             ]
         self._show_group_grid()
 
@@ -908,6 +920,12 @@ class ProdeGUI:
             if len(r_matches) % cols != 0:
                 row_idx += 1
 
+    _GROUP_COLORS = {
+        "A": "#E74C3C", "B": "#3498DB", "C": "#2ECC71", "D": "#F39C12",
+        "E": "#9B59B6", "F": "#1ABC9C", "G": "#E67E22", "H": "#2980B9",
+        "I": "#27AE60", "J": "#8E44AD", "K": "#D35400", "L": "#16A085",
+    }
+
     def _build_stats_tab(self):
         parent = self._tab_stats
         tables = self.data.get("tables", {})
@@ -922,7 +940,7 @@ class ProdeGUI:
         scroll_frame = tk.Frame(canvas, bg=_COLORS["bg"])
         scroll_frame.bind("<Configure>", lambda e: canvas.configure(
             scrollregion=canvas.bbox("all")))
-        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.create_window((0, 0), window=scroll_frame, anchor="n")
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
@@ -931,10 +949,14 @@ class ProdeGUI:
         canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_stats_wheel))
         canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
 
+        def _resize_stats(e):
+            scroll_frame.config(width=e.width)
+        canvas.bind("<Configure>", _resize_stats)
+
         sorted_groups = sorted(tables.keys())
         cols = 3
         outer = tk.Frame(scroll_frame, bg=_COLORS["bg"])
-        outer.pack(fill=tk.X, padx=10, pady=5)
+        outer.pack(fill=tk.X, padx=6, pady=5)
 
         for ci in range(cols):
             outer.columnconfigure(ci, weight=1, uniform="grpcol")
@@ -942,102 +964,121 @@ class ProdeGUI:
         for ci, g in enumerate(sorted_groups):
             row_idx = ci // cols
             col_idx = ci % cols
-            grp_frame = tk.Frame(outer, bg=_COLORS["card_bg"],
-                                 highlightbackground=_COLORS["card_border"],
-                                 highlightthickness=1, padx=8, pady=4)
-            grp_frame.grid(row=row_idx, column=col_idx, sticky="nsew",
-                           padx=4, pady=4)
-
-            tk.Label(grp_frame, text=f"Grupo {g}",
-                     font=("Corbel", 12, "bold"), bg=_COLORS["card_bg"],
-                     fg=_COLORS["accent"]).pack(anchor=tk.W)
-
-            hdr_row = tk.Frame(grp_frame, bg=_COLORS["card_bg"])
-            hdr_row.pack(fill=tk.X)
-            tk.Label(hdr_row, text="", font=_FONT_TAB_H,
-                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
-                     width=2).pack(side=tk.LEFT)
-            tk.Label(hdr_row, text="", font=_FONT_TAB_H,
-                     bg=_COLORS["card_bg"], width=3).pack(side=tk.LEFT)
-            tk.Label(hdr_row, text="Equipo", font=_FONT_TAB_H,
-                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
-                     width=20, anchor=tk.W).pack(side=tk.LEFT)
-            for col, w in [("Pts", 3), ("GD", 3), ("GF", 3), ("GA", 4)]:
-                tk.Label(hdr_row, text=col, font=_FONT_TAB_H,
-                         bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
-                         width=w, anchor=tk.CENTER).pack(side=tk.RIGHT)
-
-            teams = tables[g]
-            for rank, entry in enumerate(teams, 1):
-                if isinstance(entry, dict) and "team" in entry:
-                    team_name = entry.get("team", "?")
-                    pts = entry.get("pts", 0)
-                    gd = entry.get("gd", 0)
-                    gf = entry.get("gf", 0)
-                    ga = entry.get("ga", 0)
-                elif isinstance(entry, (list, tuple)) and len(entry) >= 2:
-                    team_name = entry[0]
-                    d = entry[1]
-                    pts = d.get("pts", 0)
-                    gd = d.get("gd", 0)
-                    gf = d.get("gf", 0)
-                    ga = d.get("ga", 0)
-                else:
-                    continue
-                clr = _COLORS["green"] if rank <= 2 else _COLORS["fg"]
-                row_f = tk.Frame(grp_frame, bg=_COLORS["card_bg"])
-                row_f.pack(fill=tk.X)
-                rflag = self._get_flag(team_name, 16, 12)
-                tk.Label(row_f, text="★" if rank <= 2 else " ",
-                         font=_FONT_TAB, bg=_COLORS["card_bg"], fg=clr,
-                         width=2).pack(side=tk.LEFT)
-                if rflag:
-                    tk.Label(row_f, image=rflag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(2, 3))
-                tk.Label(row_f, text=team_name_es(team_name), font=_FONT_TAB,
-                         bg=_COLORS["card_bg"], fg=clr,
-                         width=20, anchor=tk.W).pack(side=tk.LEFT)
-                for val, w in [(str(pts), 3), (f"{gd:+d}", 3), (str(gf), 3), (str(ga), 4)]:
-                    tk.Label(row_f, text=val, font=_FONT_TAB,
-                             bg=_COLORS["card_bg"], fg=clr,
-                             width=w, anchor=tk.CENTER).pack(side=tk.RIGHT)
+            grp_card = tk.Frame(outer, bg=_COLORS["bg"])
+            grp_card.grid(row=row_idx, column=col_idx, sticky="nsew",
+                          padx=3, pady=3)
+            self._compact_standings_card(grp_card, g, tables[g])
 
         third = self._compute_third_placed(tables)
         if third:
             sep = tk.Frame(scroll_frame, bg=_COLORS["card_border"], height=1)
-            sep.pack(fill=tk.X, padx=15, pady=(15, 5))
-            tk.Label(scroll_frame, text="MEJORES TERCEROS (8 CLASIFICAN A 32VOS)",
-                     font=_FONT_H, bg=_COLORS["bg"],
-                     fg=_COLORS["accent_green"]).pack(pady=(5, 5))
+            sep.pack(fill=tk.X, padx=10, pady=(12, 6))
+            card3 = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
+                             highlightbackground=_COLORS["card_border"],
+                             highlightthickness=1)
+            card3.pack(fill=tk.X, padx=10, pady=(0, 10))
+            chdr = tk.Frame(card3, bg=_COLORS["green"])
+            chdr.pack(fill=tk.X)
+            font_hdr = ("Teko", 18, "bold") if _FONTS_OK else ("Corbel", 14, "bold")
+            tk.Label(chdr, text="  MEJORES TERCEROS (8 clasifican a 32vos)  ",
+                     font=font_hdr, bg=_COLORS["green"], fg="#ffffff",
+                     anchor=tk.W, pady=1).pack(fill=tk.X)
 
-            hdr3 = tk.Frame(scroll_frame, bg=_COLORS["bg"])
-            hdr3.pack(fill=tk.X, padx=20)
-            for txt, w in [("", 4), ("Equipo", 24), ("Grp", 4), ("Pts", 5), ("GD", 5), ("GF", 5)]:
-                tk.Label(hdr3, text=txt, font=_FONT_TAB_H,
-                         bg=_COLORS["bg"], fg=_COLORS["subtitle"],
-                         width=w, anchor=tk.W).pack(side=tk.LEFT)
+            subhdr = tk.Frame(card3, bg=_COLORS["card_bg"])
+            subhdr.pack(fill=tk.X, pady=(1, 0))
+            tk.Label(subhdr, text="", width=2, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
+            tk.Label(subhdr, text="Equipo", font=("Consolas", 8, "bold"),
+                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                     anchor=tk.W).pack(side=tk.LEFT, fill=tk.X, expand=True)
+            for txt in ["Pts", "GD", "GF"]:
+                tk.Label(subhdr, text=txt, font=("Consolas", 8, "bold"),
+                         bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                         width=4, anchor=tk.CENTER).pack(side=tk.RIGHT)
+
+            sep3 = tk.Frame(card3, bg=_COLORS["card_border"], height=1)
+            sep3.pack(fill=tk.X)
 
             for rank3, (grp, tm, pts3, gd3, gf3) in enumerate(third, 1):
-                qualifies = rank3 <= 4
-                row_bg = _COLORS["card_bg"] if rank3 % 2 == 0 else _COLORS["bg"]
-                row3 = tk.Frame(scroll_frame, bg=row_bg)
-                row3.pack(fill=tk.X, padx=20)
-                icon = "★" if qualifies else " "
-                clr3 = _COLORS["green"] if qualifies else _COLORS["fg"]
-                tk.Label(row3, text=icon, font=_FONT_TAB, bg=row_bg,
-                         fg=clr3, width=3).pack(side=tk.LEFT)
+                row3 = tk.Frame(card3, bg=_COLORS["card_bg"])
+                row3.pack(fill=tk.X)
+                tk.Label(row3, text="\u2605", font=("Consolas", 10),
+                         bg=_COLORS["card_bg"], fg=_COLORS["green"],
+                         width=2).pack(side=tk.LEFT)
                 tflag = self._get_flag(tm, 16, 12)
                 if tflag:
-                    tk.Label(row3, image=tflag, bg=row_bg).pack(side=tk.LEFT, padx=(0, 3))
-                tk.Label(row3, text=team_name_es(tm), font=_FONT_TAB, bg=row_bg,
-                         fg=clr3, width=24, anchor=tk.W).pack(side=tk.LEFT)
-                tk.Label(row3, text=grp, font=_FONT_TAB, bg=row_bg,
-                         fg=_COLORS["subtitle"], width=4).pack(side=tk.LEFT)
-                tk.Label(row3, text=str(pts3), font=_FONT_TAB, bg=row_bg,
-                         fg=clr3, width=5).pack(side=tk.LEFT)
-                tk.Label(row3, text=f"{gd3:+d}", font=_FONT_TAB, bg=row_bg,
-                         fg=clr3, width=5).pack(side=tk.LEFT)
-                tk.Label(row3, text=str(gf3), font=_FONT_TAB, bg=row_bg,
-                         fg=clr3, width=5).pack(side=tk.LEFT)
+                    tk.Label(row3, image=tflag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 2))
+                font_name = ("Teko", 16) if _FONTS_OK else ("Corbel", 11, "bold")
+                tk.Label(row3, text=team_name_es(tm), font=font_name,
+                         bg=_COLORS["card_bg"], fg=_COLORS["green"],
+                         anchor=tk.W).pack(side=tk.LEFT, fill=tk.X, expand=True)
+                tk.Label(row3, text=f"Grp {grp}", font=("Consolas", 9),
+                         bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                         width=5, anchor=tk.CENTER).pack(side=tk.RIGHT)
+                for val in [str(pts3), f"{gd3:+d}", str(gf3)]:
+                    tk.Label(row3, text=val, font=("Consolas", 10),
+                             bg=_COLORS["card_bg"], fg=_COLORS["green"],
+                             width=4, anchor=tk.CENTER).pack(side=tk.RIGHT)
+
+    def _compact_standings_card(self, parent, group_letter, standings):
+        color = self._GROUP_COLORS.get(group_letter, _COLORS["accent"])
+        card = tk.Frame(parent, bg=_COLORS["card_bg"],
+                        highlightbackground=_COLORS["card_border"],
+                        highlightthickness=1)
+        card.pack(fill=tk.X)
+        hdr = tk.Frame(card, bg=color)
+        hdr.pack(fill=tk.X)
+        font_hdr = ("Teko", 18, "bold") if _FONTS_OK else ("Corbel", 14, "bold")
+        tk.Label(hdr, text=f"  Grupo {group_letter}  ",
+                 font=font_hdr, bg=color, fg="#ffffff",
+                 anchor=tk.W, pady=1).pack(fill=tk.X)
+
+        col_hdr = tk.Frame(card, bg=_COLORS["card_bg"])
+        col_hdr.pack(fill=tk.X, pady=(1, 0))
+        tk.Label(col_hdr, text="", width=2, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
+        tk.Label(col_hdr, text="Equipo", font=("Consolas", 8, "bold"),
+                 bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                 anchor=tk.W).pack(side=tk.LEFT, fill=tk.X, expand=True)
+        for txt in ["Pts", "GD", "GF", "GA"]:
+            tk.Label(col_hdr, text=txt, font=("Consolas", 8, "bold"),
+                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                     width=4, anchor=tk.CENTER).pack(side=tk.RIGHT)
+
+        sep = tk.Frame(card, bg=_COLORS["card_border"], height=1)
+        sep.pack(fill=tk.X)
+
+        for rank, entry in enumerate(standings, 1):
+            if isinstance(entry, dict) and "team" in entry:
+                team_name = entry.get("team", "?")
+                pts = entry.get("pts", 0)
+                gd = entry.get("gd", 0)
+                gf = entry.get("gf", 0)
+                ga = entry.get("ga", 0)
+            elif isinstance(entry, (list, tuple)) and len(entry) >= 2:
+                team_name = entry[0]
+                d = entry[1]
+                pts = d.get("pts", 0)
+                gd = d.get("gd", 0)
+                gf = d.get("gf", 0)
+                ga = d.get("ga", 0)
+            else:
+                continue
+            clr = _COLORS["green"] if rank <= 2 else _COLORS["fg"]
+            row = tk.Frame(card, bg=_COLORS["card_bg"])
+            row.pack(fill=tk.X)
+            tk.Label(row, text=str(rank), font=("Consolas", 10),
+                     bg=_COLORS["card_bg"], fg=_COLORS["subtitle"],
+                     width=2).pack(side=tk.LEFT)
+            rflag = self._get_flag(team_name, 16, 12)
+            if rflag:
+                tk.Label(row, image=rflag, bg=_COLORS["card_bg"]).pack(side=tk.LEFT, padx=(0, 2))
+            font_name = ("Teko", 16) if _FONTS_OK else ("Corbel", 11, "bold")
+            tk.Label(row, text=team_name_es(team_name), font=font_name,
+                     bg=_COLORS["card_bg"], fg=clr,
+                     anchor=tk.W).pack(side=tk.LEFT, fill=tk.X, expand=True)
+            for val in [str(pts), f"{gd:+d}", str(gf), str(ga)]:
+                tk.Label(row, text=val, font=("Consolas", 10),
+                         bg=_COLORS["card_bg"], fg=clr,
+                         width=4, anchor=tk.CENTER).pack(side=tk.RIGHT)
 
     def _compute_third_placed(self, tables):
         third = []
@@ -1131,7 +1172,7 @@ class ProdeGUI:
         scroll_frame = tk.Frame(canvas, bg=_COLORS["bg"])
         scroll_frame.bind("<Configure>", lambda e: canvas.configure(
             scrollregion=canvas.bbox("all")))
-        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.create_window((0, 0), window=scroll_frame, anchor="n")
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
@@ -1139,6 +1180,9 @@ class ProdeGUI:
             canvas.yview_scroll(int(-1*(e.delta/120)), "units")
         canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_jug_wheel))
         canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
+        def _resize_jug(e):
+            scroll_frame.config(width=e.width)
+        canvas.bind("<Configure>", _resize_jug)
 
         data = self.data.get("jugadores", {})
 
@@ -1523,7 +1567,7 @@ class ProdeGUI:
         scroll_frame = tk.Frame(canvas, bg=_COLORS["bg"])
         scroll_frame.bind("<Configure>", lambda e: canvas.configure(
             scrollregion=canvas.bbox("all")))
-        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.create_window((0, 0), window=scroll_frame, anchor="n")
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
@@ -1531,6 +1575,9 @@ class ProdeGUI:
             canvas.yview_scroll(int(-1*(e.delta/120)), "units")
         canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _on_bonus_wheel))
         canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>"))
+        def _resize_bonus(e):
+            scroll_frame.config(width=e.width)
+        canvas.bind("<Configure>", _resize_bonus)
 
         bonus = self._compute_bonus_data()
 
@@ -1825,8 +1872,8 @@ class ProdeGUI:
         text.insert(tk.END, "A medida que avanza el Mundial se cargan los ", "normal")
         text.insert(tk.END, "resultados reales", "bold")
         text.insert(tk.END, " de los partidos ya jugados. Actualmente hay ", "normal")
-        text.insert(tk.END, "4 partidos cargados", "bold")
-        text.insert(tk.END, " (Mexico vs Sudafrica, Corea del Sur vs Republica Checa, Canada vs Bosnia y Herzegovina, Estados Unidos vs Paraguay) con estadisticas detalladas de Sofascore: goles esperados, posecion, tiros, pases, duelos, tarjetas y mas.\n\n", "normal")
+        text.insert(tk.END, "7 partidos cargados", "bold")
+        text.insert(tk.END, " (Mexico vs Sudafrica, Corea del Sur vs Republica Checa, Canada vs Bosnia y Herzegovina, Estados Unidos vs Paraguay, Qatar vs Suiza, Brasil vs Marruecos) con estadisticas detalladas de Sofascore: goles esperados, posecion, tiros, pases, duelos, tarjetas y mas.\n\n", "normal")
         text.insert(tk.END, "Estos datos no solo alimentan la ", "normal")
         text.insert(tk.END, "narrativa post-partido", "bold")
         text.insert(tk.END, " que ves en la pestana Grupos, sino que tambien alimentan la ", "normal")

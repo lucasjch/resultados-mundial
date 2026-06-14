@@ -1,11 +1,11 @@
 # 2026 FIFA World Cup - Complete Team Data for Prediction Model
 
-> Data compiled June 12, 2026. FIFA Rankings as of June 10, 2026
+> Data compiled June 14, 2026. FIFA Rankings as of June 10, 2026
 > All 48 teams have confirmed their 26-man squads (submitted June 1, published June 2)
 > Odds via DraftKings as of June 4, 2026
 > Prode model uses 19 factors + Dixon-Coles τ (ρ = −0.15) + 1500 sims deterministic average
 > FIXTURES corregidos desde ESPN (Jun 8) — 72 partidos con horarios oficiales en ART (UTC-3)
-> Bloque R: caps data quality fix (24 corrupt players repaired). Bloque S: friendly form improvements (Bayesian shrinkage + tier weighting). Bloque T: real results auto-detection (sin flag --results). Bloque U: GUI layout fixes (grid _match_card + 4 fixes). Commits `1a6d672`, `dd87058`, `984ab3e`, `00514c4`.
+> Bloque Y: Haiti 0-1 Scotland (7° resultado real, 7 alturas corregidas, 52 market values, 30 Sofascore ratings). Bloque Z: Stats tab compact cards (12 group colors, _compact_standings_card), 4 GUI bug fixes (grupos botones, wraplength, goles vertical, ancho tabs), botón SINOPSIS azul #318CE7 con hover. Commits `81771e2`, `446c871`.
 
 ---
 
