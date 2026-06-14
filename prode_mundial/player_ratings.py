@@ -244,6 +244,15 @@ _SOFASCORE_NAME_MAP = {
         "A. Amaimouni Echghouyab": "Ayoube Amaimouni-Echghouyab",
         "S. Rahimi": "Soufiane Rahimi",
     },
+    "Haiti": {
+        "Louicius Don Deedson": "Louicius Deedson",
+        "Yassin Fortune": "Yassin Fortun\u00e9",
+        "Derrick Etienne": "Derrick Etienne Jr.",
+    },
+    "Scotland": {
+        "Ben Gannon-Doak": "Ben Doak",
+        "Kenny McLean": "Kenny Mclean",
+    },
 }
 
 _POS_FROM_SOFASCORE = {
@@ -527,6 +536,50 @@ _SEED_DATA = [
                 {"name": "Chemsdine Talbi", "pos": "F", "min": 25, "rating": 6.5, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 0, "duels_t": 1, "aerial_w": 0, "aerial_t": 0, "pass_a": 8, "pass_t": 8, "saves": 0},
                 {"name": "Issa Diop", "pos": "D", "min": 90, "rating": 6.5, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 1, "duels_t": 1, "aerial_w": 1, "aerial_t": 1, "pass_a": 42, "pass_t": 53, "saves": 0},
                 {"name": "Soufiane Rahimi", "pos": "F", "min": 12, "rating": 6.5, "goals": 0, "assists": 0, "tackles": 1, "duels_w": 1, "duels_t": 2, "aerial_w": 0, "aerial_t": 1, "pass_a": 2, "pass_t": 2, "saves": 0},
+            ],
+        }
+    },
+    {
+        "match_id": "MD1_Haiti_Scotland",
+        "matchday": 1,
+        "team_a": "Haiti",
+        "team_b": "Scotland",
+        "score_a": 0,
+        "score_b": 1,
+        "players": {
+            "Haiti": [
+                {"name": "Jean-Ricner Bellegarde", "pos": "M", "min": 90, "rating": 7.4, "goals": 0, "assists": 0, "tackles": 1, "duels_w": 6, "duels_t": 8, "aerial_w": 1, "aerial_t": 1, "pass_a": 53, "pass_t": 66, "saves": 0},
+                {"name": "Danley Jean Jacques", "pos": "M", "min": 90, "rating": 7.1, "goals": 0, "assists": 0, "tackles": 4, "duels_w": 8, "duels_t": 12, "aerial_w": 2, "aerial_t": 2, "pass_a": 44, "pass_t": 53, "saves": 0},
+                {"name": "Martin Exp\u00e9rience", "pos": "D", "min": 90, "rating": 7.0, "goals": 0, "assists": 0, "tackles": 4, "duels_w": 6, "duels_t": 9, "aerial_w": 0, "aerial_t": 0, "pass_a": 35, "pass_t": 43, "saves": 0},
+                {"name": "Ricardo Ad\u00e9", "pos": "D", "min": 90, "rating": 7.0, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 5, "duels_t": 10, "aerial_w": 2, "aerial_t": 5, "pass_a": 55, "pass_t": 63, "saves": 0},
+                {"name": "Hannes Delcroix", "pos": "D", "min": 90, "rating": 6.9, "goals": 0, "assists": 0, "tackles": 2, "duels_w": 4, "duels_t": 10, "aerial_w": 1, "aerial_t": 6, "pass_a": 66, "pass_t": 66, "saves": 0},
+                {"name": "Johny Placide", "pos": "G", "min": 90, "rating": 6.9, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 0, "duels_t": 0, "aerial_w": 0, "aerial_t": 0, "pass_a": 20, "pass_t": 31, "saves": 1},
+                {"name": "Frantzdy Pierrot", "pos": "F", "min": 90, "rating": 6.7, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 6, "duels_t": 17, "aerial_w": 4, "aerial_t": 9, "pass_a": 5, "pass_t": 6, "saves": 0},
+                {"name": "Josu\u00e9 Casimir", "pos": "F", "min": 29, "rating": 6.7, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 3, "duels_t": 7, "aerial_w": 0, "aerial_t": 0, "pass_a": 18, "pass_t": 20, "saves": 0},
+                {"name": "Ruben Providence", "pos": "M", "min": 85, "rating": 6.7, "goals": 0, "assists": 0, "tackles": 1, "duels_w": 4, "duels_t": 9, "aerial_w": 0, "aerial_t": 0, "pass_a": 23, "pass_t": 24, "saves": 0},
+                {"name": "Yassin Fortune", "pos": "F", "min": 13, "rating": 6.6, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 1, "duels_t": 1, "aerial_w": 0, "aerial_t": 0, "pass_a": 3, "pass_t": 3, "saves": 0},
+                {"name": "Louicius Don Deedson", "pos": "M", "min": 61, "rating": 6.5, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 4, "duels_t": 7, "aerial_w": 0, "aerial_t": 0, "pass_a": 6, "pass_t": 8, "saves": 0},
+                {"name": "Carlens Arcus", "pos": "D", "min": 90, "rating": 6.3, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 2, "duels_t": 8, "aerial_w": 0, "aerial_t": 3, "pass_a": 32, "pass_t": 35, "saves": 0},
+                {"name": "Lenny Joseph", "pos": "F", "min": 14, "rating": 6.3, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 0, "duels_t": 4, "aerial_w": 0, "aerial_t": 1, "pass_a": 2, "pass_t": 4, "saves": 0},
+                {"name": "Wilson Isidor", "pos": "F", "min": 76, "rating": 6.2, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 3, "duels_t": 9, "aerial_w": 3, "aerial_t": 6, "pass_a": 5, "pass_t": 9, "saves": 0},
+            ],
+            "Scotland": [
+                {"name": "Grant Hanley", "pos": "D", "min": 90, "rating": 7.6, "goals": 0, "assists": 0, "tackles": 2, "duels_w": 4, "duels_t": 9, "aerial_w": 2, "aerial_t": 6, "pass_a": 46, "pass_t": 50, "saves": 0},
+                {"name": "Lewis Ferguson", "pos": "M", "min": 90, "rating": 7.6, "goals": 0, "assists": 0, "tackles": 1, "duels_w": 10, "duels_t": 13, "aerial_w": 3, "aerial_t": 4, "pass_a": 39, "pass_t": 43, "saves": 0},
+                {"name": "Angus Gunn", "pos": "G", "min": 90, "rating": 7.3, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 0, "duels_t": 0, "aerial_w": 0, "aerial_t": 0, "pass_a": 25, "pass_t": 37, "saves": 2},
+                {"name": "John McGinn", "pos": "M", "min": 83, "rating": 7.4, "goals": 1, "assists": 0, "tackles": 0, "duels_w": 7, "duels_t": 10, "aerial_w": 1, "aerial_t": 1, "pass_a": 10, "pass_t": 11, "saves": 0},
+                {"name": "Andy Robertson", "pos": "D", "min": 90, "rating": 7.3, "goals": 0, "assists": 0, "tackles": 1, "duels_w": 3, "duels_t": 8, "aerial_w": 0, "aerial_t": 2, "pass_a": 30, "pass_t": 42, "saves": 0},
+                {"name": "Ben Gannon-Doak", "pos": "M", "min": 75, "rating": 7.3, "goals": 0, "assists": 0, "tackles": 1, "duels_w": 4, "duels_t": 9, "aerial_w": 0, "aerial_t": 0, "pass_a": 19, "pass_t": 23, "saves": 0},
+                {"name": "Aaron Hickey", "pos": "D", "min": 75, "rating": 7.1, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 5, "duels_t": 7, "aerial_w": 1, "aerial_t": 1, "pass_a": 31, "pass_t": 35, "saves": 0},
+                {"name": "Jack Hendry", "pos": "D", "min": 90, "rating": 7.1, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 3, "duels_t": 3, "aerial_w": 1, "aerial_t": 1, "pass_a": 51, "pass_t": 56, "saves": 0},
+                {"name": "Nathan Patterson", "pos": "D", "min": 15, "rating": 6.9, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 1, "duels_t": 3, "aerial_w": 1, "aerial_t": 1, "pass_a": 3, "pass_t": 4, "saves": 0},
+                {"name": "Ryan Christie", "pos": "M", "min": 15, "rating": 6.7, "goals": 0, "assists": 0, "tackles": 3, "duels_w": 3, "duels_t": 6, "aerial_w": 0, "aerial_t": 0, "pass_a": 3, "pass_t": 5, "saves": 0},
+                {"name": "Kenny McLean", "pos": "M", "min": 15, "rating": 6.6, "goals": 0, "assists": 0, "tackles": 1, "duels_w": 1, "duels_t": 2, "aerial_w": 0, "aerial_t": 0, "pass_a": 2, "pass_t": 2, "saves": 0},
+                {"name": "Lyndon Dykes", "pos": "F", "min": 15, "rating": 6.5, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 2, "duels_t": 5, "aerial_w": 2, "aerial_t": 3, "pass_a": 3, "pass_t": 6, "saves": 0},
+                {"name": "Scott McTominay", "pos": "M", "min": 90, "rating": 6.5, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 2, "duels_t": 8, "aerial_w": 1, "aerial_t": 2, "pass_a": 27, "pass_t": 29, "saves": 0},
+                {"name": "Che Adams", "pos": "F", "min": 75, "rating": 6.4, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 4, "duels_t": 11, "aerial_w": 3, "aerial_t": 6, "pass_a": 8, "pass_t": 11, "saves": 0},
+                {"name": "Lawrence Shankland", "pos": "F", "min": 83, "rating": 6.4, "goals": 0, "assists": 0, "tackles": 3, "duels_w": 10, "duels_t": 16, "aerial_w": 5, "aerial_t": 6, "pass_a": 7, "pass_t": 16, "saves": 0},
+                {"name": "Findlay Curtis", "pos": "F", "min": 15, "rating": 6.3, "goals": 0, "assists": 0, "tackles": 0, "duels_w": 0, "duels_t": 1, "aerial_w": 0, "aerial_t": 0, "pass_a": 2, "pass_t": 3, "saves": 0},
             ],
         }
     },

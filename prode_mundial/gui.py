@@ -8,6 +8,9 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+import urllib.request
+import ctypes
+
 import sv_ttk
 from prode_mundial.data import team_name_es, TEAM_ES
 
@@ -23,6 +26,44 @@ else:
         sys.path.insert(0, parent_of_pkg)
     OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 FLAGS_DIR = os.path.join(OUTPUT_DIR, "flags")
+
+# ── Font system ──────────────────────────────────────────────────────
+if getattr(sys, 'frozen', False):
+    FONT_DIR = os.path.join(sys._MEIPASS, "prode_mundial", "assets", "fonts")
+else:
+    FONT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "fonts")
+_BEBAS_PATH = os.path.join(FONT_DIR, "BebasNeue-Regular.ttf")
+_TEKO_PATH = os.path.join(FONT_DIR, "Teko-Bold.ttf")
+_FONT_URLS = {
+    _BEBAS_PATH: "https://github.com/google/fonts/raw/main/ofl/bebasneue/BebasNeue-Regular.ttf",
+    _TEKO_PATH: "https://github.com/google/fonts/raw/main/ofl/teko/Teko%5Bwght%5D.ttf",
+}
+
+def _ensure_fonts():
+    for path, url in _FONT_URLS.items():
+        if not os.path.exists(path):
+            try:
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                urllib.request.urlretrieve(url, path)
+            except Exception:
+                pass
+
+_ensure_fonts()
+
+def _load_fonts():
+    loaded = 0
+    try:
+        gdi32 = ctypes.windll.gdi32
+        for path in _FONT_URLS:
+            if os.path.exists(path):
+                r = gdi32.AddFontResourceExW(path, 0x10, 0)
+                if r:
+                    loaded += 1
+    except Exception:
+        pass
+    return loaded == len(_FONT_URLS)
+
+_FONTS_OK = _load_fonts()
 
 _TEAM_FLAGS = {
     "Mexico":"mx","South Korea":"kr","South Africa":"za","Czechia":"cz",
@@ -60,6 +101,8 @@ _COLORS = {
     "badge_draw":   "#9e6a03",
     "badge_upset":  "#8b1a1a",
     "tab_active":   "#c9a84c",
+    "accent_green": "#00FF66",
+    "accent_purple":"#9b59b6",
 }
 
 _FONT_H = ("Corbel", 24, "bold")
@@ -70,6 +113,22 @@ _FONT_SCORE = ("Corbel", 32, "bold")
 _FONT_TEAM = ("Corbel", 20, "bold")
 _FONT_TAB = ("Consolas", 10)
 _FONT_TAB_H = ("Consolas", 10, "bold")
+_FONT_BTN = ("Segoe UI", 11, "bold italic")
+
+if _FONTS_OK:
+    _FONT_H = ("Bebas Neue", 22)
+    _FONT_SH = ("Corbel", 14)
+    _FONT_M = ("Corbel", 11)
+    _FONT_S = ("Corbel", 9)
+    _FONT_SCORE = ("Teko", 36, "bold")
+    _FONT_TEAM = ("Teko", 20, "bold")
+else:
+    _FONT_H = ("Corbel", 24, "bold")
+    _FONT_SH = ("Corbel", 14)
+    _FONT_M = ("Corbel", 11)
+    _FONT_S = ("Corbel", 9)
+    _FONT_SCORE = ("Corbel", 32, "bold")
+    _FONT_TEAM = ("Corbel", 20, "bold")
 
 def _safe(text):
     return str(text)
@@ -143,6 +202,15 @@ class ProdeGUI:
         root.configure(bg=_COLORS["bg"])
         root.geometry("1100x720")
         root.resizable(True, True)
+        try:
+            root.state('zoomed')
+        except Exception:
+            try:
+                w = root.winfo_screenwidth()
+                h = root.winfo_screenheight()
+                root.geometry(f"{w}x{h}")
+            except Exception:
+                pass
 
         if pre_data:
             groups = pre_data.get("groups", [])
@@ -242,7 +310,7 @@ class ProdeGUI:
 
     def _styled_btn(self, parent, text, cmd):
         btn = tk.Button(
-            parent, text=text, font=("Corbel", 13, "bold"),
+            parent, text=text, font=_FONT_BTN,
             bg=_COLORS["btn_face"], fg=_COLORS["btn_fg"],
             activebackground=_COLORS["btn_hover"],
             activeforeground="#ffffff",
@@ -497,7 +565,7 @@ class ProdeGUI:
         flag_a = self._get_flag(team_a, 32, 24)
         if flag_a:
             tk.Label(tf_a, image=flag_a, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_a, text=team_name_es(team_a), font=("Corbel", 14, "bold"),
+        tk.Label(tf_a, text=team_name_es(team_a).upper(), font=_FONT_TEAM,
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
         # Columna 1: score (centrado, no expande)
@@ -506,7 +574,7 @@ class ProdeGUI:
                       highlightthickness=2, padx=8, pady=6)
         sf.grid(row=0, column=1)
         tk.Label(sf, text=f"{score_a} – {score_b}",
-                 font=("Corbel", 32, "bold"),
+                 font=_FONT_SCORE,
                  bg=_COLORS["score_bg"], fg="#ffffff").pack()
 
         # Columna 2: equipo B (sticky="w" → izquierda, pegado al score)
@@ -515,7 +583,7 @@ class ProdeGUI:
         flag_b = self._get_flag(team_b, 32, 24)
         if flag_b:
             tk.Label(tf_b, image=flag_b, bg=_COLORS["card_bg"]).pack()
-        tk.Label(tf_b, text=team_name_es(team_b), font=("Corbel", 14, "bold"),
+        tk.Label(tf_b, text=team_name_es(team_b).upper(), font=_FONT_TEAM,
                  bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack()
 
         # ── GOLES EN PARTIDOS REALES ─────────────────────────────────────────
@@ -550,6 +618,110 @@ class ProdeGUI:
 
         return card
 
+    def _compact_match_card(self, parent, match, idx, total):
+        team_a = match.get("team_a", "?")
+        team_b = match.get("team_b", "?")
+        score_a = match.get("score_a", 0)
+        score_b = match.get("score_b", 0)
+        venue   = match.get("venue", "")
+        conf    = match.get("confidence", 0)
+        probs   = match.get("probabilities", {})
+        prob_a  = probs.get("a_win", 0)
+        prob_b  = probs.get("b_win", 0)
+
+        analysis = match.get("analysis", "")
+        if analysis:
+            rec_text = analysis.split("\n\n")[0]
+            rt_lower = rec_text.lower()
+            if "seguro" in rt_lower or "favorito" in rt_lower:
+                badge_color = _COLORS["badge_win"]
+            elif "empate" in rt_lower:
+                badge_color = _COLORS["badge_draw"]
+            elif "sorpresa" in rt_lower:
+                badge_color = _COLORS["badge_upset"]
+            else:
+                badge_color = _COLORS["accent2"]
+        else:
+            rec_text = ""
+            badge_color = _COLORS["card_border"]
+
+        outer = tk.Frame(parent, bg=_COLORS["card_border"], padx=1, pady=1)
+        outer.pack(fill=tk.BOTH, expand=True, padx=8, pady=4)
+
+        card = tk.Frame(outer, bg=_COLORS["card_bg"])
+        card.pack(fill=tk.BOTH, expand=True)
+
+        # Badge row
+        if rec_text:
+            bf = tk.Frame(card, bg=badge_color)
+            bf.pack(fill=tk.X)
+            tk.Label(bf, text=f"  {rec_text}  ",
+                     font=("Corbel", 8, "bold"),
+                     bg=badge_color, fg="#ffffff",
+                     anchor=tk.W, pady=2).pack(fill=tk.X, padx=8)
+
+        # Score row
+        vs = tk.Frame(card, bg=_COLORS["card_bg"])
+        vs.pack(fill=tk.X, pady=(6, 2))
+        f_a = self._get_flag(team_a, 20, 15)
+        f_b = self._get_flag(team_b, 20, 15)
+
+        tk.Label(vs, text=team_name_es(team_a).upper(), font=_FONT_TEAM,
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(8, 4))
+        if f_a:
+            tk.Label(vs, image=f_a, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
+        tk.Label(vs, text=f"  {score_a} – {score_b}  ",
+                 font=_FONT_SCORE, bg=_COLORS["card_bg"],
+                 fg=_COLORS["accent_green"]).pack(side=tk.LEFT)
+        if f_b:
+            tk.Label(vs, image=f_b, bg=_COLORS["card_bg"]).pack(side=tk.LEFT)
+        tk.Label(vs, text=team_name_es(team_b).upper(), font=_FONT_TEAM,
+                 bg=_COLORS["card_bg"], fg=_COLORS["fg"]).pack(side=tk.LEFT, padx=(4, 8))
+
+        # Confidence stars + probabilities pill
+        meta = tk.Frame(card, bg=_COLORS["card_bg"])
+        meta.pack(fill=tk.X, pady=(0, 4))
+        stars_text = stars_html(conf)
+        tk.Label(meta, text=stars_text, font=("Corbel", 14),
+                 bg=_COLORS["card_bg"], fg=_COLORS["star"]).pack(side=tk.LEFT, padx=(8, 6))
+        ToolTip(meta, f"Confianza: {conf:.0f}%")
+        if prob_a >= prob_b:
+            tk.Label(meta, text=f"{prob_a:.0f}%", font=_FONT_S,
+                     bg=_COLORS["card_bg"], fg=_COLORS["accent_green"]).pack(side=tk.LEFT)
+        else:
+            tk.Label(meta, text=f"{prob_b:.0f}%", font=_FONT_S,
+                     bg=_COLORS["card_bg"], fg=_COLORS["accent_green"]).pack(side=tk.LEFT)
+
+        # Goals in real matches
+        goals = match.get("goals_scorers", {})
+        if goals:
+            goals_parts = []
+            for t in [team_a, team_b]:
+                tg = goals.get(t, [])
+                if tg:
+                    desc = "; ".join(
+                        f"{g['player']} {g['minute']}'" +
+                        (f" ({g['assist']})" if g.get('assist') else "")
+                        for g in tg
+                    )
+                    goals_parts.append(f"{team_name_es(t)}: {desc}")
+                else:
+                    goals_parts.append(f"{team_name_es(t)}: —")
+            goals_lbl = tk.Label(
+                card,
+                text="  ⚽  " + "  |  ".join(goals_parts),
+                font=("Corbel", 8), bg=_COLORS["card_bg"],
+                fg=_COLORS["subtitle"]
+            )
+            goals_lbl.pack(fill=tk.X, padx=10, pady=(0, 2))
+
+        # Footer
+        round_label = match.get("round", "")
+        grp_label = f"{round_label}  |  " if round_label else ""
+        tk.Label(card, text=f"  {grp_label}📍 {venue}",
+                 font=("Corbel", 8), bg=_COLORS["card_bg"],
+                 fg=_COLORS["subtitle"]).pack(anchor=tk.W, padx=10, pady=(0, 4))
+
     def _build_groups_tab(self):
         parent = self._tab_groups
         self._group_filter = None
@@ -567,10 +739,24 @@ class ProdeGUI:
         self._group_combo.pack(side=tk.LEFT)
         self._group_combo.bind("<<ComboboxSelected>>", self._on_group_filter)
 
-        self._nav_frame(parent, "groups")
-        self._card_frame_groups = tk.Frame(parent, bg=_COLORS["bg"])
-        self._card_frame_groups.pack(fill=tk.BOTH, expand=True)
-        self._show_group_match()
+        # Canvas + Scrollbar for grid
+        self._group_canvas = tk.Canvas(parent, bg=_COLORS["bg"], highlightthickness=0)
+        self._group_scrollbar = ttk.Scrollbar(parent, orient="vertical",
+                                               command=self._group_canvas.yview)
+        self._card_frame_groups = tk.Frame(self._group_canvas, bg=_COLORS["bg"])
+        self._card_frame_groups.bind("<Configure>", lambda e: self._group_canvas.configure(
+            scrollregion=self._group_canvas.bbox("all")))
+        self._group_canvas.create_window((0, 0), window=self._card_frame_groups, anchor="nw")
+        self._group_canvas.configure(yscrollcommand=self._group_scrollbar.set)
+        self._group_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self._group_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self._group_canvas.bind("<Enter>",
+            lambda e: self._group_canvas.bind_all("<MouseWheel>",
+                lambda ev: self._group_canvas.yview_scroll(int(-1*(ev.delta/120)), "units")))
+        self._group_canvas.bind("<Leave>",
+            lambda e: self._group_canvas.unbind_all("<MouseWheel>"))
+
+        self._show_group_grid()
 
     def _on_group_filter(self, event=None):
         sel = self._group_combo.get()
@@ -583,10 +769,9 @@ class ProdeGUI:
                 i for i, m in enumerate(self.data["groups"])
                 if m.get("round", "").endswith(sel)
             ]
-        self._idx["groups"] = 0
-        self._show_group_match()
+        self._show_group_grid()
 
-    def _show_group_match(self):
+    def _show_group_grid(self):
         for w in self._card_frame_groups.winfo_children():
             w.destroy()
         matches = self.data["groups"]
@@ -596,26 +781,37 @@ class ProdeGUI:
                      font=_FONT_SH).pack(expand=True)
             return
         filtered = self._filtered_group_indices
-        idx = self._idx["groups"]
-        if idx >= len(filtered):
-            idx = 0
-            self._idx["groups"] = 0
-        m = matches[filtered[idx]]
-        total = len(filtered)
-        grp = m.get("round", "")
-        lbl = getattr(self, "_lbl_groups", None)
-        if lbl:
-            lbl.config(text=f"{grp}  -  Partido {idx+1}/{total}")
-        self._match_card(self._card_frame_groups, m, idx, total)
+        cols = 3
+        for ci in range(cols):
+            self._card_frame_groups.columnconfigure(ci, weight=1, uniform="gp")
+        for i, mi in enumerate(filtered):
+            m = matches[mi]
+            row_idx = i // cols
+            col_idx = i % cols
+            card_f = tk.Frame(self._card_frame_groups, bg=_COLORS["bg"])
+            card_f.grid(row=row_idx, column=col_idx, sticky="nsew", padx=4, pady=4)
+            self._compact_match_card(card_f, m, mi, len(filtered))
 
     def _build_ko_tab(self):
         parent = self._tab_ko
-        self._nav_frame(parent, "knockout")
-        self._card_frame_ko = tk.Frame(parent, bg=_COLORS["bg"])
-        self._card_frame_ko.pack(fill=tk.BOTH, expand=True)
-        self._show_ko_match()
+        self._ko_canvas = tk.Canvas(parent, bg=_COLORS["bg"], highlightthickness=0)
+        self._ko_scrollbar = ttk.Scrollbar(parent, orient="vertical",
+                                            command=self._ko_canvas.yview)
+        self._card_frame_ko = tk.Frame(self._ko_canvas, bg=_COLORS["bg"])
+        self._card_frame_ko.bind("<Configure>", lambda e: self._ko_canvas.configure(
+            scrollregion=self._ko_canvas.bbox("all")))
+        self._ko_canvas.create_window((0, 0), window=self._card_frame_ko, anchor="nw")
+        self._ko_canvas.configure(yscrollcommand=self._ko_scrollbar.set)
+        self._ko_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self._ko_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self._ko_canvas.bind("<Enter>",
+            lambda e: self._ko_canvas.bind_all("<MouseWheel>",
+                lambda ev: self._ko_canvas.yview_scroll(int(-1*(ev.delta/120)), "units")))
+        self._ko_canvas.bind("<Leave>",
+            lambda e: self._ko_canvas.unbind_all("<MouseWheel>"))
+        self._show_ko_grid()
 
-    def _show_ko_match(self):
+    def _show_ko_grid(self):
         for w in self._card_frame_ko.winfo_children():
             w.destroy()
         matches = self.data["knockout"]
@@ -624,15 +820,35 @@ class ProdeGUI:
                      bg=_COLORS["bg"], fg=_COLORS["fg"],
                      font=_FONT_SH).pack(expand=True)
             return
-        idx = self._idx["knockout"]
-        m = matches[idx]
-        total = len(matches)
-        ronda = m.get("round", "KO")
-        ronda_lbl = tk.Label(self._card_frame_ko, text=f"Ronda: {ronda}",
-                             font=_FONT_M, bg=_COLORS["bg"],
-                             fg=_COLORS["yellow"])
-        ronda_lbl.pack(fill=tk.X, padx=20, pady=(10, 0))
-        self._match_card(self._card_frame_ko, m, idx, total)
+        rounds_order = ["R32", "R16", "QF", "SF", "3°", "Final"]
+        rounds_map = {}
+        for m in matches:
+            r = m.get("round", "KO")
+            rounds_map.setdefault(r, []).append(m)
+        cols = 3
+        for ci in range(cols):
+            self._card_frame_ko.columnconfigure(ci, weight=1, uniform="ko")
+        row_idx = 0
+        for r_name in rounds_order:
+            if r_name not in rounds_map:
+                continue
+            r_matches = rounds_map[r_name]
+            round_label = tk.Label(self._card_frame_ko, text=f"  {r_name}  ",
+                                   font=("Corbel", 11, "bold"),
+                                   bg=_COLORS["card_bg"],
+                                   fg=_COLORS["accent"])
+            round_label.grid(row=row_idx, column=0, columnspan=cols,
+                             sticky="ew", padx=4, pady=(10, 2))
+            row_idx += 1
+            for i, m in enumerate(r_matches):
+                col_idx = i % cols
+                card_f = tk.Frame(self._card_frame_ko, bg=_COLORS["bg"])
+                card_f.grid(row=row_idx, column=col_idx, sticky="nsew", padx=4, pady=4)
+                self._compact_match_card(card_f, m, i, len(r_matches))
+                if (i + 1) % cols == 0:
+                    row_idx += 1
+            if len(r_matches) % cols != 0:
+                row_idx += 1
 
     def _build_stats_tab(self):
         parent = self._tab_stats
@@ -731,9 +947,9 @@ class ProdeGUI:
         if third:
             sep = tk.Frame(scroll_frame, bg=_COLORS["card_border"], height=1)
             sep.pack(fill=tk.X, padx=15, pady=(15, 5))
-            tk.Label(scroll_frame, text="Mejores Terceros (8 clasifican a 32vos)",
-                     font=("Corbel", 14, "bold"), bg=_COLORS["bg"],
-                     fg=_COLORS["accent"]).pack(pady=(5, 5))
+            tk.Label(scroll_frame, text="MEJORES TERCEROS (8 CLASIFICAN A 32VOS)",
+                     font=_FONT_H, bg=_COLORS["bg"],
+                     fg=_COLORS["accent_green"]).pack(pady=(5, 5))
 
             hdr3 = tk.Frame(scroll_frame, bg=_COLORS["bg"])
             hdr3.pack(fill=tk.X, padx=20)
@@ -793,9 +1009,9 @@ class ProdeGUI:
         parent = self._tab_goleadores
         header = tk.Frame(parent, bg=_COLORS["bg"])
         header.pack(fill=tk.X, padx=15, pady=8)
-        tk.Label(header, text="Tabla de Goleadores",
-                 font=("Corbel", 18, "bold"), bg=_COLORS["bg"],
-                 fg=_COLORS["accent"]).pack(side=tk.LEFT)
+        tk.Label(header, text="TABLA DE GOLEADORES",
+                 font=_FONT_H, bg=_COLORS["bg"],
+                 fg=_COLORS["accent_green"]).pack(side=tk.LEFT)
 
         canvas = tk.Canvas(parent, bg=_COLORS["bg"], highlightthickness=0)
         scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
@@ -1260,9 +1476,9 @@ class ProdeGUI:
 
         bonus = self._compute_bonus_data()
 
-        tk.Label(scroll_frame, text="Predicciones Bonus",
-                 font=("Corbel", 22, "bold"), bg=_COLORS["bg"],
-                 fg=_COLORS["accent"]).pack(pady=(20, 5))
+        tk.Label(scroll_frame, text="PREDICCIONES BONUS",
+                 font=_FONT_H, bg=_COLORS["bg"],
+                 fg=_COLORS["accent_green"]).pack(pady=(20, 5))
 
         # Scoring rules
         rules_card = tk.Frame(scroll_frame, bg=_COLORS["card_bg"],
@@ -1423,7 +1639,7 @@ class ProdeGUI:
         text.configure(yscrollcommand=scrollbar.set)
         text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        text.tag_configure("title", font=("Corbel", 20, "bold"), foreground=_COLORS["accent"],
+        text.tag_configure("title", font=("Bebas Neue" if _FONTS_OK else "Corbel", 20), foreground=_COLORS["accent"],
                            spacing1=10, spacing3=15)
         text.tag_configure("subtitle", font=("Corbel", 15, "bold"), foreground=_COLORS["accent2"],
                            spacing1=15, spacing3=8)

@@ -62,6 +62,7 @@ python -m PyInstaller --onefile --windowed --noupx ^
     --specpath build_tmp ^
     --add-data "%CD%\prode_mundial\output;prode_mundial\output" ^
     --add-data "%CD%\prode_mundial\output\flags;prode_mundial\output\flags" ^
+    --add-data "%CD%\prode_mundial\assets\fonts;prode_mundial\assets\fonts" ^
     --add-data "%CD%\prode_mundial\imput;prode_mundial\imput" ^
     --icon "%CD%\prode_mundial\imput\wc26_logo.ico" ^
     --version-file "%CD%\prode_mundial\version_info.txt" ^
